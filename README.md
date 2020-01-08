@@ -8,7 +8,7 @@ ITSS2 is an implementation of the WWKS2 protocol. The WWKS2 protocol is used in 
 - Simple and straight forward error handling. If a message cannot be handled for some reason at your side of the connection, you have the chance to get notified with all details about what went wrong and why. During the error handling no connection is shut down.
 
 # Current status
-At the moment the code is an a development phase. So no Beta, RC or even Release status. It should be treated as a technical preview. The next steps are to continue testing and fix the found bugs. The goal is to provide a full flavored SDK for using the WWKS2 protocol.
+At the moment the code is an a development phase. So no Beta, RC or even Release status. It should be treated as a technical preview. The next steps are to continue testing and fix the found bugs. The goal is to provide a rich SDK for using the WWKS2 protocol.
 
 # What's coming up next?
 The features/topics mentioned below will be provided in the future. -Not necessarily in that order.-
