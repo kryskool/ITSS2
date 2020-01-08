@@ -15,8 +15,8 @@ The features/topics mentioned below will be provided in the future. -Not necessa
 As I'm doing all of the coding in my free time, it may take some time.
 
 - Digital extensions (experimental)
-- File system transfer
-- JSON serialization
+- File system transfer mode
+- JSON serialization format
 - TLS encryption
 - Documentation (API/Architecture)
 - Samples
