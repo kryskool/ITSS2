@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9DF0096B-D8DC-4BE2-8F43-0BE7E56A0BCA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server</RootNamespace>
+    <AssemblyName>Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)..\bin\AnyCPU\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)..\bin\AnyCPU\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IStorageSystem.cs" />
+    <Compile Include="StorageSystem.cs" />
+    <Compile Include="StorageSystemFactory.cs" />
+    <Compile Include="StorageSystemServerFactory.cs" />
+    <Compile Include="Transfer\Tcp\StorageSystemServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reth.Itss2.Standard.Serialization.Xml\Reth.Itss2.Standard.Serialization.Xml.csproj">
+      <Project>{eb1a3ee1-cd90-4cd5-92a8-ffd5d3c0e722}</Project>
+      <Name>Reth.Itss2.Standard.Serialization.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Itss2.Standard.Workflows.StockAutomation.Server\Reth.Itss2.Standard.Workflows.StockAutomation.Server.csproj">
+      <Project>{c2d64aa4-ef44-412e-83a8-001413729763}</Project>
+      <Name>Reth.Itss2.Standard.Workflows.StockAutomation.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Itss2.Standard.Workflows\Reth.Itss2.Standard.Workflows.csproj">
+      <Project>{371c674a-e1b4-4664-ba33-512e4dc0c7f8}</Project>
+      <Name>Reth.Itss2.Standard.Workflows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Itss2.StandardExtensions.Serialization.Xml\Reth.Itss2.StandardExtensions.Serialization.Xml.csproj">
+      <Project>{e4f2fa39-6459-46dc-be05-45e31ec2427a}</Project>
+      <Name>Reth.Itss2.StandardExtensions.Serialization.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Itss2.StandardExtensions\Reth.Itss2.StandardExtensions.csproj">
+      <Project>{38462240-bd95-4638-85d5-85264af3ab19}</Project>
+      <Name>Reth.Itss2.StandardExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Itss2.Standard\Reth.Itss2.Standard.csproj">
+      <Project>{121700d8-a2b9-4da1-977c-079f8db54a08}</Project>
+      <Name>Reth.Itss2.Standard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols.Serialization.Xml\Reth.Protocols.Serialization.Xml.csproj">
+      <Project>{bbcd9803-63f9-4b7b-8f48-6125a73d7adc}</Project>
+      <Name>Reth.Protocols.Serialization.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols.Transfer.Tcp\Reth.Protocols.Transfer.Tcp.csproj">
+      <Project>{5f871c1c-6a18-4f52-b1c7-0846829429c1}</Project>
+      <Name>Reth.Protocols.Transfer.Tcp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols.Transfer\Reth.Protocols.Transfer.csproj">
+      <Project>{4e1fcc36-ba3b-4481-895b-bf12b8a88b35}</Project>
+      <Name>Reth.Protocols.Transfer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols.Versioning\Reth.Protocols.Versioning.csproj">
+      <Project>{5b0fa0be-06b2-4a99-9f06-cd8ab923e754}</Project>
+      <Name>Reth.Protocols.Versioning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols\Reth.Protocols.csproj">
+      <Project>{1c1b43dc-7a03-41a0-ae25-695867e8371f}</Project>
+      <Name>Reth.Protocols</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+  </Target>
+</Project>

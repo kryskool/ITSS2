@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EB1A3EE1-CD90-4CD5-92A8-FFD5D3C0E722}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Reth.Itss2.Standard.Serialization.Xml</RootNamespace>
+    <AssemblyName>Reth.Itss2.Standard.Serialization.Xml</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)..\bin\AnyCPU\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)..\bin\AnyCPU\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataContracts\ArticleData\ArticleInfo\ArticleInfoRequestArticleDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\ArticleInfo\ArticleInfoRequestDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\ArticleInfo\ArticleInfoResponseArticleDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\ArticleInfo\ArticleInfoResponseDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\ArticleMasterSet\ArticleMasterSetArticleDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\ArticleMasterSet\ArticleMasterSetRequestDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\ArticleMasterSet\ArticleMasterSetResponseDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\ArticleMasterSet\ArticleMasterSetResultDataContract.cs" />
+    <Compile Include="DataContracts\MessageEnvelopeTimestampDataContract.cs" />
+    <Compile Include="DataContracts\SubscriberIdDataContract.cs" />
+    <Compile Include="DataContracts\DialogNameDataContract.cs" />
+    <Compile Include="DataContracts\PackDateDataContract.cs" />
+    <Compile Include="DataContracts\ProductCodeIdDataContract.cs" />
+    <Compile Include="DataContracts\StockLocationIdDataContract.cs" />
+    <Compile Include="DataContracts\PackIdDataContract.cs" />
+    <Compile Include="DataContracts\MessageIdDataContract.cs" />
+    <Compile Include="DataContracts\ArticleIdDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputErrorDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputResponseDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputRequestDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputResponseArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputRequestArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputMessageDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputMessageArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputResponsePackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputRequestPackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputMessagePackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputRequestDetailsDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputResponseDetailsDataContract.cs" />
+    <Compile Include="DataContracts\Storage\InitiateInput\InitiateInputMessageDetailsDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputMessageArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputMessageDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputMessagePackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputResponseDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputResponseArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputResponsePackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputResponsePackHandlingDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputMessagePackHandlingDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputRequestArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputRequestDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Input\InputRequestPackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\OutputBoxDataContract.cs" />
+    <Compile Include="DataContracts\Storage\OutputInfo\OutputInfoArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\OutputInfo\OutputInfoPackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\OutputInfo\OutputInfoRequestDataContract.cs" />
+    <Compile Include="DataContracts\Storage\OutputInfo\OutputInfoRequestTaskDataContract.cs" />
+    <Compile Include="DataContracts\Storage\OutputInfo\OutputInfoResponseDataContract.cs" />
+    <Compile Include="DataContracts\Storage\OutputInfo\OutputInfoResponseTaskDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputCriteriaDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputLabelDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputLabelContentDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputMessageDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputMessageDetailsDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputPackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputRequestDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputRequestDetailsDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputResponseDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Output\OutputResponseDetailsDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliveryInfo\StockDeliveryInfoArticleDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliveryInfo\StockDeliveryInfoPackDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliveryInfo\StockDeliveryInfoRequestDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliveryInfo\StockDeliveryInfoRequestTaskDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliveryInfo\StockDeliveryInfoResponseDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliveryInfo\StockDeliveryInfoResponseTaskDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliverySet\StockDeliveryDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliverySet\StockDeliveryLineDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliverySet\StockDeliverySetRequestDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliverySet\StockDeliverySetResponseDataContract.cs" />
+    <Compile Include="DataContracts\ArticleData\StockDeliverySet\StockDeliverySetResultDataContract.cs" />
+    <Compile Include="DataContracts\Storage\TaskCancelOutput\TaskCancelOutputRequestDataContract.cs" />
+    <Compile Include="DataContracts\Storage\TaskCancelOutput\TaskCancelOutputRequestTaskDataContract.cs" />
+    <Compile Include="DataContracts\Storage\TaskCancelOutput\TaskCancelOutputResponseDataContract.cs" />
+    <Compile Include="DataContracts\Storage\TaskCancelOutput\TaskCancelOutputResponseTaskDataContract.cs" />
+    <Compile Include="DataContracts\General\Unprocessed\UnprocessedContentDataContract.cs" />
+    <Compile Include="DataContracts\General\Unprocessed\UnprocessedMessageDataContract.cs" />
+    <Compile Include="Diagnostics\XmlInteractionLogMessage.cs" />
+    <Compile Include="ProtocolProvider.cs" />
+    <Compile Include="TypeMapping.cs" />
+    <Compile Include="TypeMappings.cs" />
+    <Compile Include="DataContracts\ProductCodeDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockInfo\StockInfoArticleDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockInfo\StockInfoRequestCriteriaDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockInfo\StockInfoMessageDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockInfo\StockInfoPackDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockInfo\StockInfoRequestDataConract.cs" />
+    <Compile Include="DataContracts\Storage\StockInfo\StockInfoResponseDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockLocationInfo\StockLocationDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockLocationInfo\StockLocationInfoRequestDataContract.cs" />
+    <Compile Include="DataContracts\Storage\StockLocationInfo\StockLocationInfoResponseDataContract.cs" />
+    <Compile Include="DataContracts\General\Hello\CapabilityDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Status\ComponentDataContract.cs" />
+    <Compile Include="DataContracts\General\Hello\HelloResponseDataContract.cs" />
+    <Compile Include="DataContracts\TraceableMessageDataContract.cs" />
+    <Compile Include="DataContracts\TraceableRequestDataContract.cs" />
+    <Compile Include="DataContracts\TraceableResponseDataContract.cs" />
+    <Compile Include="DataContracts\General\KeepAlive\KeepAliveRequestDataContract.cs" />
+    <Compile Include="DataContracts\General\KeepAlive\KeepAliveResponseDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Status\StatusRequestDataContract.cs" />
+    <Compile Include="DataContracts\Storage\Status\StatusResponseDataContract.cs" />
+    <Compile Include="DataContracts\General\Hello\SubscriberDataContract.cs" />
+    <Compile Include="DataContracts\General\Hello\HelloRequestDataContract.cs" />
+    <Compile Include="DataContracts\MessageDataContract.cs" />
+    <Compile Include="DataContracts\MessageEnvelopeDataContract.cs" />
+    <Compile Include="DataContracts\RequestDataContract.cs" />
+    <Compile Include="DataContracts\ResponseDataContract.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reth.Itss2.Standard\Reth.Itss2.Standard.csproj">
+      <Project>{121700d8-a2b9-4da1-977c-079f8db54a08}</Project>
+      <Name>Reth.Itss2.Standard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols.Serialization.Xml\Reth.Protocols.Serialization.Xml.csproj">
+      <Project>{bbcd9803-63f9-4b7b-8f48-6125a73d7adc}</Project>
+      <Name>Reth.Protocols.Serialization.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols.Versioning\Reth.Protocols.Versioning.csproj">
+      <Project>{5b0fa0be-06b2-4a99-9f06-cd8ab923e754}</Project>
+      <Name>Reth.Protocols.Versioning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols\Reth.Protocols.csproj">
+      <Project>{1c1b43dc-7a03-41a0-ae25-695867e8371f}</Project>
+      <Name>Reth.Protocols</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+  </Target>
+</Project>
