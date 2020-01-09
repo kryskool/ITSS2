@@ -8,13 +8,13 @@ using Reth.Protocols.Extensions.EventArgsExtensions;
 
 namespace Reth.Itss2.StandardExtensions.Dialogs.Storage.ConfigurationGet
 {
-    internal class ConfigurationGetDialog:Dialog, IConfigurationGetClientDialog, IConfigurationGetServerDialog
+    internal class ConfigurationGetServerDialog:Dialog, IConfigurationGetServerDialog
     {
         private volatile bool isDisposed;
 
         public event EventHandler<MessageReceivedEventArgs> RequestReceived;
 
-        internal ConfigurationGetDialog( IMessageTransceiver messageTransceiver )
+        internal ConfigurationGetServerDialog( IMessageTransceiver messageTransceiver )
         :
             base( DialogName.ConfigurationGet, messageTransceiver )
         {
@@ -23,7 +23,7 @@ namespace Reth.Itss2.StandardExtensions.Dialogs.Storage.ConfigurationGet
             this.RequestInterceptor.Intercepted += this.OnRequestReceived;
         }
 
-        ~ConfigurationGetDialog()
+        ~ConfigurationGetServerDialog()
         {
             this.Dispose( false );
         }
@@ -31,21 +31,6 @@ namespace Reth.Itss2.StandardExtensions.Dialogs.Storage.ConfigurationGet
         private MessageInterceptor RequestInterceptor
         {
             get;
-        }
-
-        public ConfigurationGetResponse SendRequest( ConfigurationGetRequest request )
-        {
-            return base.SendRequest<ConfigurationGetRequest, ConfigurationGetResponse>( request );
-        }
-
-        public Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request )
-        {
-            return base.SendRequestAsync<ConfigurationGetRequest, ConfigurationGetResponse>( request, CancellationToken.None );
-        }
-
-        public Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request, CancellationToken cancellationToken )
-        {
-            return base.SendRequestAsync<ConfigurationGetRequest, ConfigurationGetResponse>( request, cancellationToken );
         }
 
         public void SendResponse( ConfigurationGetResponse response )

@@ -26,7 +26,7 @@ namespace Reth.Itss2.StandardExtensions.Dialogs
         :
             base( protocolProvider, interactionLog, supportedDialogs )
         {
-            this.ConfigurationGet = new ConfigurationGetDialog( this );
+            this.ConfigurationGet = new ConfigurationGetClientDialog( this );
         }
 
         public IConfigurationGetClientDialog ConfigurationGet

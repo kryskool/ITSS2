@@ -59,9 +59,10 @@
     <Compile Include="Dialogs\DialogName.cs" />
     <Compile Include="Dialogs\LocalClientDialogProvider.cs" />
     <Compile Include="Dialogs\RemoteClientDialogProvider.cs" />
+    <Compile Include="Dialogs\Storage\ConfigurationGet\ConfigurationGetClientDialog.cs" />
+    <Compile Include="Dialogs\Storage\ConfigurationGet\ConfigurationGetServerDialog.cs" />
     <Compile Include="Dialogs\Storage\ConfigurationGet\IConfigurationGetClientDialog.cs" />
     <Compile Include="Dialogs\Storage\ConfigurationGet\IConfigurationGetServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\ConfigurationGet\ConfigurationGetDialog.cs" />
     <Compile Include="Dialogs\ILocalClientDialogProvider.cs" />
     <Compile Include="Dialogs\IRemoteClientDialogProvider.cs" />
     <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetArticle.cs" />
