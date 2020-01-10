@@ -5,7 +5,7 @@ using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs
 {
-    public class Article:IEquatable<Article>
+    public abstract class Article:IEquatable<Article>
     {
         public static bool operator==( Article left, Article right )
 		{
@@ -27,7 +27,7 @@ namespace Reth.Itss2.Standard.Dialogs
                                                     }   );
 		}
 
-        public Article( ArticleId id )
+        protected Article( ArticleId id )
         {
             id.ThrowIfNull();
 
