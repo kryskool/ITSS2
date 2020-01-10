@@ -9,8 +9,7 @@ The role of a connection is not always fixed to client or server. Especially, if
 
 Examples (possible scenarios):
 
-IT-System (client) <-> (server) Storage System
-IT-System (client) <-> (server) Proxy (client) <-> (server) Storage System
-
-IT-System (client) <-> (server) Digital Shelf
-IT-System (client) <-> (server) Proxy (server) <-> (client) Digital Shelf
+- IT-System (client) <-> (server) Storage System
+- IT-System (client) <-> (server) Proxy (client) <-> (server) Storage System
+- IT-System (client) <-> (server) Digital Shelf
+- IT-System (client) <-> (server) Proxy (server) <-> (client) Digital Shelf
