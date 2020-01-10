@@ -10,4 +10,5 @@ The role of a connection is not always fixed to client or server. Especially, if
 Examples:
 
 IT-System (client) <-> (server) Proxy (client) <-> (server) Storage System
+
 IT-System (client) <-> (server) Proxy (server) <-> (client) Digital Shelf
