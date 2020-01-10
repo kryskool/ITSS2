@@ -2,11 +2,10 @@
 
 using Reth.Itss2.Standard.Dialogs;
 using Reth.Protocols;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
 {
-    public class ArticlePriceRequestArticle:IEquatable<ArticlePriceRequestArticle>
+    public class ArticlePriceRequestArticle:Article, IEquatable<ArticlePriceRequestArticle>
     {
         public static bool operator==( ArticlePriceRequestArticle left, ArticlePriceRequestArticle right )
 		{
@@ -20,24 +19,13 @@ namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
 
         public static bool Equals( ArticlePriceRequestArticle left, ArticlePriceRequestArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        return left.Id.Equals( right.Id );
-                                                    }   );
+            return Article.Equals( left, right );
 		}
 
         public ArticlePriceRequestArticle( ArticleId id )
+        :
+            base( id )
         {
-            id.ThrowIfNull();
-
-            this.Id = id;
-        }
-
-        public ArticleId Id
-        {
-            get;
         }
 
         public override bool Equals( Object obj )
@@ -52,12 +40,7 @@ namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
-        }
-
-        public override String ToString()
-        {
-            return this.Id.ToString();
+            return base.GetHashCode();
         }
     }
 }

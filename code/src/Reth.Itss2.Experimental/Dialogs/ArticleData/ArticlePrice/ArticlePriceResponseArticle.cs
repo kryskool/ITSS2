@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using Reth.Itss2.Standard.Dialogs;
 using Reth.Protocols;
 using Reth.Protocols.Extensions.ListExtensions;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
 {
-    public class ArticlePriceResponseArticle:IEquatable<ArticlePriceResponseArticle>
+    public class ArticlePriceResponseArticle:Article, IEquatable<ArticlePriceResponseArticle>
     {
         public static bool operator==( ArticlePriceResponseArticle left, ArticlePriceResponseArticle right )
 		{
@@ -22,34 +21,24 @@ namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
 
         public static bool Equals( ArticlePriceResponseArticle left, ArticlePriceResponseArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        bool result = false;
+            bool result = Article.Equals( left, right );
 
-                                                        result = left.Id.Equals( right.Id );
-                                                        result &= left.PriceInformations.ElementsEqual<PriceInformation>( right.PriceInformations );
+            if( result == true )
+            {
+                result &= left.PriceInformations.ElementsEqual<PriceInformation>( right.PriceInformations );
+            }
 
-                                                        return result;
-                                                    }   );
+            return result;
 		}
 
         public ArticlePriceResponseArticle( ArticleId id, IEnumerable<PriceInformation> priceInformations )
+        :
+            base( id )
         {
-            id.ThrowIfNull();
-
-            this.Id = id;
-
             if( !( priceInformations is null ) )
             {
                 this.PriceInformations.AddRange( priceInformations );
             }
-        }
-
-        public ArticleId Id
-        {
-            get;
         }
 
         private List<PriceInformation> PriceInformations
@@ -74,12 +63,7 @@ namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
-        }
-
-        public override String ToString()
-        {
-            return this.Id.ToString();
+            return base.GetHashCode();
         }
     }
 }

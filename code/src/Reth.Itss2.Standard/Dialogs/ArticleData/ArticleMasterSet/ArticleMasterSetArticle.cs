@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using Reth.Protocols;
 using Reth.Protocols.Extensions.Int32Extensions;
 using Reth.Protocols.Extensions.ListExtensions;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleMasterSet
 {
-    public class ArticleMasterSetArticle:IEquatable<ArticleMasterSetArticle>
+    public class ArticleMasterSetArticle:Article, IEquatable<ArticleMasterSetArticle>
     {
         public static bool operator==( ArticleMasterSetArticle left, ArticleMasterSetArticle right )
 		{
@@ -22,32 +21,27 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleMasterSet
 
         public static bool Equals( ArticleMasterSetArticle left, ArticleMasterSetArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        bool result = false;
+            bool result = Article.Equals( left, right );
 
-                                                        result = left.Id.Equals( right.Id );
-                                                        result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= String.Equals( left.PackingUnit, right.PackingUnit, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= String.Equals( left.MachineLocation, right.MachineLocation, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= StockLocationId.Equals( left.StockLocationId, right.StockLocationId );
-                                                        result &= Nullable.Equals( left.RequiresFridge, right.RequiresFridge );
-                                                        result &= Nullable.Equals( left.MaxSubItemQuantity, right.MaxSubItemQuantity );
-                                                        result &= Nullable.Equals( left.Depth, right.Depth );
-                                                        result &= Nullable.Equals( left.Width, right.Width );
-                                                        result &= Nullable.Equals( left.Height, right.Height );
-                                                        result &= Nullable.Equals( left.Weight, right.Weight );
-                                                        result &= PackDate.Equals( left.SerialNumberSinceExpiryDate, right.SerialNumberSinceExpiryDate );
-                                                        result &= left.ProductCodes.ElementsEqual<ProductCode>( right.ProductCodes );
+            if( result == true )
+            {
+                result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
+                result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
+                result &= String.Equals( left.PackingUnit, right.PackingUnit, StringComparison.InvariantCultureIgnoreCase );
+                result &= String.Equals( left.MachineLocation, right.MachineLocation, StringComparison.InvariantCultureIgnoreCase );
+                result &= StockLocationId.Equals( left.StockLocationId, right.StockLocationId );
+                result &= Nullable.Equals( left.RequiresFridge, right.RequiresFridge );
+                result &= Nullable.Equals( left.MaxSubItemQuantity, right.MaxSubItemQuantity );
+                result &= Nullable.Equals( left.Depth, right.Depth );
+                result &= Nullable.Equals( left.Width, right.Width );
+                result &= Nullable.Equals( left.Height, right.Height );
+                result &= Nullable.Equals( left.Weight, right.Weight );
+                result &= PackDate.Equals( left.SerialNumberSinceExpiryDate, right.SerialNumberSinceExpiryDate );
+                result &= left.ProductCodes.ElementsEqual<ProductCode>( right.ProductCodes );
+            }
 
-                                                        return result;
-                                                    }   );
+            return result;
 		}
-
-        private ArticleId id;
 
         private Nullable<int> maxSubItemQuantity;
         private Nullable<int> depth;
@@ -56,8 +50,9 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleMasterSet
         private Nullable<int> weight;
 
         public ArticleMasterSetArticle( ArticleId id )
+        :
+            base( id )
         {
-            this.Id = id;
         }
 
         public ArticleMasterSetArticle( ArticleId id,
@@ -74,8 +69,9 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleMasterSet
                                         Nullable<int> weight,
                                         PackDate serialNumberSinceExpiryDate,
                                         IEnumerable<ProductCode> productCodes   )
+        :
+            base( id )
         {
-            this.Id = id;
             this.Name = name;
             this.DosageForm = dosageForm;
             this.PackingUnit = packingUnit;
@@ -92,18 +88,6 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleMasterSet
             if( !( productCodes is null ) )
             {
                 this.ProductCodes.AddRange( productCodes );
-            }
-        }
-
-        public ArticleId Id
-        {
-            get{ return this.id; }
-
-            private set
-            {
-                value.ThrowIfNull();
-
-                this.id = value;
             }
         }
 
@@ -224,12 +208,7 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleMasterSet
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
-        }
-
-        public override String ToString()
-        {
-            return this.Id.ToString();
+            return base.GetHashCode();
         }
     }
 }

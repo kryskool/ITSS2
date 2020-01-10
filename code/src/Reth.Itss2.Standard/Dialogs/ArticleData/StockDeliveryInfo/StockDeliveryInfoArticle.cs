@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using Reth.Protocols;
 using Reth.Protocols.Extensions.Int32Extensions;
 using Reth.Protocols.Extensions.ListExtensions;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs.ArticleData.StockDeliveryInfo
 {
-    public class StockDeliveryInfoArticle:IEquatable<StockDeliveryInfoArticle>
+    public class StockDeliveryInfoArticle:Article, IEquatable<StockDeliveryInfoArticle>
     {
         public static bool operator==( StockDeliveryInfoArticle left, StockDeliveryInfoArticle right )
 		{
@@ -22,46 +21,30 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.StockDeliveryInfo
 
         public static bool Equals( StockDeliveryInfoArticle left, StockDeliveryInfoArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        bool result = false;
+            bool result = Article.Equals( left, right );
 
-                                                        result = ArticleId.Equals( left.Id, right.Id );
-                                                        result &= Nullable.Equals( left.Quantity, right.Quantity );
-                                                        result &= left.Packs.ElementsEqual( right.Packs );
+            if( result == true )
+            {
+                result &= Nullable.Equals( left.Quantity, right.Quantity );
+                result &= left.Packs.ElementsEqual( right.Packs );
+            }
 
-                                                        return result;
-                                                    }   );
+            return result;
 		}
-
-        private ArticleId id;
 
         private Nullable<int> quantity;
 
         public StockDeliveryInfoArticle(    ArticleId id,
                                             Nullable<int> quantity,
                                             IEnumerable<StockDeliveryInfoPack> packs    )
+        :
+            base( id )
         {
-            this.Id = id;
             this.Quantity = quantity;
             
             if( !( packs is null ) )
             {
                 this.Packs.AddRange( packs );
-            }
-        }
-
-        public ArticleId Id
-        {
-            get{ return this.id; }
-
-            private set
-            {
-                value.ThrowIfNull();
-
-                this.id = value;
             }
         }
 
@@ -99,12 +82,7 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.StockDeliveryInfo
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
-        }
-
-        public override String ToString()
-        {
-            return this.Id.ToString();
+            return base.GetHashCode();
         }
     }
 }

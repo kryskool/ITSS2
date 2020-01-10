@@ -116,7 +116,7 @@ namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
 
         public override int GetHashCode()
         {
-            return this.Price.GetHashCode();
+            return base.GetHashCode();
         }
 
         public override String ToString()

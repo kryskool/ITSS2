@@ -27,7 +27,7 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.Input
                                                     {
                                                         bool result = false;
 
-                                                        result = left.Id.Equals( right.Id );
+                                                        result = ArticleId.Equals( left.Id, right.Id );
                                                         result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
                                                         result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
                                                         result &= String.Equals( left.PackingUnit, right.PackingUnit, StringComparison.InvariantCultureIgnoreCase );

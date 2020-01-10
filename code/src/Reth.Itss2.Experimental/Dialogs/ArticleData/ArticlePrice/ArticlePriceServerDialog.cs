@@ -20,8 +20,6 @@ namespace Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice
             this.Dispose( false );
         }
 
-        
-
         public ArticlePriceResponse SendRequest( ArticlePriceRequest request )
         {
             return base.SendRequest<ArticlePriceRequest, ArticlePriceResponse>( request );

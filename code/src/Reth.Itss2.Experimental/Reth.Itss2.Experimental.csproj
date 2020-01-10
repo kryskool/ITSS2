@@ -72,6 +72,12 @@
     <Compile Include="Dialogs\RemoteClientDialogProvider.cs" />
     <Compile Include="Dialogs\ILocalClientDialogProvider.cs" />
     <Compile Include="Dialogs\IRemoteClientDialogProvider.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ArticleSelected\ArticleSelectedArticle.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ArticleSelected\ArticleSelectedClientDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ArticleSelected\ArticleSelectedMessage.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ArticleSelected\ArticleSelectedServerDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ArticleSelected\IArticleSelectedClientDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ArticleSelected\IArticleSelectedServerDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\IProtocolProvider.cs" />
   </ItemGroup>
@@ -103,6 +109,7 @@
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

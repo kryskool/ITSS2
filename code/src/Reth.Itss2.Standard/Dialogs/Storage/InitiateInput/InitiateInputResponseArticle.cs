@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Reth.Protocols;
 using Reth.Protocols.Extensions.Int32Extensions;
 using Reth.Protocols.Extensions.ListExtensions;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
 {
@@ -28,7 +27,7 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
                                                     {
                                                         bool result = false;
 
-                                                        result = left.Id.Equals( right.Id );
+                                                        result = ArticleId.Equals( left.Id, right.Id );
                                                         result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
                                                         result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
                                                         result &= String.Equals( left.PackingUnit, right.PackingUnit, StringComparison.InvariantCultureIgnoreCase );
@@ -36,13 +35,11 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
                                                         result &= PackDate.Equals( left.SerialNumberSinceExpiryDate, right.SerialNumberSinceExpiryDate );
                                                         result &= left.ProductCodes.ElementsEqual( right.ProductCodes );
                                                         result &= left.Packs.ElementsEqual( right.Packs );
-                                                        
+
                                                         return result;
                                                     }   );
 		}
         
-        private ArticleId id;
-
         private Nullable<int> maxSubItemQuantity;
 
         public InitiateInputResponseArticle(    ArticleId id,
@@ -74,14 +71,7 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
 
         public ArticleId Id
         {
-            get{ return this.id; }
-
-            private set
-            {
-                value.ThrowIfNull();
-
-                this.id = value;
-            }
+            get;
         }
 
         public String Name

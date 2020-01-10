@@ -7,10 +7,12 @@ namespace Reth.Itss2.Experimental.Dialogs
     public class DialogName:Reth.Itss2.Standard.Dialogs.DialogName, IComparable<DialogName>, IEquatable<DialogName>
     {
         public static readonly DialogName ArticlePrice = new DialogName( "ArticlePrice" );
+        public static readonly DialogName ArticleSelected = new DialogName( "ArticleSelected" );
         
         static DialogName()
         {
             DialogName.AddAvailableName( DialogName.ArticlePrice.Value, DialogName.ArticlePrice );
+            DialogName.AddAvailableName( DialogName.ArticleSelected.Value, DialogName.ArticleSelected );
         }
 
         public static bool operator==( DialogName left, DialogName right )

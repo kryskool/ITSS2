@@ -60,6 +60,7 @@
     <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetServerDialog.cs" />
     <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoClientDialog.cs" />
     <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliverySetClientDialog.cs" />
+    <Compile Include="Dialogs\Article.cs" />
     <Compile Include="Dialogs\DialogName.cs" />
     <Compile Include="Dialogs\DialogProviderBase.cs" />
     <Compile Include="Dialogs\General\Hello\HelloClientDialog.cs" />

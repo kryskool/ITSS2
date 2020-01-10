@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice;
+using Reth.Itss2.Experimental.Dialogs.SalesTransactions.ArticleSelected;
 using Reth.Itss2.Experimental.Serialization;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
@@ -25,9 +26,15 @@ namespace Reth.Itss2.Experimental.Dialogs
             base( protocolProvider, interactionLog, supportedDialogs )
         {
             this.ArticlePrice = new ArticlePriceServerDialog( this );
+            this.ArticleSelected = new ArticleSelectedServerDialog( this );
         }
 
         public IArticlePriceServerDialog ArticlePrice
+        {
+            get;
+        }
+
+        public IArticleSelectedServerDialog ArticleSelected
         {
             get;
         }

@@ -2,11 +2,10 @@
 
 using Reth.Protocols;
 using Reth.Protocols.Extensions.Int32Extensions;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleInfo
 {
-    public class ArticleInfoRequestArticle:IEquatable<ArticleInfoRequestArticle>
+    public class ArticleInfoRequestArticle:Article, IEquatable<ArticleInfoRequestArticle>
     {
         public static bool operator==( ArticleInfoRequestArticle left, ArticleInfoRequestArticle right )
 		{
@@ -20,23 +19,18 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleInfo
 
         public static bool Equals( ArticleInfoRequestArticle left, ArticleInfoRequestArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        bool result = false;
+            bool result = Article.Equals( left, right );
 
-                                                        result = left.Id.Equals( right.Id );
-                                                        result &= Nullable.Equals( left.Depth, right.Depth );
-                                                        result &= Nullable.Equals( left.Width, right.Width );
-                                                        result &= Nullable.Equals( left.Height, right.Height );
-                                                        result &= Nullable.Equals( left.Weight, right.Weight );
+            if( result == true )
+            {
+                result &= Nullable.Equals( left.Depth, right.Depth );
+                result &= Nullable.Equals( left.Width, right.Width );
+                result &= Nullable.Equals( left.Height, right.Height );
+                result &= Nullable.Equals( left.Weight, right.Weight );
+            }
 
-                                                        return result;
-                                                    }   );
+            return result;
 		}
-
-        private ArticleId id;
 
         private Nullable<int> depth;
         private Nullable<int> width;
@@ -44,8 +38,9 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleInfo
         private Nullable<int> weight;
 
         public ArticleInfoRequestArticle( ArticleId id )
+        :
+            base( id )
         {
-            this.Id = id;
         }
 
         public ArticleInfoRequestArticle(   ArticleId id,
@@ -53,24 +48,13 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleInfo
                                             Nullable<int> width,
                                             Nullable<int> height,
                                             Nullable<int> weight   )
+        :
+            base( id )
         {
-            this.Id = id;
             this.Depth = depth;
             this.Width = width;
             this.Height = height;
             this.Weight = weight;            
-        }
-
-        public ArticleId Id
-        {
-            get{ return this.id; }
-
-            private set
-            {
-                value.ThrowIfNull();
-
-                this.id = value;
-            }
         }
 
         public Nullable<int> Depth
@@ -133,12 +117,7 @@ namespace Reth.Itss2.Standard.Dialogs.ArticleData.ArticleInfo
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
-        }
-
-        public override String ToString()
-        {
-            return this.Id.ToString();
+            return base.GetHashCode();
         }
     }
 }

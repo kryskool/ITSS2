@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using Reth.Protocols;
 using Reth.Protocols.Extensions.Int32Extensions;
 using Reth.Protocols.Extensions.ListExtensions;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
 {
-    public class InitiateInputMessageArticle:IEquatable<InitiateInputMessageArticle>
+    public class InitiateInputMessageArticle:Article, IEquatable<InitiateInputMessageArticle>
     {
         public static bool operator==( InitiateInputMessageArticle left, InitiateInputMessageArticle right )
 		{
@@ -22,25 +21,20 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
 
         public static bool Equals( InitiateInputMessageArticle left, InitiateInputMessageArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        bool result = false;
+            bool result = Article.Equals( left, right );
 
-                                                        result = left.Id.Equals( right.Id );
-                                                        result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= String.Equals( left.PackingUnit, right.PackingUnit, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= Nullable.Equals( left.MaxSubItemQuantity, right.MaxSubItemQuantity );
-                                                        result &= left.Packs.ElementsEqual( right.Packs );
+            if( result == true )
+            {
+                result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
+                result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
+                result &= String.Equals( left.PackingUnit, right.PackingUnit, StringComparison.InvariantCultureIgnoreCase );
+                result &= Nullable.Equals( left.MaxSubItemQuantity, right.MaxSubItemQuantity );
+                result &= left.Packs.ElementsEqual( right.Packs );
+            }
 
-                                                        return result;
-                                                    }   );
+            return result;
 		}
         
-        private ArticleId id;
-
         private Nullable<int> maxSubItemQuantity;
 
         public InitiateInputMessageArticle( ArticleId id,
@@ -49,8 +43,9 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
                                             String packingUnit,
                                             Nullable<int> maxSubItemQuantity,
                                             IEnumerable<InitiateInputMessagePack> packs )
+        :
+            base( id )
         {
-            this.Id = id;
             this.Name = name;
             this.DosageForm = dosageForm;
             this.PackingUnit = packingUnit;
@@ -59,18 +54,6 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.InitiateInput
             if( !( packs is null ) )
             {
                 this.Packs.AddRange( packs );
-            }
-        }
-
-        public ArticleId Id
-        {
-            get{ return this.id; }
-
-            private set
-            {
-                value.ThrowIfNull();
-
-                this.id = value;
             }
         }
 

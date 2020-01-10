@@ -5,11 +5,10 @@ using System.Diagnostics;
 using Reth.Protocols;
 using Reth.Protocols.Extensions.Int32Extensions;
 using Reth.Protocols.Extensions.ListExtensions;
-using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs.Storage.StockInfo
 {
-    public class StockInfoArticle:IEquatable<StockInfoArticle>
+    public class StockInfoArticle:Article, IEquatable<StockInfoArticle>
     {
         public static bool operator==( StockInfoArticle left, StockInfoArticle right )
 		{
@@ -23,34 +22,30 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.StockInfo
 
         public static bool Equals( StockInfoArticle left, StockInfoArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        bool result = false;
+            bool result = Article.Equals( left, right );
 
-                                                        result = left.Id.Equals( right.Id );
-                                                        result &= ( left.Quantity == right.Quantity );
-                                                        result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= String.Equals( left.PackagingUnit, right.PackagingUnit, StringComparison.InvariantCultureIgnoreCase );
-                                                        result &= Nullable.Equals( left.MaxSubItemQuantity, right.MaxSubItemQuantity );
-                                                        result &= left.ProductCodes.ElementsEqual( right.ProductCodes );
-                                                        result &= left.Packs.ElementsEqual( right.Packs );
+            if( result == true )
+            {
+                result &= ( left.Quantity == right.Quantity );
+                result &= String.Equals( left.Name, right.Name, StringComparison.InvariantCultureIgnoreCase );
+                result &= String.Equals( left.DosageForm, right.DosageForm, StringComparison.InvariantCultureIgnoreCase );
+                result &= String.Equals( left.PackagingUnit, right.PackagingUnit, StringComparison.InvariantCultureIgnoreCase );
+                result &= Nullable.Equals( left.MaxSubItemQuantity, right.MaxSubItemQuantity );
+                result &= left.ProductCodes.ElementsEqual( right.ProductCodes );
+                result &= left.Packs.ElementsEqual( right.Packs );
+            }
 
-                                                        return result;
-                                                    }   );
+            return result;
 		}
-
-        private ArticleId id;
 
         private int quantity;
 
         private Nullable<int> maxSubItemQuantity;
 
         public StockInfoArticle( ArticleId id, int quantity )
+        :
+            base( id )
         {
-            this.Id = id;
             this.Quantity = quantity;
         }
 
@@ -62,8 +57,9 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.StockInfo
                                     Nullable<int> maxSubItemQuantity,
                                     IEnumerable<ProductCode> productCodes,
                                     IEnumerable<StockInfoPack> packs    )
+        :
+            base( id )
         {
-            this.Id = id;
             this.Quantity = quantity;
             this.Name = name;
             this.DosageForm = dosageForm;
@@ -78,18 +74,6 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.StockInfo
             if( !( packs is null ) )
             {
                 this.Packs.AddRange( packs );
-            }
-        }
-
-        public ArticleId Id
-        {
-            get{ return this.id; }
-
-            private set
-            {
-                value.ThrowIfNull();
-
-                this.id = value;
             }
         }
 
@@ -169,12 +153,7 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.StockInfo
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
-        }
-
-        public override String ToString()
-        {
-            return this.Id.ToString();
+            return base.GetHashCode();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.Output
                                                     {
                                                         bool result = false;
 
-                                                        result = left.Id.Equals( right.Id );
+                                                        result = ArticleId.Equals( left.Id, right.Id );
                                                         result &= left.Packs.ElementsEqual( right.Packs );
 
                                                         return result;
