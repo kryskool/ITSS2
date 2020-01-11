@@ -78,6 +78,21 @@
     <Compile Include="Dialogs\SalesTransactions\ArticleSelected\ArticleSelectedServerDialog.cs" />
     <Compile Include="Dialogs\SalesTransactions\ArticleSelected\IArticleSelectedClientDialog.cs" />
     <Compile Include="Dialogs\SalesTransactions\ArticleSelected\IArticleSelectedServerDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\CustomerId.cs" />
+    <Compile Include="Dialogs\SalesTransactions\SalesPersonId.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartContent.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCart\ShoppingCartClientDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCart\ShoppingCartServerDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCart\IShoppingCartClientDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCart\IShoppingCartServerDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCart\ShoppingCartResponse.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCart\ShoppingCartRequest.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCart\Criteria.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ViewPointId.cs" />
+    <Compile Include="Dialogs\SalesTransactions\SalesPointId.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartId.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartItem.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\IProtocolProvider.cs" />
   </ItemGroup>

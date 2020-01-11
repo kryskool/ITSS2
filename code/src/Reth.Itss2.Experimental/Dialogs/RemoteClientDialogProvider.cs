@@ -2,6 +2,7 @@
 
 using Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice;
 using Reth.Itss2.Experimental.Dialogs.SalesTransactions.ArticleSelected;
+using Reth.Itss2.Experimental.Dialogs.SalesTransactions.ShoppingCart;
 using Reth.Itss2.Experimental.Serialization;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
@@ -27,6 +28,7 @@ namespace Reth.Itss2.Experimental.Dialogs
         {
             this.ArticlePrice = new ArticlePriceServerDialog( this );
             this.ArticleSelected = new ArticleSelectedServerDialog( this );
+            this.ShoppingCart = new ShoppingCartServerDialog( this );
         }
 
         public IArticlePriceServerDialog ArticlePrice
@@ -35,6 +37,11 @@ namespace Reth.Itss2.Experimental.Dialogs
         }
 
         public IArticleSelectedServerDialog ArticleSelected
+        {
+            get;
+        }
+
+        public IShoppingCartServerDialog ShoppingCart
         {
             get;
         }
