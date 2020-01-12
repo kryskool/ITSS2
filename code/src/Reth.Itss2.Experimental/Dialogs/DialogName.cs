@@ -9,12 +9,14 @@ namespace Reth.Itss2.Experimental.Dialogs
         public static readonly DialogName ArticlePrice = new DialogName( "ArticlePrice" );
         public static readonly DialogName ArticleSelected = new DialogName( "ArticleSelected" );
         public static readonly DialogName ShoppingCart = new DialogName( "ShoppingCart" );
+        public static readonly DialogName ShoppingCartUpdate = new DialogName( "ShoppingCartUpdate" );
         
         static DialogName()
         {
             DialogName.AddAvailableName( DialogName.ArticlePrice.Value, DialogName.ArticlePrice );
             DialogName.AddAvailableName( DialogName.ArticleSelected.Value, DialogName.ArticleSelected );
             DialogName.AddAvailableName( DialogName.ShoppingCart.Value, DialogName.ShoppingCart );
+            DialogName.AddAvailableName( DialogName.ShoppingCartUpdate.Value, DialogName.ShoppingCartUpdate );
         }
 
         public static bool operator==( DialogName left, DialogName right )

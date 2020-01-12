@@ -4,6 +4,7 @@ using Reth.Itss2.Experimental.Dialogs;
 using Reth.Itss2.Experimental.Dialogs.ArticleData.ArticlePrice;
 using Reth.Itss2.Experimental.Dialogs.SalesTransactions.ArticleSelected;
 using Reth.Itss2.Experimental.Dialogs.SalesTransactions.ShoppingCart;
+using Reth.Itss2.Experimental.Dialogs.SalesTransactions.ShoppingCartUpdate;
 using Reth.Itss2.Experimental.Serialization;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
@@ -32,6 +33,7 @@ namespace Reth.Itss2.StandardExtensions.Dialogs
             this.ArticlePrice = new ArticlePriceClientDialog( this );
             this.ArticleSelected = new ArticleSelectedClientDialog( this );
             this.ShoppingCart = new ShoppingCartClientDialog( this );
+            this.ShoppingCartUpdate = new ShoppingCartUpdateClientDialog( this );
         }
 
         public IArticlePriceClientDialog ArticlePrice
@@ -45,6 +47,11 @@ namespace Reth.Itss2.StandardExtensions.Dialogs
         }
 
         public IShoppingCartClientDialog ShoppingCart
+        {
+            get;
+        }
+
+        public IShoppingCartUpdateClientDialog ShoppingCartUpdate
         {
             get;
         }

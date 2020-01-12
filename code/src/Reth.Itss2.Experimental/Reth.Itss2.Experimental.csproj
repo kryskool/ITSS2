@@ -81,6 +81,15 @@
     <Compile Include="Dialogs\SalesTransactions\CustomerId.cs" />
     <Compile Include="Dialogs\SalesTransactions\SalesPersonId.cs" />
     <Compile Include="Dialogs\SalesTransactions\ShoppingCartContent.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\IShoppingCartUpdateClientDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\IShoppingCartUpdateServerDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\ShoppingCartClientDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\ShoppingCartUpdateServerDialog.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\ShoppingCartUpdateMessage.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\ShoppingCartUpdateResponse.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\ShoppingCartUpdateRequest.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\ShoppingCartUpdateResult.cs" />
+    <Compile Include="Dialogs\SalesTransactions\ShoppingCartUpdate\ShoppingCartUpdateStatus.cs" />
     <Compile Include="Dialogs\SalesTransactions\ShoppingCart\ShoppingCartClientDialog.cs" />
     <Compile Include="Dialogs\SalesTransactions\ShoppingCart\ShoppingCartServerDialog.cs" />
     <Compile Include="Dialogs\SalesTransactions\ShoppingCart\IShoppingCartClientDialog.cs" />

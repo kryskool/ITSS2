@@ -6,24 +6,24 @@ using Reth.Protocols;
 using Reth.Protocols.Dialogs;
 using Reth.Protocols.Extensions.EventArgsExtensions;
 
-namespace Reth.Itss2.Experimental.Dialogs.SalesTransactions.ShoppingCartUpdate
+namespace Reth.Itss2.Experimental.Dialogs.SalesTransactions.ShoppingCart
 {
-    internal class ShoppingCartUpdateClientDialog:Dialog, IShoppingCartUpdateClientDialog
+    internal class ShoppingCartClientDialog:Dialog, IShoppingCartClientDialog
     {
         private volatile bool isDisposed;
 
         public event EventHandler<MessageReceivedEventArgs> RequestReceived;
 
-        internal ShoppingCartUpdateClientDialog( IMessageTransceiver messageTransceiver )
+        internal ShoppingCartClientDialog( IMessageTransceiver messageTransceiver )
         :
             base( DialogName.ShoppingCart, messageTransceiver )
         {
-            this.RequestInterceptor = new MessageInterceptor( messageTransceiver, typeof( ShoppingCartUpdateRequest ) );
+            this.RequestInterceptor = new MessageInterceptor( messageTransceiver, typeof( ShoppingCartRequest ) );
 
             this.RequestInterceptor.Intercepted += this.OnRequestReceived;
         }
 
-        ~ShoppingCartUpdateClientDialog()
+        ~ShoppingCartClientDialog()
         {
             this.Dispose( false );
         }
@@ -33,40 +33,21 @@ namespace Reth.Itss2.Experimental.Dialogs.SalesTransactions.ShoppingCartUpdate
             get;
         }
 
-        public void SendResponse( ShoppingCartUpdateResponse response )
+        public void SendResponse( ShoppingCartResponse response )
         {
             base.PostMessage( response );
         }
 
-        public Task SendResponseAsync( ShoppingCartUpdateResponse response )
+        public Task SendResponseAsync( ShoppingCartResponse response )
         {
             return this.SendResponseAsync( response, CancellationToken.None );
         }
 
-        public Task SendResponseAsync( ShoppingCartUpdateResponse response, CancellationToken cancellationToken )
+        public Task SendResponseAsync( ShoppingCartResponse response, CancellationToken cancellationToken )
         {
             return Task.Run(    () =>
                                 {
                                     this.SendResponse( response );
-                                },
-                                cancellationToken   );
-        }
-
-        public void SendMessage( ShoppingCartUpdateMessage message )
-        {
-            base.PostMessage( message );
-        }
-
-        public Task SendMessageAsync( ShoppingCartUpdateMessage message )
-        {
-            return this.SendMessageAsync( message, CancellationToken.None );
-        }
-
-        public Task SendMessageAsync( ShoppingCartUpdateMessage message, CancellationToken cancellationToken )
-        {
-            return Task.Run(    () =>
-                                {
-                                    this.SendMessage( message );
                                 },
                                 cancellationToken   );
         }

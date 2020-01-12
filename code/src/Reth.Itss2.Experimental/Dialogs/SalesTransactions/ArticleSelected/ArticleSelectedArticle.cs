@@ -19,12 +19,7 @@ namespace Reth.Itss2.Experimental.Dialogs.SalesTransactions.ArticleSelected
 
         public static bool Equals( ArticleSelectedArticle left, ArticleSelectedArticle right )
 		{
-            return ObjectEqualityComparer.Equals(   left,
-                                                    right,
-                                                    () =>
-                                                    {
-                                                        return Article.Equals( left, right );
-                                                    }   );
+            return Article.Equals( left, right );
 		}
 
         public ArticleSelectedArticle( ArticleId id )
