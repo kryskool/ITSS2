@@ -56,6 +56,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\AlternativeArticle.cs" />
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\AlternativePackSizeArticle.cs" />
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoRequest.cs" />
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoResponse.cs" />
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoResponseArticle.cs" />
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleTag.cs" />
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleTagValue.cs" />
+    <Compile Include="Dialogs\ArticleData\ArticleInfo\CrossSellingArticle.cs" />
     <Compile Include="Dialogs\ArticleData\ArticlePrice\ArticlePriceResponseArticle.cs" />
     <Compile Include="Dialogs\ArticleData\ArticlePrice\ArticlePriceRequestArticle.cs" />
     <Compile Include="Dialogs\ArticleData\ArticlePrice\ArticlePriceServerDialog.cs" />
