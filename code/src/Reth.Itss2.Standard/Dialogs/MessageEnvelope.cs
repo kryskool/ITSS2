@@ -2,95 +2,80 @@
 using System.Diagnostics;
 
 using Reth.Protocols;
+using Reth.Protocols.Dialogs;
 using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs
 {
-    public sealed class MessageEnvelope<TMessage>:IEquatable<MessageEnvelope<TMessage>>
-        where TMessage:IMessage
+    public sealed class MessageEnvelope:IEquatable<MessageEnvelope>, IMessageEnvelope
     {
         public const String DefaultVersion = "2.0";
 
-        public static bool operator==( MessageEnvelope<TMessage> left, MessageEnvelope<TMessage> right )
+        public static bool operator==( MessageEnvelope left, MessageEnvelope right )
 		{
 			return ObjectEqualityComparer.EqualityOperator( left, right );
 		}
 		
-		public static bool operator!=( MessageEnvelope<TMessage> left, MessageEnvelope<TMessage> right )
+		public static bool operator!=( MessageEnvelope left, MessageEnvelope right )
 		{
 			return ObjectEqualityComparer.InequalityOperator( left, right );
 		}
-
-        private TMessage message = default( TMessage );
-        private MessageEnvelopeTimestamp timestamp = MessageEnvelopeTimestamp.UtcNow;
-        private String version = MessageEnvelope<TMessage>.DefaultVersion;
         
-        public MessageEnvelope( TMessage message )
+        public MessageEnvelope( IMessage message )
         {
+            message.ThrowIfNull();
+
             this.Message = message;
         }
 
-        public MessageEnvelope( TMessage message, MessageEnvelopeTimestamp timeStamp )
+        public MessageEnvelope( IMessage message, MessageEnvelopeTimestamp timestamp )
         {
+            message.ThrowIfNull();
+            timestamp.ThrowIfNull();
+
             this.Message = message;
-            this.Timestamp = timeStamp;
+            this.Timestamp = timestamp;
         }
 
-        public MessageEnvelope( TMessage message, MessageEnvelopeTimestamp timestamp, String version )
+        public MessageEnvelope( IMessage message, MessageEnvelopeTimestamp timestamp, String version )
         {
+            message.ThrowIfNull();
+            timestamp.ThrowIfNull();
+
+            Debug.Assert(   version == MessageEnvelope.DefaultVersion,
+                            $"{ nameof( version ) } == { nameof( MessageEnvelope ) }.{ nameof( MessageEnvelope.DefaultVersion ) }"  );
+
+            if( version != MessageEnvelope.DefaultVersion )
+            {
+                throw new FormatException( $"Invalid message version: { version }" );
+            }
+
             this.Message = message;
             this.Timestamp = timestamp;
             this.Version = version;
         }
 
-        public TMessage Message
+        public IMessage Message
         {
-            get{ return this.message; }
-
-            private set
-            {
-                ( value as Object ).ThrowIfNull();
-
-                this.message = value;
-            }
+            get;
         }
 
         public MessageEnvelopeTimestamp Timestamp
         {
-            get{ return this.timestamp; }
-            
-            private set
-            {
-                timestamp.ThrowIfNull();
-
-                this.timestamp = value;
-            }
-        }
+            get;
+        } = MessageEnvelopeTimestamp.UtcNow;
         
         public String Version
         {
-            get{ return this.version; }
-
-            private set
-            {
-                Debug.Assert(   value == MessageEnvelope<TMessage>.DefaultVersion,
-                                $"{ nameof( value ) } == { nameof( MessageEnvelope<TMessage> ) }.{ nameof( MessageEnvelope<TMessage>.DefaultVersion ) }"  );
-
-                if( value != MessageEnvelope<TMessage>.DefaultVersion )
-                {
-                    throw new FormatException( $"Invalid message version: { value }" );
-                }
-
-                this.version = value;
-            }
-        }
+            get;
+        } = MessageEnvelope.DefaultVersion;
 
         public override bool Equals( Object obj )
 		{
-			return this.Equals( obj as MessageEnvelope<TMessage> );
+			return this.Equals( obj as MessageEnvelope );
 		}
 		
-		public bool Equals( MessageEnvelope<TMessage> other )
+		public bool Equals( MessageEnvelope other )
 		{
             return ObjectEqualityComparer.Equals(   this,
                                                     other,

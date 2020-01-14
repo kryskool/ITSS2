@@ -179,7 +179,7 @@ namespace Reth.Itss2.Standard.Serialization.Xml
         public Type EnvelopeType
         {
             get;
-        } = typeof( MessageEnvelope<> );
+        } = typeof( MessageEnvelope );
 
         public Type EnvelopeDataContractType
         {

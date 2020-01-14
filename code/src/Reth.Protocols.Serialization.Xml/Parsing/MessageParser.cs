@@ -89,7 +89,7 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                     
                     if( !( typeMapping is null ) )
                     {
-                        dynamic envelope = null;
+                        IMessageEnvelopeDataContract envelope = null;
 
                         try
                         {
@@ -101,7 +101,7 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
 
                                     DataContractSerializer serializer = MessageParser.GetSerializer( envelopeDataContractType );
 
-                                    envelope = serializer.ReadObject( reader );
+                                    envelope = ( IMessageEnvelopeDataContract )( serializer.ReadObject( reader ) );
                                 }
                             }
                         }catch( Exception ex )
@@ -162,7 +162,7 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                 {
                     try
                     {
-                        Type envelopeType = this.TypeMappings.EnvelopeType.MakeGenericType( messageType );
+                        Type envelopeType = this.TypeMappings.EnvelopeType;
                         Type envelopeDataContractType = this.TypeMappings.EnvelopeDataContractType.MakeGenericType( messageType, this.TypeMappings.GetType() );
 
                         Object envelope = Activator.CreateInstance( envelopeType, message );

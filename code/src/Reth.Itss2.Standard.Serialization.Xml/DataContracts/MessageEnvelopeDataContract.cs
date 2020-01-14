@@ -4,13 +4,14 @@ using System.Xml.Serialization;
 
 using Reth.Itss2.Standard.Dialogs;
 using Reth.Protocols;
+using Reth.Protocols.Dialogs;
 using Reth.Protocols.Serialization;
 using Reth.Protocols.Serialization.Xml;
 
 namespace Reth.Itss2.Standard.Serialization.Xml.DataContracts
 {
     [XmlRoot( "WWKS" )]
-    internal class MessageEnvelopeDataContract<TMessage, TTypeMappings>:XmlSerializable<MessageEnvelope<TMessage>, TTypeMappings>
+    internal class MessageEnvelopeDataContract<TMessage, TTypeMappings>:XmlSerializable<MessageEnvelope, TTypeMappings>, IMessageEnvelopeDataContract
         where TMessage:class, IMessage
         where TTypeMappings:ITypeMappings
     {
@@ -20,9 +21,14 @@ namespace Reth.Itss2.Standard.Serialization.Xml.DataContracts
         {
         }
 
-        public MessageEnvelopeDataContract( MessageEnvelope<TMessage> dataObject )
+        public MessageEnvelopeDataContract( MessageEnvelope dataObject )
         {
             this.DataObject = dataObject;
+        }
+
+        IMessageEnvelope IMessageEnvelopeDataContract.DataObject
+        {
+            get{ return base.DataObject; }
         }
 
         public override void ReadXml( XmlReader reader )
@@ -32,22 +38,22 @@ namespace Reth.Itss2.Standard.Serialization.Xml.DataContracts
 
             TMessage content = base.Serializer.ReadMandatoryElement<TMessage>( reader, typeof( TMessage ).Name );
 
-            this.DataObject = new MessageEnvelope<TMessage>( content, timestamp, version );
+            this.DataObject = new MessageEnvelope( content, timestamp, version );
         }
 
         public override void WriteXml( XmlWriter writer )
         {
-            MessageEnvelope<TMessage> dataObject = this.DataObject;
+            MessageEnvelope dataObject = this.DataObject;
 
             base.Serializer.WriteMandatoryString( writer, nameof( dataObject.Version ), dataObject.Version );
             base.Serializer.WriteMandatoryAttribute<MessageEnvelopeTimestamp>( writer, MessageEnvelopeDataContract<TMessage, TTypeMappings>.TimestampName, dataObject.Timestamp );
 
-            base.Serializer.WriteMandatoryElement<TMessage>( writer, typeof( TMessage ).Name, dataObject.Message );
+            base.Serializer.WriteMandatoryElement<TMessage>( writer, typeof( TMessage ).Name, ( TMessage )( dataObject.Message ) );
         }
 
         public override String ToString()
         {
-            return base.Serializer.WriteToString<MessageEnvelope<TMessage>>( this );
+            return base.Serializer.WriteToString<MessageEnvelope>( this );
         }
     }
 }

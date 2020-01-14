@@ -21,9 +21,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
                                     IProtocolProvider protocolProvider,
                                     Func<String, String, IInteractionLog> createInteractionLogCallback,
                                     IEnumerable<IDialogName> supportedDialogs,
-                                    int port    )
+                                    TcpServerInfo serverInfo    )
         :
-            base( port )
+            base( serverInfo )
         {
             subscriberInfo.ThrowIfNull();
             protocolProvider.ThrowIfNull();

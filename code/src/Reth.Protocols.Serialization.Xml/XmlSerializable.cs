@@ -40,7 +40,7 @@ namespace Reth.Protocols.Serialization.Xml
 
             protected internal set
             {
-                ( value as Object ).ThrowIfNull();
+                value.ThrowIfNull();
 
                 this.dataObject = value;
             }

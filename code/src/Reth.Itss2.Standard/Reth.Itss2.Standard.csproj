@@ -1,283 +1,34 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
-  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" />
-  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" />
-  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" />
-  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{121700D8-A2B9-4DA1-977C-079F8DB54A08}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Reth.Itss2.Standard</RootNamespace>
-    <AssemblyName>Reth.Itss2.Standard</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <AssemblyName>Reth.Itss2.Standard</AssemblyName>
+	  <RootNamespace>Reth.Itss2.Standard</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>$(SolutionDir)..\bin\AnyCPU\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>7.3</LangVersion>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>$(SolutionDir)..\bin\AnyCPU\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>7.3</LangVersion>
-    <CodeAnalysisRuleSet />
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Folder Include="Properties\" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoClientDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetClientDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoClientDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliverySetClientDialog.cs" />
-    <Compile Include="Dialogs\Article.cs" />
-    <Compile Include="Dialogs\DialogName.cs" />
-    <Compile Include="Dialogs\DialogProviderBase.cs" />
-    <Compile Include="Dialogs\General\Hello\HelloClientDialog.cs" />
-    <Compile Include="Dialogs\General\Hello\HelloServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\IArticleInfoClientDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\IArticleInfoServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\IArticleMasterSetClientDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\IArticleMasterSetServerDialog.cs" />
-    <Compile Include="Dialogs\General\Hello\SubscriberInfo.cs" />
-    <Compile Include="Dialogs\General\KeepAlive\IKeepAliveDialog.cs" />
-    <Compile Include="Dialogs\General\Unprocessed\IUnprocessedDialog.cs" />
-    <Compile Include="Dialogs\IDialogProvider.cs" />
-    <Compile Include="Dialogs\General\Hello\IHelloClientDialog.cs" />
-    <Compile Include="Dialogs\General\Hello\IHelloServerDialog.cs" />
-    <Compile Include="Dialogs\LocalClientDialogProvider.cs" />
-    <Compile Include="Dialogs\RemoteClientDialogProvider.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\IInitiateInputClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\IInitiateInputServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\Input\IInputClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\Input\IInputServerDialog.cs" />
-    <Compile Include="Dialogs\General\KeepAlive\IKeepAliveClientDialog.cs" />
-    <Compile Include="Dialogs\General\KeepAlive\IKeepAliveServerDialog.cs" />
-    <Compile Include="Dialogs\ILocalClientDialogProvider.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoStatus.cs" />
-    <Compile Include="Dialogs\Storage\Output\IOutputClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\IOutputInfoClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\IOutputInfoServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\Output\IOutputServerDialog.cs" />
-    <Compile Include="Dialogs\IRemoteClientDialogProvider.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputResponseStatus.cs" />
-    <Compile Include="Dialogs\Storage\Status\IStatusClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\Status\IStatusServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\IStockDeliveryInfoClientDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\IStockDeliveryInfoServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\IStockDeliverySetClientDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\IStockDeliverySetServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\Status\StatusClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\IStockInfoClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\IStockInfoServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockLocationInfo\IStockLocationInfoClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockLocationInfo\IStockLocationInfoServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockLocationInfo\StockLocationInfoClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\ITaskCancelOutputClientDialog.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\ITaskCancelOutputServerDialog.cs" />
-    <Compile Include="Dialogs\General\Unprocessed\IUnprocessedClientDialog.cs" />
-    <Compile Include="Dialogs\General\Unprocessed\IUnprocessedServerDialog.cs" />
-    <Compile Include="Dialogs\General\KeepAlive\KeepAliveDialog.cs" />
-    <Compile Include="Dialogs\ArticleId.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\TaskCancelOutputClientDialog.cs" />
-    <Compile Include="Dialogs\TraceableMessage.cs" />
-    <Compile Include="Dialogs\TraceableRequest.cs" />
-    <Compile Include="Dialogs\TraceableResponse.cs" />
-    <Compile Include="Dialogs\Storage\LabelStatus.cs" />
-    <Compile Include="Dialogs\MessageEnvelope.cs" />
-    <Compile Include="Dialogs\MessageEnvelopeTimeStamp.cs" />
-    <Compile Include="Dialogs\MessageId.cs" />
-    <Compile Include="Dialogs\Storage\OutputBox.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputMessageStatus.cs" />
-    <Compile Include="Dialogs\PackDate.cs" />
-    <Compile Include="Dialogs\PackId.cs" />
-    <Compile Include="Dialogs\PackShape.cs" />
-    <Compile Include="Dialogs\Storage\PackState.cs" />
-    <Compile Include="Dialogs\ProductCode.cs" />
-    <Compile Include="Dialogs\ProductCodeId.cs" />
-    <Compile Include="Dialogs\String64.cs" />
-    <Compile Include="Dialogs\SubscriberId.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\Status\StatusServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoServerDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliverySetServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\StockLocationInfo\StockLocationInfoServerDialog.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\TaskCancelOutputServerDialog.cs" />
-    <Compile Include="Dialogs\General\Unprocessed\UnprocessedDialog.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoRequest.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoRequestArticle.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoResponse.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleInfo\ArticleInfoResponseArticle.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetResult.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetResultValue.cs" />
-    <Compile Include="Dialogs\General\Hello\Capability.cs" />
-    <Compile Include="Dialogs\General\Hello\HelloRequest.cs" />
-    <Compile Include="Dialogs\General\Hello\HelloResponse.cs" />
-    <Compile Include="Dialogs\General\Hello\Subscriber.cs" />
-    <Compile Include="Dialogs\General\Hello\SubscriberType.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputMessage.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputMessageArticle.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputMessageDetails.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputError.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputErrorType.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputMessagePack.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputMessageStatus.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputRequest.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputRequestArticle.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputRequestDetails.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputRequestPack.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputResponse.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputResponseArticle.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputResponseDetails.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputResponsePack.cs" />
-    <Compile Include="Dialogs\Storage\InitiateInput\InitiateInputResponseStatus.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputMessage.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputMessageArticle.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputMessagePack.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputMessagePackHandling.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputMessagePackHandlingInput.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputRequest.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputRequestArticle.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputRequestPack.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputResponse.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputResponseArticle.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputResponsePack.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputResponsePackHandling.cs" />
-    <Compile Include="Dialogs\Storage\Input\InputResponsePackHandlingInput.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoArticle.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputLabel.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputLabelContent.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputMessage.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputArticle.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputMessageDetails.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputPack.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputPriority.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputRequest.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputCriteria.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputRequestDetails.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputResponse.cs" />
-    <Compile Include="Dialogs\Storage\Output\OutputResponseDetails.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoPack.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoRequest.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoRequestTask.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoResponse.cs" />
-    <Compile Include="Dialogs\Storage\OutputInfo\OutputInfoResponseTask.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoArticle.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoPack.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoRequest.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoResponse.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoRequestTask.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoResponseTask.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliveryInfo\StockDeliveryInfoStatus.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\TaskCancelOutputRequest.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\TaskCancelOutputRequestTask.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\TaskCancelOutputResponse.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\TaskCancelOutputResponseTask.cs" />
-    <Compile Include="Dialogs\Storage\TaskCancelOutput\TaskCancelOutputStatus.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetRequest.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetArticle.cs" />
-    <Compile Include="Dialogs\ArticleData\ArticleMasterSet\ArticleMasterSetResponse.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliverySetResult.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliverySetResultValue.cs" />
-    <Compile Include="Dialogs\Storage\Status\Component.cs" />
-    <Compile Include="Dialogs\Storage\Status\ComponentState.cs" />
-    <Compile Include="Dialogs\Storage\Status\ComponentType.cs" />
-    <Compile Include="Dialogs\General\KeepAlive\KeepAliveRequest.cs" />
-    <Compile Include="Dialogs\General\KeepAlive\KeepAliveResponse.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDelivery.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliveryLine.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliverySetRequest.cs" />
-    <Compile Include="Dialogs\ArticleData\StockDeliverySet\StockDeliverySetResponse.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoArticle.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoRequestCriteria.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoMessage.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoPack.cs" />
-    <Compile Include="Dialogs\Storage\Status\StatusRequest.cs" />
-    <Compile Include="Dialogs\Storage\Status\StatusResponse.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoRequest.cs" />
-    <Compile Include="Dialogs\Storage\StockInfo\StockInfoResponse.cs" />
-    <Compile Include="Dialogs\Storage\StockLocationInfo\StockLocation.cs" />
-    <Compile Include="Dialogs\StockLocationId.cs" />
-    <Compile Include="Dialogs\Storage\StockLocationInfo\StockLocationInfoRequest.cs" />
-    <Compile Include="Dialogs\Storage\StockLocationInfo\StockLocationInfoResponse.cs" />
-    <Compile Include="Dialogs\General\Unprocessed\UnprocessedContent.cs" />
-    <Compile Include="Dialogs\General\Unprocessed\UnprocessedMessage.cs" />
-    <Compile Include="Dialogs\General\Unprocessed\UnprocessedReason.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\IProtocolProvider.cs" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Reth.Protocols.Versioning\Reth.Protocols.Versioning.csproj">
-      <Project>{5b0fa0be-06b2-4a99-9f06-cd8ab923e754}</Project>
-      <Name>Reth.Protocols.Versioning</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Reth.Protocols\Reth.Protocols.csproj">
-      <Project>{1c1b43dc-7a03-41a0-ae25-695867e8371f}</Project>
-      <Name>Reth.Protocols</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Reth.Protocols.Versioning\Reth.Protocols.Versioning.csproj" />
+    <ProjectReference Include="..\Reth.Protocols\Reth.Protocols.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Humanizer.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
-  </Target>
+
 </Project>

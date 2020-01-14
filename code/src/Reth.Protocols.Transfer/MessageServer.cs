@@ -62,8 +62,6 @@ namespace Reth.Protocols.Transfer
             }
         }
 
-        public abstract int MaxClientConnections{ get; }
-
         private void ForEach( Action<IMessageServerListener> action, Func<IMessageServerListener, String> errorMessageCallback )
         {
             action.ThrowIfNull();

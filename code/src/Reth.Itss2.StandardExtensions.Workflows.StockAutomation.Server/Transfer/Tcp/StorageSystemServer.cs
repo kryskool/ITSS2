@@ -6,6 +6,7 @@ using Reth.Itss2.Standard.Dialogs.General.Hello;
 using Reth.Itss2.StandardExtensions.Serialization;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
+using Reth.Protocols.Transfer.Tcp;
 
 namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server.Transfer.Tcp
 {
@@ -15,13 +16,13 @@ namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server.Transfe
                                     IProtocolProvider protocolProvider,
                                     Func<String, String, IInteractionLog> createInteractionLogCallback,
                                     IEnumerable<IDialogName> supportedDialogs,
-                                    int port    )
+                                    TcpServerInfo serverInfo    )
         :
             base(   subscriberInfo,
                     protocolProvider,
                     createInteractionLogCallback,
                     supportedDialogs,
-                    port    )
+                    serverInfo  )
         {
         }
 

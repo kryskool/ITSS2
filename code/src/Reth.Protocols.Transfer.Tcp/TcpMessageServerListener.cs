@@ -83,22 +83,22 @@ namespace Reth.Protocols.Transfer.Tcp
 
         private static HashSet<IPAddress> GetAddresses( AddressFamily addressFamily )
         {
-            HashSet<IPAddress> result = Dns.GetHostAddresses(   Dns.GetHostName() ).Where( ( IPAddress address ) =>
-                                                                {
-                                                                    bool predicate = false;
+            IEnumerable<IPAddress> addresses = Dns.GetHostAddresses(    Dns.GetHostName() ).Where(  ( IPAddress address ) =>
+                                                                                                    {
+                                                                                                        bool predicate = false;
                                                                                                     
-                                                                    if( !( address is null ) )
-                                                                    {
-                                                                        if( address.AddressFamily == addressFamily )
-                                                                        {
-                                                                            predicate = true;
-                                                                        }
-                                                                    }
+                                                                                                        if( !( address is null ) )
+                                                                                                        {
+                                                                                                            if( address.AddressFamily == addressFamily )
+                                                                                                            {
+                                                                                                                predicate = true;
+                                                                                                            }
+                                                                                                        }
 
-                                                                    return predicate;
-                                                                }   ).ToHashSet();
-            
-            return result;
+                                                                                                        return predicate;
+                                                                                                    }   );
+
+            return new HashSet<IPAddress>( addresses );
         }
 
         public event EventHandler<ConnectionAcceptedEventArgs> ConnectionAccepted;

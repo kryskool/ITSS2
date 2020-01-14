@@ -7,6 +7,7 @@ using Reth.Itss2.StandardExtensions.Serialization;
 using Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server.Transfer.Tcp;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
+using Reth.Protocols.Transfer.Tcp;
 
 namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server
 {
@@ -21,13 +22,13 @@ namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server
         public IStorageSystemServer CreateTcp(  IProtocolProvider protocolProvider,
                                                 Func<String, String, IInteractionLog> createInteractionLogCallback,
                                                 IEnumerable<IDialogName> supportedDialogs,
-                                                int port    )
+                                                TcpServerInfo serverInfo    )
         {
             return new StorageSystemServer( this.SubscriberInfo,
                                             protocolProvider,
                                             createInteractionLogCallback,
                                             supportedDialogs,
-                                            port    );
+                                            serverInfo    );
         }
     }
 }
