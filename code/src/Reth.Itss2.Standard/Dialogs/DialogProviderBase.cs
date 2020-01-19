@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Reth.Itss2.Standard.Dialogs.General.Unprocessed;
 using Reth.Itss2.Standard.Serialization;
 
 using Reth.Protocols;
@@ -75,6 +76,8 @@ namespace Reth.Itss2.Standard.Dialogs
         {
             get;
         }
+
+        public abstract IUnprocessedDialog Unprocessed{ get; }
 
         public IDialogName[] GetSupportedDialogs()
         {

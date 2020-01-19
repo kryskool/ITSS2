@@ -8,7 +8,7 @@ using Reth.Protocols.Extensions.EventArgsExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs.General.Unprocessed
 {
-    internal class UnprocessedDialog:Dialog, IUnprocessedClientDialog, IUnprocessedServerDialog
+    internal class UnprocessedDialog:Dialog, IUnprocessedDialog
     {
         private volatile bool isDisposed;
 

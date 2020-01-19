@@ -10,6 +10,7 @@ using Reth.Protocols;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
 using Reth.Protocols.Extensions.EventArgsExtensions;
+using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Workflows
 {
@@ -17,8 +18,13 @@ namespace Reth.Itss2.Standard.Workflows
     {
         public event EventHandler<UnhandledMessageEventArgs> MessageUnhandled;
 
-        protected StorageSystem()
+        public event EventHandler<MessageReceivedEventArgs> UnprocessedMessageReceived;
+
+        protected StorageSystem( IDialogProvider dialogProvider )
         {
+            dialogProvider.ThrowIfNull();
+
+            dialogProvider.Unprocessed.MessageReceived += this.Unprocessed_MessageReceived;
         }
 
         public Subscriber LocalSubscriber
@@ -29,6 +35,17 @@ namespace Reth.Itss2.Standard.Workflows
         public Subscriber RemoteSubscriber
         {
             get; protected set;
+        }
+
+        private void Unprocessed_MessageReceived( Object sender, MessageReceivedEventArgs e )
+        {
+            try
+            {
+                this.UnprocessedMessageReceived?.SafeInvoke( this, e );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
+            }
         }
 
         protected HashSet<IDialogName> RemoteCapabilities

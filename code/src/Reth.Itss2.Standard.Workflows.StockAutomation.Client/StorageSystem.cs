@@ -54,9 +54,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
         public StorageSystem(   SubscriberInfo subscriberInfo,
                                 ILocalMessageClient messageClient,
                                 ILocalClientDialogProvider dialogProvider   )
+        :
+            base( dialogProvider )
         {
-            dialogProvider.ThrowIfNull();
-
             this.Initialize(    subscriberInfo,
                                 messageClient,
                                 dialogProvider,
@@ -67,9 +67,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
                                 ILocalMessageClient messageClient,
                                 ILocalClientDialogProvider dialogProvider,
                                 IEnumerable<IDialogName> supportedDialogs   )
+        :
+            base( dialogProvider )
         {
-            dialogProvider.ThrowIfNull();
-
             this.Initialize(    subscriberInfo,
                                 messageClient,
                                 dialogProvider,

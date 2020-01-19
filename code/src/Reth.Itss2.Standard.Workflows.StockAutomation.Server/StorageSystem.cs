@@ -43,9 +43,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
         public StorageSystem(   SubscriberInfo subscriberInfo,
                                 IRemoteMessageClient messageClient,
                                 IRemoteClientDialogProvider dialogProvider   )
+        :
+            base( dialogProvider )
         {
-            dialogProvider.ThrowIfNull();
-
             this.Initialize(    subscriberInfo,
                                 messageClient,
                                 dialogProvider,
@@ -56,6 +56,8 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
                                 IRemoteMessageClient messageClient,
                                 IRemoteClientDialogProvider dialogProvider,
                                 IEnumerable<IDialogName> supportedDialogs   )
+        :
+            base( dialogProvider )
         {
             this.Initialize(    subscriberInfo,
                                 messageClient,

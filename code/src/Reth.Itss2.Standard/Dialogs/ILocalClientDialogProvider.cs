@@ -4,7 +4,6 @@ using Reth.Itss2.Standard.Dialogs.ArticleData.StockDeliveryInfo;
 using Reth.Itss2.Standard.Dialogs.ArticleData.StockDeliverySet;
 using Reth.Itss2.Standard.Dialogs.General.Hello;
 using Reth.Itss2.Standard.Dialogs.General.KeepAlive;
-using Reth.Itss2.Standard.Dialogs.General.Unprocessed;
 using Reth.Itss2.Standard.Dialogs.Storage.InitiateInput;
 using Reth.Itss2.Standard.Dialogs.Storage.Input;
 using Reth.Itss2.Standard.Dialogs.Storage.Output;
@@ -32,6 +31,5 @@ namespace Reth.Itss2.Standard.Dialogs
         IStockInfoClientDialog StockInfo{ get; }
         IStockLocationInfoClientDialog StockLocationInfo{ get; }
         ITaskCancelOutputClientDialog TaskCancelOutput{ get; }
-        IUnprocessedClientDialog Unprocessed{ get; }
     }
 }

@@ -76,7 +76,7 @@ namespace Reth.Itss2.Standard.Dialogs
         public IStockInfoServerDialog StockInfo{ get; }
         public IStockLocationInfoServerDialog StockLocationInfo{ get; }
         public ITaskCancelOutputServerDialog TaskCancelOutput{ get; }
-        public IUnprocessedServerDialog Unprocessed{ get; }
+        public override IUnprocessedDialog Unprocessed{ get; }
 
         protected override void Dispose( bool disposing )
         {
