@@ -83,7 +83,7 @@ namespace Reth.Itss2.Standard.Workflows
             return result;
         }
 
-        protected void OnMessageUnhandled( UnhandledMessage message )
+        protected virtual void OnMessageUnhandled( UnhandledMessage message )
         {
             if( !( message is null ) )
             {
@@ -94,15 +94,20 @@ namespace Reth.Itss2.Standard.Workflows
 
                 if( message.Direction == MessageDirection.Incoming )
                 {
-                    try
-                    {
-                        UnprocessedMessage unprocessedMessage = UnprocessedMessage.Convert( message, localSubscriberId, remoteSubscriberId );
+                    IMessage innerMessage = message.InnerMessage;
 
-                        this.SendUnprocessedMessageAsync( unprocessedMessage );
-                    }catch( Exception ex )
+                    if( innerMessage.GetType().IsInstanceOfType( typeof( UnprocessedMessage ) ) == false )
                     {
-                        ExecutionLogProvider.LogError( ex );
-                        ExecutionLogProvider.LogError( "Failed to handle unhandled message." );
+                        try
+                        {
+                            UnprocessedMessage unprocessedMessage = UnprocessedMessage.Convert( message, localSubscriberId, remoteSubscriberId );
+
+                            this.SendUnprocessedMessageAsync( unprocessedMessage );
+                        }catch( Exception ex )
+                        {
+                            ExecutionLogProvider.LogError( ex );
+                            ExecutionLogProvider.LogError( "Failed to handle unhandled message." );
+                        }
                     }
                 }
 

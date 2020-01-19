@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 using Reth.Protocols;
 using Reth.Protocols.Extensions.ObjectExtensions;
@@ -38,18 +37,7 @@ namespace Reth.Itss2.Standard.Dialogs.General.Unprocessed
                                                     SubscriberId localSubscriberId,
                                                     SubscriberId remoteSubscriberId )
         {
-            UnprocessedMessage result = null;
-
-            IMessage message = unhandledMessage.Message;
-
-            Type messageType = message.GetType();
-
-            Debug.Assert( messageType != typeof( UnprocessedMessage ), $"{ nameof( messageType ) } != typeof( { nameof( UnprocessedMessage ) } )" );
-
-            if( messageType == typeof( UnprocessedMessage ) )
-            {
-                throw new InvalidOperationException( $"An unhandled message containing an unprocessed message cannot be converted to an unprocessed message." );
-            }
+            IMessage innerMessage = unhandledMessage.InnerMessage;
 
             Nullable<UnprocessedReason> unprocessedReason = null;
 
@@ -66,14 +54,12 @@ namespace Reth.Itss2.Standard.Dialogs.General.Unprocessed
                     break;
             }
 
-            result = new UnprocessedMessage(    MessageId.NewId(),
-                                                localSubscriberId,
-                                                remoteSubscriberId,
-                                                new UnprocessedContent( message ),
-                                                unprocessedReason,
-                                                null    );
-
-            return result;
+            return new UnprocessedMessage(  MessageId.NewId(),
+                                            localSubscriberId,
+                                            remoteSubscriberId,
+                                            new UnprocessedContent( innerMessage ),
+                                            unprocessedReason,
+                                            null    );
         }
 
         public UnprocessedMessage(  IMessageId id,

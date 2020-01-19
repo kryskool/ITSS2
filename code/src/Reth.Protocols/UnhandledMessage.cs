@@ -26,7 +26,7 @@ namespace Reth.Protocols
             if( result == true )
             {
                 result &= ( left.Reason == right.Reason );
-                result &= Protocols.Message.Equals( left.Message, right.Message );
+                result &= Protocols.Message.Equals( left.InnerMessage, right.InnerMessage );
                 result &= Exception.Equals( left.Exception, right.Exception );
             }
 
@@ -35,33 +35,33 @@ namespace Reth.Protocols
 
         public UnhandledMessage(    UnhandledReason reason,
                                     MessageDirection direction,
-                                    IMessage message )
+                                    IMessage innerMessage )
         :
             base( DialogName.Unhandled, MessageId.DefaultId )
         {
-            message.ThrowIfNull();
+            innerMessage.ThrowIfNull();
 
             this.Timestamp = DateTimeOffset.UtcNow;
 
             this.Reason = reason;
             this.Direction = direction;
-            this.Message = message;
+            this.InnerMessage = innerMessage;
         }
 
         public UnhandledMessage(    UnhandledReason reason,
                                     MessageDirection direction,
-                                    IMessage message,
+                                    IMessage innerMessage,
                                     Exception exception )
         :
             base( DialogName.Unhandled, MessageId.DefaultId )
         {
-            message.ThrowIfNull();
+            innerMessage.ThrowIfNull();
 
             this.Timestamp = DateTimeOffset.UtcNow;
 
             this.Reason = reason;
             this.Direction = direction;
-            this.Message = message;
+            this.InnerMessage = innerMessage;
             this.Exception = exception;
         }
 
@@ -80,7 +80,7 @@ namespace Reth.Protocols
             get;
         }
 
-        public IMessage Message
+        public IMessage InnerMessage
         {
             get;
         }
@@ -113,9 +113,9 @@ namespace Reth.Protocols
             result.Append( ", " );
             result.Append( this.Reason );
             result.Append( ", " );
-            result.Append( this.Message.GetType().FullName );
+            result.Append( this.InnerMessage.GetType().FullName );
             result.Append( " (" );
-            result.Append( this.Message.Id.ToString() );
+            result.Append( this.InnerMessage.Id.ToString() );
             result.Append( "), " );
             result.Append( this.Timestamp.ToLocalTime().ToString( "yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture ) );
             
