@@ -4,25 +4,25 @@ using System.Runtime.Serialization;
 namespace Reth.Protocols.Serialization
 {
     [Serializable]
-    public class SerializationException:Exception
+    public class MessageTypeException:Exception
     {
-        public SerializationException()
+        public MessageTypeException()
         {
         }
 
-        public SerializationException( string message )
+        public MessageTypeException( String message )
         :
             base( message )
         {
         }
 
-        public SerializationException( string message, Exception innerException )
+        public MessageTypeException( String message, Exception innerException )
         :
             base( message, innerException )
         {
         }
 
-        protected SerializationException( SerializationInfo info, StreamingContext context )
+        protected MessageTypeException( SerializationInfo info, StreamingContext context )
         :
             base( info, context )
         {

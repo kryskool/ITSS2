@@ -90,7 +90,7 @@ namespace Reth.Protocols.Serialization.Xml
                                                         ExecutionLogProvider.LogError( ex );
                                                         ExecutionLogProvider.LogError( "Error while reading from stream." );
 
-                                                        throw new SerializationException( "Message stream reader ended prematurely.", ex );
+                                                        throw new MessageSerializationException( "Message stream reader ended prematurely.", ex );
                                                     }
 
                                                     ExecutionLogProvider.LogInformation( "Message stream reader finished." );

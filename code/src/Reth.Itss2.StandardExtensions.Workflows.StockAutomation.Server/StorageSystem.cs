@@ -44,24 +44,18 @@ namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server
 
         private void ConfigurationGet_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.ConfigurationGetRequestReceivedCallback is null ) )
+            e.IsHandled = true;
+              
+            try
             {
-                ConfigurationGetResponse response = null;
-                
-                try
-                {
-                    response = this.ConfigurationGetRequestReceivedCallback.Invoke( this, ( ConfigurationGetRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+                ConfigurationGetResponse response = this.ConfigurationGetRequestReceivedCallback.Invoke( this, ( ConfigurationGetRequest )( e.Message ) );
 
-                if( !( response is null ) )
-                {
-                    IRemoteClientDialogProvider dialogProvider = ( IRemoteClientDialogProvider )( this.DialogProvider );
+                IRemoteClientDialogProvider dialogProvider = ( IRemoteClientDialogProvider )( this.DialogProvider );
 
-                    dialogProvider.ConfigurationGet.SendResponse( response );
-                }
+                dialogProvider.ConfigurationGet.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
     }

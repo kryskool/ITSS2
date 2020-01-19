@@ -248,16 +248,35 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
             {
             }
 
-            IMessage message = this.MessageParser.Parse( messageString );
-
-            if( !( message is null ) )
+            IMessage message = null;
+            
+            try
             {
-                if( this.MessageQueue?.PostMessage( message ) == false )
-                {
-                    UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.Shutdown,
-                                                                            MessageDirection.Incoming,
-                                                                            message  ) );
-                }
+                message = this.MessageParser.Parse( messageString );
+            }catch( MessageTypeException ex )
+            {
+                ExecutionLogProvider.LogError( ex );
+
+                UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.Unsupported,
+                                                                        MessageDirection.Incoming,
+                                                                        message,
+                                                                        ex  ) );
+            }catch( MessageSerializationException ex )
+            {
+                ExecutionLogProvider.LogError( ex );
+                ExecutionLogProvider.LogError( $"Deserialization of message failed: '{ message }'" );
+
+                UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.InvalidFormat,
+                                                                        MessageDirection.Incoming,
+                                                                        message,
+                                                                        ex  ) );
+            }
+
+            if( this.MessageQueue?.PostMessage( message ) == false )
+            {
+                UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.Shutdown,
+                                                                        MessageDirection.Incoming,
+                                                                        message  ) );
             }
         }
 

@@ -167,7 +167,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             this.DialogProvider.ArticleMasterSet.RequestReceived += this.ArticleMasterSet_RequestReceived;
             this.DialogProvider.Hello.RequestReceived += this.Hello_RequestReceived;
             this.DialogProvider.InitiateInput.RequestReceived += this.InitiateInput_RequestReceived;
-            this.DialogProvider.OutputInfo.RequestReceived += this.OutputInput_RequestReceived;
+            this.DialogProvider.OutputInfo.RequestReceived += this.OutputInfo_RequestReceived;
             this.DialogProvider.Output.RequestReceived += this.Output_RequestReceived;
             this.DialogProvider.Status.RequestReceived += this.Status_RequestReceived;
             this.DialogProvider.StockDeliveryInfo.RequestReceived += this.StockDeliveryInfo_RequestReceived;
@@ -250,48 +250,38 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 
         private void ArticleMasterSet_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.ArticleMasterSetRequestReceivedCallback is null ) )
-            {
-                ArticleMasterSetResponse response = null;
+            e.IsHandled = true;
                 
-                try
-                {
-                    response = this.ArticleMasterSetRequestReceivedCallback?.Invoke( this, ( ArticleMasterSetRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            try
+            {
+                ArticleMasterSetResponse response = this.ArticleMasterSetRequestReceivedCallback?.Invoke( this, ( ArticleMasterSetRequest )( e.Message ) );
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.ArticleMasterSet.SendResponse( response );
-                }
+                this.DialogProvider.ArticleMasterSet.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void Hello_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.HelloRequestReceivedCallback is null ) )
-            {
-                HelloResponse response = null;
-                
-                try
-                {
-                    response = this.HelloRequestReceivedCallback?.Invoke( this, ( HelloRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.Hello.SendResponse( response );
-                }
+            try
+            {
+                HelloResponse response = this.HelloRequestReceivedCallback?.Invoke( this, ( HelloRequest )( e.Message ) );
+
+                this.DialogProvider.Hello.SendResponse( response );  
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void InitiateInput_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
+            e.IsHandled = true;
+
             try
             {
                 InitiateInputRequest request = ( InitiateInputRequest )( e.Message );
@@ -305,29 +295,25 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             }
         }
 
-        private void OutputInput_RequestReceived( Object sender, MessageReceivedEventArgs e )
+        private void OutputInfo_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.OutputInfoRequestReceivedCallback is null ) )
-            {
-                OutputInfoResponse response = null;
+            e.IsHandled = true;
                 
-                try
-                {
-                    response = this.OutputInfoRequestReceivedCallback?.Invoke( this, ( OutputInfoRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            try
+            {
+                OutputInfoResponse response = this.OutputInfoRequestReceivedCallback?.Invoke( this, ( OutputInfoRequest )( e.Message ) );
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.OutputInfo.SendResponse( response );
-                }
+                this.DialogProvider.OutputInfo.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void Output_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
+            e.IsHandled = true;
+
             try
             {
                 OutputRequest request = ( OutputRequest )( e.Message );
@@ -343,127 +329,91 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 
         private void Status_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.StatusRequestReceivedCallback is null ) )
-            {
-                StatusResponse response = null;
-                
-                try
-                {
-                    response = this.StatusRequestReceivedCallback?.Invoke( this, ( StatusRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.Status.SendResponse( response );
-                }
+            try
+            {
+                StatusResponse response = this.StatusRequestReceivedCallback?.Invoke( this, ( StatusRequest )( e.Message ) );
+
+                this.DialogProvider.Status.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void StockDeliveryInfo_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.StockDeliveryInfoRequestReceivedCallback is null ) )
-            {
-                StockDeliveryInfoResponse response = null;
-                
-                try
-                {
-                    response = this.StockDeliveryInfoRequestReceivedCallback?.Invoke( this, ( StockDeliveryInfoRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.StockDeliveryInfo.SendResponse( response );
-                }
+            try
+            {
+                StockDeliveryInfoResponse response = this.StockDeliveryInfoRequestReceivedCallback?.Invoke( this, ( StockDeliveryInfoRequest )( e.Message ) );
+
+                this.DialogProvider.StockDeliveryInfo.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void StockDeliverySet_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.StockDeliverySetRequestReceivedCallback is null ) )
-            {
-                StockDeliverySetResponse response = null;
-                
-                try
-                {
-                    response = this.StockDeliverySetRequestReceivedCallback?.Invoke( this, ( StockDeliverySetRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.StockDeliverySet.SendResponse( response );
-                }
+            try
+            {
+                StockDeliverySetResponse response = this.StockDeliverySetRequestReceivedCallback?.Invoke( this, ( StockDeliverySetRequest )( e.Message ) );
+
+                this.DialogProvider.StockDeliverySet.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void StockInfo_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.StockInfoRequestReceivedCallback is null ) )
-            {
-                StockInfoResponse response = null;
-                
-                try
-                {
-                    response = this.StockInfoRequestReceivedCallback?.Invoke( this, ( StockInfoRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.StockInfo.SendResponse( response );
-                }
+            try
+            {
+                StockInfoResponse response = this.StockInfoRequestReceivedCallback?.Invoke( this, ( StockInfoRequest )( e.Message ) );
+
+                this.DialogProvider.StockInfo.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void StockLocationInfo_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.StockLocationInfoRequestReceivedCallback is null ) )
-            {
-                StockLocationInfoResponse response = null;
-                
-                try
-                {
-                    response = this.StockLocationInfoRequestReceivedCallback?.Invoke( this, ( StockLocationInfoRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.StockLocationInfo.SendResponse( response );
-                }
+            try
+            {
+                StockLocationInfoResponse response = this.StockLocationInfoRequestReceivedCallback?.Invoke( this, ( StockLocationInfoRequest )( e.Message ) );
+
+                this.DialogProvider.StockLocationInfo.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void TaskCancelOutput_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.TaskCancelOutputRequestReceivedCallback is null ) )
-            {
-                TaskCancelOutputResponse response = null;
-                
-                try
-                {
-                    response = this.TaskCancelOutputRequestReceivedCallback?.Invoke( this, ( TaskCancelOutputRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.TaskCancelOutput.SendResponse( response );
-                }
+            try
+            {
+                TaskCancelOutputResponse response = this.TaskCancelOutputRequestReceivedCallback?.Invoke( this, ( TaskCancelOutputRequest )( e.Message ) );
+
+                this.DialogProvider.TaskCancelOutput.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 

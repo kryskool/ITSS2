@@ -46,11 +46,11 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
             get;
         }
 
-        public int Position
+        public long Position
         {
             get
             {
-                return ( int )( this.Stream.Position );
+                return this.Stream.Position;
             }
 
             set
@@ -72,14 +72,14 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                     throw new InvalidOperationException( $"Maximum buffer size exceeded. Maximum size: '{ this.MaximumSize }' Bytes, actual size: '{ actualSize }' Bytes" );
                 }
 
-                long oldPosition = this.Stream.Position;
+                long oldPosition = this.Position;
 
-                this.Stream.Position = this.Stream.Length;
+                this.Position = this.Stream.Length;
                 this.Stream.Write(  messageBlock.Data,
                                     0,
                                     messageBlock.Length  );
 
-                this.Stream.Position = oldPosition;
+                this.Position = oldPosition;
             }
         }
 
@@ -103,7 +103,7 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                 this.Shrink();
                 this.Clear( length );
             
-                this.Stream.Position = 0;
+                this.Position = 0;
             }
         }
 
@@ -175,7 +175,7 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
 
             foreach( MessageBlockPattern pattern in patterns )
             {
-                long oldPosition = this.Stream.Position;
+                long oldPosition = this.Position;
 
                 match = this.Lookup( pattern );
 
@@ -193,7 +193,12 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                     }
                 }
 
-                this.Stream.Position = oldPosition;
+                this.Position = oldPosition;
+            }
+
+            if( result.Success == true )
+            {
+                this.Position = result.StartIndex + result.Pattern.Count;
             }
 
             return result;
@@ -208,7 +213,7 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                 byte[] patternValue = pattern.Value;
                 byte[] bufferValue = this.Stream.GetBuffer();
 
-                long oldPosition = this.Stream.Position;
+                long oldPosition = this.Position;
 
                 int patternLength = pattern.Count;
 
@@ -234,12 +239,10 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                     {
                         result = new MessageBlockPatternMatch( pattern, foundIndex );
 
-                        this.Stream.Position = foundIndex + pattern.Count;
+                        this.Position = foundIndex + pattern.Count;
                         break;
                     }
                 }
-
-                this.Stream.Position = oldPosition;
             }
 
             return result;

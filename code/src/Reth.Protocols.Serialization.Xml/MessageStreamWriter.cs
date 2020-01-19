@@ -37,6 +37,62 @@ namespace Reth.Protocols.Serialization.Xml
         {
             get;
         }
+
+        private String ParseMessage( MessageParser messageParser, IMessage message )
+        {
+            String result = String.Empty;
+                                                                
+            try
+            {
+                result = messageParser.Parse( message );
+            }catch( MessageTypeException ex )
+            {
+                ExecutionLogProvider.LogError( ex );
+
+                UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.Unsupported,
+                                                                        MessageDirection.Outgoing,
+                                                                        message,
+                                                                        ex  ) );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
+
+                UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.UnknownError,
+                                                                        MessageDirection.Outgoing,
+                                                                        message,
+                                                                        ex  ) );
+            }
+
+            return result;
+        }
+
+        private void LogMessage( String message )
+        {
+            try
+            {
+                this.InteractionLog?.LogMessage( new XmlInteractionLogMessage(  MessageDirection.Outgoing,
+                                                                                message ) );
+            }catch
+            {
+            }
+        }
+
+        private void WriteMessage( StreamWriter writer, String parsedMessage, IMessage message )
+        {
+            try
+            {
+                writer.Write( parsedMessage );
+                writer.Flush();
+            }catch( IOException ex )
+            {
+                ExecutionLogProvider.LogError( ex );
+
+                UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.ConnectionError,
+                                                                        MessageDirection.Outgoing,
+                                                                        message,
+                                                                        ex  ) );
+            }
+        }
         
         public Task RunAsync( IMessageReadQueue messageQueue, Stream stream )
         {
@@ -69,33 +125,15 @@ namespace Reth.Protocols.Serialization.Xml
                                                         {
                                                             if( cancellationToken.IsCancellationRequested == false )
                                                             {
-                                                                String parsedMessage = messageParser.Parse( message );
+                                                                String parsedMessage = this.ParseMessage( messageParser, message );
 
                                                                 ExecutionLogProvider.LogInformation( $"Writing message: { message.ToString() } ({ message.GetType().FullName })" );
 
-                                                                try
-                                                                {
-                                                                    this.InteractionLog?.LogMessage( new XmlInteractionLogMessage(  MessageDirection.Outgoing,
-                                                                                                                                    parsedMessage ) );
-                                                                }catch
-                                                                {
-                                                                }
+                                                                this.LogMessage( parsedMessage );
 
                                                                 try
                                                                 {
-                                                                    try
-                                                                    {
-                                                                        writer.Write( parsedMessage );
-                                                                        writer.Flush();
-                                                                    }catch( IOException ex )
-                                                                    {
-                                                                        ExecutionLogProvider.LogError( ex );
-
-                                                                        UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.ConnectionError,
-                                                                                                                                MessageDirection.Outgoing,
-                                                                                                                                message,
-                                                                                                                                ex  ) );
-                                                                    }
+                                                                    this.WriteMessage( writer, parsedMessage, message );
 
                                                                     message = messageQueue.GetMessage();
                                                                 }catch( Exception ex )
@@ -107,7 +145,7 @@ namespace Reth.Protocols.Serialization.Xml
                                                                                                                             message,
                                                                                                                             ex  ) );
 
-                                                                    throw new SerializationException( "Message stream writer ended prematurely.", ex );
+                                                                    throw new MessageSerializationException( "Message stream writer ended prematurely.", ex );
                                                                 }
                                                             }else
                                                             {

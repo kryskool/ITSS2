@@ -29,21 +29,14 @@ namespace Reth.Itss2.Standard.Dialogs.General.Hello
             return result;
 		}
 
-        private Subscriber subscriber;
-
         public HelloResponse(   IMessageId id,
                                 Subscriber subscriber   )
         :
             base( DialogName.Hello, id )
         {
-            this.Subscriber = subscriber;
-        }
+            subscriber.ThrowIfNull();
 
-        public HelloResponse( HelloRequest request )
-        :
-            base( request )
-        {
-            this.Subscriber = request.Subscriber;
+            this.Subscriber = subscriber;
         }
 
         public HelloResponse(   HelloRequest request,
@@ -51,19 +44,14 @@ namespace Reth.Itss2.Standard.Dialogs.General.Hello
         :
             base( request )
         {
+            subscriber.ThrowIfNull();
+
             this.Subscriber = subscriber;
         }
 
         public Subscriber Subscriber
         {
-            get{ return this.subscriber; }
-
-            private set
-            {
-                value.ThrowIfNull();
-
-                this.subscriber = value;
-            }
+            get;
         }
 
         public override bool Equals( Object obj )

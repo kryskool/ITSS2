@@ -37,6 +37,11 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                 throw new InvalidOperationException( $"A state transition can only occur between different states. Equal state: '{ fromState }'" );
             }
 
+            if( fromMatch.StartIndex >= toMatch.StartIndex )
+            {
+                throw new InvalidOperationException( $"The start index of a match has to be lower than the end index of this match. Start: '{ fromMatch.StartIndex }', End: '{ toMatch.StartIndex }'" );
+            }
+
             this.FromState = fromState;
             this.ToState = toState;
             this.FromMatch = fromMatch;

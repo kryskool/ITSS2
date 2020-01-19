@@ -194,7 +194,7 @@ namespace Reth.Protocols.Serialization.Xml
 
             Debug.Assert( nodeType == XmlNodeType.CDATA, $"{ nameof( nodeType ) } == XmlNodeType.CDATA" );
 
-            if( nodeType != XmlNodeType.Element )
+            if( nodeType != XmlNodeType.CDATA )
             {
                 throw new InvalidOperationException( $"Node type of 'CDATA' expected. Actual: { nodeType.ToString() }" );
             }

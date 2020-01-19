@@ -138,7 +138,6 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
             this.DialogProvider = dialogProvider;
             this.DialogProvider.ArticleInfo.RequestReceived += this.ArticleInfo_RequestReceived;
             this.DialogProvider.Input.RequestReceived += this.Input_RequestReceived;
-
             this.DialogProvider.Output.MessageReceived += this.Output_MessageReceived;
             this.DialogProvider.StockInfo.MessageReceived += this.StockInfo_MessageReceived;
 
@@ -217,27 +216,23 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
         
         private void ArticleInfo_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            if( !( this.ArticleInfoRequestReceivedCallback is null ) )
-            {
-                ArticleInfoResponse response = null;
-                
-                try
-                {
-                    response = this.ArticleInfoRequestReceivedCallback?.Invoke( this, ( ArticleInfoRequest )( e.Message ) );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                }
+            e.IsHandled = true;
 
-                if( !( response is null ) )
-                {
-                    this.DialogProvider.ArticleInfo.SendResponse( response );
-                }
+            try
+            {
+                ArticleInfoResponse response = this.ArticleInfoRequestReceivedCallback?.Invoke( this, ( ArticleInfoRequest )( e.Message ) );
+
+                this.DialogProvider.ArticleInfo.SendResponse( response );
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
             }
         }
 
         private void Input_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
+            e.IsHandled = true;
+
             try
             {
                 InputRequest request = ( InputRequest )( e.Message );

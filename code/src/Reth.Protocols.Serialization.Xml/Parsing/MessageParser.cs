@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization;
@@ -24,7 +25,9 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
 
         public static String GetMessageName( String message )
         {
-            String result = null;
+            message.ThrowIfNull();
+
+            String result = String.Empty;
 
             if( String.IsNullOrEmpty( message ) == false )
             {
@@ -41,6 +44,15 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
                         result = message.Substring( indexOfNameStart, lengthOfName );
                     }
                 }
+            }
+
+            bool messageTypeFound = !( String.IsNullOrEmpty( result ) );
+
+            Debug.Assert( messageTypeFound == true, $"{ messageTypeFound } == true" );
+
+            if( messageTypeFound == false )
+            {
+                throw new MessageTypeException( $"Determination of message type failed." );
             }
 
             return result;
@@ -75,132 +87,174 @@ namespace Reth.Protocols.Serialization.Xml.Parsing
             get;
         }
 
+        public bool TryParse( String message, out IMessage result )
+        {
+            result = null;
+            
+            bool success = false;
+
+            try
+            {
+                String messageName = MessageParser.GetMessageName( message );
+
+                ITypeMapping typeMapping = this.TypeMappings.GetTypeMapping( messageName );
+                Type envelopeDataContractType = this.TypeMappings.EnvelopeDataContractType.MakeGenericType( typeMapping.InstanceType, this.TypeMappings.GetType() );
+
+                using( StringReader input = new StringReader( message ) )
+                {
+                    using( XmlReader reader = XmlReader.Create( input, XmlSerializationSettings.ReaderSettings ) )
+                    {
+                        DataContractSerializer serializer = MessageParser.GetSerializer( envelopeDataContractType );
+
+                        IMessageEnvelopeDataContract envelope = ( IMessageEnvelopeDataContract )( serializer.ReadObject( reader ) );
+
+                        result = envelope.DataObject.Message;
+
+                        success = true;
+                    }
+                }
+            }catch
+            {
+            }
+
+            return success;
+        }
+
         public IMessage Parse( String message )
         {
+            message.ThrowIfNull();
+
             IMessage result = null;
 
-            String messageName = MessageParser.GetMessageName( message );
+            String messageName = String.Empty;
 
-            if( !( messageName is null ) )
+            Type envelopeDataContractType = null;
+
+            try
             {
-                try
-                {
-                    ITypeMapping typeMapping = this.TypeMappings.GetTypeMapping( messageName );
+                messageName = MessageParser.GetMessageName( message );
+
+                ITypeMapping typeMapping = this.TypeMappings.GetTypeMapping( messageName );
                     
-                    if( !( typeMapping is null ) )
-                    {
-                        IMessageEnvelopeDataContract envelope = null;
-
-                        try
-                        {
-                            using( StringReader input = new StringReader( message ) )
-                            {
-                                using( XmlReader reader = XmlReader.Create( input, XmlSerializationSettings.ReaderSettings ) )
-                                {
-                                    Type envelopeDataContractType = this.TypeMappings.EnvelopeDataContractType.MakeGenericType( typeMapping.InstanceType, this.TypeMappings.GetType() );
-
-                                    DataContractSerializer serializer = MessageParser.GetSerializer( envelopeDataContractType );
-
-                                    envelope = ( IMessageEnvelopeDataContract )( serializer.ReadObject( reader ) );
-                                }
-                            }
-                        }catch( Exception ex )
-                        {
-                            ExecutionLogProvider.LogError( ex );
-                            ExecutionLogProvider.LogError( $"Deserialization of message failed: '{ message }'" );
-
-                            UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.InvalidFormat,
-                                                                                    MessageDirection.Incoming,
-                                                                                    new RawMessage( message ),
-                                                                                    ex  ) );
-                        }
-
-                        if( !( envelope is null ) )
-                        {
-                            result = envelope.DataObject.Message;
-                        }
-                    }else
-                    {
-                        ExecutionLogProvider.LogError( $"Type mapping not found: { message }." );
-                    }
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
-                    ExecutionLogProvider.LogError( $"Determination of type mapping failed: { message }." );
-
-                    UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.UnknownError,
-                                                                            MessageDirection.Incoming,
-                                                                            new RawMessage( message ),
-                                                                            ex  ) );
-                }
-            }else
+                envelopeDataContractType = this.TypeMappings.EnvelopeDataContractType.MakeGenericType( typeMapping.InstanceType, this.TypeMappings.GetType() );
+            }catch( Exception ex )
             {
-                ExecutionLogProvider.LogError( $"Determination of message type failed: { message }." );
+                throw new MessageTypeException( "Unknown message type.", ex );
+            }
 
-                UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.InvalidFormat,
-                                                                        MessageDirection.Incoming,
-                                                                        new RawMessage( message )   ) );
+            try
+            {
+                using( StringReader input = new StringReader( message ) )
+                {
+                    using( XmlReader reader = XmlReader.Create( input, XmlSerializationSettings.ReaderSettings ) )
+                    {
+                        DataContractSerializer serializer = MessageParser.GetSerializer( envelopeDataContractType );
+
+                        IMessageEnvelopeDataContract envelope = ( IMessageEnvelopeDataContract )( serializer.ReadObject( reader ) );
+
+                        result = envelope.DataObject.Message;
+                    }
+                }
+            }catch( Exception ex )
+            {
+                throw new MessageSerializationException( $"Deserialization failed: '{ messageName }'", ex );
             }
 
             return result;
         }
 
-        public String Parse( IMessage message )
+        public bool TryParse( IMessage message, out String result )
         {
-            String result = String.Empty;
-            
+            result = null;
+
+            bool success = false;
+
             if( !( message is null ) )
             {
-                Type messageType = message.GetType();
-
-                if( messageType == typeof( RawMessage ) )
+                try
                 {
-                    RawMessage rawMessage = ( RawMessage )message;
+                    Type messageType = message.GetType();
 
-                    result = rawMessage.Value;
-                }else
-                {
-                    try
+                    if( messageType == typeof( RawMessage ) )
                     {
-                        Type envelopeType = this.TypeMappings.EnvelopeType;
+                        RawMessage rawMessage = ( RawMessage )message;
+
+                        result = rawMessage.Value;
+                    }else
+                    {
                         Type envelopeDataContractType = this.TypeMappings.EnvelopeDataContractType.MakeGenericType( messageType, this.TypeMappings.GetType() );
+                    
+                        Object envelope = Activator.CreateInstance( this.TypeMappings.EnvelopeType,
+                                                                    message );
 
-                        Object envelope = Activator.CreateInstance( envelopeType, message );
                         Object dataObject = Activator.CreateInstance( envelopeDataContractType, envelope );
-
+                        
                         StringBuilder buffer = new StringBuilder();
 
-                        try
+                        using( XmlWriter writer = XmlWriter.Create( buffer, XmlSerializationSettings.WriterSettings ) )
                         {
-                            using( XmlWriter writer = XmlWriter.Create( buffer, XmlSerializationSettings.WriterSettings ) )
-                            {
-                                DataContractSerializer serializer = MessageParser.GetSerializer( envelopeDataContractType );
+                            DataContractSerializer serializer = MessageParser.GetSerializer( envelopeDataContractType );
 
-                                serializer.WriteObject( writer, dataObject );
-                            }
-                        }catch( Exception ex )
-                        {
-                            ExecutionLogProvider.LogError( ex );
-                            ExecutionLogProvider.LogError( $"Serializing of message failed: { message }." );
-
-                            UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.InvalidFormat,
-                                                                                    MessageDirection.Outgoing,
-                                                                                    message,
-                                                                                    ex  ) );
+                            serializer.WriteObject( writer, dataObject );
                         }
 
                         result = buffer.ToString();
-                    }catch( Exception ex )
-                    {
-                        ExecutionLogProvider.LogError( ex );
-                        ExecutionLogProvider.LogError( $"Message envelope cannot be created: { message }." );
-
-                        UnhandledMessageHandler.Invoke( new UnhandledMessage(   UnhandledReason.UnknownError,
-                                                                                MessageDirection.Outgoing,
-                                                                                message,
-                                                                                ex  ) );
                     }
+                }catch
+                {
                 }
+            }
+
+            return success;
+        }
+
+        public String Parse( IMessage message )
+        {
+            message.ThrowIfNull();
+
+            String result = String.Empty;
+            
+            Type messageType = message.GetType();
+
+            if( messageType == typeof( RawMessage ) )
+            {
+                RawMessage rawMessage = ( RawMessage )message;
+
+                result = rawMessage.Value;
+            }else
+            {
+                Type envelopeDataContractType = null;
+                Object dataObject = null;
+
+                try
+                {
+                    envelopeDataContractType = this.TypeMappings.EnvelopeDataContractType.MakeGenericType( messageType, this.TypeMappings.GetType() );
+                    
+                    Object envelope = Activator.CreateInstance( this.TypeMappings.EnvelopeType,
+                                                                message );
+
+                    dataObject = Activator.CreateInstance( envelopeDataContractType, envelope );
+                }catch( Exception ex )
+                {
+                    throw new MessageTypeException( $"Message envelope cannot be created: '{ message.GetType().Name }'", ex );
+                }
+
+                StringBuilder buffer = new StringBuilder();
+
+                try
+                {
+                    using( XmlWriter writer = XmlWriter.Create( buffer, XmlSerializationSettings.WriterSettings ) )
+                    {
+                        DataContractSerializer serializer = MessageParser.GetSerializer( envelopeDataContractType );
+
+                        serializer.WriteObject( writer, dataObject );
+                    }
+                }catch( Exception ex )
+                {
+                    throw new MessageSerializationException( $"Serialization failed: '{ message.GetType().Name }'.", ex );
+                }
+
+                result = buffer.ToString();
             }
 
             return result;

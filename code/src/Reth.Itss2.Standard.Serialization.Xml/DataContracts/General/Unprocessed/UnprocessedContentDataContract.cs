@@ -35,9 +35,9 @@ namespace Reth.Itss2.Standard.Serialization.Xml.DataContracts.General.Unprocesse
             MessageId id = base.Serializer.ReadOptionalAttribute<MessageId>( reader, nameof( this.DataObject.Id ) );
             String value = base.Serializer.ReadMandatoryCData( reader );
 
-            IMessage content = this.MessageParser.Parse( value );
-
-            if( content is null )
+            IMessage content = null;
+            
+            if( this.MessageParser.TryParse( value, out content ) == false )
             {
                 content = new RawMessage( value );
             }
@@ -61,15 +61,13 @@ namespace Reth.Itss2.Standard.Serialization.Xml.DataContracts.General.Unprocesse
             {
                 content = rawMessage.Value;
             }else
-            {
-                content = this.MessageParser.Parse( message );
+            {                
+                if( this.MessageParser.TryParse( message, out content ) == false )
+                {
+                    content = $"Unprocessed message: { message.Id }";
+                }
             }
             
-            if( content is null )
-            {
-                content = $"Unprocessed message: { message.Id }";
-            }
-
             base.Serializer.WriteMandatoryCData( writer, content );
         }
     }
