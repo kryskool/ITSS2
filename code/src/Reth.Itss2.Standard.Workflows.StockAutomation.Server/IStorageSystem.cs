@@ -42,7 +42,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
         IRemoteMessageClient MessageClient{ get; }
         IRemoteClientDialogProvider DialogProvider{ get; }
 
-        void Run();
+        void Start();
         void Terminate();
 
         ArticleInfoResponse GetArticleInfo( IEnumerable<ArticleInfoRequestArticle> articles );

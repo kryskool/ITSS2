@@ -59,6 +59,25 @@ namespace Reth.Protocols
             get; set;
         }
 
+        private bool IsStarted
+        {
+            get
+            {
+                lock( this.SyncRoot )
+                {
+                    return this.isStarted;
+                }
+            }
+
+            set
+            {
+                lock( this.SyncRoot )
+                {
+                    this.isStarted = value;
+                }
+            }
+        }
+
         private Task Messaging
         {
             get; set;
@@ -90,7 +109,7 @@ namespace Reth.Protocols
             {
                 ExecutionLogProvider.LogInformation( "Starting message transceiver." );
 
-                if( this.isStarted == false )
+                if( this.IsStarted == false )
                 {
                     CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
@@ -121,11 +140,16 @@ namespace Reth.Protocols
                                                                             ExecutionLogProvider.LogInformation( "Waiting for message reader and message writer timed out." );
                                                                         }
 
-                                                                        this.Terminated?.SafeInvoke( this, EventArgs.Empty );
+                                                                        if( this.IsStarted == true )
+                                                                        {
+                                                                            this.IsStarted = false;
+                                                                            
+                                                                            this.Terminated?.SafeInvoke( this, EventArgs.Empty );
+                                                                        }
                                                                     },
                                                                     TaskContinuationOptions.LongRunning );
 
-                    this.isStarted = true;
+                    this.IsStarted = true;
                 }
             }
         }
@@ -136,13 +160,13 @@ namespace Reth.Protocols
             {
                 ExecutionLogProvider.LogInformation( "Canceling message transceiver." );
 
-                if( this.isStarted == true )
+                if( this.IsStarted == true )
                 {
-                    this.CancellationTokenSource.Cancel();
-                    this.CancellationTokenSource.Dispose();
-                    this.CancellationTokenSource = null;
+                    this.IsStarted = false;
 
-                    this.isStarted = false;
+                    this.CancellationTokenSource?.Cancel();
+                    this.CancellationTokenSource?.Dispose();
+                    this.CancellationTokenSource = null;
                 }
             }
         }
@@ -194,16 +218,17 @@ namespace Reth.Protocols
                 {
                     lock( this.SyncRoot )
                     {
-                        this.CancellationTokenSource?.Cancel();
-                        this.CancellationTokenSource?.Dispose();
-                        this.CancellationTokenSource = null;
-                    }
+                        if( this.IsStarted == true )
+                        {
+                            this.Terminate();
 
-                    ExecutionLogProvider.LogInformation( "Waiting for messaging to terminate..." );
+                            ExecutionLogProvider.LogInformation( "Waiting for messaging to terminate..." );
 
-                    if( this.Messaging.Wait( Timeouts.Termination ) == false )
-                    {
-                        ExecutionLogProvider.LogWarning( "Waiting for messaging timed out." );
+                            if( this.Messaging.Wait( Timeouts.Termination ) == false )
+                            {
+                                ExecutionLogProvider.LogWarning( "Waiting for messaging timed out." );
+                            }
+                        }
                     }
 
                     this.InteractionLog?.Dispose();

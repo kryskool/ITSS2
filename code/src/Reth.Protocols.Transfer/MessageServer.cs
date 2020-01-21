@@ -8,7 +8,6 @@ namespace Reth.Protocols.Transfer
 {
     public abstract class MessageServer:IMessageServer
     {
-        private RemoteMessageClientCollection connections;
         private bool isStarted;
         private volatile bool isDisposed;
         
@@ -21,7 +20,7 @@ namespace Reth.Protocols.Transfer
             this.Dispose( false );
         }
 
-        private Object SyncRoot
+        protected Object SyncRoot
         {
             get;
         } = new Object();
@@ -29,18 +28,6 @@ namespace Reth.Protocols.Transfer
         private List<IMessageServerListener> Listeners
         {
             get; set;
-        }
-
-        public RemoteMessageClientCollection Connections
-        {
-            get{ return this.connections; }
-            
-            protected set
-            {
-                value.ThrowIfNull();
-
-                this.connections = value;
-            }
         }
 
         protected bool IsStarted
@@ -93,61 +80,68 @@ namespace Reth.Protocols.Transfer
 
         public IEnumerable<IMessageServerListener> GetListeners()
         {
-            IMessageServerListener[] result = new IMessageServerListener[ this.Listeners.Count ];
+            lock( this.SyncRoot )
+            {
+                IMessageServerListener[] result = new IMessageServerListener[ this.Listeners.Count ];
 
-            this.Listeners.CopyTo( result, 0 );
+                this.Listeners.CopyTo( result, 0 );
 
-            return result;
+                return result;
+            }
         }
 
         public virtual void Start()
         {
-            if( this.IsStarted == false )
+            lock( this.SyncRoot )
             {
-                this.Listeners = new List<IMessageServerListener>( this.CreateListeners() );
+                if( this.IsStarted == false )
+                {
+                    this.Listeners = new List<IMessageServerListener>( this.CreateListeners() );
 
-                this.ForEach(   ( IMessageServerListener listener ) =>
-                                {
-                                    listener.Start();
-                                },
-                                ( IMessageServerListener listener ) =>
-                                {
-                                    return $"Failed to start listener: { listener.LocalName }";
-                                }   );
+                    this.ForEach(   ( IMessageServerListener listener ) =>
+                                    {
+                                        listener.Start();
+                                    },
+                                    ( IMessageServerListener listener ) =>
+                                    {
+                                        return $"Failed to start listener: { listener.LocalName }";
+                                    }   );
 
-                this.IsStarted = true;   
+                    this.IsStarted = true;   
+                }
             }
         }
 
         public virtual void Terminate()
         {
-            if( this.IsStarted == true )
+            lock( this.SyncRoot )
             {
-                List<IMessageServerListener> terminated = new List<IMessageServerListener>();
-
-                try
+                if( this.IsStarted == true )
                 {
-                    this.ForEach(   ( IMessageServerListener listener ) =>
-                                    {
-                                        listener.Terminate();
+                    List<IMessageServerListener> terminated = new List<IMessageServerListener>();
 
-                                        terminated.Add( listener );
-                                    },
-                                    ( IMessageServerListener listener ) =>
-                                    {
-                                        return $"Failed to terminate listener: { listener.LocalName }";
-                                    }   );
-                }finally
-                {
-                    foreach( IMessageServerListener listener in terminated )
+                    try
                     {
-                        this.Listeners.Remove( listener );
+                        this.ForEach(   ( IMessageServerListener listener ) =>
+                                        {
+                                            listener.Terminate();
+
+                                            terminated.Add( listener );
+                                        },
+                                        ( IMessageServerListener listener ) =>
+                                        {
+                                            return $"Failed to terminate listener: { listener.LocalName }";
+                                        }   );
+                    }finally
+                    {
+                        foreach( IMessageServerListener listener in terminated )
+                        {
+                            this.Listeners.Remove( listener );
+                        }
                     }
 
-                    this.Connections.Clear();
+                    this.IsStarted = false;
                 }
-
-                this.IsStarted = false;
             }
         }
 
@@ -165,15 +159,16 @@ namespace Reth.Protocols.Transfer
             if( this.isDisposed == false )
             {
                 if( disposing == true )
-                {                            
-                    foreach( IMessageServerListener listener in this.Listeners )
+                {
+                    lock( this.SyncRoot )
                     {
-                        listener.Dispose();
-                    }
+                        foreach( IMessageServerListener listener in this.Listeners )
+                        {
+                            listener.Dispose();
+                        }
                 
-                    this.Listeners.Clear();
-
-                    this.Connections.Dispose();
+                        this.Listeners.Clear();
+                    }
                 }
 
                 this.isDisposed = true;

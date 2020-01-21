@@ -6,7 +6,7 @@ namespace Reth.Protocols.Transfer
     {
         event EventHandler Disconnected;
 
-        void Run();
+        void Start();
         void Terminate();
     }
 }

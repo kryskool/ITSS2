@@ -59,6 +59,8 @@ namespace Reth.Protocols
 
         public bool PostMessage( IMessage message )
         {
+            message.ThrowIfNull();
+
             bool result = false;
 
             lock( this.SyncRoot )

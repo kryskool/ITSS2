@@ -37,7 +37,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 
         public event EventHandler Disconnected;
         
-        private bool isRunning;
+        private bool isStarted;
         private volatile bool isDisposed;
 
         public StorageSystem(   SubscriberInfo subscriberInfo,
@@ -85,13 +85,13 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             get;
         } = new Object();
 
-        private bool IsRunning
+        private bool IsStarted
         {
             get
             {
                 lock( this.SyncRoot )
                 {
-                    return this.isRunning;
+                    return this.isStarted;
                 }
             }
 
@@ -99,7 +99,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             {
                 lock( this.SyncRoot )
                 {
-                    this.isRunning = value;
+                    this.isStarted = value;
                 }
             }
         }
@@ -182,23 +182,23 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
                                                     supportedDialogs    );
         }
 
-        public void Run()
+        public void Start()
         {
-            if( this.IsRunning == false )
+            if( this.IsStarted == false )
             {
-                this.MessageClient.Run();
+                this.MessageClient.Start();
 
-                this.isRunning = true;
+                this.IsStarted = true;
             }
         }
 
         public void Terminate()
         {
-            if( this.IsRunning == true )
+            if( this.IsStarted == true )
             {
                 this.MessageClient.Terminate();
 
-                this.isRunning = false;
+                this.IsStarted = false;
             }
         }
 
@@ -271,9 +271,16 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 
             try
             {
-                HelloResponse response = this.HelloRequestReceivedCallback?.Invoke( this, ( HelloRequest )( e.Message ) );
+                HelloRequest request = ( HelloRequest )( e.Message );
 
-                this.DialogProvider.Hello.SendResponse( response );  
+                HelloResponse response = this.HelloRequestReceivedCallback?.Invoke( this, request );
+
+                this.DialogProvider.Hello.SendResponse( response );
+
+                foreach( Capability capability in request.Subscriber.GetCapabilities() )
+                {
+                    this.RemoteCapabilities.Add( capability.Name );
+                }
             }catch( Exception ex )
             {
                 ExecutionLogProvider.LogError( ex );

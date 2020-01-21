@@ -19,8 +19,6 @@ namespace Reth.Protocols.Transfer.Tcp
             ExecutionLogProvider.LogInformation( $"Maximum allowed client connections for TCP: { serverInfo.MaxClientConnections }" );
             ExecutionLogProvider.LogInformation( $"Enable IPv4: { serverInfo.EnableIPv4Listening }" );
             ExecutionLogProvider.LogInformation( $"Enable IPv6: { serverInfo.EnableIPv6Listening }" );
-    
-            this.Connections = new RemoteMessageClientCollection( serverInfo.MaxClientConnections );
         }
 
         public TcpServerInfo ServerInfo
@@ -61,24 +59,41 @@ namespace Reth.Protocols.Transfer.Tcp
 
         private void Listener_ConnectionAccepted( Object sender, ConnectionAcceptedEventArgs e )
         {
-            lock( this.Connections.SyncRoot )
+            String remoteEndPoint = String.Empty;
+
+            try
             {
-                if( this.Connections.HasMaximumReached == false )
+                remoteEndPoint = e.TcpClient.Client.RemoteEndPoint.ToString();
+            }catch( Exception ex )
+            {
+                ExecutionLogProvider.LogError( ex );
+            }
+
+            lock( this.SyncRoot )
+            {
+                try
                 {
-                    ExecutionLogProvider.LogInformation( "Creating message client." );
+                    if( this.CanAccept() == true )
+                    {
+                        ExecutionLogProvider.LogInformation( $"Connection '{ remoteEndPoint }' is accepted." );
 
-                    IRemoteMessageClient messageClient = this.CreateMessageClient( e.TcpClient );
+                        this.OnConnectionAccepted( e.TcpClient );
+                    }else
+                    {
+                        ExecutionLogProvider.LogInformation( $"Connection '{ remoteEndPoint }' is not accepted." );
 
-                    this.Connections.Add( messageClient );
-                }else
+                        e.TcpClient.Dispose();
+                    }
+                }catch( Exception ex )
                 {
-                    ExecutionLogProvider.LogInformation( "Number of maximum allowed connections has been reached." );
-
-                    e.TcpClient.Dispose();
+                    ExecutionLogProvider.LogError( ex );
+                    ExecutionLogProvider.LogError( $"Failed to accept connection '{ remoteEndPoint }'." );
                 }
             }
         }
 
-        protected abstract IRemoteMessageClient CreateMessageClient( TcpClient tcpClient );
+        protected abstract bool CanAccept();
+        
+        protected abstract void OnConnectionAccepted( TcpClient tcpClient );
     }
 }

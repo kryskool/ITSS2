@@ -2,8 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 
+using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Extensions.EventArgsExtensions;
+using Reth.Protocols.Extensions.Int32Extensions;
+using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 {
@@ -13,21 +17,49 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
         IReadOnlyCollection<IStorageSystem>
     {
         public event EventHandler<StorageSystemEventArgs> Added;
-        public event EventHandler<StorageSystemEventArgs> Removed;
 
-        public StorageSystemCollection()
+        internal StorageSystemCollection( int maxCount, Object syncRoot )
         {
-            this.Items = new List<IStorageSystem>();
+            maxCount.ThrowIfNotPositive();
+            syncRoot.ThrowIfNull();
+
+            this.MaxCount = maxCount;
+            this.SyncRoot = syncRoot;
+
+            this.Semaphore = new SemaphoreSlim( maxCount );
+
+            this.Items = new List<IStorageSystem>( maxCount );
+        }
+
+        private SemaphoreSlim Semaphore
+        {
+            get;
+        }
+
+        private List<IStorageSystem> Items
+        {
+            get;
         }
 
         public Object SyncRoot
         {
             get;
-        } = new Object();
+        }
 
-        private List<IStorageSystem> Items
+        public int MaxCount
         {
             get;
+        }
+
+        public bool HasMaximumReached
+        {
+            get
+            {
+                lock( this.SyncRoot )
+                {                   
+                    return ( this.MaxCount - this.Count ) <= 0;
+                }
+            }
         }
 
         public int Count
@@ -41,17 +73,29 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             }
         }
 
-        public void Add( IStorageSystem item )
+        public bool Add( IStorageSystem item )
         {
+            bool result = false;
+
             if( !( item is null ) )
             {
                 lock( this.SyncRoot )
                 {
-                    this.Items.Add( item );
+                    if( this.Semaphore.Wait( 0 ) == true )
+                    {
+                        this.Items.Add( item );
 
-                    this.Added?.SafeInvoke( this, new StorageSystemEventArgs( item ) );
+                        this.Added?.SafeInvoke( this, new StorageSystemEventArgs( item ) );
+
+                        result = true;
+                    }else
+                    {
+                        ExecutionLogProvider.LogInformation( "Number of maximum allowed connections has been reached." );
+                    }
                 }
             }
+
+            return result;
         }
 
         public void Clear()
@@ -59,7 +103,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             lock( this.SyncRoot )
             {
                 IStorageSystem[] items = new IStorageSystem[ this.Items.Count ];
-
+                
                 this.Items.CopyTo( items );
 
                 foreach( IStorageSystem item in items )
@@ -79,9 +123,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
                 {
                     if( this.Items.Remove( item ) == true )
                     {
-                        result = true;
+                        this.Semaphore.Release();
 
-                        this.Removed?.SafeInvoke( this, new StorageSystemEventArgs( item ) );
+                        result = true;
                     }
                 }
             }

@@ -8,7 +8,6 @@ using Reth.Itss2.Standard.Serialization;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
 using Reth.Protocols.Extensions.ObjectExtensions;
-using Reth.Protocols.Transfer;
 using Reth.Protocols.Transfer.Tcp;
 
 namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
@@ -34,8 +33,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
             this.CreateInteractionLogCallback = createInteractionLogCallback;
             this.SupportedDialogs = supportedDialogs;
 
-            base.Connections.Removed += this.Connections_Removed;
-            this.StorageSystems.Removed += this.StorageSystems_Removed;
+            this.StorageSystems = new StorageSystemCollection( serverInfo.MaxClientConnections, this.SyncRoot );
         }        
 
         public SubscriberInfo SubscriberInfo
@@ -46,7 +44,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
         public StorageSystemCollection StorageSystems
         {
             get;
-        } = new StorageSystemCollection();
+        }
 
         public IProtocolProvider ProtocolProvider
         {
@@ -63,45 +61,29 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
             get;
         }
 
-        private void Connections_Removed( Object sender, RemoteMessageClientEventArgs e )
-        {
-            IRemoteMessageClient messageClient = e.MessageClient;
-
-            lock( this.StorageSystems.SyncRoot )
-            {
-                IStorageSystem remove = null;
-
-                foreach( IStorageSystem storageSystem in this.StorageSystems )
-                {
-                    if( storageSystem.MessageClient.LocalName.Equals( messageClient.LocalName, StringComparison.OrdinalIgnoreCase ) == true )
-                    {
-                        remove = storageSystem;
-
-                        break;
-                    }
-                }
-
-                this.StorageSystems.Remove( remove );
-            }
-        }
-
-        private void StorageSystems_Removed( Object sender, StorageSystemEventArgs e )
-        {
-            IStorageSystem storageSystem = e.StorageSystem;
-
-            base.Connections.Remove( storageSystem.MessageClient );
-        }
-
         private void StorageSystem_Disconnected( Object sender, EventArgs e )
         {
             IStorageSystem storageSystem = ( IStorageSystem )sender;
 
-            this.StorageSystems.Remove( storageSystem );
+            lock( this.SyncRoot )
+            {
+                this.StorageSystems.Remove( storageSystem );
+                
+                storageSystem.Dispose();
+            }
         }
 
-        protected override IRemoteMessageClient CreateMessageClient( TcpClient tcpClient )
+        protected override bool CanAccept()
         {
-            lock( this.StorageSystems.SyncRoot )
+            lock( this.SyncRoot )
+            {
+                return !( this.StorageSystems.HasMaximumReached );
+            }
+        }
+        
+        protected override void OnConnectionAccepted( TcpClient tcpClient )
+        {
+            lock( this.SyncRoot )
             {
                 IInteractionLog interactionLog = this.CreateInteractionLog( tcpClient );
                 IStorageSystem storageSystem = this.CreateStorageSystem(    this.ProtocolProvider,
@@ -110,25 +92,11 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
                                                                             tcpClient   );
 
                 storageSystem.Disconnected += this.StorageSystem_Disconnected;
-                storageSystem.Run();
                 
                 this.StorageSystems.Add( storageSystem );
-                        
-                return storageSystem.MessageClient;
+
+                storageSystem.Start();
             }
-        }     
-
-        protected virtual IStorageSystem CreateStorageSystem(   IProtocolProvider protocolProvider,
-                                                                IInteractionLog interactionLog,
-                                                                IEnumerable<IDialogName> supportedDialogs,
-                                                                TcpClient tcpClient  )
-        {
-            StorageSystemFactory storageSystemFactory = new StorageSystemFactory( this.SubscriberInfo );
-
-            return storageSystemFactory.CreateTcp(  protocolProvider,
-                                                    interactionLog,
-                                                    supportedDialogs,
-                                                    tcpClient   );
         }
 
         private IInteractionLog CreateInteractionLog( TcpClient tcpClient )
@@ -152,30 +120,31 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
             return result;
         }
 
-        public override void Start()
+        protected virtual IStorageSystem CreateStorageSystem(   IProtocolProvider protocolProvider,
+                                                                IInteractionLog interactionLog,
+                                                                IEnumerable<IDialogName> supportedDialogs,
+                                                                TcpClient tcpClient  )
         {
-            lock( this.StorageSystems.SyncRoot )
-            {
-                base.Start();
-            }
+            StorageSystemFactory storageSystemFactory = new StorageSystemFactory( this.SubscriberInfo );
+
+            return storageSystemFactory.CreateTcp(  protocolProvider,
+                                                    interactionLog,
+                                                    supportedDialogs,
+                                                    tcpClient   );
         }
 
         public override void Terminate()
         {
-            IStorageSystem[] storageSystems = null;
-
-            lock( this.StorageSystems.SyncRoot )
+            lock( this.SyncRoot )
             {
-                storageSystems = new IStorageSystem[ this.StorageSystems.Count ];
+                base.Terminate();
 
-                this.StorageSystems.CopyTo( storageSystems );
-            }
+                foreach( IStorageSystem storageSystem in this.StorageSystems )
+                {
+                    storageSystem.Dispose();
+                }
 
-            base.Terminate();
-
-            foreach( IStorageSystem storageSystem in storageSystems )
-            {
-                storageSystem.Terminate();
+                this.StorageSystems.Clear();
             }
         }
 
@@ -187,7 +156,17 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
             {
                 if( disposing == true )
                 {
-                    this.Terminate();
+                    lock( this.SyncRoot )
+                    {
+                        this.Terminate();
+
+                        foreach( IStorageSystem storageSystem in this.StorageSystems )
+                        {
+                            storageSystem.Dispose();
+                        }
+
+                        this.StorageSystems.Clear();
+                    }
                 }
 
                 this.isDisposed = true;

@@ -9,7 +9,7 @@ namespace Reth.Protocols.Transfer.Tcp
 {
     public class RemoteMessageClient:IRemoteMessageClient
     {
-        private bool isRunning;
+        private bool isStarted;
         private volatile bool isDisposed;
 
         public event EventHandler Disconnected
@@ -47,13 +47,13 @@ namespace Reth.Protocols.Transfer.Tcp
             get;
         } = new Object();
 
-        private bool IsRunning
+        private bool IsStarted
         {
             get
             {
                 lock( this.SyncRoot )
                 {
-                    return this.isRunning;
+                    return this.isStarted;
                 }
             }
 
@@ -61,7 +61,7 @@ namespace Reth.Protocols.Transfer.Tcp
             {
                 lock( this.SyncRoot )
                 {
-                    this.isRunning = value;
+                    this.isStarted = value;
                 }
             }
         }
@@ -149,43 +149,49 @@ namespace Reth.Protocols.Transfer.Tcp
             get; set;
         }
 
-        public void Run()
+        public void Start()
         {
-            if( this.IsRunning == false )
+            lock( this.SyncRoot )
             {
-                ExecutionLogProvider.LogInformation( "Running remote message client." );
+                if( this.IsStarted == false )
+                {
+                    ExecutionLogProvider.LogInformation( "Starting remote message client." );
 
-                try
-                {
-                    this.MessageTransceiver.Start( this.Stream );
-                }catch( Exception ex )
-                {
-                    throw new TransferException( "Running failed.", ex );
+                    try
+                    {
+                        this.MessageTransceiver.Start( this.Stream );
+                    }catch( Exception ex )
+                    {
+                        throw new TransferException( "Starting of remote message client failed.", ex );
+                    }
+
+                    this.IsStarted = true;
                 }
-
-                this.IsRunning = true;
             }
         }
 
         public void Terminate()
         {
-            if( this.IsRunning == true )
+            lock( this.SyncRoot )
             {
-                ExecutionLogProvider.LogInformation( "Terminating remote message client." );
-
-                try
+                if( this.IsStarted == true )
                 {
-                    ExecutionLogProvider.LogInformation( "Shutting down tcp client." );
+                    ExecutionLogProvider.LogInformation( "Terminating remote message client." );
 
-                    this.TcpClient.Client.Shutdown( SocketShutdown.Both );
+                    try
+                    {
+                        ExecutionLogProvider.LogInformation( "Shutting down tcp client." );
 
-                    this.MessageTransceiver.Terminate();
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
+                        this.TcpClient.Client.Shutdown( SocketShutdown.Both );
+
+                        this.MessageTransceiver.Terminate();
+                    }catch( Exception ex )
+                    {
+                        ExecutionLogProvider.LogError( ex );
+                    }
+
+                    this.IsStarted = false;
                 }
-
-                this.IsRunning = false;
             }
         }
 
@@ -204,14 +210,17 @@ namespace Reth.Protocols.Transfer.Tcp
             {
                 if( disposing == true )
                 {
-                    this.Terminate();
+                    lock( this.SyncRoot )
+                    {
+                        this.Terminate();
 
-                    this.MessageTransceiver.Dispose();
+                        this.MessageTransceiver.Dispose();
 
-                    ExecutionLogProvider.LogInformation( "Disposing tcp client." );
+                        ExecutionLogProvider.LogInformation( "Disposing tcp client." );
 
-                    this.TcpClient.Dispose();
-                    this.Stream.Dispose();
+                        this.TcpClient.Dispose();
+                        this.Stream.Dispose();
+                    }
                 }
 
                 this.isDisposed = true;

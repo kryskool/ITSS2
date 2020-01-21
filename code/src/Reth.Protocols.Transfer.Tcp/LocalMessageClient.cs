@@ -119,18 +119,21 @@ namespace Reth.Protocols.Transfer.Tcp
         {
             get
             {
-                IPEndPoint result = null;
+                lock( this.SyncRoot )
+                {
+                    IPEndPoint result = null;
 
-                try
-                {
-                    result = ( IPEndPoint )( this.TcpClient.Client.RemoteEndPoint );
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogWarning( ex );
-                    ExecutionLogProvider.LogWarning( "Remote endpoint is not available." );
+                    try
+                    {
+                        result = ( IPEndPoint )( this.TcpClient.Client.RemoteEndPoint );
+                    }catch( Exception ex )
+                    {
+                        ExecutionLogProvider.LogWarning( ex );
+                        ExecutionLogProvider.LogWarning( "Remote endpoint is not available." );
+                    }
+
+                    return result;
                 }
-
-                return result;
             }
         }
 
@@ -146,65 +149,71 @@ namespace Reth.Protocols.Transfer.Tcp
 
         public void Connect()
         {
-            if( this.IsConnected == false )
+            lock( this.SyncRoot )
             {
-                ExecutionLogProvider.LogInformation( "Connecting local message client." );
-
-                TcpClient tcpClient = this.TcpClient = new TcpClient();
-
-                try
+                if( this.IsConnected == false )
                 {
-                    IPAddress address = this.LocalEndPoint.Address;
-                    int port = this.LocalEndPoint.Port;
+                    ExecutionLogProvider.LogInformation( "Connecting local message client." );
 
-                    if( tcpClient.ConnectAsync( address, port ).Wait( LocalMessageClient.EstablishConnectionTimeout ) == true )
+                    TcpClient tcpClient = this.TcpClient = new TcpClient();
+
+                    try
                     {
-                        tcpClient.SetKeepAlive();
-                        tcpClient.SetReceiveBufferSize();
-                        tcpClient.SetSendBufferSize();
+                        IPAddress address = this.LocalEndPoint.Address;
+                        int port = this.LocalEndPoint.Port;
 
-                        this.Stream = new MessageStream( tcpClient.GetStream() );
+                        if( tcpClient.ConnectAsync( address, port ).Wait( LocalMessageClient.EstablishConnectionTimeout ) == true )
+                        {
+                            tcpClient.SetKeepAlive();
+                            tcpClient.SetReceiveBufferSize();
+                            tcpClient.SetSendBufferSize();
 
-                        this.MessageTransceiver.Start( this.Stream );
+                            this.Stream = new MessageStream( tcpClient.GetStream() );
 
-                        this.IsConnected = true;
-                    }else
+                            this.MessageTransceiver.Start( this.Stream );
+
+                            this.IsConnected = true;
+                        }else
+                        {
+                            ExecutionLogProvider.LogInformation( "Connecting local message client has timed out." );
+                        }
+                    } catch( Exception ex )
                     {
-                        ExecutionLogProvider.LogInformation( "Connecting local message client has timed out." );
+                        this.TcpClient?.Dispose();
+
+                        throw new TransferException( "Connecting failed.", ex );
                     }
-                } catch( Exception ex )
-                {
-                    this.TcpClient?.Dispose();
-
-                    throw new TransferException( "Connecting failed.", ex );
                 }
             }
         }
 
         public void Disconnect()
         {
-            if( this.IsConnected == true )
+            lock( this.SyncRoot )
             {
-                ExecutionLogProvider.LogInformation( "Disconnecting local message client." );
-
-                try
+                if( this.IsConnected == true )
                 {
-                    ExecutionLogProvider.LogInformation( "Shutting down tcp client." );
+                    ExecutionLogProvider.LogInformation( "Disconnecting local message client." );
 
-                    this.TcpClient.Client.Shutdown( SocketShutdown.Both );
+                    try
+                    {
+                        ExecutionLogProvider.LogInformation( "Shutting down tcp client." );
 
-                    ExecutionLogProvider.LogInformation( "Disposing tcp client." );
+                        this.TcpClient.Client.Shutdown( SocketShutdown.Both );
 
-                    this.TcpClient.Dispose();
-                    this.TcpClient = null;
+                        ExecutionLogProvider.LogInformation( "Disposing tcp client." );
 
-                    this.MessageTransceiver.Terminate();
-                }catch( Exception ex )
-                {
-                    ExecutionLogProvider.LogError( ex );
+                        this.TcpClient.Dispose();
+                        this.TcpClient = null;
+
+                        this.MessageTransceiver.Terminate();
+                    }catch( Exception ex )
+                    {
+                        ExecutionLogProvider.LogError( ex );
+                    }
+
+                    this.IsConnected = false;
                 }
-
-                this.IsConnected = false;
             }
         }
 
@@ -223,10 +232,13 @@ namespace Reth.Protocols.Transfer.Tcp
             {
                 if( disposing == true )
                 {
-                    this.Disconnect();
+                    lock( this.SyncRoot )
+                    {
+                        this.Disconnect();
 
-                    this.MessageTransceiver.Dispose();
-                    this.Stream.Dispose();
+                        this.MessageTransceiver.Dispose();
+                        this.Stream.Dispose();
+                    }
                 }
 
                 this.isDisposed = true;
