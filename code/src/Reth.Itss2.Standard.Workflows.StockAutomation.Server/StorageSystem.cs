@@ -428,16 +428,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 
         public ArticleInfoResponse GetArticleInfo( IEnumerable<ArticleInfoRequestArticle> articles )
         {
-            ArticleInfoResponse result = null;
+            this.VerifyCapability( DialogName.ArticleInfo );
 
-            ArticleInfoRequest request = this.CreateArticleInfoRequest( articles );
-
-            if( this.VerifyCapability( DialogName.ArticleInfo, request ) == true )
-            {
-                result = this.DialogProvider.ArticleInfo.SendRequest( request );
-            }
-
-            return result;
+            return this.DialogProvider.ArticleInfo.SendRequest( this.CreateArticleInfoRequest( articles ) );
         }
 
         public Task<ArticleInfoResponse> GetArticleInfoAsync( IEnumerable<ArticleInfoRequestArticle> articles )
@@ -447,28 +440,19 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 
         public Task<ArticleInfoResponse> GetArticleInfoAsync( IEnumerable<ArticleInfoRequestArticle> articles, CancellationToken cancellationToken )
         {
-            Task<ArticleInfoResponse> result = Task.FromResult<ArticleInfoResponse>( null );
+            this.VerifyCapability( DialogName.ArticleInfo );
 
-            ArticleInfoRequest request = this.CreateArticleInfoRequest( articles );
-
-            if( this.VerifyCapability( DialogName.ArticleInfo, request ) == true )
-            {
-                result = this.DialogProvider.ArticleInfo.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.ArticleInfo.SendRequestAsync(    this.CreateArticleInfoRequest( articles ),
+                                                                        cancellationToken   );
         }
 
         public void SendOutputMessage(  OutputMessageDetails details,
                                         IEnumerable<OutputArticle> articles,
                                         IEnumerable<OutputBox> boxes )
         {
-            OutputMessage message = this.CreateOutputMessage( details, articles, boxes );
+            this.VerifyCapability( DialogName.Output );
 
-            if( this.VerifyCapability( DialogName.Output, message ) == true )
-            {
-                this.DialogProvider.Output.SendMessage( message );
-            }
+            this.DialogProvider.Output.SendMessage( this.CreateOutputMessage( details, articles, boxes ) );
         }
 
         public Task SendOutputMessageAsync( OutputMessageDetails details,
@@ -483,26 +467,17 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
                                             IEnumerable<OutputBox> boxes,
                                             CancellationToken cancellationToken )
         {
-            Task result = Task.CompletedTask;
+            this.VerifyCapability( DialogName.Output );
 
-            OutputMessage message = this.CreateOutputMessage( details, articles, boxes );
-
-            if( this.VerifyCapability( DialogName.Output, message ) == true )
-            {
-                result = this.DialogProvider.Output.SendMessageAsync( message, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.Output.SendMessageAsync( this.CreateOutputMessage( details, articles, boxes ),
+                                                                cancellationToken   );
         }
 
         public void SendStockInfoMessage( IEnumerable<StockInfoArticle> articles )
         {
-            StockInfoMessage message = this.CreateStockInfoMessage( articles );
+            this.VerifyCapability( DialogName.StockInfo );
 
-            if( this.VerifyCapability( DialogName.StockInfo, message ) == true )
-            {
-                this.DialogProvider.StockInfo.SendMessage( message );
-            }
+            this.DialogProvider.StockInfo.SendMessage( this.CreateStockInfoMessage( articles ) );
         }
 
         public Task SendStockInfoMessageAsync( IEnumerable<StockInfoArticle> articles )
@@ -512,16 +487,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
 
         public Task SendStockInfoMessageAsync( IEnumerable<StockInfoArticle> articles, CancellationToken cancellationToken )
         {
-            Task result = Task.CompletedTask;
+            this.VerifyCapability( DialogName.StockInfo );
 
-            StockInfoMessage message = this.CreateStockInfoMessage( articles );
-
-            if( this.VerifyCapability( DialogName.StockInfo, message ) == true )
-            {
-                result = this.DialogProvider.StockInfo.SendMessageAsync( message, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.StockInfo.SendMessageAsync( this.CreateStockInfoMessage( articles ), cancellationToken );
         }
 
         public IInputProcess CreateInputProcess()

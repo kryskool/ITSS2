@@ -326,16 +326,9 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public StatusResponse GetStatus( bool includeDetails )
         {
-            StatusResponse result = null;
+            this.VerifyCapability( DialogName.Status );
 
-            StatusRequest request = this.CreateStatusRequest( includeDetails );
-
-            if( this.VerifyCapability( DialogName.Status, request ) == true )
-            {
-                result = this.DialogProvider.Status.SendRequest( request );
-            }
-            
-            return result;
+            return this.DialogProvider.Status.SendRequest( this.CreateStatusRequest( includeDetails ) );
         }
 
         public Task<StatusResponse> GetStatusAsync( bool includeDetails )
@@ -345,30 +338,16 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public Task<StatusResponse> GetStatusAsync( bool includeDetails, CancellationToken cancellationToken )
         {
-            Task<StatusResponse> result = Task.FromResult<StatusResponse>( null );
+            this.VerifyCapability( DialogName.Status );
 
-            StatusRequest request = this.CreateStatusRequest( includeDetails );
-
-            if( this.VerifyCapability( DialogName.Status, request ) == true )
-            {
-                result = this.DialogProvider.Status.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.Status.SendRequestAsync( this.CreateStatusRequest( includeDetails ), cancellationToken );
         }
 
         public StockLocationInfoResponse GetStockLocationInfo()
         {
-            StockLocationInfoResponse result = null;
-
-            StockLocationInfoRequest request = this.CreateStockLocationInfoRequest();
-
-            if( this.VerifyCapability( DialogName.StockLocationInfo, request ) == true )
-            {
-                result = this.DialogProvider.StockLocationInfo.SendRequest( request );
-            }
-
-            return result;
+            this.VerifyCapability( DialogName.StockLocationInfo );
+            
+            return this.DialogProvider.StockLocationInfo.SendRequest( this.CreateStockLocationInfoRequest() );
         }
 
         public Task<StockLocationInfoResponse> GetStockLocationInfoAsync()
@@ -378,30 +357,16 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public Task<StockLocationInfoResponse> GetStockLocationInfoAsync( CancellationToken cancellationToken )
         {
-            Task<StockLocationInfoResponse> result = Task.FromResult<StockLocationInfoResponse>( null );
+            this.VerifyCapability( DialogName.StockLocationInfo );
 
-            StockLocationInfoRequest request = this.CreateStockLocationInfoRequest();
-
-            if( this.VerifyCapability( DialogName.StockLocationInfo, request ) == true )
-            {
-                result = this.DialogProvider.StockLocationInfo.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.StockLocationInfo.SendRequestAsync( this.CreateStockLocationInfoRequest(), cancellationToken );
         }
 
         public OutputInfoResponse GetOutputInfo( MessageId outputId, bool includeTaskDetails )
         {
-            OutputInfoResponse result = null;
+            this.VerifyCapability( DialogName.OutputInfo );
 
-            OutputInfoRequest request = this.CreateOutputInfoRequest( outputId, includeTaskDetails );
-
-            if( this.VerifyCapability( DialogName.OutputInfo, request ) == true )
-            {
-                result = this.DialogProvider.OutputInfo.SendRequest( request );
-            }
-
-            return result;
+            return this.DialogProvider.OutputInfo.SendRequest( this.CreateOutputInfoRequest( outputId, includeTaskDetails ) );
         }
 
         public Task<OutputInfoResponse> GetOutputInfoAsync( MessageId outputId, bool includeTaskDetails )
@@ -411,30 +376,17 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public Task<OutputInfoResponse> GetOutputInfoAsync( MessageId outputId, bool includeTaskDetails, CancellationToken cancellationToken )
         {
-            Task<OutputInfoResponse> result = Task.FromResult<OutputInfoResponse>( null );
+            this.VerifyCapability( DialogName.OutputInfo );
 
-            OutputInfoRequest request = this.CreateOutputInfoRequest( outputId, includeTaskDetails );
-
-            if( this.VerifyCapability( DialogName.OutputInfo, request ) == true )
-            {
-                result = this.DialogProvider.OutputInfo.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.OutputInfo.SendRequestAsync( this.CreateOutputInfoRequest( outputId, includeTaskDetails ),
+                                                                    cancellationToken   );
         }
 
         public StockDeliveryInfoResponse GetStockDeliveryInfo( String deliveryNumber, bool includeTaskDetails )
         {
-            StockDeliveryInfoResponse result = null;
+            this.VerifyCapability( DialogName.StockDeliveryInfo );
 
-            StockDeliveryInfoRequest request = this.CreateStockDeliveryInfoRequest( deliveryNumber, includeTaskDetails );
-
-            if( this.VerifyCapability( DialogName.StockDeliveryInfo, request ) == true )
-            {
-                result = this.DialogProvider.StockDeliveryInfo.SendRequest( request );
-            }
-
-            return result;
+            return this.DialogProvider.StockDeliveryInfo.SendRequest( this.CreateStockDeliveryInfoRequest( deliveryNumber, includeTaskDetails ) );
         }
 
         public Task<StockDeliveryInfoResponse> GetStockDeliveryInfoAsync( String deliveryNumber, bool includeTaskDetails )
@@ -444,32 +396,19 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public Task<StockDeliveryInfoResponse> GetStockDeliveryInfoAsync( String deliveryNumber, bool includeTaskDetails, CancellationToken cancellationToken )
         {
-            Task<StockDeliveryInfoResponse> result = Task.FromResult<StockDeliveryInfoResponse>( null );
+            this.VerifyCapability( DialogName.StockDeliveryInfo );
 
-            StockDeliveryInfoRequest request = this.CreateStockDeliveryInfoRequest( deliveryNumber, includeTaskDetails );
-
-            if( this.VerifyCapability( DialogName.StockDeliveryInfo, request ) == true )
-            {
-                result = this.DialogProvider.StockDeliveryInfo.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.StockDeliveryInfo.SendRequestAsync(  this.CreateStockDeliveryInfoRequest( deliveryNumber, includeTaskDetails ),
+                                                                            cancellationToken   );
         }
 
         public StockInfoResponse GetStockInfo(  bool includePacks,
                                                 bool includeArticleDetails,
                                                 IEnumerable<StockInfoRequestCriteria> criterias )
         {
-            StockInfoResponse result = null;
+            this.VerifyCapability( DialogName.StockInfo );
 
-            StockInfoRequest request = this.CreateStockInfoRequest( includePacks, includeArticleDetails, criterias );
-       
-            if( this.VerifyCapability( DialogName.StockInfo, request ) == true )
-            {
-                result = this.DialogProvider.StockInfo.SendRequest( request );
-            }
-
-            return result;
+            return this.DialogProvider.StockInfo.SendRequest( this.CreateStockInfoRequest( includePacks, includeArticleDetails, criterias ) );
         }
 
         public Task<StockInfoResponse> GetStockInfoAsync(   bool includePacks,
@@ -484,30 +423,17 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
                                                             IEnumerable<StockInfoRequestCriteria> criterias,
                                                             CancellationToken cancellationToken )
         {
-            Task<StockInfoResponse> result = Task.FromResult<StockInfoResponse>( null );
+            this.VerifyCapability( DialogName.StockInfo );
 
-            StockInfoRequest request = this.CreateStockInfoRequest( includePacks, includeArticleDetails, criterias );
-
-            if( this.VerifyCapability( DialogName.StockInfo, request ) == true )
-            {
-                result = this.DialogProvider.StockInfo.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.StockInfo.SendRequestAsync(  this.CreateStockInfoRequest( includePacks, includeArticleDetails, criterias ),
+                                                                    cancellationToken   );
         }
 
         public ArticleMasterSetResponse SetArticleMaster( IEnumerable<ArticleMasterSetArticle> articles )
         {
-            ArticleMasterSetResponse result = null;
+            this.VerifyCapability( DialogName.ArticleMasterSet );
 
-            ArticleMasterSetRequest request = this.CreateArticleMasterSetRequest( articles );
-
-            if( this.VerifyCapability( DialogName.ArticleMasterSet, request ) == true )
-            {
-                result = this.DialogProvider.ArticleMasterSet.SendRequest( request );
-            }
-
-            return result;
+            return this.DialogProvider.ArticleMasterSet.SendRequest( this.CreateArticleMasterSetRequest( articles ) );
         }
 
         public Task<ArticleMasterSetResponse> SetArticleMasterAsync( IEnumerable<ArticleMasterSetArticle> articles )
@@ -517,30 +443,16 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public Task<ArticleMasterSetResponse> SetArticleMasterAsync( IEnumerable<ArticleMasterSetArticle> articles, CancellationToken cancellationToken )
         {
-            Task<ArticleMasterSetResponse> result = Task.FromResult<ArticleMasterSetResponse>( null );
+            this.VerifyCapability( DialogName.ArticleMasterSet );
 
-            ArticleMasterSetRequest request = this.CreateArticleMasterSetRequest( articles );
-
-            if( this.VerifyCapability( DialogName.ArticleMasterSet, request ) == true )
-            {
-                result = this.DialogProvider.ArticleMasterSet.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.ArticleMasterSet.SendRequestAsync( this.CreateArticleMasterSetRequest( articles ), cancellationToken );
         }
 
         public StockDeliverySetResponse SetStockDelivery( IEnumerable<StockDelivery> deliveries )
         {
-            StockDeliverySetResponse result = null;
+            this.VerifyCapability( DialogName.StockDeliverySet );
 
-            StockDeliverySetRequest request = this.CreateStockDeliverySetRequest( deliveries );
-
-            if( this.VerifyCapability( DialogName.StockDeliverySet, request ) == true )
-            {
-                result = this.DialogProvider.StockDeliverySet.SendRequest( request );
-            }
-
-            return result;
+            return this.DialogProvider.StockDeliverySet.SendRequest( this.CreateStockDeliverySetRequest( deliveries ) );
         }
 
         public Task<StockDeliverySetResponse> SetStockDeliveryAsync( IEnumerable<StockDelivery> deliveries )
@@ -550,30 +462,17 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public Task<StockDeliverySetResponse> SetStockDeliveryAsync( IEnumerable<StockDelivery> deliveries, CancellationToken cancellationToken )
         {
-            Task<StockDeliverySetResponse> result = Task.FromResult<StockDeliverySetResponse>( null );
+            this.VerifyCapability( DialogName.StockDeliverySet );
 
-            StockDeliverySetRequest request = this.CreateStockDeliverySetRequest( deliveries );
-
-            if( this.VerifyCapability( DialogName.StockDeliverySet, request ) == true )
-            {
-                result = this.DialogProvider.StockDeliverySet.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.StockDeliverySet.SendRequestAsync(   this.CreateStockDeliverySetRequest( deliveries ),
+                                                                            cancellationToken   );
         }
 
         public TaskCancelOutputResponse CancelOutput( MessageId outputId )
         {
-            TaskCancelOutputResponse result = null;
+            this.VerifyCapability( DialogName.TaskCancelOutput );
 
-            TaskCancelOutputRequest request = this.CreateTaskCancelOutputRequest( outputId );
-
-            if( this.VerifyCapability( DialogName.TaskCancelOutput, request ) == true )
-            {
-                result = this.DialogProvider.TaskCancelOutput.SendRequest( request );
-            }
-
-            return result;
+            return this.DialogProvider.TaskCancelOutput.SendRequest( this.CreateTaskCancelOutputRequest( outputId ) );
         }
 
         public Task<TaskCancelOutputResponse> CancelOutputAsync( MessageId outputId )
@@ -583,16 +482,10 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
         public Task<TaskCancelOutputResponse> CancelOutputAsync( MessageId outputId, CancellationToken cancellationToken )
         {
-            Task<TaskCancelOutputResponse> result = Task.FromResult<TaskCancelOutputResponse>( null );
+            this.VerifyCapability( DialogName.TaskCancelOutput );
 
-            TaskCancelOutputRequest request = this.CreateTaskCancelOutputRequest( outputId );
-
-            if( this.VerifyCapability( DialogName.TaskCancelOutput, request ) == true )
-            {
-                result = this.DialogProvider.TaskCancelOutput.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return this.DialogProvider.TaskCancelOutput.SendRequestAsync(   this.CreateTaskCancelOutputRequest( outputId ),
+                                                                            cancellationToken   );
         }
 
         public IInitiateInputProcess CreateInitiateInputProcess()

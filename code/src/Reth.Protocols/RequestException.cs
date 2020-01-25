@@ -10,13 +10,13 @@ namespace Reth.Protocols
         {
         }
 
-        public RequestException( string message )
+        public RequestException( String message )
         :
             base( message )
         {
         }
 
-        public RequestException( string message, Exception innerException )
+        public RequestException( String message, Exception innerException )
         :
             base( message, innerException )
         {

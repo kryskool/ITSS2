@@ -43,18 +43,11 @@ namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Client
 
         public ConfigurationGetResponse GetConfiguration()
         {
-            ConfigurationGetResponse result = null;
+            this.VerifyCapability( DialogName.ConfigurationGet );
 
-            ConfigurationGetRequest request = this.CreateConfigurationGetRequest();
+            ILocalClientDialogProvider dialogProvider = ( ILocalClientDialogProvider )( this.DialogProvider );
 
-            if( base.VerifyCapability( DialogName.ConfigurationGet, request ) == true )
-            {
-                ILocalClientDialogProvider dialogProvider = ( ILocalClientDialogProvider )( this.DialogProvider );
-
-                result = dialogProvider.ConfigurationGet.SendRequest( request );
-            }
-
-            return result;
+            return dialogProvider.ConfigurationGet.SendRequest( this.CreateConfigurationGetRequest() );
         }
 
         public Task<ConfigurationGetResponse> GetConfigurationAsync()
@@ -64,18 +57,11 @@ namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Client
 
         public Task<ConfigurationGetResponse> GetConfigurationAsync( CancellationToken cancellationToken )
         {
-            Task<ConfigurationGetResponse> result = Task.FromResult<ConfigurationGetResponse>( null );
+            this.VerifyCapability( DialogName.ConfigurationGet );
+         
+            ILocalClientDialogProvider dialogProvider = ( ILocalClientDialogProvider )( this.DialogProvider );
 
-            ConfigurationGetRequest request = this.CreateConfigurationGetRequest();
-
-            if( base.VerifyCapability( DialogName.ConfigurationGet, request ) == true )
-            {
-                ILocalClientDialogProvider dialogProvider = ( ILocalClientDialogProvider )( this.DialogProvider );
-
-                result = dialogProvider.ConfigurationGet.SendRequestAsync( request, cancellationToken );
-            }
-
-            return result;
+            return dialogProvider.ConfigurationGet.SendRequestAsync( this.CreateConfigurationGetRequest(), cancellationToken );
         }
     }
 }

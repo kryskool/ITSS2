@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -82,22 +83,27 @@ namespace Reth.Itss2.Standard.Workflows
             return result;
         }
 
-        protected bool VerifyCapability( DialogName dialogName, TraceableMessage message )
+        protected void VerifyCapability( DialogName dialogName )
         {
-            bool result = true;
+            dialogName.ThrowIfNull();
 
-            if( !( this.RemoteSubscriber is null ) )
+            bool hasRemoteSubscriber = !( this.RemoteSubscriber is null );
+
+            Debug.Assert( hasRemoteSubscriber == true, $"{ hasRemoteSubscriber } == true" );
+
+            if( hasRemoteSubscriber == false )
             {
-                if( this.RemoteCapabilities.Contains( dialogName ) == false )
-                {
-                    this.ReportUnhandledMessage( message, UnhandledReason.Unsupported );
-                }
-            }else
-            {
-                this.ReportUnhandledMessage( message, UnhandledReason.ConnectionError );
+                throw new CapabilityException( "Remote subscriber is unknown." );
             }
 
-            return result;
+            bool hasRemoteCapability = this.RemoteCapabilities.Contains( dialogName );
+
+            Debug.Assert( hasRemoteCapability == true, $"{ hasRemoteCapability } == true" );
+
+            if( hasRemoteCapability == false )
+            {
+                throw new CapabilityException( $"The remote subscriber doesn't support the capability of '{ dialogName.ToString() }'.", dialogName );
+            }
         }
 
         protected virtual void OnMessageUnhandled( UnhandledMessage message )
