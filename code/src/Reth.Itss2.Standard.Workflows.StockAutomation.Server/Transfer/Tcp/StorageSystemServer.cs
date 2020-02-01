@@ -141,6 +141,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
 
                 foreach( IStorageSystem storageSystem in this.StorageSystems )
                 {
+                    storageSystem.Disconnected -= this.StorageSystem_Disconnected;
                     storageSystem.Dispose();
                 }
 
@@ -154,20 +155,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server.Transfer.Tcp
 
             if( this.isDisposed == false )
             {
-                if( disposing == true )
-                {
-                    lock( this.SyncRoot )
-                    {
-                        this.Terminate();
-
-                        foreach( IStorageSystem storageSystem in this.StorageSystems )
-                        {
-                            storageSystem.Dispose();
-                        }
-
-                        this.StorageSystems.Clear();
-                    }
-                }
+                this.Terminate();
 
                 this.isDisposed = true;
             }

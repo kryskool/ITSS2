@@ -9,6 +9,8 @@ namespace Reth.Protocols.Transfer.Tcp
 {
     public abstract class TcpMessageServer:MessageServer
     {
+        private volatile bool isDisposed;
+
         protected TcpMessageServer( TcpServerInfo serverInfo )
         {
             serverInfo.ThrowIfNull();
@@ -95,5 +97,30 @@ namespace Reth.Protocols.Transfer.Tcp
         protected abstract bool CanAccept();
         
         protected abstract void OnConnectionAccepted( TcpClient tcpClient );
+
+        protected override void Dispose( bool disposing )
+        {
+            ExecutionLogProvider.LogInformation( "Disposing." );
+
+            if( this.isDisposed == false )
+            {
+                lock( this.SyncRoot )
+                {
+                    foreach( IMessageServerListener listener in this.GetListeners() )
+                    {
+                        TcpMessageServerListener tcpMessageServerListener = listener as TcpMessageServerListener;
+
+                        if( !( tcpMessageServerListener is null ) )
+                        {
+                            tcpMessageServerListener.ConnectionAccepted -= this.Listener_ConnectionAccepted;
+                        }
+                    }
+                }
+                
+                this.isDisposed = true;
+            }
+
+            base.Dispose();
+        }
     }
 }

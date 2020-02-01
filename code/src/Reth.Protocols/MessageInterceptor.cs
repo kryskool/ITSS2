@@ -160,10 +160,10 @@ namespace Reth.Protocols
         {
             if( this.isDisposed == false )
             {
+                this.MessageTransceiver.MessageReceived -= this.InterceptionCallback;
+
                 if( disposing == true )
                 {
-                    this.MessageTransceiver.MessageReceived -= this.InterceptionCallback;
-
                     this.MessageInterceptedEvent.Dispose();
                 }
 

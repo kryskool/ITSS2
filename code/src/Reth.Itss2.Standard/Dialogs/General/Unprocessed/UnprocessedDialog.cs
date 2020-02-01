@@ -68,6 +68,8 @@ namespace Reth.Itss2.Standard.Dialogs.General.Unprocessed
         {
             if( this.isDisposed == false )
             {
+                this.MessageInterceptor.Intercepted -= this.OnMessageReceived;
+
                 if( disposing == true )
                 {
                     this.MessageInterceptor.Dispose();

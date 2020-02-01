@@ -23,7 +23,7 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.Input
             this.MessageInterceptor = new MessageInterceptor( messageTransceiver, typeof( InputMessage ) );
 
             this.RequestInterceptor.Intercepted += this.OnRequestReceived;
-            this.MessageInterceptor.Intercepted += this.OnRequestReceived;
+            this.MessageInterceptor.Intercepted += this.OnMessageReceived;
         }
 
         ~InputClientDialog()
@@ -81,6 +81,9 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.Input
         {
             if( this.isDisposed == false )
             {
+                this.RequestInterceptor.Intercepted -= this.OnRequestReceived;
+                this.MessageInterceptor.Intercepted -= this.OnMessageReceived;
+
                 if( disposing == true )
                 {
                     this.RequestInterceptor.Dispose();

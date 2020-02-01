@@ -64,6 +64,8 @@ namespace Reth.Itss2.Experimental.Dialogs.SalesTransactions.ShoppingCartUpdate
         {
             if( this.isDisposed == false )
             {
+                this.MessageInterceptor.Intercepted -= this.OnMessageReceived;
+
                 if( disposing == true )
                 {
                     this.MessageInterceptor.Dispose();

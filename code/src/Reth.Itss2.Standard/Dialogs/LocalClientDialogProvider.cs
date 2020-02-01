@@ -82,8 +82,6 @@ namespace Reth.Itss2.Standard.Dialogs
         {
             ExecutionLogProvider.LogInformation( "Disposing local client dialog provider." );
 
-            base.Dispose( disposing );
-
             if( this.isDisposed == false )
             {
                 if( disposing == true )
@@ -107,6 +105,8 @@ namespace Reth.Itss2.Standard.Dialogs
 
                 this.isDisposed = true;
             }
+
+            base.Dispose( disposing );
         }
     }
 }

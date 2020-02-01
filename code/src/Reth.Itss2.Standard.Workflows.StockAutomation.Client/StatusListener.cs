@@ -114,6 +114,8 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
         {
             if( this.isDisposed == false )
             {
+                this.Timer.Elapsed -= this.Timer_Elapsed;
+
                 this.Stop();
 
                 if( disposing == true )

@@ -17,15 +17,13 @@ namespace Reth.Itss2.Standard.Workflows
 {
     public abstract class StorageSystem
     {
-        public event EventHandler<UnhandledMessageEventArgs> MessageUnhandled;
-
         public event EventHandler<MessageReceivedEventArgs> UnprocessedMessageReceived;
 
-        protected StorageSystem( IDialogProvider dialogProvider )
-        {
-            dialogProvider.ThrowIfNull();
+        public event EventHandler<UnhandledMessageEventArgs> MessageUnhandled;
+        public event EventHandler Disconnected;     
 
-            dialogProvider.Unprocessed.MessageReceived += this.Unprocessed_MessageReceived;
+        protected StorageSystem()
+        {
         }
 
         public Subscriber LocalSubscriber
@@ -38,7 +36,7 @@ namespace Reth.Itss2.Standard.Workflows
             get; protected set;
         }
 
-        private void Unprocessed_MessageReceived( Object sender, MessageReceivedEventArgs e )
+        protected void OnUnprocessedMessageReceived( Object sender, MessageReceivedEventArgs e )
         {
             try
             {
@@ -47,6 +45,11 @@ namespace Reth.Itss2.Standard.Workflows
             {
                 ExecutionLogProvider.LogError( ex );
             }
+        }
+
+        protected void OnMessageClientDisconnected( Object sender, EventArgs e )
+        {
+            this.Disconnected?.SafeInvoke( this, e );
         }
 
         protected HashSet<IDialogName> RemoteCapabilities

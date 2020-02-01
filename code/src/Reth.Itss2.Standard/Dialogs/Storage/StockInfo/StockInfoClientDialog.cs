@@ -64,6 +64,8 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.StockInfo
         {
             if( this.isDisposed == false )
             {
+                this.MessageInterceptor.Intercepted -= this.OnMessageReceived;
+
                 if( disposing == true )
                 {
                     this.MessageInterceptor.Dispose();

@@ -18,19 +18,8 @@ namespace Reth.Protocols
 
         public event EventHandler Terminated;
 
-        public event EventHandler<MessageReceivedEventArgs> MessageReceived
-        {
-            add
-            {
-                this.MessageReader.MessageReceived += value;
-            }
-
-            remove
-            {
-                this.MessageReader.MessageReceived -= value;
-            }
-        }
-
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+        
         public MessageTransceiver(  MessageInitializer outgoingInitializer,
                                     MessageInitializer incomingInitializer,
                                     IMessageSerializer messageSerializer,
@@ -42,6 +31,8 @@ namespace Reth.Protocols
             this.MessageFilter = new MessageFilter( supportedDialogs );
             this.MessageReader = new MessageReader( incomingInitializer, messageSerializer, this.MessageFilter, interactionLog );
             this.MessageWriter = new MessageWriter( outgoingInitializer, messageSerializer, this.MessageFilter, interactionLog );
+
+            this.MessageReader.MessageReceived += this.MessageReader_MessageReceived;
         }
 
         ~MessageTransceiver()
@@ -57,6 +48,11 @@ namespace Reth.Protocols
         private CancellationTokenSource CancellationTokenSource
         {
             get; set;
+        }
+
+        private void MessageReader_MessageReceived( Object sender, MessageReceivedEventArgs e )
+        {
+            this.MessageReceived?.SafeInvoke( this, e );
         }
 
         private bool IsStarted
@@ -214,24 +210,21 @@ namespace Reth.Protocols
 
             if( this.isDisposed == false )
             {
+                this.MessageReader.MessageReceived -= this.MessageReader_MessageReceived;
+
+                this.Terminate();
+
+                ExecutionLogProvider.LogInformation( "Waiting for messaging to terminate..." );
+
+                if( this.Messaging.Wait( Timeouts.Termination ) == false )
+                {
+                    ExecutionLogProvider.LogWarning( "Waiting for messaging termination timed out." );
+                }
+
                 if( disposing == true )
                 {
-                    lock( this.SyncRoot )
-                    {
-                        if( this.IsStarted == true )
-                        {
-                            this.Terminate();
-
-                            ExecutionLogProvider.LogInformation( "Waiting for messaging to terminate..." );
-
-                            if( this.Messaging.Wait( Timeouts.Termination ) == false )
-                            {
-                                ExecutionLogProvider.LogWarning( "Waiting for messaging timed out." );
-                            }
-                        }
-                    }
-
                     this.InteractionLog?.Dispose();
+                    this.MessageReader.Dispose();
                 }
 
                 this.isDisposed = true;

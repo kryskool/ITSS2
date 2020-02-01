@@ -47,6 +47,8 @@ namespace Reth.Itss2.Experimental.Dialogs.SalesTransactions.ArticleSelected
         {
             if( this.isDisposed == false )
             {
+                this.MessageInterceptor.Intercepted -= this.OnMessageReceived;
+
                 if( disposing == true )
                 {
                     this.MessageInterceptor.Dispose();

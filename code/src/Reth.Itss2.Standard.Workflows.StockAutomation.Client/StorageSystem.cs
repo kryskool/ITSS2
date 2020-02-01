@@ -35,27 +35,12 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
         public event EventHandler<MessageReceivedEventArgs> OutputMessageReceived;
         public event EventHandler<MessageReceivedEventArgs> StockInfoMessageReceived;
 
-        public event EventHandler Disconnected
-        {
-            add
-            {
-                this.MessageClient.Disconnected += value;
-            }
-
-            remove
-            {
-                this.MessageClient.Disconnected -= value;
-            }
-        }
-
         private bool isConnected;
         private volatile bool isDisposed;
 
         public StorageSystem(   SubscriberInfo subscriberInfo,
                                 ILocalMessageClient messageClient,
                                 ILocalClientDialogProvider dialogProvider   )
-        :
-            base( dialogProvider )
         {
             this.Initialize(    subscriberInfo,
                                 messageClient,
@@ -67,8 +52,6 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
                                 ILocalMessageClient messageClient,
                                 ILocalClientDialogProvider dialogProvider,
                                 IEnumerable<IDialogName> supportedDialogs   )
-        :
-            base( dialogProvider )
         {
             this.Initialize(    subscriberInfo,
                                 messageClient,
@@ -134,12 +117,14 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
             UnhandledMessageHandler.UseCallback( this.OnMessageUnhandled );
 
             this.MessageClient = messageClient;
+            this.MessageClient.Disconnected += base.OnMessageClientDisconnected;
 
             this.DialogProvider = dialogProvider;
             this.DialogProvider.ArticleInfo.RequestReceived += this.ArticleInfo_RequestReceived;
             this.DialogProvider.Input.RequestReceived += this.Input_RequestReceived;
             this.DialogProvider.Output.MessageReceived += this.Output_MessageReceived;
             this.DialogProvider.StockInfo.MessageReceived += this.StockInfo_MessageReceived;
+            this.DialogProvider.Unprocessed.MessageReceived += base.OnUnprocessedMessageReceived;
 
             this.LocalSubscriber = new Subscriber(  subscriberInfo,
                                                     supportedDialogs   );
@@ -516,10 +501,18 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Client
 
             if( this.isDisposed == false )
             {
+                this.MessageClient.Disconnected -= base.OnMessageClientDisconnected;
+
+                this.DialogProvider.ArticleInfo.RequestReceived -= this.ArticleInfo_RequestReceived;
+                this.DialogProvider.Input.RequestReceived -= this.Input_RequestReceived;
+                this.DialogProvider.Output.MessageReceived -= this.Output_MessageReceived;
+                this.DialogProvider.StockInfo.MessageReceived -= this.StockInfo_MessageReceived;
+                this.DialogProvider.Unprocessed.MessageReceived -= base.OnUnprocessedMessageReceived;
+
+                this.RemoteCapabilities.Clear();
+
                 if( disposing == true )
-                {
-                    this.RemoteCapabilities.Clear();
-                    
+                {                    
                     this.MessageClient.Dispose();
                     this.DialogProvider.Dispose();
                 }

@@ -68,6 +68,8 @@ namespace Reth.Itss2.Standard.Dialogs.Storage.OutputInfo
         {
             if( this.isDisposed == false )
             {
+                this.RequestInterceptor.Intercepted -= this.OnRequestReceived;
+
                 if( disposing == true )
                 {
                     this.RequestInterceptor.Dispose();

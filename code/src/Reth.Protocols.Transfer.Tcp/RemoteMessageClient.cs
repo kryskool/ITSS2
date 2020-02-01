@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 
 using Reth.Protocols.Diagnostics;
+using Reth.Protocols.Extensions.EventArgsExtensions;
 using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Protocols.Transfer.Tcp
@@ -12,18 +13,7 @@ namespace Reth.Protocols.Transfer.Tcp
         private bool isStarted;
         private volatile bool isDisposed;
 
-        public event EventHandler Disconnected
-        {
-            add
-            {
-                this.MessageTransceiver.Terminated += value;
-            }
-
-            remove
-            {
-                this.MessageTransceiver.Terminated -= value;
-            }
-        }
+        public event EventHandler Disconnected;
 
         public RemoteMessageClient( IMessageTransceiver messageTransceiver,
                                     TcpClient tcpClient  )
@@ -33,6 +23,8 @@ namespace Reth.Protocols.Transfer.Tcp
 
             this.MessageTransceiver = messageTransceiver;
             this.TcpClient = tcpClient;
+
+            this.MessageTransceiver.Terminated += this.MessageTransceiver_Terminated;
 
             this.Stream = new MessageStream( tcpClient.GetStream() );
         }
@@ -149,6 +141,11 @@ namespace Reth.Protocols.Transfer.Tcp
             get; set;
         }
 
+        private void MessageTransceiver_Terminated( Object sender, EventArgs e )
+        {
+            this.Disconnected?.SafeInvoke( this, e );
+        }
+
         public void Start()
         {
             lock( this.SyncRoot )
@@ -208,19 +205,18 @@ namespace Reth.Protocols.Transfer.Tcp
 
             if( this.isDisposed == false )
             {
+                this.MessageTransceiver.Terminated -= this.MessageTransceiver_Terminated;
+
+                this.Terminate();
+
                 if( disposing == true )
                 {
-                    lock( this.SyncRoot )
-                    {
-                        this.Terminate();
+                    this.MessageTransceiver.Dispose();
 
-                        this.MessageTransceiver.Dispose();
+                    ExecutionLogProvider.LogInformation( "Disposing tcp client." );
 
-                        ExecutionLogProvider.LogInformation( "Disposing tcp client." );
-
-                        this.TcpClient.Dispose();
-                        this.Stream.Dispose();
-                    }
+                    this.TcpClient.Dispose();
+                    this.Stream.Dispose();
                 }
 
                 this.isDisposed = true;

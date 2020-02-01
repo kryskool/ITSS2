@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 
 using Reth.Protocols.Diagnostics;
+using Reth.Protocols.Extensions.EventArgsExtensions;
 using Reth.Protocols.Extensions.ObjectExtensions;
 using Reth.Protocols.Transfer.Tcp.Extensions.TcpClientExtensions;
 
@@ -33,18 +34,7 @@ namespace Reth.Protocols.Transfer.Tcp
         private bool isConnected;
         private volatile bool isDisposed;
 
-        public event EventHandler Disconnected
-        {
-            add
-            {
-                this.MessageTransceiver.Terminated += value;
-            }
-
-            remove
-            {
-                this.MessageTransceiver.Terminated -= value;
-            }
-        }
+        public event EventHandler Disconnected;
 
         public LocalMessageClient(  IMessageTransceiver messageTransceiver,
                                     IPEndPoint localEndPoint   )
@@ -54,6 +44,8 @@ namespace Reth.Protocols.Transfer.Tcp
 
             this.MessageTransceiver = messageTransceiver;
             this.LocalEndPoint = localEndPoint;
+
+            this.MessageTransceiver.Terminated += this.MessageTransceiver_Terminated;
         }
 
         ~LocalMessageClient()
@@ -147,6 +139,11 @@ namespace Reth.Protocols.Transfer.Tcp
             get; set;
         }
 
+        private void MessageTransceiver_Terminated( Object sender, EventArgs e )
+        {
+            this.Disconnected?.SafeInvoke( this, e );
+        }
+
         public void Connect()
         {
             lock( this.SyncRoot )
@@ -230,15 +227,14 @@ namespace Reth.Protocols.Transfer.Tcp
 
             if( this.isDisposed == false )
             {
+                this.MessageTransceiver.Terminated -= this.MessageTransceiver_Terminated;
+
+                this.Disconnect();
+
                 if( disposing == true )
                 {
-                    lock( this.SyncRoot )
-                    {
-                        this.Disconnect();
-
-                        this.MessageTransceiver.Dispose();
-                        this.Stream.Dispose();
-                    }
+                    this.MessageTransceiver.Dispose();
+                    this.Stream.Dispose();
                 }
 
                 this.isDisposed = true;

@@ -83,6 +83,8 @@ namespace Reth.Itss2.Standard.Dialogs.General.KeepAlive
         {
             if( this.isDisposed == false )
             {
+                this.RequestInterceptor.Intercepted -= this.OnRequestReceived;
+
                 if( disposing == true )
                 {
                     this.RequestInterceptor.Dispose();

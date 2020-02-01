@@ -10,6 +10,7 @@ using Reth.Itss2.Standard.Serialization;
 using Reth.Protocols;
 using Reth.Protocols.Diagnostics;
 using Reth.Protocols.Dialogs;
+using Reth.Protocols.Extensions.EventArgsExtensions;
 using Reth.Protocols.Extensions.ObjectExtensions;
 
 namespace Reth.Itss2.Standard.Dialogs
@@ -18,31 +19,8 @@ namespace Reth.Itss2.Standard.Dialogs
     {
         private volatile bool isDisposed;
 
-        public event EventHandler<MessageReceivedEventArgs> MessageReceived
-        {
-            add
-            {
-                this.MessageTransceiver.MessageReceived += value;
-            }
-
-            remove
-            {
-                this.MessageTransceiver.MessageReceived -= value;
-            }
-        }
-
-        public event EventHandler Terminated
-        {
-            add
-            {
-                this.MessageTransceiver.Terminated += value;
-            }
-
-            remove
-            {
-                this.MessageTransceiver.Terminated -= value;
-            }
-        }
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+        public event EventHandler Terminated;
 
         protected internal DialogProviderBase(  MessageInitializer outgoingInitializer,
                                                 MessageInitializer incomingInitializer,
@@ -60,6 +38,9 @@ namespace Reth.Itss2.Standard.Dialogs
                                                                         protocolProvider.MessageSerializer,
                                                                         interactionLog,
                                                                         supportedDialogs    );
+
+            this.MessageTransceiver.MessageReceived += this.MessageTransceiver_MessageReceived;
+            this.MessageTransceiver.Terminated += this.MessageTransceiver_Terminated;
         }
 
         ~DialogProviderBase()
@@ -78,6 +59,16 @@ namespace Reth.Itss2.Standard.Dialogs
         }
 
         public abstract IUnprocessedDialog Unprocessed{ get; }
+
+        private void MessageTransceiver_MessageReceived( Object sender, MessageReceivedEventArgs e )
+        {
+            this.MessageReceived?.SafeInvoke( this, e );   
+        }
+
+        private void MessageTransceiver_Terminated( Object sender, EventArgs e )
+        {
+            this.Terminated?.SafeInvoke( this, e );
+        }
 
         public IDialogName[] GetSupportedDialogs()
         {
@@ -133,6 +124,9 @@ namespace Reth.Itss2.Standard.Dialogs
 
             if( this.isDisposed == false )
             {
+                this.MessageTransceiver.MessageReceived -= this.MessageTransceiver_MessageReceived;
+                this.MessageTransceiver.Terminated -= this.MessageTransceiver_Terminated;
+
                 if( disposing == true )
                 {
                     this.MessageTransceiver.Dispose();

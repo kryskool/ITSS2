@@ -13,6 +13,8 @@ namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server
 {
     public class StorageSystem:Reth.Itss2.Standard.Workflows.StockAutomation.Server.StorageSystem, IStorageSystem
     {
+        private volatile bool isDisposed;
+
         public StorageSystem(   SubscriberInfo subscriberInfo,
                                 IRemoteMessageClient messageClient,
                                 IRemoteClientDialogProvider dialogProvider   )
@@ -57,6 +59,22 @@ namespace Reth.Itss2.StandardExtensions.Workflows.StockAutomation.Server
             {
                 ExecutionLogProvider.LogError( ex );
             }
+        }
+
+        protected override void Dispose( bool disposing )
+        {
+            ExecutionLogProvider.LogInformation( "Disposing storage system." );
+
+            if( this.isDisposed == false )
+            {
+                IRemoteClientDialogProvider dialogProvider = ( IRemoteClientDialogProvider )this.DialogProvider;
+                
+                dialogProvider.ConfigurationGet.RequestReceived -= this.ConfigurationGet_RequestReceived;
+
+                this.isDisposed = true;
+            }
+
+            base.Dispose();
         }
     }
 }

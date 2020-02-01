@@ -4,26 +4,18 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Protocols.Diagnostics;
+using Reth.Protocols.Extensions.EventArgsExtensions;
 using Reth.Protocols.Extensions.ObjectExtensions;
 using Reth.Protocols.Serialization;
 
 namespace Reth.Protocols
 {
-    internal class MessageReader
+    internal class MessageReader:IDisposable
     {
-        public event EventHandler<MessageReceivedEventArgs> MessageReceived
-        {
-            add
-            {
-                this.MessageDispatcher.MessageReceived += value;
-            }
+        private volatile bool isDisposed;
 
-            remove
-            {
-                this.MessageDispatcher.MessageReceived -= value;
-            }
-        }
-
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+        
         public MessageReader(   MessageInitializer messageInitializer,
                                 IMessageSerializer messageSerializer,
                                 MessageFilter messageFilter,
@@ -35,6 +27,12 @@ namespace Reth.Protocols
             this.InteractionLog = interactionLog;
 
             this.MessageDispatcher = new MessageDispatcher( messageInitializer, messageFilter );
+            this.MessageDispatcher.MessageReceived += this.MessageDispatcher_MessageReceived;
+        }
+
+        ~MessageReader()
+        {
+            this.Dispose( false );
         }
 
         public MessageInitializer MessageInitializer
@@ -60,6 +58,11 @@ namespace Reth.Protocols
         private MessageDispatcher MessageDispatcher
         {
             get;
+        }
+
+        private void MessageDispatcher_MessageReceived( Object sender, MessageReceivedEventArgs e )
+        {
+            this.MessageReceived?.SafeInvoke( this, e );
         }
 
         public Task RunAsync( Stream stream )
@@ -135,6 +138,25 @@ namespace Reth.Protocols
             }
 
             return result;
+        }
+
+        public void Dispose()
+        {
+            this.Dispose( true );
+
+            GC.SuppressFinalize( this );
+        }
+
+        protected virtual void Dispose( bool disposing )
+        {
+            ExecutionLogProvider.LogInformation( "Disposing message reader." );
+
+            if( this.isDisposed == false )
+            {
+                this.MessageDispatcher.MessageReceived -= this.MessageDispatcher_MessageReceived;
+
+                this.isDisposed = true;
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Reth.Itss2.Standard.Workflows
 
             this.Timer.Enabled = false;
             this.Timer.Interval = triggerInterval;
+            this.Timer.Elapsed += this.Timer_Elapsed;
         }
 
         ~KeepAliveTrigger()
@@ -75,14 +76,12 @@ namespace Reth.Itss2.Standard.Workflows
 
         public void Start()
         {
-            this.Timer.Elapsed += this.Timer_Elapsed;
             this.Timer.Enabled = true;
         }
 
         public void Stop()
         {
             this.Timer.Enabled = false;
-            this.Timer.Elapsed -= this.Timer_Elapsed;
         }
 
         public void Dispose()
@@ -96,6 +95,8 @@ namespace Reth.Itss2.Standard.Workflows
         {
             if( this.isDisposed == false )
             {
+                this.Timer.Elapsed -= this.Timer_Elapsed;
+
                 this.Stop();
 
                 if( disposing == true )

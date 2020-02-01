@@ -34,8 +34,6 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
     {
         public event EventHandler<InitiateInputRequestReceivedEventArgs> InitiateInputRequestReceived;
         public event EventHandler<OutputRequestReceivedEventArgs> OutputRequestReceived;
-
-        public event EventHandler Disconnected;
         
         private bool isStarted;
         private volatile bool isDisposed;
@@ -43,8 +41,6 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
         public StorageSystem(   SubscriberInfo subscriberInfo,
                                 IRemoteMessageClient messageClient,
                                 IRemoteClientDialogProvider dialogProvider   )
-        :
-            base( dialogProvider )
         {
             this.Initialize(    subscriberInfo,
                                 messageClient,
@@ -56,8 +52,6 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
                                 IRemoteMessageClient messageClient,
                                 IRemoteClientDialogProvider dialogProvider,
                                 IEnumerable<IDialogName> supportedDialogs   )
-        :
-            base( dialogProvider )
         {
             this.Initialize(    subscriberInfo,
                                 messageClient,
@@ -163,7 +157,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             UnhandledMessageHandler.UseCallback( this.OnMessageUnhandled );
 
             this.MessageClient = messageClient;
-            this.MessageClient.Disconnected += this.MessageClient_Disconnected;
+            this.MessageClient.Disconnected += base.OnMessageClientDisconnected;
 
             this.DialogProvider = dialogProvider;
             this.DialogProvider.ArticleMasterSet.RequestReceived += this.ArticleMasterSet_RequestReceived;
@@ -177,6 +171,7 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             this.DialogProvider.StockInfo.RequestReceived += this.StockInfo_RequestReceived;
             this.DialogProvider.StockLocationInfo.RequestReceived += this.StockLocationInfo_RequestReceived;
             this.DialogProvider.TaskCancelOutput.RequestReceived += this.TaskCancelOutput_RequestReceived;
+            this.DialogProvider.Unprocessed.MessageReceived += base.OnUnprocessedMessageReceived;
 
             this.LocalSubscriber = new Subscriber(  subscriberInfo,
                                                     supportedDialogs    );
@@ -243,11 +238,6 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
                                             this.LocalSubscriber.Id,
                                             this.GetRemoteSubscriberId(),
                                             articles    );
-        }
-
-        private void MessageClient_Disconnected( Object sender, EventArgs e )
-        {
-            this.Disconnected?.SafeInvoke( this, e );
         }
 
         private void ArticleMasterSet_RequestReceived( Object sender, MessageReceivedEventArgs e )
@@ -514,11 +504,26 @@ namespace Reth.Itss2.Standard.Workflows.StockAutomation.Server
             ExecutionLogProvider.LogInformation( "Disposing storage system." );
 
             if( this.isDisposed == false )
-            {
+            {   
+                this.MessageClient.Disconnected -= base.OnMessageClientDisconnected;
+
+                this.DialogProvider.ArticleMasterSet.RequestReceived -= this.ArticleMasterSet_RequestReceived;
+                this.DialogProvider.Hello.RequestReceived -= this.Hello_RequestReceived;
+                this.DialogProvider.InitiateInput.RequestReceived -= this.InitiateInput_RequestReceived;
+                this.DialogProvider.OutputInfo.RequestReceived -= this.OutputInfo_RequestReceived;
+                this.DialogProvider.Output.RequestReceived -= this.Output_RequestReceived;
+                this.DialogProvider.Status.RequestReceived -= this.Status_RequestReceived;
+                this.DialogProvider.StockDeliveryInfo.RequestReceived -= this.StockDeliveryInfo_RequestReceived;
+                this.DialogProvider.StockDeliverySet.RequestReceived -= this.StockDeliverySet_RequestReceived;
+                this.DialogProvider.StockInfo.RequestReceived -= this.StockInfo_RequestReceived;
+                this.DialogProvider.StockLocationInfo.RequestReceived -= this.StockLocationInfo_RequestReceived;
+                this.DialogProvider.TaskCancelOutput.RequestReceived -= this.TaskCancelOutput_RequestReceived;
+                this.DialogProvider.Unprocessed.MessageReceived -= base.OnUnprocessedMessageReceived;
+
+                this.RemoteCapabilities.Clear();
+
                 if( disposing == true )
                 {
-                    this.RemoteCapabilities.Clear();
-
                     this.MessageClient.Dispose();
                     this.DialogProvider.Dispose();
                 }
