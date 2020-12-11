@@ -13,7 +13,7 @@ At the moment the code is an a development phase. So no Beta, RC or even Release
 # What's coming up next?
 The features/topics mentioned below will be provided in the future. -Not necessarily in that order.-
 As I'm doing all of the coding in my free time, it may take some time.
-A new .NET standard implementation will be available until mid of January 2021.
+A new .NET standard implementation of this library will be available until mid of January 2021.
 
 - Digital extensions (experimental)
 - File system transfer mode
