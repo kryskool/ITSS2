@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<Nullable>enable</Nullable>
+		<Copyright>(C) 2020 Thomas Reth</Copyright>
+		<Authors>Thomas Reth</Authors>
+		<Company>Thomas Reth</Company>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\Reth.Itss2.StrongName.snk</AssemblyOriginatorKeyFile>
+		<DelaySign>false</DelaySign>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+  </PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>$(SolutionDir)..\bin\AnyCPU\Debug\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>$(SolutionDir)..\bin\AnyCPU\Release\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Reth.Itss2.Dialogs.Standard\Reth.Itss2.Dialogs.Standard.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\License.txt">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
+</Project>

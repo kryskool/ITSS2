@@ -1,16 +1,16 @@
 ﻿[*.cs]
 
-# CA1031: Do not catch general exception types
-dotnet_diagnostic.CA1031.severity = silent
+# S1125: Boolean literals should not be redundant
+dotnet_diagnostic.S1125.severity = none
 
-# CA1303: Do not pass literals as localized parameters
-dotnet_diagnostic.CA1303.severity = silent
+# S1128: Remove this unnecessary 'using'.
+dotnet_diagnostic.S1128.severity = none
 
-# CA1062: Validate arguments of public methods
-dotnet_diagnostic.CA1062.severity = silent
+# S1066: Merge this if statement with the enclosing one.
+dotnet_diagnostic.S1066.severity = none
 
-# CA1812: Avoid uninstantiated internal classes
-dotnet_diagnostic.CA1812.severity = silent
+# S3971: "GC.SuppressFinalize" should not be called
+dotnet_diagnostic.S3971.severity = none
 
-# CA1724: Type names should not match namespaces
-dotnet_diagnostic.CA1724.severity = silent
+# S4035: Classes implementing "IEquatable<T>" should be sealed
+dotnet_diagnostic.S4035.severity = none
