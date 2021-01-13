@@ -14,10 +14,10 @@ At the moment the code is an a development phase. So no Beta, RC or even Release
 The features/topics mentioned below will be provided in the future. -Not necessarily in that order.-
 As I'm doing all of the coding in my free time, it may take some time.
 
-- File system transfer mode
-- JSON serialization format
-- TLS encryption
+- Extending unit tests
 - Documentation (API/Architecture)
+- JSON serialization format
+- TCP and file system transfer modules
+- TLS encryption
 - Samples
 - Simulators
-- Extending unit tests
