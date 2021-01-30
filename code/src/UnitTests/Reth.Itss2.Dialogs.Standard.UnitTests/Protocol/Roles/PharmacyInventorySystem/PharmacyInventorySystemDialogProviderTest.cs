@@ -27,31 +27,18 @@ using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem;
-using Reth.Itss2.Dialogs.Standard.Serialization.Xml;
-using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Xml;
+using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
+using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventorySystem
 {
     [TestClass]
     public class PharmacyInventorySystemDialogProviderTest
     {
-        private DataContractResolver DataContractResolver
-        {
-            get; set;
-        }
-
         [TestInitialize]
         public void Initialize()
         {
             Diagnostics.Assert.SetupForTestEnvironment();
-
-            this.DataContractResolver = new DataContractResolver( typeof( PharmacyInventorySystemDialogProvider ) );
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            this.DataContractResolver = null;
         }
 
         [TestMethod]
@@ -86,7 +73,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventory
                                                                                                                                                     await Task.Delay( timeout.Add( TimeSpan.FromMilliseconds( 1 ) ) );
                                                                                                                                                 }   );
             
-            MessageStreamWriter messageStreamWriter = new MessageStreamWriter( Stream.Null, this.DataContractResolver );
+            IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( Stream.Null );
             
             using(  IPharmacyInventorySystemDialogProvider dialogProvider = new PharmacyInventorySystemDialogProvider() )
             {
@@ -105,8 +92,8 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventory
         [TestMethod]
         public void TestHelloDialogSendRequestWithoutResponse()
         {
-            MessageStreamReader messageStreamReader = new MessageStreamReader( Stream.Null, this.DataContractResolver );
-            MessageStreamWriter messageStreamWriter = new MessageStreamWriter( Stream.Null, this.DataContractResolver );
+            IMessageStreamReader messageStreamReader = new XmlMessageStreamReader( Stream.Null );
+            IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( Stream.Null );
 
             using(  IPharmacyInventorySystemDialogProvider dialogProvider = new PharmacyInventorySystemDialogProvider() )
             {

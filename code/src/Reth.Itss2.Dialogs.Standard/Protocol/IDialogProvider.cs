@@ -18,14 +18,10 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Serialization;
-
 namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
     public interface IDialogProvider:IDisposable
     {
-        IDataContractResolver DataContractResolver{ get; }
-
         String[] GetSupportedDialogs();
 
         void SendMessage( String messageEnvelope );

@@ -19,9 +19,9 @@ using System;
 namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
     [AttributeUsage( AttributeTargets.Class, AllowMultiple = false, Inherited = false )]
-    public class DataContractMappingAttribute:Attribute
+    public abstract class DataContractMappingAttribute:Attribute
     {
-        public DataContractMappingAttribute( Type typeMapping )
+        protected DataContractMappingAttribute( Type typeMapping )
         {
             this.TypeMapping = typeMapping;
         }

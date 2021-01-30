@@ -40,6 +40,13 @@ namespace Reth.Itss2.Dialogs.Standard
             }
         }
 
+        public static void ThrowIfNegative( this long value )
+        {
+            if( value < 0 )
+            {
+                throw Assert.Exception( new ArgumentOutOfRangeException( nameof( value ), $"A negative value ({ value }) is not allowed." ) );
+            }
+        }
 
         public static void ThrowIfNegative( this decimal value )
         {

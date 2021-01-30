@@ -19,20 +19,19 @@ using System.Collections.Generic;
 using System.Reflection;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
-using Reth.Itss2.Dialogs.Standard.Protocol;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
-    public class DataContractResolver:IDataContractResolver
+    internal abstract class DataContractResolver:IDataContractResolver
     {
-        public DataContractResolver( Type dialogProvider )
+        protected DataContractResolver( Type serializationProvider, Type dataContractMapping )
         {
-            this.DataContracts = this.ResolveContracts( dialogProvider );
+            this.DataContracts = this.ResolveContracts( serializationProvider, dataContractMapping );
         }
 
-        public DataContractResolver( IDialogProvider dialogProvider )
+        protected DataContractResolver( ISerializationProvider serializationProvider, Type dataContractMapping )
         {
-            this.DataContracts = this.ResolveContracts( dialogProvider );
+            this.DataContracts = this.ResolveContracts( serializationProvider, dataContractMapping );
         }
 
         private IReadOnlyDictionary<String, Type> DataContracts
@@ -54,16 +53,16 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             return result;
         }
 
-        private IReadOnlyDictionary<String, Type> ResolveContracts( IDialogProvider dialogProvider )
+        private IReadOnlyDictionary<String, Type> ResolveContracts( ISerializationProvider serializationProvider, Type dataContractMapping )
         {
-            return this.ResolveContracts( dialogProvider.GetType() );
+            return this.ResolveContracts( serializationProvider.GetType(), dataContractMapping );
         }
 
-        private IReadOnlyDictionary<String, Type> ResolveContracts( Type dialogProvider )
+        private IReadOnlyDictionary<String, Type> ResolveContracts( Type serializationProvider, Type dataContractMapping )
         {
             Dictionary<String, Type> result = new Dictionary<String, Type>();
 
-            List<Assembly> assemblies = this.GetAssemblies( dialogProvider );
+            List<Assembly> assemblies = this.GetAssemblies( serializationProvider );
 
             foreach( Assembly assembly in assemblies )
             {
@@ -71,8 +70,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
 
                 foreach( Type type in types )
                 {
-                    IEnumerable<DataContractMappingAttribute> attributes = type.GetCustomAttributes<DataContractMappingAttribute>();
-
+                    IEnumerable<DataContractMappingAttribute> attributes = ( IEnumerable<DataContractMappingAttribute> )( type.GetCustomAttributes( dataContractMapping ) );
+                    
                     foreach( DataContractMappingAttribute attribute in attributes )
                     {
                         String name = attribute.TypeMapping.Name;

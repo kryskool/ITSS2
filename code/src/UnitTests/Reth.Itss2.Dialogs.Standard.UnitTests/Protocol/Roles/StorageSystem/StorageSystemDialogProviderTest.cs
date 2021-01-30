@@ -26,29 +26,18 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
 using Reth.Itss2.Dialogs.Standard.Serialization;
-using Reth.Itss2.Dialogs.Standard.Serialization.Xml;
-using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Xml;
+using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
+using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
 {
     [TestClass]
     public class StorageSystemDialogProviderTest
     {
-        private DataContractResolver DataContractResolver
-        {
-            get; set;
-        }
-
         [TestInitialize]
         public void Initialize()
         {
-            this.DataContractResolver = new DataContractResolver( typeof( StorageSystemDialogProvider ) );
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            this.DataContractResolver = null;
+            Diagnostics.Assert.SetupForTestEnvironment();
         }
 
         [TestMethod]
@@ -57,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
             using( MemoryStream stream = new MemoryStream() )
             {
                 Mock<IMessageStreamReader> messageStreamReaderMock = new Mock<IMessageStreamReader>();
-                MessageStreamWriter messageStreamWriter = new MessageStreamWriter( stream, this.DataContractResolver );
+                IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( stream );
 
                 using( IStorageSystemDialogProvider dialogProvider = new StorageSystemDialogProvider() )
                 {
@@ -67,7 +56,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
 
                     stream.Position = 0;
 
-                    using( MessageStreamReader messageStreamReader = new MessageStreamReader( stream, this.DataContractResolver ) )
+                    using( IMessageStreamReader messageStreamReader = new XmlMessageStreamReader( stream ) )
                     {
                         Mock<IObserver<IMessageEnvelope>> observerMock = new Mock<IObserver<IMessageEnvelope>>();
 

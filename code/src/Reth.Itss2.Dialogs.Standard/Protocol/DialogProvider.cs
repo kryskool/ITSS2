@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
@@ -30,7 +29,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
         protected DialogProvider()
         {
-            this.DataContractResolver = new DataContractResolver( this );
         }
 
         ~DialogProvider()
@@ -46,11 +44,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
         protected IMessageTransmitter? MessageTransmitter
         {
             get; private set;
-        }
-
-        public IDataContractResolver DataContractResolver
-        {
-            get;
         }
 
         public abstract String[] GetSupportedDialogs();

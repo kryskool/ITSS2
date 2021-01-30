@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 	 <LangVersion>preview</LangVersion>
+	 <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <Copyright>(C) 2020 Thomas Reth</Copyright>
     <Authors>Thomas Reth</Authors>
