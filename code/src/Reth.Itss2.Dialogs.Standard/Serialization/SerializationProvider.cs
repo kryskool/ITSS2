@@ -21,13 +21,12 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
     public abstract class SerializationProvider:ISerializationProvider
     {
-        public event EventHandler<Protocol.ErrorEventArgs>? MessageProcessingError;
-
         private bool isDisposed;
 
         protected SerializationProvider( IInteractionLog interactionLog )
@@ -57,43 +56,30 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             get;
         }
 
+        public abstract IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
+        public abstract Task<IMessageEnvelope> DeserializeMessageEnvelopeAsync( String messageEnvelope, CancellationToken cancellationToken = default );
+
+        public abstract IMessage DeserializeMessage( String message );
+        public abstract Task<IMessage> DeserializeMessageAsync( String message, CancellationToken cancellationToken = default );
+        
+        public abstract String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
+        public abstract Task<String> SerializeMessageEnvelopeAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default );
+
+        public abstract String SerializeMessage( IMessage message );
+        public abstract Task<String> SerializeMessageAsync( IMessage message, CancellationToken cancellationToken = default );
+
         protected abstract IMessageStreamReader CreateMessageStreamReader( Stream baseStream, IInteractionLog interactionLog );
         protected abstract IMessageStreamWriter CreateMessageStreamWriter( Stream baseStream, IInteractionLog interactionLog );
 
-        private IMessageTransmitter CreateMessageTransmitter( Stream stream )
+        public IMessageTransmitter CreateMessageTransmitter( Stream baseStream )
         {
-            IMessageStreamReader messageStreamReader = this.CreateMessageStreamReader( stream, this.InteractionLog );
-            IMessageStreamWriter messageStreamWriter = this.CreateMessageStreamWriter( stream, this.InteractionLog );
-
-            messageStreamReader.MessageProcessingError += this.OnMessageProcessingError;
+            IMessageStreamReader messageStreamReader = this.CreateMessageStreamReader( baseStream, this.InteractionLog );
+            IMessageStreamWriter messageStreamWriter = this.CreateMessageStreamWriter( baseStream, this.InteractionLog );
 
             return new MessageTransmitter(  messageStreamReader,
                                             messageStreamWriter,
+                                            baseStream,
                                             this.MessageRoundTripTimeout    );
-        }
-
-        public void Connect( Stream stream, IDialogProvider dialogProvider, bool blocking )
-        {
-            IMessageTransmitter messageTransmitter = this.CreateMessageTransmitter( stream );
-                                                
-            dialogProvider.Connect( messageTransmitter, blocking );
-        }
-
-        public Task ConnectAsync( Stream stream, IDialogProvider dialogProvider, bool blocking )
-        {
-            return this.ConnectAsync( stream, dialogProvider, blocking, CancellationToken.None );
-        }
-
-        public Task ConnectAsync( Stream stream, IDialogProvider dialogProvider, bool blocking, CancellationToken cancellationToken )
-        {
-            IMessageTransmitter messageTransmitter = this.CreateMessageTransmitter( stream );
-                                                
-            return dialogProvider.ConnectAsync( messageTransmitter, blocking, cancellationToken );
-        }
-
-        protected void OnMessageProcessingError( Object sender, Protocol.ErrorEventArgs e )
-        {
-            this.MessageProcessingError?.Invoke( this, e );
         }
 
         public void Dispose()

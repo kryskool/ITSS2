@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.UnprocessedDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.UnprocessedDialog
 {
-    [JsonDataContractMapping( typeof( UnprocessedMessage ) )]
+    [JsonDataContractMapping( typeof( UnprocessedMessage ), typeof( UnprocessedMessageDataContract ) )]
     public class UnprocessedMessageEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public UnprocessedMessageEnvelopeDataContract()

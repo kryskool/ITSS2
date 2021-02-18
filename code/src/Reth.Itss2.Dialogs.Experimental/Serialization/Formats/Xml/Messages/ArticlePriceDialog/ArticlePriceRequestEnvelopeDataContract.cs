@@ -24,7 +24,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticlePriceDialog
 {
-    [XmlDataContractMapping( typeof( ArticlePriceRequest ) )]
+    [XmlDataContractMapping( typeof( ArticlePriceRequest ), typeof( ArticlePriceRequestDataContract ) )]
     public class ArticlePriceRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ArticlePriceRequestEnvelopeDataContract()

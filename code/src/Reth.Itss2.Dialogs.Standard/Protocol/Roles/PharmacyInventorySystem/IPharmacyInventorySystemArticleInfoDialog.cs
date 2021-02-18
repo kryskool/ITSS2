@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System.Threading;
+using System;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
@@ -23,9 +23,10 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
 {
     public interface IPharmacyInventorySystemArticleInfoDialog:IDialog
     {
-        ArticleInfoResponse SendRequest( ArticleInfoRequest request );
+        event EventHandler<MessageReceivedEventArgs>? RequestReceived;
+
+        void SendResponse( ArticleInfoResponse response );
         
-        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request );
-        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken );
+        Task SendResponseAsync( ArticleInfoResponse response );
     }
 }

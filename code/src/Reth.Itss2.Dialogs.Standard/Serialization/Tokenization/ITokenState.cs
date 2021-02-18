@@ -20,8 +20,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
 {
     public interface ITokenState
     {
-        public ITokenStateTransition? GetNextTransition(    ITokenStateTransition? previousTransition,
-                                                            ref ReadOnlySequence<byte> buffer,
-                                                            ref long position   );
+        ITokenStateTransition? GetNextTransition(   ITokenStateTransition? previousTransition,
+                                                    ref ReadOnlySequence<byte> buffer,
+                                                    ref long position   );
     }
 }

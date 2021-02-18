@@ -47,7 +47,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
 									SubscriberId source,
                                     SubscriberId destination	)
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockInfo, source, destination )
         {
         }
 
@@ -57,7 +57,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
                                     bool? includePacks,
                                     bool? includeArticleDetails )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockInfo, source, destination )
         {
             this.IncludePacks = includePacks;
             this.IncludeArticleDetails = includeArticleDetails;
@@ -70,7 +70,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
                                     bool? includeArticleDetails,
                                     IEnumerable<StockInfoRequestCriteria>? criterias )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockInfo, source, destination )
         {
             this.IncludePacks = includePacks;
             this.IncludeArticleDetails = includeArticleDetails;

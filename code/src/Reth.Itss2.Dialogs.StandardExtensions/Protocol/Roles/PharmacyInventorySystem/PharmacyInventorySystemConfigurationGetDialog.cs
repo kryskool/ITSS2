@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.PharmacyInventory
     {
         public PharmacyInventorySystemConfigurationGetDialog( IDialogProvider dialogProvider )
         :
-            base( "ConfigurationGet", dialogProvider )
+            base( Dialogs.ConfigurationGet, dialogProvider )
         {
         }
 

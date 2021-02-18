@@ -103,7 +103,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             {
                 try
                 {
-                    String serializedMessage = this.MessageParser.Serialize( messageEnvelope );
+                    String serializedMessage = this.MessageParser.SerializeMessageEnvelope( messageEnvelope );
 
                     this.WriteToStream( serializedMessage );
                 }catch( Exception ex )

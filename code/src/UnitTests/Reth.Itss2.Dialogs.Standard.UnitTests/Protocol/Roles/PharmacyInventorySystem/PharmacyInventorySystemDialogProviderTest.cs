@@ -53,7 +53,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventory
 
             using( IPharmacyInventorySystemDialogProvider dialogProvider = new PharmacyInventorySystemDialogProvider() )
             {
-                dialogProvider.Connect( messageTransmitterMock.Object, false );
+                dialogProvider.Connect( messageTransmitterMock.Object );
 
                 HelloResponse response = dialogProvider.HelloDialog.SendRequest( ( HelloRequest )( TestData.HelloRequest.Object.Message ) );
 
@@ -79,8 +79,8 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventory
             {
                 dialogProvider.Connect( new MessageTransmitter( messageStreamReaderMock.Object,
                                                                 messageStreamWriter,
-                                                                timeout ),
-                                        false   );
+                                                                Stream.Null,
+                                                                timeout )   );
 
                 Assert.ThrowsException<MessageTransmissionException>(   () =>
                                                                     {
@@ -97,7 +97,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventory
 
             using(  IPharmacyInventorySystemDialogProvider dialogProvider = new PharmacyInventorySystemDialogProvider() )
             {
-                dialogProvider.Connect( new MessageTransmitter( messageStreamReader, messageStreamWriter ), false );
+                dialogProvider.Connect( new MessageTransmitter( messageStreamReader, messageStreamWriter, Stream.Null ) );
 
                 Assert.ThrowsException<MessageTransmissionException>(   () =>
                                                                     {

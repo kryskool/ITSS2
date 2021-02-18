@@ -206,13 +206,13 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
                                                 this.PipeReader.CancelPendingRead();
                                             }   );
 
-                await this.Run( observer, cancellationToken ).ConfigureAwait( false );
+                await this.Run( observer, cancellationToken ).ConfigureAwait( continueOnCapturedContext:false );
             }catch( Exception ex )
             {
                 observer.OnError( ex );
             }finally
             {
-                await this.PipeReader.CompleteAsync().ConfigureAwait( false );
+                await this.PipeReader.CompleteAsync().ConfigureAwait( continueOnCapturedContext:false );
             }
         }
 

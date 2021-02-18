@@ -25,7 +25,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
     {
         public PharmacyInventorySystemHelloDialog( IDialogProvider dialogProvider )
         :
-            base( "Hello", dialogProvider )
+            base( Dialogs.Hello, dialogProvider )
         {
         }
 

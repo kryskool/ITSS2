@@ -16,8 +16,11 @@
 
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
 {
@@ -27,12 +30,75 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
         :
             base( interactionLog )
         {
+            this.MessageParser = new XmlMessageParser( this );
         }
 
         public XmlSerializationProvider( IInteractionLog interactionLog, TimeSpan messageRoundTripTimeout )
         :
             base( interactionLog, messageRoundTripTimeout )
         {
+            this.MessageParser = new XmlMessageParser( this );
+        }
+
+        private XmlMessageParser MessageParser
+        {
+            get;
+        }
+
+        public override IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope )
+        {
+            return this.MessageParser.DeserializeMessageEnvelope( messageEnvelope );
+        }
+
+        public override Task<IMessageEnvelope> DeserializeMessageEnvelopeAsync( String messageEnvelope, CancellationToken cancellationToken = default )
+        {
+            return Task.Run(    () =>
+                                {
+                                    return this.MessageParser.DeserializeMessageEnvelope( messageEnvelope );
+                                },
+                                cancellationToken   );
+        }
+
+        public override IMessage DeserializeMessage( String message )
+        {
+            return this.MessageParser.DeserializeMessage( message );
+        }
+
+        public override Task<IMessage> DeserializeMessageAsync( String message, CancellationToken cancellationToken = default )
+        {
+            return Task.Run(    () =>
+                                {
+                                    return this.MessageParser.DeserializeMessage( message );
+                                },
+                                cancellationToken   );
+        }
+        
+        public override String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope )
+        {
+            return this.MessageParser.SerializeMessageEnvelope( messageEnvelope );
+        }
+
+        public override Task<String> SerializeMessageEnvelopeAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default )
+        {
+            return Task.Run(    () =>
+                                {
+                                    return this.MessageParser.SerializeMessageEnvelope( messageEnvelope );
+                                },
+                                cancellationToken   );
+        }
+
+        public override String SerializeMessage( IMessage message )
+        {
+            return this.MessageParser.SerializeMessage( message );
+        }
+
+        public override Task<String> SerializeMessageAsync( IMessage message, CancellationToken cancellationToken = default )
+        {
+            return Task.Run(    () =>
+                                {
+                                    return this.MessageParser.SerializeMessage( message );
+                                },
+                                cancellationToken   );
         }
 
         protected override IMessageStreamReader CreateMessageStreamReader( Stream baseStream, IInteractionLog interactionLog )

@@ -20,9 +20,9 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
 {
     public class XmlDataContractMappingAttribute:DataContractMappingAttribute
     {
-        public XmlDataContractMappingAttribute( Type typeMapping )
+        public XmlDataContractMappingAttribute( Type messageType, Type dataContractType )
         :
-            base( typeMapping )
+            base( messageType, dataContractType )
         {
         }
     }

@@ -45,7 +45,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog
 									    SubscriberId source,
                                         SubscriberId destination    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockDeliverySet, source, destination )
         {
         }
 
@@ -54,7 +54,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog
                                         SubscriberId destination,
                                         IEnumerable<StockDelivery>? deliveries  )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockDeliverySet, source, destination )
         {
             if( deliveries is not null )
             {

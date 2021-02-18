@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.InitiateInputDialog
 {
-    [XmlDataContractMapping( typeof( InitiateInputMessage ) )]
+    [XmlDataContractMapping( typeof( InitiateInputMessage ), typeof( InitiateInputMessageDataContract ) )]
     public class InputMessageEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public InputMessageEnvelopeDataContract()

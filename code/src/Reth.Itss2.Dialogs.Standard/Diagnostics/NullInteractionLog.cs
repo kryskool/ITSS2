@@ -74,7 +74,7 @@ namespace Reth.Itss2.Dialogs.Standard.Diagnostics
 
         protected virtual async ValueTask DisposeAsyncCore()
         {
-            await Task.CompletedTask.ConfigureAwait( false );
+            await Task.CompletedTask.ConfigureAwait( continueOnCapturedContext:false );
         }
 
         public async ValueTask DisposeAsync()

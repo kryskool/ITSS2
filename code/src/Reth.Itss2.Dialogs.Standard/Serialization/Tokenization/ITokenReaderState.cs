@@ -20,12 +20,12 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
 {
     public interface ITokenReaderState
     {
-        public ITokenState DefaultState{ get; }
+        ITokenState DefaultState{ get; }
         
-        public long Position{ get; }
+        long Position{ get; }
 
-        public Stack<ITokenStateTransition> Transitions{ get; }
+        Stack<ITokenStateTransition> Transitions{ get; }
         
-        public ITokenState GetTokenState();
+        ITokenState GetTokenState();
     }
 }

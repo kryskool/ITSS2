@@ -50,7 +50,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
 
                 using( IStorageSystemDialogProvider dialogProvider = new StorageSystemDialogProvider() )
                 {
-                    dialogProvider.Connect( new MessageTransmitter( messageStreamReaderMock.Object, messageStreamWriter ), false );
+                    dialogProvider.Connect( new MessageTransmitter( messageStreamReaderMock.Object, messageStreamWriter, stream ) );
 
                     dialogProvider.HelloDialog.SendResponse( ( HelloResponse )( TestData.HelloResponse.Object.Message ) );
 

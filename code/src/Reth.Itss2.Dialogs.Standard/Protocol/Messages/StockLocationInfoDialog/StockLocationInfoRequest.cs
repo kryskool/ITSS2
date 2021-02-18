@@ -39,7 +39,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog
 									        SubscriberId source,
                                             SubscriberId destination    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockLocationInfo, source, destination )
         {
         }
 

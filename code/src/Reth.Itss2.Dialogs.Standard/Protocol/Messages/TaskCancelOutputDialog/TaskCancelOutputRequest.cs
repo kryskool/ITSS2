@@ -44,7 +44,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog
                                         SubscriberId destination,
                                         TaskCancelOutputRequestTask task    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.TaskCancelOutput, source, destination )
         {
             this.Task = task;
         }

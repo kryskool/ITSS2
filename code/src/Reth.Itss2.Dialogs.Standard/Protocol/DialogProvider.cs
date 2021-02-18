@@ -25,7 +25,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
     public abstract class DialogProvider:IDialogProvider
     {
+        public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+
         private bool isDisposed;
+        
+        private IMessageTransmitter? messageTransmitter;
 
         protected DialogProvider()
         {
@@ -36,79 +40,91 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             this.Dispose( false );
         }
 
-        private ManualResetEventSlim DisconnectedEvent
+        protected Object SyncRoot
         {
             get;
-        } = new ManualResetEventSlim( false );
+        } = new Object();
 
         protected IMessageTransmitter? MessageTransmitter
         {
-            get; private set;
+            get
+            {
+                lock( this.SyncRoot )
+                {
+                    return this.messageTransmitter;
+                }
+            }
+            
+            private set
+            {
+                lock( this.SyncRoot )
+                {
+                    this.messageTransmitter = value;
+                }
+            }
         }
 
         public abstract String[] GetSupportedDialogs();
 
         public void SendMessage( String messageEnvelope )
         {
-            _ = this.MessageTransmitter ?? throw Assert.Exception( new InvalidOperationException( "Dialog provider is not connected." ) );
+            lock( this.SyncRoot )
+            {
+                _ = this.MessageTransmitter ?? throw Assert.Exception( new InvalidOperationException( "Dialog provider is not connected." ) );
 
-            this.MessageTransmitter.SendMessage( messageEnvelope );
+                this.MessageTransmitter.SendMessage( messageEnvelope );
+            }
         }
 
         public Task SendMessageAsync( String messageEnvelope )
         {
-            _ = this.MessageTransmitter ?? throw Assert.Exception( new InvalidOperationException( "Dialog provider is not connected." ) );
-            
-            return this.MessageTransmitter.SendMessageAsync( messageEnvelope );
-        }
-
-        public void Connect( IMessageTransmitter messageTransmitter, bool blocking )
-        {
-            this.ConnectDialogs( messageTransmitter );
-
-            messageTransmitter.Subscribe( ( IMessage message ) => {}, this.OnError, this.OnCompleted );
-            messageTransmitter.Connect();
-
-            this.MessageTransmitter = messageTransmitter;
-
-            if( blocking == true )
+            lock( this.SyncRoot )
             {
-                this.DisconnectedEvent.Wait();
+                _ = this.MessageTransmitter ?? throw Assert.Exception( new InvalidOperationException( "Dialog provider is not connected." ) );
+            
+                return this.MessageTransmitter.SendMessageAsync( messageEnvelope );
             }
         }
 
-        public Task ConnectAsync( IMessageTransmitter messageTransmitter, bool blocking )
+        public void Connect( IMessageTransmitter messageTransmitter )
         {
-            return this.ConnectAsync( messageTransmitter, blocking, CancellationToken.None );
+            lock( this.SyncRoot )
+            {
+                if( this.MessageTransmitter is not null )
+                {
+                    throw Assert.Exception( new InvalidOperationException( "Dialog provider is already connected." ) );
+                }
+
+                this.ConnectDialogs( messageTransmitter );
+
+                messageTransmitter.MessageProcessingError += this.OnMessageProcessingError;
+                messageTransmitter.Subscribe( ( IMessage message ) => {}, ( Exception ex ) => {}, () => {} );
+                messageTransmitter.Connect();
+
+                this.MessageTransmitter = messageTransmitter;
+            }
         }
 
-        public Task ConnectAsync( IMessageTransmitter messageTransmitter, bool blocking, CancellationToken cancellationToken )
+        protected virtual void OnMessageProcessingError( Object sender, MessageProcessingErrorEventArgs e )
         {
-            cancellationToken.Register( () =>
-                                        {
-                                            this.DisconnectedEvent.Set();
-                                        }   );
+            this.MessageProcessingError?.Invoke( this, e );
+        }
 
-            return Task.Factory.StartNew(   () =>
-                                            {
-                                                this.Connect( messageTransmitter, blocking );
-                                            },
-                                            CancellationToken.None,
-                                            TaskCreationOptions.LongRunning,
-                                            TaskScheduler.Current   );
+        public Task ConnectAsync( IMessageTransmitter messageTransmitter )
+        {
+            return this.ConnectAsync( messageTransmitter, CancellationToken.None );
+        }
+
+        public Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken )
+        {
+            return Task.Run(    () =>
+                                {
+                                    this.Connect( messageTransmitter );
+                                },
+                                cancellationToken   );
         }
 
         protected abstract void ConnectDialogs( IMessageTransmitter messageTransmitter );
-
-        protected void OnCompleted()
-        {
-            this.DisconnectedEvent.Set();
-        }
-
-        protected void OnError( Exception ex )
-        {
-            this.DisconnectedEvent.Set();
-        }
 
         public void Dispose()
         {
@@ -123,7 +139,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             {
                 if( disposing == true )
                 {
-                    this.MessageTransmitter?.Dispose();
+                    if( this.MessageTransmitter is not null )
+                    {
+                        this.MessageTransmitter.MessageProcessingError -= this.OnMessageProcessingError;
+                        this.MessageTransmitter.Dispose();
+                    }
                 }
 
                 this.isDisposed = true;

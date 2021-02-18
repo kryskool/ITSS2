@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.InitiateInputDialog
 {
-    [JsonDataContractMapping( typeof( InitiateInputResponse ) )]
+    [JsonDataContractMapping( typeof( InitiateInputResponse ), typeof( InitiateInputResponseDataContract ) )]
     public class InitiateInputResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public InitiateInputResponseEnvelopeDataContract()

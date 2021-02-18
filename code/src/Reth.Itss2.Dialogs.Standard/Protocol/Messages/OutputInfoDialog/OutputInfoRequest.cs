@@ -56,7 +56,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog
                                     OutputInfoRequestTask task,
                                     bool? includeTaskDetails    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.OutputInfo, source, destination )
         {
             this.Task = task;
             this.IncludeTaskDetails = includeTaskDetails;

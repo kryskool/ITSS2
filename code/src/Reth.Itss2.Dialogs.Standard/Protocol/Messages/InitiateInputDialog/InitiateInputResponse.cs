@@ -62,7 +62,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
                                         bool? isNewDelivery,
                                         bool? setPickingIndicator   )
         :
-            base( id, source, destination )
+            base( id, Dialogs.InitiateInput, source, destination )
         {
             this.Details = details;
 

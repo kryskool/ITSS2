@@ -21,7 +21,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ShoppingCartDialog
 {
-    [JsonDataContractMapping( typeof( ShoppingCartRequest ) )]
+    [JsonDataContractMapping( typeof( ShoppingCartRequest ), typeof( ShoppingCartRequestDataContract ) )]
     public class ShoppingCartRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ShoppingCartRequestEnvelopeDataContract()

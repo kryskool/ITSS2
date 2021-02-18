@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfoDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDeliveryInfoDialog
 {
-    [XmlDataContractMapping( typeof( StockDeliveryInfoRequest ) )]
+    [XmlDataContractMapping( typeof( StockDeliveryInfoRequest ), typeof( StockDeliveryInfoRequestDataContract ) )]
     public class StockDeliveryInfoRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public StockDeliveryInfoRequestEnvelopeDataContract()

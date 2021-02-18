@@ -44,11 +44,11 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
             get;
         } = new XmlSerializerNamespaces( new[]{ XmlQualifiedName.Empty } );
 
-        public override IMessageEnvelope Deserialize( String messageEnvelope )
+        public override IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope )
         {
             String messageName = this.GetMessageName( messageEnvelope );
 
-            Type dataContractType = this.DataContractResolver.ResolveContract( messageName );
+            Type dataContractType = this.DataContractResolver.ResolveContract( messageName ).MessageEnvelopeDataContractType;
 
             try
             {
@@ -65,15 +65,40 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                 }
             }catch( Exception ex )
             {
-                throw Assert.Exception( new MessageSerializationException( $"Deserialization of message (truncated) '{ messageEnvelope.Truncate() }' failed.", ex ) );
+                throw Assert.Exception( new MessageSerializationException( $"Deserialization of message envelope (truncated) '{ messageEnvelope.Truncate() }' failed.", ex ) );
             }
         }
 
-        public override String Serialize( IMessageEnvelope messageEnvelope )
+        public override IMessage DeserializeMessage( String message )
+        {
+            String messageName = this.GetMessageName( message );
+
+            Type dataContractType = this.DataContractResolver.ResolveContract( messageName ).MessageDataContractType;
+
+            try
+            {
+                using( StringReader input = new StringReader( message ) )
+                {
+                    using( XmlReader reader = XmlReader.Create( input, XmlSerializationSettings.ReaderSettings ) )
+                    {
+                        XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType );
+
+                        IDataContract<IMessage> dataContract = ( IDataContract<IMessage> )( serializer.Deserialize( reader ) );
+
+                        return dataContract.GetDataObject();
+                    }
+                }
+            }catch( Exception ex )
+            {
+                throw Assert.Exception( new MessageSerializationException( $"Deserialization of message (truncated) '{ message.Truncate() }' failed.", ex ) );
+            }
+        }
+
+        public override String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope )
         {
             StringBuilder result = new StringBuilder();
 
-            Type dataContractType = this.DataContractResolver.ResolveContract( messageEnvelope.Message.GetName() );
+            Type dataContractType = this.DataContractResolver.ResolveContract( messageEnvelope.Message.Name ).MessageEnvelopeDataContractType;
 
             using( XmlWriter writer = XmlWriter.Create( result, XmlSerializationSettings.WriterSettings ) )
             {
@@ -86,14 +111,40 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                     serializer.Serialize( writer, dataContract, this.Namespaces );
                 }catch( Exception ex )
                 {
-                    throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ messageEnvelope } ({ messageEnvelope.Timestamp })' failed.", ex ) );
+                    throw Assert.Exception( new MessageSerializationException( $"Serialization of message envelope '{ messageEnvelope } ({ messageEnvelope.Timestamp })' failed.", ex ) );
                 }
             }
 
             return result.ToString();
         }
 
-        public override String GetMessageName( String message )
+        public override String SerializeMessage( IMessage message )
+        {
+            StringBuilder result = new StringBuilder();
+
+            String messageName = message.Name;
+
+            Type dataContractType = this.DataContractResolver.ResolveContract( messageName ).MessageDataContractType;
+
+            using( XmlWriter writer = XmlWriter.Create( result, XmlSerializationSettings.WriterSettings ) )
+            {
+                try
+                {
+                    XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType, new XmlRootAttribute( messageName ) );
+                    
+                    Object dataContract = Activator.CreateInstance( dataContractType, message );
+
+                    serializer.Serialize( writer, dataContract, this.Namespaces );
+                }catch( Exception ex )
+                {
+                    throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ message }' failed.", ex ) );
+                }
+            }
+
+            return result.ToString();
+        }
+
+        private String GetMessageName( String message )
         {
             String result = String.Empty;
 

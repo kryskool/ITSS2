@@ -21,7 +21,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticleInfoDialog
 {
-    [JsonDataContractMapping( typeof( ArticleInfoRequest ) )]
+    [JsonDataContractMapping( typeof( ArticleInfoRequest ), typeof( ArticleInfoRequestDataContract ) )]
     public class ArticleInfoRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ArticleInfoRequestEnvelopeDataContract()

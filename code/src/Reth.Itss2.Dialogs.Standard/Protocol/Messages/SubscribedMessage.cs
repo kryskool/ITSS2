@@ -42,10 +42,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 		}
 
         protected SubscribedMessage(    MessageId id,
+                                        String dialogName,
                                         SubscriberId source,
                                         SubscriberId destination )
         :
-            base( id )
+            base( id, dialogName )
         {
             this.Source = source;
             this.Destination = destination;

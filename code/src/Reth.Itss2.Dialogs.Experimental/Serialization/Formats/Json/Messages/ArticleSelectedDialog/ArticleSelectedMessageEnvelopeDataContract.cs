@@ -21,7 +21,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticleSelectedDialog
 {
-    [JsonDataContractMapping( typeof( ArticleSelectedMessage ) )]
+    [JsonDataContractMapping( typeof( ArticleSelectedMessage ), typeof( ArticleSelectedMessageDataContract ) )]
     public class ArticleSelectedMessageEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ArticleSelectedMessageEnvelopeDataContract()

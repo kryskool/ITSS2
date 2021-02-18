@@ -18,12 +18,12 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
 {
     public interface ITokenStateTransition
     {
-        public ITokenState From{ get; }
-        public ITokenState To{ get; }
+        ITokenState From{ get; }
+        ITokenState To{ get; }
 
-        public ITokenPatternMatch Match{ get; }
+        ITokenPatternMatch Match{ get; }
 
-        public bool IsMessageBegin();
-        public bool IsMessageEnd();
+        bool IsMessageBegin();
+        bool IsMessageEnd();
     }
 }

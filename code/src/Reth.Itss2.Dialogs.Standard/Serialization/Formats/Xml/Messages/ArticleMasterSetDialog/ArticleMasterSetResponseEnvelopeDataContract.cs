@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.ArticleMasterSetDialog
 {
-    [XmlDataContractMapping( typeof( ArticleMasterSetResponse ) )]
+    [XmlDataContractMapping( typeof( ArticleMasterSetResponse ), typeof( ArticleMasterSetResponseDataContract ) )]
     public class ArticleMasterSetResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ArticleMasterSetResponseEnvelopeDataContract()

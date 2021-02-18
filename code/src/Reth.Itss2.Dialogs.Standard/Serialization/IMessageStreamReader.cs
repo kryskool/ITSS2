@@ -23,6 +23,6 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
     public interface IMessageStreamReader:IDisposable, IObservable<IMessageEnvelope>
     {
-        event EventHandler<ErrorEventArgs>? MessageProcessingError;
+        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
     }
 }

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
@@ -23,10 +23,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 {
     public interface IStorageSystemArticleInfoDialog:IDialog
     {
-        event EventHandler<MessageReceivedEventArgs>? RequestReceived;
-
-        void SendResponse( ArticleInfoResponse response );
+        ArticleInfoResponse SendRequest( ArticleInfoRequest request );
         
-        Task SendResponseAsync( ArticleInfoResponse response );
+        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request );
+        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken );
     }
 }

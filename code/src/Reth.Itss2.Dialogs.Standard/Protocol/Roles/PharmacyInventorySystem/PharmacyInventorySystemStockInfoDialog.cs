@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
 
         public PharmacyInventorySystemStockInfoDialog( IDialogProvider dialogProvider )
         :
-            base( "StockInfo", dialogProvider )
+            base( Dialogs.StockInfo, dialogProvider )
         {
         }
 

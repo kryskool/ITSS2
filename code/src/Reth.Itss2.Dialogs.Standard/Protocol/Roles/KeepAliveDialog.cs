@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles
 
         protected KeepAliveDialog( IDialogProvider dialogProvider )
         :
-            base( "KeepAlive", dialogProvider )
+            base( Dialogs.KeepAlive, dialogProvider )
         {
         }
 

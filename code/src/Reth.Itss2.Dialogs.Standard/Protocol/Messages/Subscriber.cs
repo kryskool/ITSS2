@@ -85,9 +85,13 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 
             if( capabilities is not null )
             {
-                this.Capabilities.AddRange( from capability in capabilities
-                                            where capability is not null
-                                            select capability   );
+                foreach( Capability capability in capabilities )
+                {
+                    if( capability is not null )
+                    {
+                        this.Capabilities.Add( capability.Name, capability );
+                    }
+                }
             }
         }
 
@@ -121,14 +125,24 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             get;
         }
         
-        private List<Capability> Capabilities
+        private Dictionary<String, Capability> Capabilities
         {
             get;
-        } = new List<Capability>();
+        } = new Dictionary<String, Capability>( StringComparer.OrdinalIgnoreCase );
 
         public Capability[] GetCapabilities()
         {
-            return this.Capabilities.ToArray();
+            return this.Capabilities.Values.ToArray();
+        }
+
+        public bool IsSupported( Capability capability )
+        {
+            return this.Capabilities.ContainsKey( capability.Name );
+        }
+
+        public bool IsSupported( String capability )
+        {
+           return this.Capabilities.ContainsKey( capability );
         }
 
         public override bool Equals( Object obj )

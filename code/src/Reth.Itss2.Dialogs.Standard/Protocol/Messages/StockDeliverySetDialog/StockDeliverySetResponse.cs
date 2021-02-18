@@ -44,7 +44,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog
                                             SubscriberId destination,
                                             StockDeliverySetResult result   )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockDeliverySet, source, destination )
         {
             this.Result = result;
         }

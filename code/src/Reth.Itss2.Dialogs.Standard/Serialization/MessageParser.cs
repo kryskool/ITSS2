@@ -32,10 +32,10 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             get;
         }
 
-        public abstract IMessageEnvelope Deserialize( String messageEnvelope );
+        public abstract IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
+        public abstract IMessage DeserializeMessage( String message );
               
-        public abstract String Serialize( IMessageEnvelope messageEnvelope );
-
-        public abstract String GetMessageName( String message );
+        public abstract String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
+        public abstract String SerializeMessage( IMessage message );
     }
 }

@@ -21,7 +21,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticlePriceDialog
 {
-    [JsonDataContractMapping( typeof( ArticlePriceResponse ) )]
+    [JsonDataContractMapping( typeof( ArticlePriceResponse ), typeof( ArticlePriceResponseDataContract ) )]
     public class ArticlePriceResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ArticlePriceResponseEnvelopeDataContract()

@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.TaskCancelOutputDialog
 {
-    [JsonDataContractMapping( typeof( TaskCancelOutputRequest ) )]
+    [JsonDataContractMapping( typeof( TaskCancelOutputRequest ), typeof( TaskCancelOutputRequestDataContract ) )]
     public class TaskCancelOutputRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public TaskCancelOutputRequestEnvelopeDataContract()

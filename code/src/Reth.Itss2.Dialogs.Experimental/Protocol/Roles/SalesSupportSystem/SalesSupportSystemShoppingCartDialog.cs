@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
     {
         public SalesSupportSystemShoppingCartDialog( IDialogProvider dialogProvider )
         :
-            base( "ShoppingCart", dialogProvider )
+            base( Dialogs.ShoppingCart, dialogProvider )
         {
         }
 

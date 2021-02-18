@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.IO;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
@@ -26,7 +27,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
-    public class MessageTransmitter:IMessageTransmitter
+    internal class MessageTransmitter:IMessageTransmitter
     {
 #if DEBUG
         public static TimeSpan DefaultMessageRoundTripTimeout
@@ -50,23 +51,31 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
         } = TimeSpan.FromSeconds( 10 );
 #endif
         
+        public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+
         private bool isDisposed;
 
         public MessageTransmitter(  IMessageStreamReader messageStreamReader,
-                                    IMessageStreamWriter messageStreamWriter    )
+                                    IMessageStreamWriter messageStreamWriter,
+                                    Stream baseStream   )
         :
             this(   messageStreamReader,
                     messageStreamWriter,
+                    baseStream,
                     MessageTransmitter.DefaultMessageRoundTripTimeout   )
         {
         }
 
         public MessageTransmitter(  IMessageStreamReader messageStreamReader,
                                     IMessageStreamWriter messageStreamWriter,
+                                    Stream baseStream,
                                     TimeSpan messageRoundTripTimeout    )
         {
             this.MessageStreamReader = messageStreamReader;
+            this.MessageStreamReader.MessageProcessingError += this.OnMessageProcessingError;
+
             this.MessageStreamWriter = messageStreamWriter;
+            this.BaseStream = baseStream;
             this.MessageRoundTripTimeout = messageRoundTripTimeout;
 
             this.Observable = ( from messageEnvelope in this.MessageStreamReader
@@ -88,6 +97,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             get;
         }
 
+        private Stream BaseStream
+        {
+            get; set;
+        }
+
         public TimeSpan MessageRoundTripTimeout
         {
             get;
@@ -96,6 +110,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
         private IConnectableObservable<IMessage> Observable
         {
             get;
+        }
+
+        private void OnMessageProcessingError( Object sender, MessageProcessingErrorEventArgs e )
+        {
+            this.MessageProcessingError?.Invoke( this, e );
         }
 
         public IDisposable Subscribe( IObserver<IMessage> observer )
@@ -149,17 +168,17 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
                 if( response is null )
                 {
-                    throw Assert.Exception( new MessageTransmissionException( $"Sending of '{ request.GetName() }' with id '{ request.Id }' received no response." ) );
+                    throw Assert.Exception( new MessageTransmissionException( $"Sending of '{ request.Name }' with id '{ request.Id }' received no response." ) );
                 }
 
                 return ( TResponse )( response );
             }catch( TimeoutException ex )
             {
-                throw Assert.Exception( new MessageTransmissionException( $"Sending of '{ request.GetName() }' with id '{ request.Id }' timed out.", ex ) );
+                throw Assert.Exception( new MessageTransmissionException( $"Sending of '{ request.Name }' with id '{ request.Id }' timed out.", ex ) );
             }catch( Exception ex )
                 when ( ex is not MessageTransmissionException )
             {
-                throw Assert.Exception( new MessageTransmissionException( $"Sending of '{ request.GetName() }' with id '{ request.Id }' failed.", ex ) );
+                throw Assert.Exception( new MessageTransmissionException( $"Sending of '{ request.Name }' with id '{ request.Id }' failed.", ex ) );
             }
         }
 
@@ -194,8 +213,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             {
                 if( disposing == true )
                 {
+                    this.MessageStreamReader.MessageProcessingError -= this.OnMessageProcessingError;
                     this.MessageStreamReader.Dispose();
                     this.MessageStreamWriter.Dispose();
+
+                    this.BaseStream.Dispose();
                 }
 
                 this.isDisposed = true;

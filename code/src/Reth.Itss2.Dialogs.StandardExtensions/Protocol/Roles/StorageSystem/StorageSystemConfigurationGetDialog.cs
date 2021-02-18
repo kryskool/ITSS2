@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.StorageSystem
 
         public StorageSystemConfigurationGetDialog( IDialogProvider dialogProvider )
         :
-            base( "ConfigurationGet", dialogProvider )
+            base( Dialogs.ConfigurationGet, dialogProvider )
         {
         }
 

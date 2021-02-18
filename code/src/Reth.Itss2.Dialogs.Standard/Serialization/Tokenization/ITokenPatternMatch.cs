@@ -18,11 +18,11 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
 {
     public interface ITokenPatternMatch
     {
-        public ITokenPattern Pattern{ get; }
+        ITokenPattern Pattern{ get; }
         
-        public long StartIndex{ get; }
-        public long EndIndex{ get; }
+        long StartIndex{ get; }
+        long EndIndex{ get; }
 
-        public long Length{ get; }
+        long Length{ get; }
     }
 }

@@ -25,6 +25,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
     public interface IMessageTransmitter:IConnectableObservable<IMessage>, IDisposable
     {
+        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+
         TimeSpan MessageRoundTripTimeout{ get; }
 
         void SendMessage( String messageEnvelope );

@@ -25,7 +25,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
     {
         public SalesSupportSystemArticleSelectedDialog( IDialogProvider dialogProvider )
         :
-            base( "ArticleSelected", dialogProvider )
+            base( Dialogs.ArticleSelected, dialogProvider )
         {
         }
 

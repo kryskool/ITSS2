@@ -45,7 +45,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog
 									    SubscriberId source,
                                         SubscriberId destination    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.ArticleMasterSet, source, destination )
         {
         }
 
@@ -54,7 +54,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog
                                         SubscriberId destination,
                                         IEnumerable<ArticleMasterSetArticle>? articles  )
         :
-            base( id, source, destination )
+            base( id, Dialogs.ArticleMasterSet, source, destination )
         {
             if( articles is not null )
             {

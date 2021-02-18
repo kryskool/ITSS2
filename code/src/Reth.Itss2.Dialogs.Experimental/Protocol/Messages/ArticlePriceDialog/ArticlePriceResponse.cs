@@ -59,7 +59,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePriceDialog
                                         IEnumerable<ArticlePriceResponseArticle>? articles,
                                         Iso4217Code? currency    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.ArticlePrice, source, destination )
         {
             if( articles is not null )
             {

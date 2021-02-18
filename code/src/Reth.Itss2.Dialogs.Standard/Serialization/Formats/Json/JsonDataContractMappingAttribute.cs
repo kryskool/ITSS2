@@ -20,9 +20,9 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 {
     public class JsonDataContractMappingAttribute:DataContractMappingAttribute
     {
-        public JsonDataContractMappingAttribute( Type typeMapping )
+        public JsonDataContractMappingAttribute( Type messageType, Type dataContractType )
         :
-            base( typeMapping )
+            base( messageType, dataContractType )
         {
         }
     }

@@ -55,7 +55,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                                                                                                         },
                                                                                                         LazyThreadSafetyMode.PublicationOnly    );
 
-        public static readonly XmlRootAttribute Root = new XmlRootAttribute( "WWKS" );
+        public static readonly XmlRootAttribute EnvelopeRoot = new XmlRootAttribute( "WWKS" );
         public static readonly Encoding Encoding = Encoding.UTF8;
         
         public static StringComparison StringComparison => XmlSerializationSettings.DefaultStringComparison;

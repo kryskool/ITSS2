@@ -22,15 +22,17 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
     public interface IDialogProvider:IDisposable
     {
+        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+
         String[] GetSupportedDialogs();
 
         void SendMessage( String messageEnvelope );
 
         Task SendMessageAsync( String messageEnvelope );
 
-        void Connect( IMessageTransmitter messageTransmitter, bool blocking );
+        void Connect( IMessageTransmitter messageTransmitter );
 
-        Task ConnectAsync( IMessageTransmitter messageTransmitter, bool blocking );
-        Task ConnectAsync( IMessageTransmitter messageTransmitter, bool blocking, CancellationToken cancellationToken );
+        Task ConnectAsync( IMessageTransmitter messageTransmitter );
+        Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken );
     }
 }

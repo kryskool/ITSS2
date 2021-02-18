@@ -48,7 +48,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
                                         out result  );
         }
 
-        public static MessageId NewId()
+        public static MessageId NextId()
         {
             lock( MessageId.SyncRoot )
             {

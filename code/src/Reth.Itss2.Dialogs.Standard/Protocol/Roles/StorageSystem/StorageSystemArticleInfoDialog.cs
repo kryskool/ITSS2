@@ -14,49 +14,34 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
+using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 {
     public class StorageSystemArticleInfoDialog:Dialog, IStorageSystemArticleInfoDialog
     {
-        public event EventHandler<MessageReceivedEventArgs>? RequestReceived;
-
         public StorageSystemArticleInfoDialog( IDialogProvider dialogProvider )
         :
-            base( "ArticleInfo", dialogProvider )
+            base( Dialogs.ArticleInfo, dialogProvider )
         {
         }
 
-        protected void OnRequestReceived( ArticleInfoRequest request )
+        public ArticleInfoResponse SendRequest( ArticleInfoRequest request )
         {
-            if( this.RequestReceived is not null )
-            {
-                this.RequestReceived.Invoke( this, new MessageReceivedEventArgs( request, this.DialogProvider ) );
-            }
-        }
-
-        public override void Connect( IMessageTransmitter messageTransmitter )
-        {
-            base.Connect(   messageTransmitter,
-                            ( IMessage message ) =>
-                            {
-                                this.Dispatch<ArticleInfoRequest>( message, this.OnRequestReceived );
-                            }   );
-        }
-
-        public void SendResponse( ArticleInfoResponse response )
-        {
-            base.SendResponse( response );
+            return base.SendRequest<ArticleInfoRequest, ArticleInfoResponse>( request );
         }
         
-        public Task SendResponseAsync( ArticleInfoResponse response )
+        public Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request )
         {
-            return base.SendResponseAsync( response );
+            return base.SendRequestAsync<ArticleInfoRequest, ArticleInfoResponse>( request );
+        }
+
+        public Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken )
+        {
+            return base.SendRequestAsync<ArticleInfoRequest, ArticleInfoResponse>( request, cancellationToken );
         }
     }
 }

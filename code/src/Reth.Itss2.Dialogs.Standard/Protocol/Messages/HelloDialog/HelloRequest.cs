@@ -42,7 +42,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog
 
         public HelloRequest( MessageId id, Subscriber subscriber )
         :
-            base( id )
+            base( id, Dialogs.Hello )
         {
             this.Subscriber = subscriber;
         }

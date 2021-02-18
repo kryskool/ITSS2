@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.TaskCancelOutputDialog
 {
-    [XmlDataContractMapping( typeof( TaskCancelOutputResponse ) )]
+    [XmlDataContractMapping( typeof( TaskCancelOutputResponse ), typeof( TaskCancelOutputResponseDataContract ) )]
     public class TaskCancelOutputResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public TaskCancelOutputResponseEnvelopeDataContract()

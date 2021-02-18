@@ -21,20 +21,28 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
     public interface ISerializationProvider:IDisposable
     {
-        event EventHandler<Protocol.ErrorEventArgs>? MessageProcessingError;
-
         IInteractionLog InteractionLog{ get; }
 
         TimeSpan MessageRoundTripTimeout{ get; }
         
-        void Connect( Stream stream, IDialogProvider dialogProvider, bool blocking );
+        IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
+        Task<IMessageEnvelope> DeserializeMessageEnvelopeAsync( String messageEnvelope, CancellationToken cancellationToken = default );
 
-        Task ConnectAsync( Stream stream, IDialogProvider dialogProvider, bool blocking );
-        Task ConnectAsync( Stream stream, IDialogProvider dialogProvider, bool blocking, CancellationToken cancellationToken );
+        IMessage DeserializeMessage( String message );
+        Task<IMessage> DeserializeMessageAsync( String message, CancellationToken cancellationToken = default );
+
+        String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
+        Task<String> SerializeMessageEnvelopeAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default );
+
+        String SerializeMessage( IMessage message );
+        Task<String> SerializeMessageAsync( IMessage message, CancellationToken cancellationToken = default );
+
+        IMessageTransmitter CreateMessageTransmitter( Stream baseStream );
     }
 }

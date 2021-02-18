@@ -39,7 +39,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAliveDialog
 									SubscriberId source,
                                     SubscriberId destination	)
         :
-            base( id, source, destination )
+            base( id, Dialogs.KeepAlive, source, destination )
         {
         }
 

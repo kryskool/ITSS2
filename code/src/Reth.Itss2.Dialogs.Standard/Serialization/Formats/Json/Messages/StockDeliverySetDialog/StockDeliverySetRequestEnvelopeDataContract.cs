@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliverySetDialog
 {
-    [JsonDataContractMapping( typeof( StockDeliverySetRequest ) )]
+    [JsonDataContractMapping( typeof( StockDeliverySetRequest ), typeof( StockDeliverySetRequestDataContract ) )]
     public class StockDeliverySetRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public StockDeliverySetRequestEnvelopeDataContract()

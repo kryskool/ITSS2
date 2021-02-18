@@ -25,7 +25,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
     {
         public PharmacyInventorySystemStockDeliverySetDialog( IDialogProvider dialogProvider )
         :
-            base( "StockDelivery", dialogProvider )
+            base( Dialogs.StockDeliverySet, dialogProvider )
         {
         }
 

@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAliveDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.KeepAliveDialog
 {
-    [XmlDataContractMapping( typeof( KeepAliveResponse ) )]
+    [XmlDataContractMapping( typeof( KeepAliveResponse ), typeof( KeepAliveResponseDataContract ) )]
     public class KeepAliveResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public KeepAliveResponseEnvelopeDataContract()

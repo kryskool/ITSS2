@@ -20,10 +20,10 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
 {
     public interface ITokenPattern
     {
-        public int Length{ get; }
+        int Length{ get; }
 
-        public ITokenPatternMatch? GetFirstMatch( ref ReadOnlySequence<byte> buffer );
-        public ITokenPatternMatch? GetFirstMatch( ref ReadOnlySequence<byte> buffer, long startIndex );
-        public ITokenPatternMatch? GetFirstMatch( ref ReadOnlySequence<byte> buffer, long startIndex, char? escape );
+        ITokenPatternMatch? GetFirstMatch( ref ReadOnlySequence<byte> buffer );
+        ITokenPatternMatch? GetFirstMatch( ref ReadOnlySequence<byte> buffer, long startIndex );
+        ITokenPatternMatch? GetFirstMatch( ref ReadOnlySequence<byte> buffer, long startIndex, char? escape );
     }
 }

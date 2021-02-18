@@ -14,13 +14,15 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 {
     public abstract class Response:Message, IResponse
     {
-        protected Response( MessageId id )
+        protected Response( MessageId id, String dialogName )
         :
-            base( id )
+            base( id, dialogName )
         {
         }
 

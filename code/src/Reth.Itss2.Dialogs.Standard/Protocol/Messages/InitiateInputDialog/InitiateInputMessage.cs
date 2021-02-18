@@ -48,7 +48,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
                                         InitiateInputMessageDetails details,
                                         IEnumerable<InitiateInputMessageArticle>? articles  )
         :
-            base( id, source, destination )
+            base( id, Dialogs.InitiateInput, source, destination )
         {
             this.Details = details;
 

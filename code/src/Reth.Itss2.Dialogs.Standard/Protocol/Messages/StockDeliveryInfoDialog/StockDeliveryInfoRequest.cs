@@ -56,7 +56,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfoDialog
                                             StockDeliveryInfoRequestTask task,
                                             bool? includeTaskDetails    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockDeliveryInfo, source, destination )
         {
             this.Task = task;
             this.IncludeTaskDetails = includeTaskDetails;

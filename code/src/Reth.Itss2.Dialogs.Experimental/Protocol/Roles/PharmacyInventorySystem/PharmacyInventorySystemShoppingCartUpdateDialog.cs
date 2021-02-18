@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.PharmacyInventorySystem
 
         public PharmacyInventorySystemShoppingCartUpdateDialog( IDialogProvider dialogProvider )
         :
-            base( "ShoppingCartUpdate", dialogProvider )
+            base( Dialogs.ShoppingCartUpdate, dialogProvider )
         {
         }
 

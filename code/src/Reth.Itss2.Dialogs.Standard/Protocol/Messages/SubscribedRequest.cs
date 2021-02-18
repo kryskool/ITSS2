@@ -36,10 +36,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 		}
 
         protected SubscribedRequest(    MessageId id,
+                                        String dialogName,
                                         SubscriberId source,
                                         SubscriberId destination )
         :
-            base( id, source, destination )
+            base( id, dialogName, source, destination )
         {
         }
 

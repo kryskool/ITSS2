@@ -28,7 +28,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles
 
         protected UnprocessedDialog( IDialogProvider dialogProvider )
         :
-            base( "Unprocessed", dialogProvider )
+            base( Dialogs.Unprocessed, dialogProvider )
         {
         }
 

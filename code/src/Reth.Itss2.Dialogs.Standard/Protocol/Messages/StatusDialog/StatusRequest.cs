@@ -44,7 +44,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog
 								SubscriberId source,
                                 SubscriberId destination    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Status, source, destination )
         {
         }
 
@@ -53,7 +53,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog
                                 SubscriberId destination,
                                 bool? includeDetails )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Status, source, destination )
         {
             this.IncludeDetails = includeDetails;
         }

@@ -59,7 +59,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog
                                 bool? isNewDelivery,
                                 bool? setPickingIndicator   )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Input, source, destination )
         {
             if( articles is not null )
             {

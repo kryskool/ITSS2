@@ -22,6 +22,7 @@ using System.Reactive.Linq;
 using System.Text;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Tokenization;
 
@@ -29,7 +30,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
     public abstract class MessageStreamReader:IMessageStreamReader
     {
-        public event EventHandler<Protocol.ErrorEventArgs>? MessageProcessingError;
+        public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
 
         private bool isDisposed;
 
@@ -93,16 +94,24 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
         {
             IMessageEnvelope? result = null;
 
+            String messageEnvelope = String.Empty;
+
             try
             {
-                String message = this.Encoding.GetString( token.ToArray() );
-
-                this.InteractionLog.LogIncoming( message );
-
-                result = this.MessageParser.Deserialize( message );
+                messageEnvelope = this.Encoding.GetString( token.ToArray() );
             }catch( Exception ex )
             {
-                this.MessageProcessingError?.Invoke( this, new Protocol.ErrorEventArgs( ex ) );
+                this.MessageProcessingError?.Invoke( this, new MessageProcessingErrorEventArgs( "Message encoding failed.", ex ) );
+            }
+
+            this.InteractionLog.LogIncoming( messageEnvelope );
+
+            try
+            {
+                result = this.MessageParser.DeserializeMessageEnvelope( messageEnvelope );
+            }catch( MessageSerializationException ex )
+            {
+                this.MessageProcessingError?.Invoke( this, new MessageProcessingErrorEventArgs( messageEnvelope, ex ) );
             }
 
             return result;

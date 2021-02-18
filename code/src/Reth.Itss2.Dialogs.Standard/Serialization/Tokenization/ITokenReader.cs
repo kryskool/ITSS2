@@ -20,9 +20,9 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
 {
     public interface ITokenReader
     {
-        public bool Read(   ref ITokenReaderState state,
-                            ref ReadOnlySequence<byte> buffer,
-                            out ReadOnlySequence<byte> token,
-                            out long consumedBytes  );
+        bool Read(  ref ITokenReaderState state,
+                    ref ReadOnlySequence<byte> buffer,
+                    out ReadOnlySequence<byte> token,
+                    out long consumedBytes  );
     }
 }

@@ -70,7 +70,8 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
         public void TestSubscribtionOfSingleObserver()
         {
             using(  IMessageTransmitter transmitter = new MessageTransmitter(   new XmlMessageStreamReader( this.BaseStream ),
-                                                                                new XmlMessageStreamWriter( this.BaseStream )  ) )
+                                                                                new XmlMessageStreamWriter( this.BaseStream ),
+                                                                                this.BaseStream ) )
             {
                 Mock<IObserver<IMessage>> observerMock = new Mock<IObserver<IMessage>>();
 
@@ -91,7 +92,8 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
         public void TestSubscriptionOfMultipleObservers()
         {
             using(  IMessageTransmitter transmitter = new MessageTransmitter(   new XmlMessageStreamReader( this.BaseStream ),
-                                                                                new XmlMessageStreamWriter( this.BaseStream )  ) )
+                                                                                new XmlMessageStreamWriter( this.BaseStream ),
+                                                                                this.BaseStream ) )
             {
                 Mock<IObserver<IMessage>> observerMock1 = new Mock<IObserver<IMessage>>();
                 Mock<IObserver<IMessage>> observerMock2 = new Mock<IObserver<IMessage>>();

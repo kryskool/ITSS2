@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 {
@@ -36,14 +37,17 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             return EqualityComparer<MessageId?>.Default.Equals( left?.Id, right?.Id );
 		}
 
-        protected Message( MessageId id )
+        protected Message( Message other )
+        :
+            this( other.Id, other.DialogName )
         {
-            this.Id = id;
         }
 
-        protected Message( Message other )
+        protected Message( MessageId id, String dialogName )
         {
-            this.Id = other.Id;
+            this.Id = id;
+            this.Name = this.GetType().Name;
+            this.DialogName = dialogName;
         }
 
         public MessageId Id
@@ -51,9 +55,14 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             get;
         }
 
-        public virtual String GetName()
+        public String Name
         {
-            return this.GetType().Name;
+            get;
+        }
+
+        public String DialogName
+        {
+            get;
         }
 
         public override bool Equals( Object obj )
@@ -73,7 +82,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 
         public override String ToString()
         {
-            return $"{ this.GetName() } ({ this.Id })'";
+            return $"{ this.Name } ({ this.Id })'";
         }
     }
 }

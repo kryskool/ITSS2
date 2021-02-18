@@ -28,7 +28,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         public StorageSystemStockDeliveryInfoDialog( IDialogProvider dialogProvider )
         :
-            base( "StockDeliveryInfo", dialogProvider )
+            base( Dialogs.StockDeliveryInfo, dialogProvider )
         {
         }
 

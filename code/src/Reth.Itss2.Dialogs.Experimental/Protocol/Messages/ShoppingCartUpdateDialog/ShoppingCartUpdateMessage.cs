@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdateDi
                                             SubscriberId destination,
                                             ShoppingCart shoppingCart )
         :
-            base( id, source, destination )
+            base( id, Dialogs.ShoppingCartUpdate, source, destination )
         {
             this.ShoppingCart = shoppingCart;
         }

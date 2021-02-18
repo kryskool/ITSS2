@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog
                                             SubscriberId destination,
                                             IEnumerable<StockLocation>? stockLocations  )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockLocationInfo, source, destination )
         {
             if( stockLocations is not null )
             {

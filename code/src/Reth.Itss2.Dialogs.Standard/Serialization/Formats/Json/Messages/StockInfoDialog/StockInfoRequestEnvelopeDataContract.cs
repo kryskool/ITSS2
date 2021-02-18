@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockInfoDialog
 {
-    [JsonDataContractMapping( typeof( StockInfoRequest ) )]
+    [JsonDataContractMapping( typeof( StockInfoRequest ), typeof( StockInfoRequestDataContract ) )]
     public class StockInfoRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public StockInfoRequestEnvelopeDataContract()

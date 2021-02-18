@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.HelloDialog
 {
-    [XmlDataContractMapping( typeof( HelloResponse ) )]
+    [XmlDataContractMapping( typeof( HelloResponse ), typeof( HelloResponseDataContract ) )]
     public class HelloResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public HelloResponseEnvelopeDataContract()

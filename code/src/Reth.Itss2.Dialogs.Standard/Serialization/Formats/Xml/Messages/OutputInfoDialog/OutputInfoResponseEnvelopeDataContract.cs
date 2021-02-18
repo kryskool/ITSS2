@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.OutputInfoDialog
 {
-    [XmlDataContractMapping( typeof( OutputInfoResponse ) )]
+    [XmlDataContractMapping( typeof( OutputInfoResponse ), typeof( OutputInfoResponseDataContract ) )]
     public class OutputInfoResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public OutputInfoResponseEnvelopeDataContract()

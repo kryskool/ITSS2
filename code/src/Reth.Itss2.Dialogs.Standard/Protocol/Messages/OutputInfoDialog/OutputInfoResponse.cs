@@ -44,7 +44,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog
                                     SubscriberId destination,
                                     OutputInfoResponseTask task )
         :
-            base( id, source, destination )
+            base( id, Dialogs.OutputInfo, source, destination )
         {
             this.Task = task;
         }

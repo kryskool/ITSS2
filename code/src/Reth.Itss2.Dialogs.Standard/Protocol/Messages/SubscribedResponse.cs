@@ -36,16 +36,17 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 		}
 
         protected SubscribedResponse(   MessageId id,
+                                        String dialogName,
                                         SubscriberId source,
                                         SubscriberId destination )
         :
-            base( id, source, destination )
+            base( id, dialogName, source, destination )
         {
         }
 
         protected SubscribedResponse( SubscribedRequest request )
         :
-            base( request.Id, request.Destination, request.Source )
+            base( request.Id, request.DialogName, request.Destination, request.Source )
         {
         }
 

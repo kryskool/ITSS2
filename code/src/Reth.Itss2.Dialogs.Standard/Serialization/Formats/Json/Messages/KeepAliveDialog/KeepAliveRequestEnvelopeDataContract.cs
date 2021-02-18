@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAliveDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.KeepAliveDialog
 {
-    [JsonDataContractMapping( typeof( KeepAliveRequest ) )]
+    [JsonDataContractMapping( typeof( KeepAliveRequest ), typeof( KeepAliveRequestDataContract ) )]
     public class KeepAliveRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public KeepAliveRequestEnvelopeDataContract()

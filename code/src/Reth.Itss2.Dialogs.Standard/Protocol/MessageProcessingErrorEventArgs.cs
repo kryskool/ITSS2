@@ -18,21 +18,28 @@ using System;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
-    public class ErrorEventArgs:EventArgs
+    public class MessageProcessingErrorEventArgs:EventArgs
     {
-        public ErrorEventArgs( Exception exception )
+        public MessageProcessingErrorEventArgs( String? message )
+        :
+            this( message, null )
         {
+        }
+
+        public MessageProcessingErrorEventArgs( String? message, Exception? exception )
+        {
+            this.Message = message;
             this.Exception = exception;
         }
 
-        public Exception Exception
+        public String? Message
         {
             get;
         }
 
-        public override String ToString()
+        public Exception? Exception
         {
-            return this.Exception.ToString();
+            get;
         }
     }
 }

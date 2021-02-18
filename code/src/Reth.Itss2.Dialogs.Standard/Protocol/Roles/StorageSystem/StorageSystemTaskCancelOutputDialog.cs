@@ -28,7 +28,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         public StorageSystemTaskCancelOutputDialog( IDialogProvider dialogProvider )
         :
-            base( "TaskCancelOutput", dialogProvider )
+            base( Dialogs.TaskCancelOutput, dialogProvider )
         {
         }
 

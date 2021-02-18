@@ -28,7 +28,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         public StorageSystemArticleMasterSetDialog( IDialogProvider dialogProvider )
         :
-            base( "ArticleMaster", dialogProvider )
+            base( Dialogs.ArticleMasterSet, dialogProvider )
         {
         }
 

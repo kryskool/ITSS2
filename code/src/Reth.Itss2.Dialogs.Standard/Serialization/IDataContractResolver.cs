@@ -20,6 +20,6 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
     public interface IDataContractResolver
     {
-        Type ResolveContract( String messageName );
+        DataContractMapping ResolveContract( String messageName );
     }
 }

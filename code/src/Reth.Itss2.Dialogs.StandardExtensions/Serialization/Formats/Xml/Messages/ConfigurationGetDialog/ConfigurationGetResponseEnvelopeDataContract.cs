@@ -24,7 +24,7 @@ using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGetDi
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml.Messages.ConfigurationGetDialog
 {
-    [XmlDataContractMapping( typeof( ConfigurationGetResponse ) )]
+    [XmlDataContractMapping( typeof( ConfigurationGetResponse ), typeof( ConfigurationGetResponseDataContract ) )]
     public class ConfigurationGetResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ConfigurationGetResponseEnvelopeDataContract()

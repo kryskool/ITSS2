@@ -47,7 +47,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.UnprocessedDialog
                                     SubscriberId destination,
                                     String message  )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Unprocessed, source, destination )
         {
             this.Message = message;
         }
@@ -59,7 +59,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.UnprocessedDialog
                                     String? text,
                                     UnprocessedReason? reason    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Unprocessed, source, destination )
         {
             this.Message = message;
             this.Text = text;

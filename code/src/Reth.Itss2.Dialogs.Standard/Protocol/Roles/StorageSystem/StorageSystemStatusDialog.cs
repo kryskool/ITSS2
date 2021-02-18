@@ -28,7 +28,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         public StorageSystemStatusDialog( IDialogProvider dialogProvider )
         :
-            base( "Status", dialogProvider )
+            base( Dialogs.Status, dialogProvider )
         {
         }
 

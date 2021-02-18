@@ -57,7 +57,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog
                                 IEnumerable<InputResponseArticle>? articles,
                                 bool? isNewDelivery   )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Input, source, destination )
         {
             if( articles is not null )
             {

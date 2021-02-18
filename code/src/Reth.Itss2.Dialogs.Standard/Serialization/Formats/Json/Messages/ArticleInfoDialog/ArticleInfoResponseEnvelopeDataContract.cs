@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleInfoDialog
 {
-    [JsonDataContractMapping( typeof( ArticleInfoResponse ) )]
+    [JsonDataContractMapping( typeof( ArticleInfoResponse ), typeof( ArticleInfoResponseDataContract ) )]
     public class ArticleInfoResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public ArticleInfoResponseEnvelopeDataContract()

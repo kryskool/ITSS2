@@ -32,18 +32,23 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
             get;
         } = new Dictionary<Type, XmlSerializer>();
 
-        public static XmlSerializer GetSerializer( Type envelopeDataContractType )
+        public static XmlSerializer GetSerializer( Type dataContractType )
+        {
+            return SerializationManager.GetSerializer( dataContractType, XmlSerializationSettings.EnvelopeRoot );
+        }
+
+        public static XmlSerializer GetSerializer( Type dataContractType, XmlRootAttribute xmlRoot )
         {
             lock( SerializationManager.SyncRoot )
             {
-                if( SerializationManager.Serializers.TryGetValue( envelopeDataContractType, out XmlSerializer result ) )
+                if( SerializationManager.Serializers.TryGetValue( dataContractType, out XmlSerializer result ) )
                 {
                     return result;
                 }else
                 {
-                    result = new XmlSerializer( envelopeDataContractType, XmlSerializationSettings.Root );
+                    result = new XmlSerializer( dataContractType, xmlRoot );
 
-                    SerializationManager.Serializers.Add( envelopeDataContractType, result );
+                    SerializationManager.Serializers.Add( dataContractType, result );
 
                     return result;
                 }

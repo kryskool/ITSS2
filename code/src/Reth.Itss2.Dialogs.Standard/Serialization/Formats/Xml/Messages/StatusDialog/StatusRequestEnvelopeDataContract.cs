@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StatusDialog
 {
-    [XmlDataContractMapping( typeof( StatusRequest ) )]
+    [XmlDataContractMapping( typeof( StatusRequest ), typeof( StatusRequestDataContract ) )]
     public class StatusRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public StatusRequestEnvelopeDataContract()

@@ -45,7 +45,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
                                     SubscriberId source,
                                     SubscriberId destination    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockInfo, source, destination )
         {
         }
 
@@ -54,7 +54,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
                                     SubscriberId destination,
                                     IEnumerable<StockInfoArticle>? articles  )
         :
-            base( id, source, destination )
+            base( id, Dialogs.StockInfo, source, destination )
         {
             if( articles is not null )
             {

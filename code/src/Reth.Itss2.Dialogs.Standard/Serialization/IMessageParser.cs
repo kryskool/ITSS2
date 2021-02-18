@@ -22,12 +22,12 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
     public interface IMessageParser
     {
-        public IDataContractResolver DataContractResolver{ get; }
+        IDataContractResolver DataContractResolver{ get; }
         
-        public IMessageEnvelope Deserialize( String messageEnvelope );
+        IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
+        IMessage DeserializeMessage( String message );
 
-        public String Serialize( IMessageEnvelope messageEnvelope );
-
-        public String GetMessageName( String message );
+        String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
+        String SerializeMessage( IMessage message );
     }
 }

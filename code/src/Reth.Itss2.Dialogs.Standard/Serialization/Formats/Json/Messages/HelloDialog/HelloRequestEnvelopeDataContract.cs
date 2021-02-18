@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.HelloDialog
 {
-    [JsonDataContractMapping( typeof( HelloRequest ) )]
+    [JsonDataContractMapping( typeof( HelloRequest ), typeof( HelloRequestDataContract ) )]
     public class HelloRequestEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public HelloRequestEnvelopeDataContract()

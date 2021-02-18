@@ -50,7 +50,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputDialog
                                 IEnumerable<OutputArticle>? articles,
                                 IEnumerable<OutputBox>? boxes    )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Output, source, destination )
         {
             this.Details = details;
 

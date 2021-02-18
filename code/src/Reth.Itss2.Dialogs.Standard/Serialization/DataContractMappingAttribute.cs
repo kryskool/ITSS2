@@ -21,12 +21,18 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
     [AttributeUsage( AttributeTargets.Class, AllowMultiple = false, Inherited = false )]
     public abstract class DataContractMappingAttribute:Attribute
     {
-        protected DataContractMappingAttribute( Type typeMapping )
+        protected DataContractMappingAttribute( Type messageType, Type dataContractType )
         {
-            this.TypeMapping = typeMapping;
+            this.MessageType = messageType;
+            this.DataContractType = dataContractType;
         }
 
-        public Type TypeMapping
+        public Type MessageType
+        {
+            get;
+        }
+
+        public Type DataContractType
         {
             get;
         }

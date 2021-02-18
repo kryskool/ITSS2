@@ -28,7 +28,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         public StorageSystemOutputDialog( IDialogProvider dialogProvider )
         :
-            base( "Output", dialogProvider )
+            base( Dialogs.Output, dialogProvider )
         {
         }
 

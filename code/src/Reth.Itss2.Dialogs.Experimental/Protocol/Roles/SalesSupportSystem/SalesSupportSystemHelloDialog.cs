@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
 
         public SalesSupportSystemHelloDialog( IDialogProvider dialogProvider )
         :
-            base( "Hello", dialogProvider )
+            base( Dialogs.Hello, dialogProvider )
         {
         }
 

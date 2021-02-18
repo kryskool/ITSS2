@@ -19,7 +19,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StatusDialog
 {
-    [JsonDataContractMapping( typeof( StatusResponse ) )]
+    [JsonDataContractMapping( typeof( StatusResponse ), typeof( StatusResponseDataContract ) )]
     public class StatusResponseEnvelopeDataContract:MessageEnvelopeDataContract
     {
         public StatusResponseEnvelopeDataContract()

@@ -58,7 +58,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog
                                 String? stateText,
                                 IEnumerable<Component>? components   )
         :
-            base( id, source, destination )
+            base( id, Dialogs.Status, source, destination )
         {
             this.State = state;
             this.StateText = stateText;

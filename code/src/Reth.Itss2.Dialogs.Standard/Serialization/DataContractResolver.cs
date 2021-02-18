@@ -34,7 +34,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             this.DataContracts = this.ResolveContracts( serializationProvider, dataContractMapping );
         }
 
-        private IReadOnlyDictionary<String, Type> DataContracts
+        private IReadOnlyDictionary<String, DataContractMapping> DataContracts
         {
             get;
         }
@@ -53,14 +53,14 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             return result;
         }
 
-        private IReadOnlyDictionary<String, Type> ResolveContracts( ISerializationProvider serializationProvider, Type dataContractMapping )
+        private IReadOnlyDictionary<String, DataContractMapping> ResolveContracts( ISerializationProvider serializationProvider, Type dataContractMapping )
         {
             return this.ResolveContracts( serializationProvider.GetType(), dataContractMapping );
         }
 
-        private IReadOnlyDictionary<String, Type> ResolveContracts( Type serializationProvider, Type dataContractMapping )
+        private IReadOnlyDictionary<String, DataContractMapping> ResolveContracts( Type serializationProvider, Type dataContractMapping )
         {
-            Dictionary<String, Type> result = new Dictionary<String, Type>();
+            Dictionary<String, DataContractMapping> result = new Dictionary<String, DataContractMapping>();
 
             List<Assembly> assemblies = this.GetAssemblies( serializationProvider );
 
@@ -74,14 +74,18 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
                     
                     foreach( DataContractMappingAttribute attribute in attributes )
                     {
-                        String name = attribute.TypeMapping.Name;
+                        String name = attribute.MessageType.Name;
+
+                        DataContractMapping contractMapping = new DataContractMapping(  attribute.MessageType,
+                                                                                        attribute.DataContractType,
+                                                                                        type    );
 
                         if( result.ContainsKey( name ) == true )
                         {
-                            result[ name ] = type;
+                            result[ name ] = contractMapping;
                         }else
                         {
-                            result.Add( name, type );
+                            result.Add( name, contractMapping );
                         }
                     }
                 }
@@ -90,9 +94,9 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             return result;
         }
 
-        public Type ResolveContract( String messageName )
+        public DataContractMapping ResolveContract( String messageName )
         {
-            if( this.DataContracts.TryGetValue( messageName, out Type result ) )
+            if( this.DataContracts.TryGetValue( messageName, out DataContractMapping result ) )
             {
                 return result;
             }else

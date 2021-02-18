@@ -22,6 +22,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
     {
         MessageId Id{ get; }
 
-        String GetName();
+        String Name{ get; }
+        String DialogName{ get; }
     }
 }
