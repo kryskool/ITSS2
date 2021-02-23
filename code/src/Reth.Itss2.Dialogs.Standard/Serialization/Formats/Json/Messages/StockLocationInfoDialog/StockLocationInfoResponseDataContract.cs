@@ -15,41 +15,41 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Xml.Serialization;
+using System.Text.Json.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDeliverySetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockLocationInfoDialog
 {
-    public class StockDeliverySetResponseDataContract:SubscribedResponseDataContract<StockDeliverySetResponse>
+    public class StockLocationInfoResponseDataContract:SubscribedResponseDataContract<StockLocationInfoResponse>
     {
-        public StockDeliverySetResponseDataContract()
+        public StockLocationInfoResponseDataContract()
         {
-            this.Result = new StockDeliverySetResultDataContract();
+            this.StockLocations = new StockLocationDataContract[]{};
         }
 
-        public StockDeliverySetResponseDataContract( StockDeliverySetResponse dataObject )
+        public StockLocationInfoResponseDataContract( StockLocationInfoResponse dataObject )
         :
             base( dataObject )
         {
-            this.Result = TypeConverter.ConvertFromDataObject<StockDeliverySetResult, StockDeliverySetResultDataContract>( dataObject.Result );
+            this.StockLocations = TypeConverter.ConvertFromDataObjects<StockLocation, StockLocationDataContract>( dataObject.GetStockLocations() );
         }
 
-        [XmlElement]
-        public StockDeliverySetResultDataContract Result{ get; set; }
+        [JsonPropertyName( nameof( StockLocation ) )]
+        public StockLocationDataContract[]? StockLocations{ get; set; }
 
-        public override StockDeliverySetResponse GetDataObject()
+        public override StockLocationInfoResponse GetDataObject()
         {
-            return new StockDeliverySetResponse(    TypeConverter.MessageId.ConvertTo( this.Id ),
+            return new StockLocationInfoResponse(   TypeConverter.MessageId.ConvertTo( this.Id ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Destination ),
-                                                    TypeConverter.ConvertToDataObject<StockDeliverySetResult, StockDeliverySetResultDataContract>( this.Result )   );
+                                                    TypeConverter.ConvertToDataObjects<StockLocation, StockLocationDataContract>( this.StockLocations )   );
         }
 
         public override Type GetEnvelopeType()
         {
-            return typeof( StockDeliverySetResponseEnvelopeDataContract );
+            return typeof( StockLocationInfoResponseEnvelopeDataContract );
         }
     }
 }

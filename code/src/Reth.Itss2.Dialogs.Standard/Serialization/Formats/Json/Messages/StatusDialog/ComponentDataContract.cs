@@ -30,7 +30,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Status
         public ComponentDataContract( Component dataObject )
         {
             this.Type = TypeConverter.ComponentType.ConvertFrom( dataObject.Type );
-            this.Type = TypeConverter.ComponentState.ConvertFrom( dataObject.State );
+            this.State = TypeConverter.ComponentState.ConvertFrom( dataObject.State );
             this.Description = dataObject.Description;
             this.StateText = dataObject.StateText;
         }

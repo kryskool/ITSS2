@@ -88,6 +88,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
             this.StockDeliveryInfoDialog.Connect( messageTransmitter );
             this.StockDeliverySetDialog.Connect( messageTransmitter );
             this.StockInfoDialog.Connect( messageTransmitter );
+            this.StockLocationInfoDialog.Connect( messageTransmitter );
             this.TaskCancelOutputDialog.Connect( messageTransmitter );
             this.UnprocessedDialog.Connect( messageTransmitter );
         }

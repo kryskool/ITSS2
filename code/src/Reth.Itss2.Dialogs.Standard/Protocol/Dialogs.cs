@@ -30,7 +30,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
         public static String OutputInfo{ get{ return "OutputInfo"; } }
         public static String Status{ get{ return "Status"; } }
         public static String StockDeliveryInfo{ get{ return "StockDeliveryInfo"; } }
-        public static String StockDeliverySet{ get{ return "StockDeliverySet"; } }
+        public static String StockDeliverySet{ get{ return "StockDelivery"; } }
         public static String StockInfo{ get{ return "StockInfo"; } }
         public static String StockLocationInfo{ get{ return "StockLocationInfo"; } }
         public static String TaskCancelOutput{ get{ return "TaskCancelOutput"; } }

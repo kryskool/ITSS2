@@ -16,8 +16,11 @@
 
 using Reth.Itss2.Workflows.Standard.StorageSystem.ArticleMasterSetDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog;
+using Reth.Itss2.Workflows.Standard.StorageSystem.OutputInfoDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.StatusDialog;
+using Reth.Itss2.Workflows.Standard.StorageSystem.StockDeliverySetDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.StockInfoDialog;
+using Reth.Itss2.Workflows.Standard.StorageSystem.StockLocationInfoDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.UnprocessedDialog;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem
@@ -26,8 +29,11 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem
     {        
         IArticleMasterSetWorkflow ArticleMasterSetWorkflow{ get; }
         IHelloWorkflow HelloWorkflow{ get; }
+        IOutputInfoWorkflow OutputInfoWorkflow{ get; }
         IStatusWorkflow StatusWorkflow{ get; }
+        IStockDeliverySetWorkflow StockDeliverySetWorkflow{ get; }
         IStockInfoWorkflow StockInfoWorkflow{ get; }
+        IStockLocationInfoWorkflow StockLocationInfoWorkflow{ get; }
         IUnprocessedWorkflow UnprocessedWorkflow{ get; }
     }
 }

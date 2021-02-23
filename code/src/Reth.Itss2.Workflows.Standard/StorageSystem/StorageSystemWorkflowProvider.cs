@@ -23,8 +23,11 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Workflows.Standard.StorageSystem.ArticleMasterSetDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog;
+using Reth.Itss2.Workflows.Standard.StorageSystem.OutputInfoDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.StatusDialog;
+using Reth.Itss2.Workflows.Standard.StorageSystem.StockDeliverySetDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.StockInfoDialog;
+using Reth.Itss2.Workflows.Standard.StorageSystem.StockLocationInfoDialog;
 using Reth.Itss2.Workflows.Standard.StorageSystem.UnprocessedDialog;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem
@@ -45,14 +48,20 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem
 
             this.ArticleMasterSetWorkflow = new ArticleMasterSetWorkflow( this, this.DialogProvider, serializationProvider );
             this.HelloWorkflow = new HelloWorkflow( this, this.DialogProvider, serializationProvider );
+            this.OutputInfoWorkflow = new OutputInfoWorkflow( this, this.DialogProvider, serializationProvider );
             this.StatusWorkflow = new StatusWorkflow( this, this.DialogProvider, serializationProvider );
+            this.StockDeliverySetWorkflow = new StockDeliverySetWorkflow( this, this.DialogProvider, serializationProvider );
             this.StockInfoWorkflow = new StockInfoWorkflow( this, this.DialogProvider, serializationProvider );
+            this.StockLocationInfoWorkflow = new StockLocationInfoWorkflow( this, this.DialogProvider, serializationProvider );
             this.UnprocessedWorkflow = new UnprocessedWorkflow( this, this.DialogProvider, serializationProvider );
 
             this.ArticleMasterSetWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.HelloWorkflow.MessageProcessingError += this.OnMessageProcessingError;
+            this.OutputInfoWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.StatusWorkflow.MessageProcessingError += this.OnMessageProcessingError;
+            this.StockDeliverySetWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.StockInfoWorkflow.MessageProcessingError += this.OnMessageProcessingError;
+            this.StockLocationInfoWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.UnprocessedWorkflow.MessageProcessingError += this.OnMessageProcessingError;
 
             this.HelloWorkflow.RequestAccepted += this.OnHelloRequestAccepted;
@@ -115,8 +124,11 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem
 
         public IArticleMasterSetWorkflow ArticleMasterSetWorkflow{ get; set; }
         public IHelloWorkflow HelloWorkflow{ get; }
+        public IOutputInfoWorkflow OutputInfoWorkflow{ get; }
         public IStatusWorkflow StatusWorkflow{ get; }
+        public IStockDeliverySetWorkflow StockDeliverySetWorkflow{ get; }
         public IStockInfoWorkflow StockInfoWorkflow{ get; }
+        public IStockLocationInfoWorkflow StockLocationInfoWorkflow{ get; }
         public IUnprocessedWorkflow UnprocessedWorkflow{ get; }
 
         private void OnHelloRequestAccepted( Object sender, MessageReceivedEventArgs e )
@@ -144,8 +156,11 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem
                 {
                     this.ArticleMasterSetWorkflow.Dispose();
                     this.HelloWorkflow.Dispose();
+                    this.OutputInfoWorkflow.Dispose();
                     this.StatusWorkflow.Dispose();
+                    this.StockDeliverySetWorkflow.Dispose();
                     this.StockInfoWorkflow.Dispose();
+                    this.StockLocationInfoWorkflow.Dispose();
                     this.UnprocessedWorkflow.Dispose();
 
                     this.DialogProvider.Dispose();
