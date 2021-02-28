@@ -25,8 +25,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
     public interface ISalesSupportSystemArticleInfoDialog:IDialog
     {
         ArticleInfoResponse SendRequest( ArticleInfoRequest request );
-                
-        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request );
-        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken );
+        
+        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken = default );
     }
 }

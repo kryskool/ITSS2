@@ -25,7 +25,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
     {
         ArticleMasterSetResponse SendRequest( ArticleMasterSetRequest request );
         
-        Task<ArticleMasterSetResponse> SendRequestAsync( ArticleMasterSetRequest request );
-        Task<ArticleMasterSetResponse> SendRequestAsync( ArticleMasterSetRequest request, CancellationToken cancellationToken );
+        Task<ArticleMasterSetResponse> SendRequestAsync( ArticleMasterSetRequest request, CancellationToken cancellationToken = default );
     }
 }

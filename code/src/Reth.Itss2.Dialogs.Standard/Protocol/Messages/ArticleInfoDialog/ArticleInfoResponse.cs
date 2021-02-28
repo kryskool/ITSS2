@@ -52,14 +52,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog
         public ArticleInfoResponse( MessageId id,
                                     SubscriberId source,
                                     SubscriberId destination,
-                                    IEnumerable<ArticleInfoResponseArticle>? articles   )
+                                    IEnumerable<ArticleInfoResponseArticle> articles   )
         :
             base( id, Dialogs.ArticleInfo, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
         }
 
         public ArticleInfoResponse( ArticleInfoRequest request )
@@ -69,14 +66,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog
         }
 
         public ArticleInfoResponse( ArticleInfoRequest request,
-                                    IEnumerable<ArticleInfoResponseArticle>? articles   )
+                                    IEnumerable<ArticleInfoResponseArticle> articles   )
         :
             base( request )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
         }
 
         private List<ArticleInfoResponseArticle> Articles

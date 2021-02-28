@@ -34,13 +34,8 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.PharmacyInventory
         {
             return base.SendRequest<ConfigurationGetRequest, ConfigurationGetResponse>( request );
         }
-        
-        public Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request )
-        {
-            return base.SendRequestAsync<ConfigurationGetRequest, ConfigurationGetResponse>( request );
-        }
 
-        public Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request, CancellationToken cancellationToken )
+        public Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<ConfigurationGetRequest, ConfigurationGetResponse>( request, cancellationToken );
         }

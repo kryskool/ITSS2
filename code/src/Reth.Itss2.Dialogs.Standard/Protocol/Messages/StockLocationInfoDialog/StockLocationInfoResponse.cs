@@ -44,25 +44,19 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog
         public StockLocationInfoResponse(   MessageId id,
                                             SubscriberId source,
                                             SubscriberId destination,
-                                            IEnumerable<StockLocation>? stockLocations  )
+                                            IEnumerable<StockLocation> stockLocations  )
         :
             base( id, Dialogs.StockLocationInfo, source, destination )
         {
-            if( stockLocations is not null )
-            {
-                this.StockLocations.AddRange( stockLocations );
-            }
+            this.StockLocations.AddRange( stockLocations );
         }
 
         public StockLocationInfoResponse(   StockLocationInfoRequest request,
-                                            IEnumerable<StockLocation>? stockLocations  )
+                                            IEnumerable<StockLocation> stockLocations  )
         :
             base( request )
         {
-            if( stockLocations is not null )
-            {
-                this.StockLocations.AddRange( stockLocations );
-            }
+            this.StockLocations.AddRange( stockLocations );
         }
 
         private List<StockLocation> StockLocations

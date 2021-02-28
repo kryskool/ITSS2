@@ -17,7 +17,6 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Workflows.Standard
 {
@@ -25,7 +24,6 @@ namespace Reth.Itss2.Workflows.Standard
     {
         event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
 
-        Subscriber LocalSubscriber{ get; }
-        Subscriber? RemoteSubscriber{ get; }
+        SubscriberInfo GetSubscriberInfo();
     }
 }

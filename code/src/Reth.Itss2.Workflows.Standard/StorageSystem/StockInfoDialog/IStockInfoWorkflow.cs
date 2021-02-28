@@ -15,18 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StockInfoDialog
 {
     public interface IStockInfoWorkflow:IWorkflow
     {
-        Func<StockInfoRequest, StockInfoResponse>? RequestReceived{ get; set; }
-
-        void SendMessage( StockInfoMessage message );
-        Task SendMessageAsync( StockInfoMessage message, CancellationToken cancellationToken = default );
+        event EventHandler<ProcessStartEventArgs<IStockInfoProcess>>? ProcessStarted;
     }
 }

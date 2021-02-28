@@ -76,13 +76,13 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             }
         }
 
-        public Task SendMessageAsync( String messageEnvelope )
+        public Task SendMessageAsync( String messageEnvelope, CancellationToken cancellationToken = default )
         {
             lock( this.SyncRoot )
             {
                 _ = this.MessageTransmitter ?? throw Assert.Exception( new InvalidOperationException( "Dialog provider is not connected." ) );
             
-                return this.MessageTransmitter.SendMessageAsync( messageEnvelope );
+                return this.MessageTransmitter.SendMessageAsync( messageEnvelope, cancellationToken );
             }
         }
 
@@ -115,7 +115,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             return this.ConnectAsync( messageTransmitter, CancellationToken.None );
         }
 
-        public Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken )
+        public Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken = default )
         {
             return Task.Run(    () =>
                                 {

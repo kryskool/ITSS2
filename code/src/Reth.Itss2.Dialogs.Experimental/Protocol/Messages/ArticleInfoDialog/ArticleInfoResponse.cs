@@ -49,7 +49,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfoDialog
         public ArticleInfoResponse( MessageId id,
 									SubscriberId source,
                                     SubscriberId destination,
-                                    IEnumerable<ArticleInfoResponseArticle>? articles  )
+                                    IEnumerable<ArticleInfoResponseArticle> articles  )
         :
             base( id, source, destination, articles )
         {

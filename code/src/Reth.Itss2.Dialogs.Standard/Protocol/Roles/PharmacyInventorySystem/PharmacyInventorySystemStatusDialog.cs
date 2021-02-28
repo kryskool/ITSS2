@@ -33,13 +33,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
         {
             return base.SendRequest<StatusRequest, StatusResponse>( request );
         }
-        
-        public Task<StatusResponse> SendRequestAsync( StatusRequest request )
-        {
-            return base.SendRequestAsync<StatusRequest, StatusResponse>( request );
-        }
 
-        public Task<StatusResponse> SendRequestAsync( StatusRequest request, CancellationToken cancellationToken )
+        public Task<StatusResponse> SendRequestAsync( StatusRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<StatusRequest, StatusResponse>( request, cancellationToken );
         }

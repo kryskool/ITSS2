@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
@@ -26,7 +27,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
         void Write( String messageEnvelope );
         void Write( IMessageEnvelope messageEnvelope );
 
-        Task WriteAsync( String messageEnvelope );
-        Task WriteAsync( IMessageEnvelope messageEnvelope );
+        Task WriteAsync( String messageEnvelope, CancellationToken cancellationToken = default );
+        Task WriteAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default );
     }
 }

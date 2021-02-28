@@ -16,12 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
-
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.OutputInfoDialog
 {
     public interface IOutputInfoWorkflow:IWorkflow
     {
-        Func<OutputInfoRequest, OutputInfoResponse>? RequestReceived{ get; set; }
+        event EventHandler<ProcessStartEventArgs<IOutputInfoProcess>>? ProcessStarted;
     }
 }

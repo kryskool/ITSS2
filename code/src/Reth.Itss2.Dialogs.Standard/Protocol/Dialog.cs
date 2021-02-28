@@ -53,11 +53,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             this.MessageTransmitter.SendMessage( message );
         }
 
-        protected Task SendMessageAsync( IMessage message )
+        protected Task SendMessageAsync( IMessage message, CancellationToken cancellationToken = default )
         {
             _ = this.MessageTransmitter ?? throw Assert.Exception( new InvalidOperationException( "Dialog is not connected." ) );
 
-            return this.MessageTransmitter.SendMessageAsync( message );
+            return this.MessageTransmitter.SendMessageAsync( message, cancellationToken );
         }
 
         protected void SendResponse( IResponse response )
@@ -65,9 +65,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             this.SendMessage( response );
         }
 
-        protected Task SendResponseAsync( IResponse response )
+        protected Task SendResponseAsync( IResponse response, CancellationToken cancellationToken = default )
         {
-            return this.SendMessageAsync( response );
+            return this.SendMessageAsync( response, cancellationToken );
         }
 
         public TResponse SendRequest<TRequest, TResponse>( TRequest request )
@@ -79,16 +79,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             return this.MessageTransmitter.SendRequest<TRequest, TResponse>( request );
         }
 
-        public Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request )
-            where TRequest:IRequest
-            where TResponse:IResponse
-        {
-            _ = this.MessageTransmitter ?? throw Assert.Exception( new InvalidOperationException( "Dialog is not connected." ) );
-
-            return this.MessageTransmitter.SendRequestAsync<TRequest, TResponse>( request, CancellationToken.None );
-        }
-
-        public Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request, CancellationToken cancellationToken )
+        public Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request, CancellationToken cancellationToken = default )
             where TRequest:IRequest
             where TResponse:IResponse
         {

@@ -15,43 +15,61 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.StorageSystem;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGetDialog;
 using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.StandardExtensions.StorageSystem.ConfigurationGetDialog
 {
-    internal class ConfigurationGetWorkflow:Workflow<IStorageSystemConfigurationGetDialog>, IConfigurationGetWorkflow
+    internal class ConfigurationGetWorkflow:Workflow, IConfigurationGetWorkflow
     {
-        public ConfigurationGetWorkflow(    IStorageSystemWorkflowProvider workflowProvider,
-                                            IStorageSystemDialogProvider dialogProvider,
-                                            ISerializationProvider serializationProvider    )
+        public event EventHandler<ProcessStartEventArgs<IConfigurationGetProcess>>? ProcessStarted;
+
+        public ConfigurationGetWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.ConfigurationGetDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
+        private IStorageSystemConfigurationGetDialog Dialog
+        {
+            get{ return ( ( IStorageSystemDialogProvider )( this.DialogProvider ) ).ConfigurationGetDialog; }
+        }
+
+        public void SendResponse( ConfigurationGetResponse response )
+        {
+            this.SendResponse(  response,
+                                () =>
+                                {
+                                    this.Dialog.SendResponse( response );
+                                } );
+        }
+
+        public Task SendResponseAsync( ConfigurationGetResponse response, CancellationToken cancellationToken = default )
+        {
+            return this.SendResponseAsync(  response,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendResponseAsync( response, cancellationToken );
+                                            } );
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            this.OnRequestReceived( ( ConfigurationGetRequest )e.Message,
-                                    this.RequestReceived,
-                                    ( ConfigurationGetResponse response ) =>
+            ConfigurationGetRequest request = ( ConfigurationGetRequest )e.Message;
+
+            this.OnRequestReceived( request,
+                                    () =>
                                     {
-                                        this.Dialog.SendResponse( response );
+                                        IConfigurationGetProcess process = new ConfigurationGetProcess( this, request );
+
+                                        this.ProcessStarted?.Invoke( this, new ProcessStartEventArgs<IConfigurationGetProcess>( process ) );
                                     }   );
-        }
-
-        public Func<ConfigurationGetRequest, ConfigurationGetResponse>? RequestReceived
-        {
-            get; set;
-        }
-
-        protected override void Dispose( bool disposing )
-        {
         }
     }
 }

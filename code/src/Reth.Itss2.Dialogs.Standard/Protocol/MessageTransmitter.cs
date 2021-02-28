@@ -137,14 +137,14 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             this.MessageStreamWriter.Write( new MessageEnvelope( message ) );
         }
 
-        public Task SendMessageAsync( String messageEnvelope )
+        public Task SendMessageAsync( String messageEnvelope, CancellationToken cancellationToken = default )
         {
-            return this.MessageStreamWriter.WriteAsync( messageEnvelope );
+            return this.MessageStreamWriter.WriteAsync( messageEnvelope, cancellationToken );
 
         }
-        public Task SendMessageAsync( IMessage message )
+        public Task SendMessageAsync( IMessage message, CancellationToken cancellationToken = default )
         {
-            return this.MessageStreamWriter.WriteAsync( new MessageEnvelope( message ) );
+            return this.MessageStreamWriter.WriteAsync( new MessageEnvelope( message ), cancellationToken );
         }
 
         public TResponse SendRequest<TRequest, TResponse>( TRequest request )
@@ -182,14 +182,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             }
         }
 
-        public Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request )
-            where TRequest:IRequest
-            where TResponse:IResponse
-        {
-            return this.SendRequestAsync<TRequest, TResponse>( request, CancellationToken.None );
-        }
-
-        public Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request, CancellationToken cancellationToken )
+        public Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request, CancellationToken cancellationToken = default )
             where TRequest:IRequest
             where TResponse:IResponse
         {

@@ -48,9 +48,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
 								        SubscriberId source,
                                         SubscriberId destination,
                                         InitiateInputResponseDetails details,
-                                        IEnumerable<InitiateInputResponseArticle>? articles  )
+                                        IEnumerable<InitiateInputResponseArticle> articles  )
         :
-            this( id, source, destination, details, articles, null, null )
+            this( id, source, destination, details, articles, isNewDelivery:null, setPickingIndicator:null )
         {
         }
 
@@ -58,7 +58,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
 								        SubscriberId source,
                                         SubscriberId destination,
                                         InitiateInputResponseDetails details,
-                                        IEnumerable<InitiateInputResponseArticle>? articles,
+                                        IEnumerable<InitiateInputResponseArticle> articles,
                                         bool? isNewDelivery,
                                         bool? setPickingIndicator   )
         :
@@ -66,36 +66,23 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
         {
             this.Details = details;
 
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
-
+            this.Articles.AddRange( articles );
+            
             this.IsNewDelivery = isNewDelivery;
             this.SetPickingIndicator = setPickingIndicator;
         }
 
         public InitiateInputResponse(   InitiateInputRequest request,
                                         InitiateInputResponseDetails details,
-                                        IEnumerable<InitiateInputResponseArticle>? articles  )
-        :
-            this( request, details, articles, null, null )
-        {
-        }
-
-        public InitiateInputResponse(   InitiateInputRequest request,
-                                        InitiateInputResponseDetails details,
-                                        IEnumerable<InitiateInputResponseArticle>? articles,
-                                        bool? isNewDelivery,
-                                        bool? setPickingIndicator   )
+                                        IEnumerable<InitiateInputResponseArticle> articles  )
         :
             this(   request.Id,
                     request.Source,
                     request.Destination,
                     details,
                     articles,
-                    null,
-                    null    )
+                    request.IsNewDelivery,
+                    request.SetPickingIndicator    )
         {
         }
 

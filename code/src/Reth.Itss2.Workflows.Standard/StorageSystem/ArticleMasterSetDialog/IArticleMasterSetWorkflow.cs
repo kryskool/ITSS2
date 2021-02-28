@@ -16,12 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog;
-
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.ArticleMasterSetDialog
 {
     public interface IArticleMasterSetWorkflow:IWorkflow
     {
-        Func<ArticleMasterSetRequest, ArticleMasterSetResponse>? RequestReceived{ get; set; }
+        event EventHandler<ProcessStartEventArgs<IArticleMasterSetProcess>>? ProcessStarted;
     }
 }

@@ -15,42 +15,60 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StockLocationInfoDialog
 {
-    internal class StockLocationInfoWorkflow:Workflow<IStorageSystemStockLocationInfoDialog>, IStockLocationInfoWorkflow
+    internal class StockLocationInfoWorkflow:Workflow, IStockLocationInfoWorkflow
     {
-        public StockLocationInfoWorkflow(   IStorageSystemWorkflowProvider workflowProvider,
-                                            IStorageSystemDialogProvider dialogProvider,
-                                            ISerializationProvider serializationProvider    )
+        public event EventHandler<ProcessStartEventArgs<IStockLocationInfoProcess>>? ProcessStarted;
+
+        public StockLocationInfoWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.StockLocationInfoDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
+        private IStorageSystemStockLocationInfoDialog Dialog
+        {
+            get{ return this.DialogProvider.StockLocationInfoDialog; }
+        }
+
+        public void SendResponse( StockLocationInfoResponse response )
+        {
+            this.SendResponse(  response,
+                                () =>
+                                {
+                                    this.Dialog.SendResponse( response );
+                                } );
+        }
+
+        public Task SendResponseAsync( StockLocationInfoResponse response, CancellationToken cancellationToken = default )
+        {
+            return this.SendResponseAsync(  response,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendResponseAsync( response, cancellationToken );
+                                            } );
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            this.OnRequestReceived( ( StockLocationInfoRequest )e.Message,
-                                    this.RequestReceived,
-                                    ( StockLocationInfoResponse response ) =>
+            StockLocationInfoRequest request = ( StockLocationInfoRequest )e.Message;
+
+            this.OnRequestReceived( request,
+                                    () =>
                                     {
-                                        this.Dialog.SendResponse( response );
+                                        IStockLocationInfoProcess process = new StockLocationInfoProcess( this, request );
+
+                                        this.ProcessStarted?.Invoke( this, new ProcessStartEventArgs<IStockLocationInfoProcess>( process ) );
                                     }   );
-        }
-
-        public Func<StockLocationInfoRequest, StockLocationInfoResponse>? RequestReceived
-        {
-            get; set;
-        }
-
-        protected override void Dispose( bool disposing )
-        {
         }
     }
 }

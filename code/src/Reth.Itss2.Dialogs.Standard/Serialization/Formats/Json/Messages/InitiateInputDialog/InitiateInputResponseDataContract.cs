@@ -36,9 +36,15 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Initia
         {
             this.Details = TypeConverter.ConvertFromDataObject<InitiateInputResponseDetails, InitiateInputResponseDetailsDataContract>( dataObject.Details );
             this.Articles = TypeConverter.ConvertFromDataObjects<InitiateInputResponseArticle, InitiateInputResponseArticleDataContract>( dataObject.GetArticles() );
+            this.IsNewDelivery = TypeConverter.Boolean.ConvertNullableFrom( dataObject.IsNewDelivery );
+            this.SetPickingIndicator = TypeConverter.Boolean.ConvertNullableFrom( dataObject.SetPickingIndicator );
         }
 
         public InitiateInputResponseDetailsDataContract Details{ get; set; }
+
+        public String? IsNewDelivery{ get; set; }
+
+        public String? SetPickingIndicator{ get; set; }
 
         [JsonPropertyName( "Article" )]
         public InitiateInputResponseArticleDataContract[]? Articles{ get; set; }
@@ -49,7 +55,9 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Initia
                                                 TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                                 TypeConverter.SubscriberId.ConvertTo( this.Destination ),
                                                 TypeConverter.ConvertToDataObject<InitiateInputResponseDetails, InitiateInputResponseDetailsDataContract>( this.Details ),
-                                                TypeConverter.ConvertToDataObjects<InitiateInputResponseArticle, InitiateInputResponseArticleDataContract>( this.Articles ) );
+                                                TypeConverter.ConvertToDataObjects<InitiateInputResponseArticle, InitiateInputResponseArticleDataContract>( this.Articles ),
+                                                TypeConverter.Boolean.ConvertNullableTo( this.IsNewDelivery ),
+                                                TypeConverter.Boolean.ConvertNullableTo( this.SetPickingIndicator ) );
         }
 
         public override Type GetEnvelopeType()

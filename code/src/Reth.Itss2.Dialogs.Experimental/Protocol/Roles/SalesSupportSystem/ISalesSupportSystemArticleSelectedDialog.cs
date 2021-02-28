@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelectedDialog;
@@ -25,6 +26,6 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
     {
         void SendMessage( ArticleSelectedMessage message );
                 
-        Task SendMessageAsync( ArticleSelectedMessage message );
+        Task SendMessageAsync( ArticleSelectedMessage message, CancellationToken cancellationToken = default );
     }
 }

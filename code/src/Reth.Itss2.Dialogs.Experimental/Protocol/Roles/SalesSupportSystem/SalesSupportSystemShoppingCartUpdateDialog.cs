@@ -55,13 +55,8 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
         {
             return base.SendRequest<ShoppingCartUpdateRequest, ShoppingCartUpdateResponse>( request );
         }
-        
-        public Task<ShoppingCartUpdateResponse> SendRequestAsync( ShoppingCartUpdateRequest request )
-        {
-            return base.SendRequestAsync<ShoppingCartUpdateRequest, ShoppingCartUpdateResponse>( request );
-        }
 
-        public Task<ShoppingCartUpdateResponse> SendRequestAsync( ShoppingCartUpdateRequest request, CancellationToken cancellationToken )
+        public Task<ShoppingCartUpdateResponse> SendRequestAsync( ShoppingCartUpdateRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<ShoppingCartUpdateRequest, ShoppingCartUpdateResponse>( request, cancellationToken );
         }

@@ -25,8 +25,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.PharmacyInventory
     public interface IPharmacyInventorySystemConfigurationGetDialog:IDialog
     {
         ConfigurationGetResponse SendRequest( ConfigurationGetRequest request );
-                
-        Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request );
-        Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request, CancellationToken cancellationToken );
+
+        Task<ConfigurationGetResponse> SendRequestAsync( ConfigurationGetRequest request, CancellationToken cancellationToken = default );
     }
 }

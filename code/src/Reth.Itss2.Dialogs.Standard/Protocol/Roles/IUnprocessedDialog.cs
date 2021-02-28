@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.UnprocessedDialog;
@@ -27,6 +28,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles
 
         void SendMessage( UnprocessedMessage message );
                 
-        Task SendMessageAsync( UnprocessedMessage message );
+        Task SendMessageAsync( UnprocessedMessage message, CancellationToken cancellationToken = default );
     }
 }

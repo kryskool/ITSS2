@@ -41,7 +41,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog
 		}
 
         public HelloResponse(   MessageId id,
-                                Subscriber subscriber   )
+                                Subscriber subscriber )
         :
             base( id, Dialogs.Hello )
         {

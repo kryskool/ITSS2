@@ -47,24 +47,21 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePriceDialog
         public ArticlePriceResponse(    MessageId id,
 									    SubscriberId source,
                                         SubscriberId destination,
-                                        IEnumerable<ArticlePriceResponseArticle>? articles  )
+                                        IEnumerable<ArticlePriceResponseArticle> articles  )
         :
-            this( id, source, destination, articles, null )
+            this( id, source, destination, articles, currency:null )
         {
         }
 
         public ArticlePriceResponse(    MessageId id,
 									    SubscriberId source,
                                         SubscriberId destination,
-                                        IEnumerable<ArticlePriceResponseArticle>? articles,
+                                        IEnumerable<ArticlePriceResponseArticle> articles,
                                         Iso4217Code? currency    )
         :
             base( id, Dialogs.ArticlePrice, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
 
             this.Currency = currency;
         }

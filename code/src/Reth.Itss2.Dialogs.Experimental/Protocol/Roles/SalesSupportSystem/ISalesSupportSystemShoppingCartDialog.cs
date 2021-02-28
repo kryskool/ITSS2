@@ -25,8 +25,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
     public interface ISalesSupportSystemShoppingCartDialog:IDialog
     {
         ShoppingCartResponse SendRequest( ShoppingCartRequest request );
-                
-        Task<ShoppingCartResponse> SendRequestAsync( ShoppingCartRequest request );
-        Task<ShoppingCartResponse> SendRequestAsync( ShoppingCartRequest request, CancellationToken cancellationToken );
+        
+        Task<ShoppingCartResponse> SendRequestAsync( ShoppingCartRequest request, CancellationToken cancellationToken = default );
     }
 }

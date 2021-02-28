@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog;
@@ -28,6 +29,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
 
         void SendResponse( InputResponse response );
         
-        Task SendResponseAsync( InputResponse response );
+        Task SendResponseAsync( InputResponse response, CancellationToken cancellationToken = default );
     }
 }

@@ -15,42 +15,60 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.OutputInfoDialog
 {
-    internal class OutputInfoWorkflow:Workflow<IStorageSystemOutputInfoDialog>, IOutputInfoWorkflow
+    internal class OutputInfoWorkflow:Workflow, IOutputInfoWorkflow
     {
-        public OutputInfoWorkflow(  IStorageSystemWorkflowProvider workflowProvider,
-                                    IStorageSystemDialogProvider dialogProvider,
-                                    ISerializationProvider serializationProvider    )
+        public event EventHandler<ProcessStartEventArgs<IOutputInfoProcess>>? ProcessStarted;
+
+        public OutputInfoWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.OutputInfoDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
+        private IStorageSystemOutputInfoDialog Dialog
+        {
+            get{ return this.DialogProvider.OutputInfoDialog; }
+        }
+
+        public void SendResponse( OutputInfoResponse response )
+        {
+            this.SendResponse(  response,
+                                () =>
+                                {
+                                    this.Dialog.SendResponse( response );
+                                } );
+        }
+
+        public Task SendResponseAsync( OutputInfoResponse response, CancellationToken cancellationToken = default )
+        {
+            return this.SendResponseAsync(  response,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendResponseAsync( response, cancellationToken );
+                                            } );
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            this.OnRequestReceived( ( OutputInfoRequest )e.Message,
-                                    this.RequestReceived,
-                                    ( OutputInfoResponse response ) =>
+            OutputInfoRequest request = ( OutputInfoRequest )e.Message;
+
+            this.OnRequestReceived( request,
+                                    () =>
                                     {
-                                        this.Dialog.SendResponse( response );
+                                        IOutputInfoProcess process = new OutputInfoProcess( this, request );
+
+                                        this.ProcessStarted?.Invoke( this, new ProcessStartEventArgs<IOutputInfoProcess>( process ) );
                                     }   );
-        }
-
-        public Func<OutputInfoRequest, OutputInfoResponse>? RequestReceived
-        {
-            get; set;
-        }
-
-        protected override void Dispose( bool disposing )
-        {
         }
     }
 }

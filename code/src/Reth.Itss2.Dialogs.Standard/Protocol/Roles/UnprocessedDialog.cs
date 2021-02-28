@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
@@ -54,9 +55,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles
             base.SendMessage( message );
         }
         
-        public Task SendMessageAsync( UnprocessedMessage message )
+        public Task SendMessageAsync( UnprocessedMessage message, CancellationToken cancellationToken = default )
         {
-            return base.SendMessageAsync( message );
+            return base.SendMessageAsync( message, cancellationToken );
         }
     }
 }

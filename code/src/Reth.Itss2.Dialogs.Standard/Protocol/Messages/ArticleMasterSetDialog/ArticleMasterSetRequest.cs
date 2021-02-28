@@ -43,23 +43,12 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog
 
         public ArticleMasterSetRequest( MessageId id,
 									    SubscriberId source,
-                                        SubscriberId destination    )
-        :
-            base( id, Dialogs.ArticleMasterSet, source, destination )
-        {
-        }
-
-        public ArticleMasterSetRequest( MessageId id,
-									    SubscriberId source,
                                         SubscriberId destination,
-                                        IEnumerable<ArticleMasterSetArticle>? articles  )
+                                        IEnumerable<ArticleMasterSetArticle> articles  )
         :
             base( id, Dialogs.ArticleMasterSet, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
         }
 
         private List<ArticleMasterSetArticle> Articles

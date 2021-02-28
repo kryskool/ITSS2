@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog;
@@ -27,10 +28,10 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         void SendResponse( InitiateInputResponse response );
         
-        Task SendResponseAsync( InitiateInputResponse response );
+        Task SendResponseAsync( InitiateInputResponse response, CancellationToken cancellationToken = default );
 
         void SendMessage( InitiateInputMessage message );
         
-        Task SendMessageAsync( InitiateInputMessage message );
+        Task SendMessageAsync( InitiateInputMessage message, CancellationToken cancellationToken = default );
     }
 }

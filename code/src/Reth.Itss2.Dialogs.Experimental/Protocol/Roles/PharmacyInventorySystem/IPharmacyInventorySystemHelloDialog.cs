@@ -26,7 +26,6 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.PharmacyInventorySystem
     {
         HelloResponse SendRequest( HelloRequest request );
 
-        Task<HelloResponse> SendRequestAsync( HelloRequest request );
-        Task<HelloResponse> SendRequestAsync( HelloRequest request, CancellationToken cancellationToken );
+        Task<HelloResponse> SendRequestAsync( HelloRequest request, CancellationToken cancellationToken = default );
     }
 }

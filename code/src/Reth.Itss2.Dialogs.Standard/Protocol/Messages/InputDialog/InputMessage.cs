@@ -45,26 +45,30 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog
         public InputMessage(    MessageId id,
 								SubscriberId source,
                                 SubscriberId destination,
-                                IEnumerable<InputMessageArticle>? articles  )
+                                IEnumerable<InputMessageArticle> articles   )
         :
-            this( id, source, destination, articles, null )
+            this( id, source, destination, articles, isNewDelivery:null )
         {
         }
 
         public InputMessage(    MessageId id,
 								SubscriberId source,
                                 SubscriberId destination,
-                                IEnumerable<InputMessageArticle>? articles,
+                                IEnumerable<InputMessageArticle> articles,
                                 bool? isNewDelivery   )
         :
             base( id, Dialogs.Input, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
 
             this.IsNewDelivery = isNewDelivery;
+        }
+
+        public InputMessage(    InputRequest request,
+                                IEnumerable<InputMessageArticle> articles   )
+        :
+            this( request.Id, request.Destination, request.Source, articles, request.IsNewDelivery )
+        {
         }
 
         public bool? IsNewDelivery

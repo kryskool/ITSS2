@@ -25,7 +25,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
     {
         TaskCancelOutputResponse SendRequest( TaskCancelOutputRequest request );
         
-        Task<TaskCancelOutputResponse> SendRequestAsync( TaskCancelOutputRequest request );
-        Task<TaskCancelOutputResponse> SendRequestAsync( TaskCancelOutputRequest request, CancellationToken cancellationToken );
+        Task<TaskCancelOutputResponse> SendRequestAsync( TaskCancelOutputRequest request, CancellationToken cancellationToken = default );
     }
 }

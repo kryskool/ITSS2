@@ -16,12 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog;
-
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StockLocationInfoDialog
 {
     public interface IStockLocationInfoWorkflow:IWorkflow
     {
-        Func<StockLocationInfoRequest, StockLocationInfoResponse>? RequestReceived{ get; set; }
+        event EventHandler<ProcessStartEventArgs<IStockLocationInfoProcess>>? ProcessStarted;
     }
 }

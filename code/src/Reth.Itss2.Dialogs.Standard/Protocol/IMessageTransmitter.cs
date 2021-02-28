@@ -32,18 +32,14 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
         void SendMessage( String messageEnvelope );
         void SendMessage( IMessage message );
 
-        Task SendMessageAsync( String messageEnvelope );
-        Task SendMessageAsync( IMessage message );
+        Task SendMessageAsync( String messageEnvelope, CancellationToken cancellationToken = default );
+        Task SendMessageAsync( IMessage message, CancellationToken cancellationToken = default );
 
         TResponse SendRequest<TRequest, TResponse>( TRequest request )
             where TRequest:IRequest
             where TResponse:IResponse;
 
-        Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request )
-            where TRequest:IRequest
-            where TResponse:IResponse;
-
-        Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request, CancellationToken cancellationToken )
+        Task<TResponse> SendRequestAsync<TRequest, TResponse>( TRequest request, CancellationToken cancellationToken = default )
             where TRequest:IRequest
             where TResponse:IResponse;
     }

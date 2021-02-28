@@ -15,42 +15,60 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.ArticleMasterSetDialog
 {
-    internal class ArticleMasterSetWorkflow:Workflow<IStorageSystemArticleMasterSetDialog>, IArticleMasterSetWorkflow
+    internal class ArticleMasterSetWorkflow:Workflow, IArticleMasterSetWorkflow
     {
-        public ArticleMasterSetWorkflow(    IStorageSystemWorkflowProvider workflowProvider,
-                                            IStorageSystemDialogProvider dialogProvider,
-                                            ISerializationProvider serializationProvider    )
+        public event EventHandler<ProcessStartEventArgs<IArticleMasterSetProcess>>? ProcessStarted;
+
+        public ArticleMasterSetWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.ArticleMasterSetDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
+        private IStorageSystemArticleMasterSetDialog Dialog
+        {
+            get{ return this.DialogProvider.ArticleMasterSetDialog; }
+        }
+
+        public void SendResponse( ArticleMasterSetResponse response )
+        {
+            this.SendResponse(  response,
+                                () =>
+                                {
+                                    this.Dialog.SendResponse( response );
+                                } );
+        }
+
+        public Task SendResponseAsync( ArticleMasterSetResponse response, CancellationToken cancellationToken = default )
+        {
+            return this.SendResponseAsync(  response,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendResponseAsync( response, cancellationToken );
+                                            } );
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            this.OnRequestReceived( ( ArticleMasterSetRequest )e.Message,
-                                    this.RequestReceived,
-                                    ( ArticleMasterSetResponse response ) =>
+            ArticleMasterSetRequest request = ( ArticleMasterSetRequest )e.Message;
+
+            this.OnRequestReceived( request,
+                                    () =>
                                     {
-                                        this.Dialog.SendResponse( response );
+                                        IArticleMasterSetProcess process = new ArticleMasterSetProcess( this, request );
+
+                                        this.ProcessStarted?.Invoke( this, new ProcessStartEventArgs<IArticleMasterSetProcess>( process ) );
                                     }   );
-        }
-
-        public Func<ArticleMasterSetRequest, ArticleMasterSetResponse>? RequestReceived
-        {
-            get; set;
-        }
-
-        protected override void Dispose( bool disposing )
-        {
         }
     }
 }

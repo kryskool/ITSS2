@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
@@ -27,6 +28,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
 
         void SendResponse( ArticleInfoResponse response );
         
-        Task SendResponseAsync( ArticleInfoResponse response );
+        Task SendResponseAsync( ArticleInfoResponse response, CancellationToken cancellationToken = default );
     }
 }

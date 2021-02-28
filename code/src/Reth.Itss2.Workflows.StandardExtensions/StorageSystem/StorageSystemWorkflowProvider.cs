@@ -29,7 +29,7 @@ namespace Reth.Itss2.Workflows.StandardExtensions.StorageSystem
         {
             IStorageSystemDialogProvider dialogProvider = ( IStorageSystemDialogProvider )this.DialogProvider;
             
-            this.ConfigurationGetWorkflow = new ConfigurationGetWorkflow( this, dialogProvider, serializationProvider );
+            this.ConfigurationGetWorkflow = new ConfigurationGetWorkflow( this );
             
             this.ConfigurationGetWorkflow.MessageProcessingError += this.OnMessageProcessingError;
         }

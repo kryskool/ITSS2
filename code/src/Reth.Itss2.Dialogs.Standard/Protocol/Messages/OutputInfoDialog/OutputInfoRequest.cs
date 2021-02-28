@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog
                                     SubscriberId destination,
                                     OutputInfoRequestTask task    )
         :
-            this( id, source, destination, task, null )
+            this( id, source, destination, task, includeTaskDetails:null )
         {
         }
 

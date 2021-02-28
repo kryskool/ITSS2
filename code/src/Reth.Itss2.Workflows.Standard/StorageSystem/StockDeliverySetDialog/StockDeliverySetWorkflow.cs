@@ -15,42 +15,60 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StockDeliverySetDialog
 {
-    internal class StockDeliverySetWorkflow:Workflow<IStorageSystemStockDeliverySetDialog>, IStockDeliverySetWorkflow
+    internal class StockDeliverySetWorkflow:Workflow, IStockDeliverySetWorkflow
     {
-        public StockDeliverySetWorkflow(    IStorageSystemWorkflowProvider workflowProvider,
-                                            IStorageSystemDialogProvider dialogProvider,
-                                            ISerializationProvider serializationProvider    )
+        public event EventHandler<ProcessStartEventArgs<IStockDeliverySetProcess>>? ProcessStarted;
+
+        public StockDeliverySetWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.StockDeliverySetDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
+        private IStorageSystemStockDeliverySetDialog Dialog
+        {
+            get{ return this.DialogProvider.StockDeliverySetDialog; }
+        }
+
+        public void SendResponse( StockDeliverySetResponse response )
+        {
+            this.SendResponse(  response,
+                                () =>
+                                {
+                                    this.Dialog.SendResponse( response );
+                                } );
+        }
+
+        public Task SendResponseAsync( StockDeliverySetResponse response, CancellationToken cancellationToken = default )
+        {
+            return this.SendResponseAsync(  response,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendResponseAsync( response, cancellationToken );
+                                            } );
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            this.OnRequestReceived( ( StockDeliverySetRequest )e.Message,
-                                    this.RequestReceived,
-                                    ( StockDeliverySetResponse response ) =>
+            StockDeliverySetRequest request = ( StockDeliverySetRequest )e.Message;
+
+            this.OnRequestReceived( request,
+                                    () =>
                                     {
-                                        this.Dialog.SendResponse( response );
+                                        IStockDeliverySetProcess process = new StockDeliverySetProcess( this, request );
+
+                                        this.ProcessStarted?.Invoke( this, new ProcessStartEventArgs<IStockDeliverySetProcess>( process ) );
                                     }   );
-        }
-
-        public Func<StockDeliverySetRequest, StockDeliverySetResponse>? RequestReceived
-        {
-            get; set;
-        }
-
-        protected override void Dispose( bool disposing )
-        {
         }
     }
 }

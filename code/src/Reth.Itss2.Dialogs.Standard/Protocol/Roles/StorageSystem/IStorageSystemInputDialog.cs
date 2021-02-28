@@ -25,11 +25,10 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
     {
         InputResponse SendRequest( InputRequest request );
         
-        Task<InputResponse> SendRequestAsync( InputRequest request );
-        Task<InputResponse> SendRequestAsync( InputRequest request, CancellationToken cancellationToken );
+        Task<InputResponse> SendRequestAsync( InputRequest request, CancellationToken cancellationToken = default );
 
         void SendMessage( InputMessage message );
         
-        Task SendMessageAsync( InputMessage message );
+        Task SendMessageAsync( InputMessage message, CancellationToken cancellationToken = default );
     }
 }

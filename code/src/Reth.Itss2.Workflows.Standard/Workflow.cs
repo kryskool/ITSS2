@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
@@ -27,23 +26,13 @@ using Reth.Itss2.Workflows.Standard.StorageSystem;
 
 namespace Reth.Itss2.Workflows.Standard
 {
-    public abstract class Workflow<TDialog>:IWorkflow
-        where TDialog:IDialog
+    public abstract class Workflow:IWorkflow
     {
         public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
 
-        protected Workflow( IStorageSystemWorkflowProvider workflowProvider,
-                            IStorageSystemDialogProvider dialogProvider,
-                            ISerializationProvider serializationProvider,
-                            TDialog dialog  )
+        protected Workflow( IStorageSystemWorkflowProvider workflowProvider )
         {
             this.WorkflowProvider = workflowProvider;
-            this.Dialog = dialog;
-
-            this.DialogProvider = dialogProvider;
-            this.SerializationProvider = serializationProvider;
-
-            this.IsSupportedLocally = this.LocalSubscriber.IsSupported( dialog.Name );
         }
 
         ~Workflow()
@@ -51,81 +40,70 @@ namespace Reth.Itss2.Workflows.Standard
             this.Dispose( false );
         }
 
-        private IStorageSystemWorkflowProvider WorkflowProvider
+        protected IStorageSystemWorkflowProvider WorkflowProvider
         {
             get;
         }
 
         protected IStorageSystemDialogProvider DialogProvider
         {
-            get;
+            get{ return this.WorkflowProvider.DialogProvider; }
         }
 
         protected ISerializationProvider SerializationProvider
         {
-            get;
+            get{ return this.WorkflowProvider.SerializationProvider; }
         }
 
-        protected TDialog Dialog
+        protected SubscriberInfo GetSubscriberInfo()
         {
-            get;
+            return this.WorkflowProvider.GetSubscriberInfo();
         }
 
-        protected Subscriber LocalSubscriber
+        private bool IsSupportedLocally( IMessage message )
         {
-            get{ return this.WorkflowProvider.LocalSubscriber; }
-        }
-
-        protected Subscriber? RemoteSubscriber
-        {
-            get{ return this.WorkflowProvider.RemoteSubscriber; }
-        }
-
-        private bool IsSupportedLocally
-        {
-            get;
+            return this.GetSubscriberInfo().IsSupportedLocally( message.DialogName );
         }
 
         private bool IsSupportedRemotely( IMessage message )
         {
-            return this.RemoteSubscriber?.IsSupported( message.DialogName ) ?? false;
+            return this.GetSubscriberInfo().IsSupportedRemotely( message.DialogName );
+        }
+
+        private void CheckHandshake()
+        {
+            if( this.GetSubscriberInfo().HasRemoteSubscriber == false )
+            {
+                throw Assert.Exception( new InvalidOperationException( $"No handshake executed." ) );
+            }
+        }
+
+        private void CheckRemoteSupport( IMessage message )
+        {
+            if( this.IsSupportedRemotely( message ) == false )
+            {
+                throw Assert.Exception( new InvalidOperationException( $"Remote subscriber doesn't support message '{ message.Name }'." ) );
+            }
         }
 
         protected void OnMessageProcessingError( MessageProcessingErrorEventArgs e )
         {
             this.MessageProcessingError?.Invoke( this, e );
         }
-    
-        protected void OnRequestReceived<TRequest, TResponse>(  TRequest request,
-                                                                Func<TRequest, TResponse>? createResponseCallback,
-                                                                Action<TResponse> sendResponseCallback  )
-            where TRequest:IRequest
-            where TResponse:IResponse
-        {
-            if( this.RemoteSubscriber is not null )
-            {
-                if( this.IsSupportedLocally == true )
-                {
-                    if( createResponseCallback is not null )
-                    {
-                        try
-                        {
-                            TResponse response = createResponseCallback( request );
 
-                            try
-                            {
-                                sendResponseCallback( response );
-                            }catch( Exception ex )
-                            {
-                                this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "Error on sending response.", ex ) );        
-                            }
-                        }catch( Exception ex )
-                        {
-                            this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "Error on creating response.", ex ) );        
-                        }
-                    }else
+        protected void OnRequestReceived<TRequest>( TRequest request, Action sendResponseCallback )
+            where TRequest:IRequest
+        {
+            if( this.GetSubscriberInfo().HasRemoteSubscriber == true )
+            {
+                if( this.IsSupportedLocally( request ) == true )
+                {
+                    try
                     {
-                        this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "No response creation possible." ) );
+                        sendResponseCallback();
+                    }catch( Exception ex )
+                    {
+                        this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "Error on sending response.", ex ) );        
                     }
                 }else
                 {
@@ -137,40 +115,67 @@ namespace Reth.Itss2.Workflows.Standard
             }
         }
 
-        protected void OnSendMessage<TMessage>( TMessage message, Action<TMessage> sendMessageCallback )
-            where TMessage:IMessage
+        protected TRequest CreateRequest<TRequest>( Func<MessageId, SubscriberId, SubscriberId, TRequest> createRequestCallback )
+            where TRequest:IRequest
         {
-            if( this.RemoteSubscriber is not null )
-            {
-                if( this.IsSupportedRemotely( message ) == true )
-                {
-                    sendMessageCallback( message );
-                }else
-                {
-                    throw Assert.Exception( new ArgumentException( $"Remote subscriber doesn't support message '{ message.Name }'.", nameof( message ) ) );
-                }
-            }else
-            {
-                throw Assert.Exception( new InvalidOperationException( $"Handshake must occur only once." ) );
-            }
+            SubscriberInfo subscriberInfo = this.GetSubscriberInfo();
+
+            return createRequestCallback(   MessageId.NextId(),
+                                            subscriberInfo.LocalSubscriber.Id,
+                                            subscriberInfo.GetRemoteSubscriber().Id );
         }
 
-        protected async Task OnSendMessageAsync<TMessage>( TMessage message, Func<TMessage, CancellationToken, Task> sendMessageCallback, CancellationToken cancellationToken = default )
+        protected TResponse SendRequest<TRequest, TResponse>( TRequest request, Func<TResponse> sendRequestCallback )
+            where TRequest:IRequest
+            where TResponse:IResponse
+        {
+            this.CheckHandshake();
+            this.CheckRemoteSupport( request );
+
+            return sendRequestCallback();
+        }
+
+        protected Task<TResponse> SendRequestAsync<TRequest, TResponse>(    TRequest request,
+                                                                            Func<Task<TResponse>> sendRequestCallback   )
+            where TRequest:IRequest
+            where TResponse:IResponse
+        {
+            this.CheckHandshake();
+            this.CheckRemoteSupport( request );
+
+            return sendRequestCallback();
+        }
+
+        protected void SendResponse<TResponse>( TResponse response, Action sendResponseCallback )
+            where TResponse:IResponse
+        {
+            this.SendMessage( response, sendResponseCallback );
+        }
+
+        protected Task SendResponseAsync<TResponse>(    TResponse response,
+                                                        Func<Task> sendResponseCallback   )
+            where TResponse:IResponse
+        {
+            return this.SendMessageAsync( response, sendResponseCallback );
+        }
+
+        protected void SendMessage<TMessage>( TMessage message, Action sendMessageCallback )
             where TMessage:IMessage
         {
-            if( this.RemoteSubscriber is not null )
-            {
-                if( this.IsSupportedRemotely( message ) == true )
-                {
-                    await sendMessageCallback( message, cancellationToken );
-                }else
-                {
-                    throw Assert.Exception( new ArgumentException( $"Remote subscriber doesn't support message '{ message.Name }'.", nameof( message ) ) );
-                }
-            }else
-            {
-                throw Assert.Exception( new InvalidOperationException( $"Handshake must occur only once." ) );
-            }
+            this.CheckHandshake();
+            this.CheckRemoteSupport( message );
+
+            sendMessageCallback();
+        }
+
+        protected Task SendMessageAsync<TMessage>(  TMessage message,
+                                                    Func<Task> sendMessageCallback   )
+            where TMessage:IMessage
+        {
+            this.CheckHandshake();
+            this.CheckRemoteSupport( message );
+
+            return sendMessageCallback();
         }
 
         public void Dispose()
@@ -180,6 +185,8 @@ namespace Reth.Itss2.Workflows.Standard
             GC.SuppressFinalize( this );
         }
 
-        protected abstract void Dispose( bool disposing );
+        protected virtual void Dispose( bool disposing )
+        {
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog
                                 SubscriberId destination,
                                 ComponentState state    )
         :
-            this( id, source, destination, state, null, null )
+            this( id, source, destination, state, stateText:null, components:null )
         {
             this.State = state;
         }

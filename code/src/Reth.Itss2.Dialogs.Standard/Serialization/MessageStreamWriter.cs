@@ -17,6 +17,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
@@ -113,20 +114,22 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             }
         }
 
-        public Task WriteAsync( String messageEnvelope )
+        public Task WriteAsync( String messageEnvelope, CancellationToken cancellationToken = default )
         {
             return Task.Run(    () =>
                                 {
                                     this.Write( messageEnvelope );
-                                }   );
+                                },
+                                cancellationToken   );
         }
 
-        public Task WriteAsync( IMessageEnvelope messageEnvelope )
+        public Task WriteAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default )
         {
             return Task.Run(    () =>
                                 {
                                     this.Write( messageEnvelope );
-                                }   );
+                                },
+                                cancellationToken   );
         }
 
         public void Dispose()

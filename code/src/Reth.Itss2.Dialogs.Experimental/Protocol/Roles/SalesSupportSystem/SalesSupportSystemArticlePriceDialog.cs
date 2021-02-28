@@ -35,12 +35,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
             return base.SendRequest<ArticlePriceRequest, ArticlePriceResponse>( request );
         }
         
-        public Task<ArticlePriceResponse> SendRequestAsync( ArticlePriceRequest request )
-        {
-            return base.SendRequestAsync<ArticlePriceRequest, ArticlePriceResponse>( request );
-        }
-
-        public Task<ArticlePriceResponse> SendRequestAsync( ArticlePriceRequest request, CancellationToken cancellationToken )
+        public Task<ArticlePriceResponse> SendRequestAsync( ArticlePriceRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<ArticlePriceRequest, ArticlePriceResponse>( request, cancellationToken );
         }

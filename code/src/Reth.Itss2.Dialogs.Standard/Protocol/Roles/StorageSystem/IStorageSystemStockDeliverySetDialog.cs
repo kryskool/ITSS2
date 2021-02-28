@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
@@ -27,6 +28,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         void SendResponse( StockDeliverySetResponse response );
         
-        Task SendResponseAsync( StockDeliverySetResponse response );
+        Task SendResponseAsync( StockDeliverySetResponse response, CancellationToken cancellationToken = default );
     }
 }

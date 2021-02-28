@@ -23,23 +23,26 @@ using Reth.Itss2.Dialogs.Standard.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog
 {
-    internal class HelloWorkflow:Workflow<IStorageSystemHelloDialog>, IHelloWorkflow
+    internal class HelloWorkflow:Workflow, IHelloWorkflow
     {
         public event EventHandler<MessageReceivedEventArgs>? RequestAccepted;
 
+        private bool isConnected;
         private bool isDisposed;
 
-        public HelloWorkflow(   IStorageSystemWorkflowProvider workflowProvider,
-                                IStorageSystemDialogProvider dialogProvider,
-                                ISerializationProvider serializationProvider    )
+        public HelloWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.HelloDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
+        }
+
+        private IStorageSystemHelloDialog Dialog
+        {
+            get{ return this.DialogProvider.HelloDialog; }
         }
 
         private Object SyncRoot
@@ -52,17 +55,40 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog
             get;
         } = new ManualResetEventSlim( initialState:false );
 
+        public bool IsConnected
+        {
+            get
+            {
+                lock( this.SyncRoot )
+                {
+                    return this.isConnected;
+                }
+            }
+
+            private set
+            {
+                lock( this.SyncRoot )
+                {
+                    this.isConnected = value;
+                }
+            }
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
             HelloRequest request = ( HelloRequest )e.Message;
 
             lock( this.SyncRoot )
             {
-                if( this.RemoteSubscriber is null )
+                SubscriberInfo subscriberInfo = this.GetSubscriberInfo();
+
+                if( subscriberInfo.HasRemoteSubscriber == false )
                 {
                     this.RequestAccepted?.Invoke( this, e );
 
-                    this.Dialog.SendResponse( new HelloResponse( request, this.LocalSubscriber ) );
+                    this.Dialog.SendResponse( new HelloResponse( request, subscriberInfo.LocalSubscriber ) );
+
+                    this.IsConnected = true;
 
                     this.HelloRequestAcceptEvent.Set();
                 }else
@@ -108,10 +134,7 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog
                 
             bool waitResult = this.HelloRequestAcceptEvent.Wait( ( int )Timeouts.HandshakeTimeout.TotalMilliseconds );
 
-            if( waitResult == false )
-            {
-                throw Assert.Exception( new TimeoutException( $"Handshake timed out." ) );
-            }
+            this.ValidateWaitResult( waitResult );
         }
 
         public async Task ConnectAsync( Stream stream, CancellationToken cancellationToken = default )
@@ -120,6 +143,11 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog
 
             bool waitResult = this.HelloRequestAcceptEvent.Wait( ( int )Timeouts.HandshakeTimeout.TotalMilliseconds, cancellationToken );
 
+            this.ValidateWaitResult( waitResult );
+        }
+
+        private void ValidateWaitResult( bool waitResult )
+        {
             if( waitResult == false )
             {
                 throw Assert.Exception( new TimeoutException( $"Handshake timed out." ) );
@@ -134,6 +162,8 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog
                 {
                     this.HelloRequestAcceptEvent.Dispose();
                 }
+
+                base.Dispose( disposing );
 
                 this.isDisposed = true;
             }

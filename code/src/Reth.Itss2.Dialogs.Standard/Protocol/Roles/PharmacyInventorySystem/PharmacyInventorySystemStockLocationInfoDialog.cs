@@ -33,13 +33,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
         {
             return base.SendRequest<StockLocationInfoRequest, StockLocationInfoResponse>( request );
         }
-        
-        public Task<StockLocationInfoResponse> SendRequestAsync( StockLocationInfoRequest request )
-        {
-            return base.SendRequestAsync<StockLocationInfoRequest, StockLocationInfoResponse>( request );
-        }
 
-        public Task<StockLocationInfoResponse> SendRequestAsync( StockLocationInfoRequest request, CancellationToken cancellationToken )
+        public Task<StockLocationInfoResponse> SendRequestAsync( StockLocationInfoRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<StockLocationInfoRequest, StockLocationInfoResponse>( request, cancellationToken );
         }

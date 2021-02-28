@@ -16,12 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
-
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StatusDialog
 {
     public interface IStatusWorkflow:IWorkflow
     {
-        Func<StatusRequest, StatusResponse>? RequestReceived{ get; set; }
+        event EventHandler<ProcessStartEventArgs<IStatusProcess>>? ProcessStarted;
     }
 }

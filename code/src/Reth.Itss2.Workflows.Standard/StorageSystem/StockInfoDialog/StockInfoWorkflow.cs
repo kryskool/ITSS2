@@ -21,56 +21,72 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StockInfoDialog
 {
-    internal class StockInfoWorkflow:Workflow<IStorageSystemStockInfoDialog>, IStockInfoWorkflow
+    internal class StockInfoWorkflow:Workflow, IStockInfoWorkflow
     {
-        public StockInfoWorkflow(   IStorageSystemWorkflowProvider workflowProvider,
-                                    IStorageSystemDialogProvider dialogProvider,
-                                    ISerializationProvider serializationProvider    )
+        public event EventHandler<ProcessStartEventArgs<IStockInfoProcess>>? ProcessStarted;
+
+        public StockInfoWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.StockInfoDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
+        private IStorageSystemStockInfoDialog Dialog
         {
-            this.OnRequestReceived( ( StockInfoRequest )e.Message,
-                                    this.RequestReceived,
-                                    ( StockInfoResponse response ) =>
-                                    {
-                                        this.Dialog.SendResponse( response );
-                                    }   );
+            get{ return this.DialogProvider.StockInfoDialog; }
         }
 
-        public Func<StockInfoRequest, StockInfoResponse>? RequestReceived
+        public void SendResponse( StockInfoResponse response )
         {
-            get; set;
+            this.SendResponse(  response,
+                                () =>
+                                {
+                                    this.Dialog.SendResponse( response );
+                                } );
+        }
+
+        public Task SendResponseAsync( StockInfoResponse response, CancellationToken cancellationToken = default )
+        {
+            return this.SendResponseAsync(  response,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendResponseAsync( response, cancellationToken );
+                                            } );
         }
 
         public void SendMessage( StockInfoMessage message )
         {
-            this.OnSendMessage<StockInfoMessage>(   message,
-                                                    ( StockInfoMessage message ) =>
-                                                    {
-                                                        this.Dialog.SendMessage( message );
-                                                    }   );
+            this.SendMessage(   message,
+                                () =>
+                                {
+                                    this.Dialog.SendMessage( message );
+                                } );
         }
 
-        public async Task SendMessageAsync( StockInfoMessage message, CancellationToken cancellationToken = default )
+        public Task SendMessageAsync( StockInfoMessage message, CancellationToken cancellationToken = default )
         {
-            await this.OnSendMessageAsync<StockInfoMessage>(    message,
-                                                                async ( StockInfoMessage message, CancellationToken cancellationToken ) =>
-                                                                {
-                                                                    await this.Dialog.SendMessageAsync( message );
-                                                                }   );
+            return this.SendMessageAsync(   message,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendMessageAsync( message, cancellationToken );
+                                            } );
         }
 
-        protected override void Dispose( bool disposing )
+        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
+            StockInfoRequest request = ( StockInfoRequest )e.Message;
+
+            this.OnRequestReceived( request,
+                                    () =>
+                                    {
+                                        IStockInfoProcess process = new StockInfoProcess( this, request );
+
+                                        this.ProcessStarted?.Invoke( this, new ProcessStartEventArgs<IStockInfoProcess>( process ) );
+                                    }   );
         }
     }
 }

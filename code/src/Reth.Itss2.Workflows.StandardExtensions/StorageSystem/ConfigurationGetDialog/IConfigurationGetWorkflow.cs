@@ -16,13 +16,12 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGetDialog;
 using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.StandardExtensions.StorageSystem.ConfigurationGetDialog
 {
     public interface IConfigurationGetWorkflow:IWorkflow
     {
-        Func<ConfigurationGetRequest, ConfigurationGetResponse>? RequestReceived{ get; set; }
+        event EventHandler<ProcessStartEventArgs<IConfigurationGetProcess>>? ProcessStarted;
     }
 }

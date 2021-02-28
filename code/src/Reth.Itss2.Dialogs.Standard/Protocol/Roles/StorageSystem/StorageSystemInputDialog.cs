@@ -33,13 +33,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
         {
             return base.SendRequest<InputRequest, InputResponse>( request );
         }
-        
-        public Task<InputResponse> SendRequestAsync( InputRequest request )
-        {
-            return base.SendRequestAsync<InputRequest, InputResponse>( request );
-        }
 
-        public Task<InputResponse> SendRequestAsync( InputRequest request, CancellationToken cancellationToken )
+        public Task<InputResponse> SendRequestAsync( InputRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<InputRequest, InputResponse>( request, cancellationToken );
         }
@@ -49,9 +44,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
             base.SendMessage( message );
         }
         
-        public Task SendMessageAsync( InputMessage message )
+        public Task SendMessageAsync( InputMessage message, CancellationToken cancellationToken = default )
         {
-            return base.SendMessageAsync( message );
+            return base.SendMessageAsync( message, cancellationToken );
         }
     }
 }

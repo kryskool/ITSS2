@@ -54,13 +54,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles
         {
             return base.SendRequest<KeepAliveRequest, KeepAliveResponse>( request );
         }
-        
-        public Task<KeepAliveResponse> SendRequestAsync( KeepAliveRequest request )
-        {
-            return base.SendRequestAsync<KeepAliveRequest, KeepAliveResponse>( request );
-        }
 
-        public Task<KeepAliveResponse> SendRequestAsync( KeepAliveRequest request, CancellationToken cancellationToken )
+        public Task<KeepAliveResponse> SendRequestAsync( KeepAliveRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<KeepAliveRequest, KeepAliveResponse>( request, cancellationToken );
         }
@@ -70,9 +65,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles
             base.SendResponse( response );
         }
         
-        public Task SendResponseAsync( KeepAliveResponse response )
+        public Task SendResponseAsync( KeepAliveResponse response, CancellationToken cancellationToken = default )
         {
-            return base.SendResponseAsync( response );
+            return base.SendResponseAsync( response, cancellationToken );
         }
     }
 }

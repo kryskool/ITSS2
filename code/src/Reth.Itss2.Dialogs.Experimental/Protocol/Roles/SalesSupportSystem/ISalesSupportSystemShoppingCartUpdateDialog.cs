@@ -29,7 +29,6 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
 
         ShoppingCartUpdateResponse SendRequest( ShoppingCartUpdateRequest request );
                 
-        Task<ShoppingCartUpdateResponse> SendRequestAsync( ShoppingCartUpdateRequest request );
-        Task<ShoppingCartUpdateResponse> SendRequestAsync( ShoppingCartUpdateRequest request, CancellationToken cancellationToken );
+        Task<ShoppingCartUpdateResponse> SendRequestAsync( ShoppingCartUpdateRequest request, CancellationToken cancellationToken = default );
     }
 }

@@ -25,7 +25,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
     {
         StockLocationInfoResponse SendRequest( StockLocationInfoRequest request );
         
-        Task<StockLocationInfoResponse> SendRequestAsync( StockLocationInfoRequest request );
-        Task<StockLocationInfoResponse> SendRequestAsync( StockLocationInfoRequest request, CancellationToken cancellationToken );
+        Task<StockLocationInfoResponse> SendRequestAsync( StockLocationInfoRequest request, CancellationToken cancellationToken = default );
     }
 }

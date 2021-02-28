@@ -28,11 +28,10 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles
 
         KeepAliveResponse SendRequest( KeepAliveRequest request );
         
-        Task<KeepAliveResponse> SendRequestAsync( KeepAliveRequest request );
-        Task<KeepAliveResponse> SendRequestAsync( KeepAliveRequest request, CancellationToken cancellationToken );
+        Task<KeepAliveResponse> SendRequestAsync( KeepAliveRequest request, CancellationToken cancellationToken = default );
                 
         void SendResponse( KeepAliveResponse response );
         
-        Task SendResponseAsync( KeepAliveResponse response );
+        Task SendResponseAsync( KeepAliveResponse response, CancellationToken cancellationToken = default );
     }
 }

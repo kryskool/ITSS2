@@ -54,8 +54,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.OutputD
                                         TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                         TypeConverter.SubscriberId.ConvertTo( this.Destination ),
                                         TypeConverter.ConvertToDataObject<OutputResponseDetails, OutputResponseDetailsDataContract>( this.Details ),
-                                        this.BoxNumber,
-                                        TypeConverter.ConvertToDataObjects<OutputCriteria, OutputCriteriaDataContract>( this.Criterias )    );
+                                        TypeConverter.ConvertToDataObjects<OutputCriteria, OutputCriteriaDataContract>( this.Criterias ),
+                                        this.BoxNumber  );
         }
 
         public override Type GetEnvelopeType()

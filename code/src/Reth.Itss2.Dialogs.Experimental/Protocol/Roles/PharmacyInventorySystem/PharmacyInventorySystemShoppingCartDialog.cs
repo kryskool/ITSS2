@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartDialog;
@@ -55,9 +56,9 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.PharmacyInventorySystem
             base.SendResponse( response );
         }
         
-        public Task SendResponseAsync( ShoppingCartResponse response )
+        public Task SendResponseAsync( ShoppingCartResponse response, CancellationToken cancellationToken = default )
         {
-            return base.SendResponseAsync( response );
+            return base.SendResponseAsync( response, cancellationToken );
         }
     }
 }

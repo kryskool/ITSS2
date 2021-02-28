@@ -46,16 +46,21 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
 								        SubscriberId source,
                                         SubscriberId destination,
                                         InitiateInputMessageDetails details,
-                                        IEnumerable<InitiateInputMessageArticle>? articles  )
+                                        IEnumerable<InitiateInputMessageArticle> articles  )
         :
             base( id, Dialogs.InitiateInput, source, destination )
         {
             this.Details = details;
 
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
+        }
+
+        public InitiateInputMessage(    InitiateInputRequest request,
+                                        InitiateInputMessageDetails details,
+                                        IEnumerable<InitiateInputMessageArticle> articles  )
+        :
+            this( request.Id, request.Destination, request.Source, details, articles )
+        {
         }
 
         public InitiateInputMessageDetails Details

@@ -15,42 +15,60 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StatusDialog
 {
-    internal class StatusWorkflow:Workflow<IStorageSystemStatusDialog>, IStatusWorkflow
+    internal class StatusWorkflow:Workflow, IStatusWorkflow
     {
-        public StatusWorkflow(  IStorageSystemWorkflowProvider workflowProvider,
-                                IStorageSystemDialogProvider dialogProvider,
-                                ISerializationProvider serializationProvider    )
+        public event EventHandler<ProcessStartEventArgs<IStatusProcess>>? ProcessStarted;
+
+        public StatusWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.StatusDialog )
+            base( workflowProvider )
         {
             this.Dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
+        private IStorageSystemStatusDialog Dialog
+        {
+            get{ return this.DialogProvider.StatusDialog; }
+        }
+
+        public void SendResponse( StatusResponse response )
+        {
+            this.SendResponse(  response,
+                                () =>
+                                {
+                                    this.Dialog.SendResponse( response );
+                                } );
+        }
+
+        public Task SendResponseAsync( StatusResponse response, CancellationToken cancellationToken = default )
+        {
+            return this.SendResponseAsync(  response,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendResponseAsync( response, cancellationToken );
+                                            } );
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs e )
         {
-            this.OnRequestReceived( ( StatusRequest )e.Message,
-                                    this.RequestReceived,
-                                    ( StatusResponse response ) =>
+            StatusRequest request = ( StatusRequest )e.Message;
+
+            this.OnRequestReceived( request,
+                                    () =>
                                     {
-                                        this.Dialog.SendResponse( response );
+                                        IStatusProcess process = new StatusProcess( this, request );
+
+                                        this.ProcessStarted?.Invoke( this, new ProcessStartEventArgs<IStatusProcess>( process ) );
                                     }   );
-        }
-
-        public Func<StatusRequest, StatusResponse>? RequestReceived
-        {
-            get; set;
-        }
-
-        protected override void Dispose( bool disposing )
-        {
         }
     }
 }

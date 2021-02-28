@@ -48,7 +48,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
 								        SubscriberId source,
                                         SubscriberId destination,
                                         InitiateInputRequestDetails details,
-                                        IEnumerable<InitiateInputRequestArticle>? articles  )
+                                        IEnumerable<InitiateInputRequestArticle> articles  )
         :
             this( id, source, destination, details, articles, null, null )
         {
@@ -58,7 +58,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
 								        SubscriberId source,
                                         SubscriberId destination,
                                         InitiateInputRequestDetails details,
-                                        IEnumerable<InitiateInputRequestArticle>? articles,
+                                        IEnumerable<InitiateInputRequestArticle> articles,
                                         bool? isNewDelivery,
                                         bool? setPickingIndicator   )
         :
@@ -66,11 +66,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog
         {
             this.Details = details;
 
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
-
+            this.Articles.AddRange( articles );
+            
             this.IsNewDelivery = isNewDelivery;
             this.SetPickingIndicator = setPickingIndicator;
         }

@@ -28,11 +28,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
         void SendMessage( String messageEnvelope );
 
-        Task SendMessageAsync( String messageEnvelope );
+        Task SendMessageAsync( String messageEnvelope, CancellationToken cancellationToken = default );
 
         void Connect( IMessageTransmitter messageTransmitter );
 
         Task ConnectAsync( IMessageTransmitter messageTransmitter );
-        Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken );
+        Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken = default );
     }
 }

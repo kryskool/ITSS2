@@ -46,29 +46,27 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputDialog
         public OutputRequest(   MessageId id,
                                 SubscriberId source,
                                 SubscriberId destination,
-                                OutputRequestDetails details   )
+                                OutputRequestDetails details,
+                                IEnumerable<OutputCriteria> criterias  )
         :
-            base( id, Dialogs.Output, source, destination )
+            this( id, source, destination, details, criterias, boxNumber:null )
         {
-            this.Details = details;
         }
 
         public OutputRequest(   MessageId id,
 								SubscriberId source,
                                 SubscriberId destination,
                                 OutputRequestDetails details,
-                                String? boxNumber,
-                                IEnumerable<OutputCriteria>? criterias    )
+                                IEnumerable<OutputCriteria> criterias,
+                                String? boxNumber   )
         :
             base( id, Dialogs.Output, source, destination )
         {
             this.Details = details;
-            this.BoxNumber = boxNumber;
+            
+            this.Criterias.AddRange( criterias );
 
-            if( criterias is not null )
-            {
-                this.Criterias.AddRange( criterias );
-            }
+            this.BoxNumber = boxNumber;
         }
 
         public OutputRequestDetails Details

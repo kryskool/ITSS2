@@ -46,40 +46,39 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputDialog
         public OutputResponse(  MessageId id,
                                 SubscriberId source,
                                 SubscriberId destination,
-                                OutputResponseDetails details   )
+                                OutputResponseDetails details,
+                                IEnumerable<OutputCriteria> criterias )
         :
-            base( id, Dialogs.Output, source, destination )
+            this( id, source, destination, details, criterias, boxNumber:null )
         {
-            this.Details = details;
         }
 
         public OutputResponse(  MessageId id,
 								SubscriberId source,
                                 SubscriberId destination,
                                 OutputResponseDetails details,
-                                String? boxNumber,
-                                IEnumerable<OutputCriteria>? criterias    )
+                                IEnumerable<OutputCriteria> criterias,
+                                String? boxNumber   )
         :
             base( id, Dialogs.Output, source, destination )
         {
             this.Details = details;
-            this.BoxNumber = boxNumber;
 
-            if( criterias is not null )
-            {
-                this.Criterias.AddRange( criterias );
-            }
+            this.Criterias.AddRange( criterias );
+
+            this.BoxNumber = boxNumber;
         }
 
         public OutputResponse(  OutputRequest request,
                                 OutputResponseDetails details   )
         :
-            base( request )
+            this(   request.Id,
+                    request.Destination,
+                    request.Source,
+                    details,
+                    request.GetCriterias(),
+                    request.BoxNumber   )
         {
-            this.Details = details;
-            this.BoxNumber = request.BoxNumber;
-
-            this.Criterias.AddRange( request.GetCriterias() );
         }
 
         public OutputResponseDetails Details

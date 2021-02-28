@@ -47,22 +47,46 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputDialog
 								SubscriberId source,
                                 SubscriberId destination,
                                 OutputMessageDetails details,
-                                IEnumerable<OutputArticle>? articles,
+                                IEnumerable<OutputArticle> articles )
+        :
+            this( id, source, destination, details, articles, boxes:null )
+        {
+        }
+
+        public OutputMessage(   MessageId id,
+								SubscriberId source,
+                                SubscriberId destination,
+                                OutputMessageDetails details,
+                                IEnumerable<OutputArticle> articles,
                                 IEnumerable<OutputBox>? boxes    )
         :
             base( id, Dialogs.Output, source, destination )
         {
             this.Details = details;
 
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
 
             if( boxes is not null )
             {
                 this.Boxes.AddRange( boxes );
             }
+        }
+
+        public OutputMessage(   OutputRequest request,
+                                OutputMessageDetails details,
+                                IEnumerable<OutputArticle> articles )
+        :
+            this( request.Id, request.Destination, request.Source, details, articles, boxes:null )
+        {
+        }
+
+        public OutputMessage(   OutputRequest request,
+                                OutputMessageDetails details,
+                                IEnumerable<OutputArticle> articles,
+                                IEnumerable<OutputBox>? boxes    )
+        :
+            this( request.Id, request.Destination, request.Source, details, articles, boxes )
+        {
         }
 
         public OutputMessageDetails Details

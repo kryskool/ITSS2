@@ -33,13 +33,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
         {
             return base.SendRequest<ArticleInfoRequest, ArticleInfoResponse>( request );
         }
-        
-        public Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request )
-        {
-            return base.SendRequestAsync<ArticleInfoRequest, ArticleInfoResponse>( request );
-        }
 
-        public Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken )
+        public Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken = default )
         {
             return base.SendRequestAsync<ArticleInfoRequest, ArticleInfoResponse>( request, cancellationToken );
         }

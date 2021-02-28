@@ -22,21 +22,23 @@ using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.UnprocessedDialog;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.UnprocessedDialog
 {
-    internal class UnprocessedWorkflow:Workflow<IStorageSystemUnprocessedDialog>, IUnprocessedWorkflow
+    internal class UnprocessedWorkflow:Workflow, IUnprocessedWorkflow
     {
         public event EventHandler<MessageReceivedEventArgs>? MessageReceived;
 
-        public UnprocessedWorkflow( IStorageSystemWorkflowProvider workflowProvider,
-                                    IStorageSystemDialogProvider dialogProvider,
-                                    ISerializationProvider serializationProvider    )
+        public UnprocessedWorkflow( IStorageSystemWorkflowProvider workflowProvider )
         :
-            base( workflowProvider, dialogProvider, serializationProvider, dialogProvider.UnprocessedDialog )
+            base( workflowProvider )
         {
             this.Dialog.MessageReceived += this.UnprocessedDialog_MessageReceived;
+        }
+
+        private IStorageSystemUnprocessedDialog Dialog
+        {
+            get{ return this.DialogProvider.UnprocessedDialog; }
         }
 
         private void UnprocessedDialog_MessageReceived( Object sender, MessageReceivedEventArgs e )
@@ -46,8 +48,8 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.UnprocessedDialog
 
         public void SendMessage( UnprocessedMessage message )
         {
-            this.OnSendMessage<UnprocessedMessage>( message,
-                                                    ( UnprocessedMessage message ) =>
+            this.SendMessage<UnprocessedMessage>(   message,
+                                                    () =>
                                                     {
                                                         this.Dialog.SendMessage( message );
                                                     }   );
@@ -55,10 +57,10 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.UnprocessedDialog
 
         public async Task SendMessageAsync( UnprocessedMessage message, CancellationToken cancellationToken = default )
         {
-            await this.OnSendMessageAsync<UnprocessedMessage>(  message,
-                                                                async( UnprocessedMessage message, CancellationToken cancellationToken ) =>
+            await this.SendMessageAsync<UnprocessedMessage>(    message,
+                                                                async() =>
                                                                 {
-                                                                    await this.Dialog.SendMessageAsync( message );
+                                                                    await this.Dialog.SendMessageAsync( message, cancellationToken );
                                                                 }   );
         }
 
@@ -90,10 +92,6 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.UnprocessedDialog
                                             message,
                                             text,
                                             reason  );
-        }
-
-        protected override void Dispose( bool disposing )
-        {
         }
     }
 }

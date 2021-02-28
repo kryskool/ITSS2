@@ -43,23 +43,12 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog
 
         public StockDeliverySetRequest( MessageId id,
 									    SubscriberId source,
-                                        SubscriberId destination    )
-        :
-            base( id, Dialogs.StockDeliverySet, source, destination )
-        {
-        }
-
-        public StockDeliverySetRequest( MessageId id,
-									    SubscriberId source,
                                         SubscriberId destination,
-                                        IEnumerable<StockDelivery>? deliveries  )
+                                        IEnumerable<StockDelivery> deliveries  )
         :
             base( id, Dialogs.StockDeliverySet, source, destination )
         {
-            if( deliveries is not null )
-            {
-                this.Deliveries.AddRange( deliveries );
-            }
+            this.Deliveries.AddRange( deliveries );
         }
 
         private List<StockDelivery> Deliveries

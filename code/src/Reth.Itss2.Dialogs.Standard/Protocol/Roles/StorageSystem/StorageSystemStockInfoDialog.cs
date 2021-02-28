@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
@@ -54,9 +55,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
             base.SendResponse( response );
         }
         
-        public Task SendResponseAsync( StockInfoResponse response )
+        public Task SendResponseAsync( StockInfoResponse response, CancellationToken cancellationToken = default )
         {
-            return base.SendResponseAsync( response );
+            return base.SendResponseAsync( response, cancellationToken );
         }
 
         public void SendMessage( StockInfoMessage message )
@@ -64,9 +65,9 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
             base.SendMessage( message );
         }
         
-        public Task SendMessageAsync( StockInfoMessage message )
+        public Task SendMessageAsync( StockInfoMessage message, CancellationToken cancellationToken = default )
         {
-            return base.SendMessageAsync( message );
+            return base.SendMessageAsync( message, cancellationToken );
         }
     }
 }

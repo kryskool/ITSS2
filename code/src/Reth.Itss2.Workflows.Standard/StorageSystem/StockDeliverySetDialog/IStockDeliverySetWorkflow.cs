@@ -16,12 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
-
 namespace Reth.Itss2.Workflows.Standard.StorageSystem.StockDeliverySetDialog
 {
     public interface IStockDeliverySetWorkflow:IWorkflow
     {
-        Func<StockDeliverySetRequest, StockDeliverySetResponse>? RequestReceived{ get; set; }
+        event EventHandler<ProcessStartEventArgs<IStockDeliverySetProcess>>? ProcessStarted;
     }
 }

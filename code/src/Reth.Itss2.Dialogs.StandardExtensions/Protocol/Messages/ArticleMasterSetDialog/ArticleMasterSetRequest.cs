@@ -40,16 +40,8 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterS
 
         public ArticleMasterSetRequest( MessageId id,
 									    SubscriberId source,
-                                        SubscriberId destination    )
-        :
-            base( id, source, destination )
-        {
-        }
-
-        public ArticleMasterSetRequest( MessageId id,
-									    SubscriberId source,
                                         SubscriberId destination,
-                                        IEnumerable<ArticleMasterSetArticle>? articles  )
+                                        IEnumerable<ArticleMasterSetArticle> articles  )
         :
             base( id, source, destination, articles )
         {

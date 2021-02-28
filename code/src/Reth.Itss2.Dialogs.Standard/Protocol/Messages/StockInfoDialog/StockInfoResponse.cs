@@ -52,14 +52,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
         public StockInfoResponse(   MessageId id,
                                     SubscriberId source,
                                     SubscriberId destination,
-                                    IEnumerable<StockInfoArticle>? articles  )
+                                    IEnumerable<StockInfoArticle> articles  )
         :
             base( id, Dialogs.StockInfo, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
         }
 
         public StockInfoResponse( StockInfoRequest request )
@@ -69,14 +66,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
         }
 
         public StockInfoResponse(   StockInfoRequest request,
-                                    IEnumerable<StockInfoArticle>? articles  )
+                                    IEnumerable<StockInfoArticle> articles  )
         :
             base( request )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
         }
 
         private List<StockInfoArticle> Articles

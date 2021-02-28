@@ -47,17 +47,18 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfoDialog
 		}
 
         public ArticleInfoRequest(  MessageId id,
-									SubscriberId source,
-                                    SubscriberId destination    )
+                                    SubscriberId source,
+                                    SubscriberId destination,
+                                    IEnumerable<ArticleInfoRequestArticle> articles )
         :
-            base( id, source, destination )
+            base( id, source, destination, articles )
         {
         }
 
         public ArticleInfoRequest(  MessageId id,
-									SubscriberId source,
+                                    SubscriberId source,
                                     SubscriberId destination,
-                                    IEnumerable<ArticleInfoRequestArticle>? articles,
+                                    IEnumerable<ArticleInfoRequestArticle> articles,
                                     bool? includeCrossSellingArticles,
                                     bool? includeAlternativeArticles,
                                     bool? includeAlternativePackSizeArticles    )

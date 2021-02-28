@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePriceDialog;
@@ -28,6 +29,6 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.PharmacyInventorySystem
 
         void SendResponse( ArticlePriceResponse response );
                 
-        Task SendResponseAsync( ArticlePriceResponse response );
+        Task SendResponseAsync( ArticlePriceResponse response, CancellationToken cancellationtoken );
     }
 }

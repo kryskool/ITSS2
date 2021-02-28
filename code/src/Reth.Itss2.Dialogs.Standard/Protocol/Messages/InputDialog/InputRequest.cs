@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog
         public InputRequest(    MessageId id,
 								SubscriberId source,
                                 SubscriberId destination,
-                                IEnumerable<InputRequestArticle>? articles  )
+                                IEnumerable<InputRequestArticle> articles  )
         :
             this( id, source, destination, articles, null, null )
         {
@@ -55,16 +55,13 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog
         public InputRequest(    MessageId id,
 								SubscriberId source,
                                 SubscriberId destination,
-                                IEnumerable<InputRequestArticle>? articles,
+                                IEnumerable<InputRequestArticle> articles,
                                 bool? isNewDelivery,
                                 bool? setPickingIndicator   )
         :
             base( id, Dialogs.Input, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
 
             this.IsNewDelivery = isNewDelivery;
             this.SetPickingIndicator = setPickingIndicator;

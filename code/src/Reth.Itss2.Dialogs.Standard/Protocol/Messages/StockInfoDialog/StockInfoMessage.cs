@@ -52,14 +52,24 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog
         public StockInfoMessage(    MessageId id,
                                     SubscriberId source,
                                     SubscriberId destination,
-                                    IEnumerable<StockInfoArticle>? articles  )
+                                    IEnumerable<StockInfoArticle> articles  )
         :
             base( id, Dialogs.StockInfo, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
+        }
+
+        public StockInfoMessage( StockInfoRequest request )
+        :
+            base( request.Id, Dialogs.StockInfo, request.Destination, request.Source )
+        {
+        }
+
+        public StockInfoMessage(    StockInfoRequest request,
+                                    IEnumerable<StockInfoArticle> articles  )
+        :
+            this( request.Id, request.Destination, request.Source )
+        {
         }
 
         private List<StockInfoArticle> Articles

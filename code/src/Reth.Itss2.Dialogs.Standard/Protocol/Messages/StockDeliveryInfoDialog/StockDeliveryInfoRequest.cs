@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfoDialog
                                             SubscriberId destination,
                                             StockDeliveryInfoRequestTask task    )
         :
-            this( id, source, destination, task, null )
+            this( id, source, destination, task, includeTaskDetails:null )
         {
         }
 

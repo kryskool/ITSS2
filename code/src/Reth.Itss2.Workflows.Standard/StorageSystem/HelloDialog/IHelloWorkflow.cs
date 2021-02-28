@@ -27,6 +27,8 @@ namespace Reth.Itss2.Workflows.Standard.StorageSystem.HelloDialog
     {
         event EventHandler<MessageReceivedEventArgs>? RequestAccepted;
 
+        bool IsConnected{ get; }
+
         void Connect( Stream stream );
         Task ConnectAsync( Stream stream, CancellationToken cancellationToken = default );
     }

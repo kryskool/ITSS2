@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
@@ -27,6 +28,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 
         void SendResponse( OutputInfoResponse response );
         
-        Task SendResponseAsync( OutputInfoResponse response );
+        Task SendResponseAsync( OutputInfoResponse response, CancellationToken cancellationToken = default );
     }
 }

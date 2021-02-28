@@ -43,23 +43,12 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog
 
         public ArticleInfoRequest(  MessageId id,
 									SubscriberId source,
-                                    SubscriberId destination    )
-        :
-            base( id, Dialogs.ArticleInfo, source, destination )
-        {
-        }
-
-        public ArticleInfoRequest(  MessageId id,
-									SubscriberId source,
                                     SubscriberId destination,
-                                    IEnumerable<ArticleInfoRequestArticle>? articles   )
+                                    IEnumerable<ArticleInfoRequestArticle> articles   )
         :
             base( id, Dialogs.ArticleInfo, source, destination )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
+            this.Articles.AddRange( articles );
         }
 
         private List<ArticleInfoRequestArticle> Articles

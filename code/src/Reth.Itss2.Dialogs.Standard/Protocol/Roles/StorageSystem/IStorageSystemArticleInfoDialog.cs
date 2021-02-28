@@ -25,7 +25,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
     {
         ArticleInfoResponse SendRequest( ArticleInfoRequest request );
         
-        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request );
-        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken );
+        Task<ArticleInfoResponse> SendRequestAsync( ArticleInfoRequest request, CancellationToken cancellationToken = default );
     }
 }
