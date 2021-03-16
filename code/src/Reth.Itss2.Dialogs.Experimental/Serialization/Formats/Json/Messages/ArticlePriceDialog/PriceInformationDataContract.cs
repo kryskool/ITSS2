@@ -16,11 +16,11 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePriceDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticlePriceDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticlePrice
 {
     public class PriceInformationDataContract:IDataContract<PriceInformation>
     {

@@ -17,10 +17,10 @@
 using System;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.OutputInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.OutputInfo
 {
     public class OutputInfoRequestDataContract:SubscribedRequestDataContract<OutputInfoRequest>
     {

@@ -17,12 +17,12 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePriceDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticlePriceDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticlePrice
 {
     [XmlDataContractMapping( typeof( ArticlePriceRequest ), typeof( ArticlePriceRequestDataContract ) )]
     public class ArticlePriceRequestEnvelopeDataContract:MessageEnvelopeDataContract

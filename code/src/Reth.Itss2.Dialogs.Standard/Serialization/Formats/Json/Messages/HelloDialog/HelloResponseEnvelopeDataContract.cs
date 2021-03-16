@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.HelloDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Hello
 {
     [JsonDataContractMapping( typeof( HelloResponse ), typeof( HelloResponseDataContract ) )]
     public class HelloResponseEnvelopeDataContract:MessageEnvelopeDataContract

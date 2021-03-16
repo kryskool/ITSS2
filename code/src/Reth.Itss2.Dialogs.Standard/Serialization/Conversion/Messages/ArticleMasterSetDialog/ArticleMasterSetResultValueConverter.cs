@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.ArticleMasterSetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.ArticleMasterSet
 {
     public class ArticleMasterSetResultValueConverter
     {

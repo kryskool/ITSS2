@@ -17,10 +17,10 @@
 using System;
 using System.Text.Json.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleMasterSetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleMasterSet
 {
     public class ArticleMasterSetRequestDataContract:SubscribedRequestDataContract<ArticleMasterSetRequest>
     {

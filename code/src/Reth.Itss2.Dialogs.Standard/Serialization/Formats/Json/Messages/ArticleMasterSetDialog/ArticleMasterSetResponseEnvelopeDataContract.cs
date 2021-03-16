@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleMasterSetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleMasterSet
 {
     [JsonDataContractMapping( typeof( ArticleMasterSetResponse ), typeof( ArticleMasterSetResponseDataContract ) ) ]
     public class ArticleMasterSetResponseEnvelopeDataContract:MessageEnvelopeDataContract

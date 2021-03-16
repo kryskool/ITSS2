@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.TaskCancelOutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.TaskCancelOutput
 {
     public class TaskCancelOutputStatusConverter
     {

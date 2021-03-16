@@ -19,10 +19,10 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.ArticleMasterSetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.ArticleMasterSet
 {
     public class ArticleMasterSetArticleDataContract:IDataContract<ArticleMasterSetArticle>
     {

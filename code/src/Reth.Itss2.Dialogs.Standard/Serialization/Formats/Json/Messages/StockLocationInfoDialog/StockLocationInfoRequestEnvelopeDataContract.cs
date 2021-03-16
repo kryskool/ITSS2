@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockLocationInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockLocationInfo
 {
     [JsonDataContractMapping( typeof( StockLocationInfoRequest ), typeof( StockLocationInfoRequestDataContract ) )]
     public class StockLocationInfoRequestEnvelopeDataContract:MessageEnvelopeDataContract

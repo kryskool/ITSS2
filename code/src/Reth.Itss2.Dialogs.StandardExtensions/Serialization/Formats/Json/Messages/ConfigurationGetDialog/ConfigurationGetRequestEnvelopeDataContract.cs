@@ -17,9 +17,9 @@
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
-using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGetDialog;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet;
 
-namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ConfigurationGetDialog
+namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ConfigurationGet
 {
     [JsonDataContractMapping( typeof( ConfigurationGetRequest ), typeof( ConfigurationGetRequestDataContract ) )]
     public class ConfigurationGetRequestEnvelopeDataContract:MessageEnvelopeDataContract

@@ -16,7 +16,7 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.UnprocessedDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
 {

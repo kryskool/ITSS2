@@ -18,9 +18,9 @@ using System;
 
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
-using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGetDialog;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet;
 
-namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml.Messages.ConfigurationGetDialog
+namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml.Messages.ConfigurationGet
 {
     public class ConfigurationGetRequestDataContract:SubscribedRequestDataContract<ConfigurationGetRequest>
     {

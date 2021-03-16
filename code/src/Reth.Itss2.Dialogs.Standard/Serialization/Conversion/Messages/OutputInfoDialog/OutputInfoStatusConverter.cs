@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputInfo
 {
     public class OutputInfoStatusConverter
     {

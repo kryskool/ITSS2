@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.OutputInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.OutputInfo
 {
     public class OutputInfoResponseDataContract:SubscribedResponseDataContract<OutputInfoResponse>
     {

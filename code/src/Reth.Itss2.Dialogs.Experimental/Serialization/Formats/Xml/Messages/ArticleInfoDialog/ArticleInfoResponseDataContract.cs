@@ -18,11 +18,11 @@ using System;
 using System.Linq;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfoDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticleInfoDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticleInfo
 {
     public class ArticleInfoResponseDataContract:SubscribedResponseDataContract<ArticleInfoResponse>
     {

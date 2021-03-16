@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.InputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.Input
 {
     public class InputResponsePackHandlingInputConverter
     {

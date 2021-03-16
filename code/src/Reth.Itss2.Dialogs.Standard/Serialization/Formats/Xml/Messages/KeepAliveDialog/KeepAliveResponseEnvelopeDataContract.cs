@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAliveDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.KeepAliveDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.KeepAlive
 {
     [XmlDataContractMapping( typeof( KeepAliveResponse ), typeof( KeepAliveResponseDataContract ) )]
     public class KeepAliveResponseEnvelopeDataContract:MessageEnvelopeDataContract

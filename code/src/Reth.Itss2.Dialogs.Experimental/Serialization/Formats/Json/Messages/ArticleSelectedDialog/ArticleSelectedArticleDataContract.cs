@@ -16,11 +16,11 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelectedDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticleSelectedDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticleSelected
 {
     public class ArticleSelectedArticleDataContract:IDataContract<ArticleSelectedArticle>
     {

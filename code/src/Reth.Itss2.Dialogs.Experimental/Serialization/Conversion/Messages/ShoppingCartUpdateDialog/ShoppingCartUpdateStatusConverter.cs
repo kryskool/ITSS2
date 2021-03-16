@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdateDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ShoppingCartUpdateDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ShoppingCartUpdate
 {
     public class ShoppingCartUpdateStatusConverter
     {

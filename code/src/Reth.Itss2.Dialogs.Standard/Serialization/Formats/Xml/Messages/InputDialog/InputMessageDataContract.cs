@@ -17,10 +17,10 @@
 using System;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.InputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Input
 {
     public class InputMessageDataContract:SubscribedMessageDataContract<InputMessage>
     {

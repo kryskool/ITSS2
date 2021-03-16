@@ -18,10 +18,10 @@ using System;
 using System.Text.Json.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.InputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Input
 {
     public class InputMessageArticleDataContract:IDataContract<InputMessageArticle>
     {

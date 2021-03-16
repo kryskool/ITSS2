@@ -16,34 +16,40 @@
 
 using System;
 
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
 {
     public class SalesSupportSystemDialogProvider:DialogProvider, ISalesSupportSystemDialogProvider
     {
         public SalesSupportSystemDialogProvider()
-        :
-            base()
         {
-            this.ArticleInfoDialog = new SalesSupportSystemArticleInfoDialog( this );
-            this.ArticlePriceDialog = new SalesSupportSystemArticlePriceDialog( this );
-            this.ArticleSelectedDialog = new SalesSupportSystemArticleSelectedDialog( this );
-            this.HelloDialog = new SalesSupportSystemHelloDialog( this );
-            this.KeepAliveDialog = new SalesSupportSystemKeepAliveDialog( this );
-            this.ShoppingCartDialog = new SalesSupportSystemShoppingCartDialog( this );
-            this.ShoppingCartUpdateDialog = new SalesSupportSystemShoppingCartUpdateDialog( this );
-            this.UnprocessedDialog = new SalesSupportSystemUnprocessedDialog( this );
+            this.ArticleInfoDialog = new ArticleInfoDialog( this );
+            this.ArticlePriceDialog = new ArticlePriceDialog( this );
+            this.ArticleSelectedDialog = new ArticleSelectedDialog( this );
+            this.HelloDialog = new HelloDialog( this );
+            this.KeepAliveDialog = new KeepAliveDialog( this );
+            this.ShoppingCartDialog = new ShoppingCartDialog( this );
+            this.ShoppingCartUpdateDialog = new ShoppingCartUpdateDialog( this );
+            this.UnprocessedDialog = new UnprocessedDialog( this );
         }
 
-        public ISalesSupportSystemArticleInfoDialog ArticleInfoDialog{ get; }
-        public ISalesSupportSystemArticlePriceDialog ArticlePriceDialog{ get; }
-        public ISalesSupportSystemArticleSelectedDialog ArticleSelectedDialog{ get; }
-        public ISalesSupportSystemHelloDialog HelloDialog{ get; }
-        public ISalesSupportSystemKeepAliveDialog KeepAliveDialog{ get; }
-        public ISalesSupportSystemShoppingCartDialog ShoppingCartDialog{ get; }
-        public ISalesSupportSystemShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
-        public ISalesSupportSystemUnprocessedDialog UnprocessedDialog{ get; }
+        public IArticleInfoDialog ArticleInfoDialog{ get; }
+        public IArticlePriceDialog ArticlePriceDialog{ get; }
+        public IArticleSelectedDialog ArticleSelectedDialog{ get; }
+        public IHelloDialog HelloDialog{ get; }
+        public IKeepAliveDialog KeepAliveDialog{ get; }
+        public IShoppingCartDialog ShoppingCartDialog{ get; }
+        public IShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
+        public IUnprocessedDialog UnprocessedDialog{ get; }
 
         public override String[] GetSupportedDialogs()
         {

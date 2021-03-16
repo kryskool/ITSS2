@@ -18,11 +18,11 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ShoppingCartDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ShoppingCart
 {
     public class ShoppingCartCriteriaDataContract:IDataContract<ShoppingCartCriteria>
     {

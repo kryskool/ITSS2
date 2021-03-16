@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StatusDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Status
 {
     [JsonDataContractMapping( typeof( StatusRequest ), typeof( StatusRequestDataContract ) )]
     public class StatusRequestEnvelopeDataContract:MessageEnvelopeDataContract

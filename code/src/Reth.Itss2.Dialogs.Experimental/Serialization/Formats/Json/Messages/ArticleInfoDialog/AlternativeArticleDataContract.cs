@@ -16,11 +16,11 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfoDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticleInfoDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticleInfo
 {
     public class AlternativeArticleDataContract:IDataContract<AlternativeArticle>
     {

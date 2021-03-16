@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliveryInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliveryInfo
 {
     [JsonDataContractMapping( typeof( StockDeliveryInfoRequest ), typeof( StockDeliveryInfoRequestDataContract ) )]
     public class StockDeliveryInfoRequestEnvelopeDataContract:MessageEnvelopeDataContract

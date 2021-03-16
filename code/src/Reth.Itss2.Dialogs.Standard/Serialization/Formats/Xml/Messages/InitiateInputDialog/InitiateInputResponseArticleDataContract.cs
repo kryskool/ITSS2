@@ -19,10 +19,10 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.InitiateInputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.InitiateInput
 {
     public class InitiateInputResponseArticleDataContract:IDataContract<InitiateInputResponseArticle>
     {

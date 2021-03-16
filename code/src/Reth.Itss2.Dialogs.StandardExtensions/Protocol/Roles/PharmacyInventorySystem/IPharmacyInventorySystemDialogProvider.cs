@@ -14,10 +14,43 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet.Active;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet.Active;
+
 namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.PharmacyInventorySystem
 {
-    public interface IPharmacyInventorySystemDialogProvider:Standard.Protocol.Roles.PharmacyInventorySystem.IPharmacyInventorySystemDialogProvider
+    public interface IPharmacyInventorySystemDialogProvider:IDialogProvider
     {
-        IPharmacyInventorySystemConfigurationGetDialog ConfigurationGetDialog{ get; }
+        IArticleInfoDialog ArticleInfoDialog{ get; }
+        IArticleMasterSetDialog ArticleMasterSetDialog{ get; }
+        IConfigurationGetDialog ConfigurationGetDialog{ get; }
+        IHelloDialog HelloDialog{ get; }
+        IInputDialog InputDialog{ get; }
+        IInitiateInputDialog InitiateInputDialog{ get; }
+        IKeepAliveDialog KeepAliveDialog{ get; }
+        IOutputDialog OutputDialog{ get; }
+        IOutputInfoDialog OutputInfoDialog{ get; }
+        IStatusDialog StatusDialog{ get; }
+        IStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
+        IStockDeliverySetDialog StockDeliverySetDialog{ get; }
+        IStockInfoDialog StockInfoDialog{ get; }
+        IStockLocationInfoDialog StockLocationInfoDialog{ get; }
+        ITaskCancelOutputDialog TaskCancelOutputDialog{ get; }
+        IUnprocessedDialog UnprocessedDialog{ get; }
     }
 }

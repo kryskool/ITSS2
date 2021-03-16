@@ -20,15 +20,16 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
-    public class MessageReceivedEventArgs:EventArgs
+    public class MessageReceivedEventArgs<TMessage>:EventArgs
+        where TMessage:IMessage
     {
-        public MessageReceivedEventArgs( IMessage message, IDialogProvider dialogProvider )
+        public MessageReceivedEventArgs( TMessage message, IDialogProvider dialogProvider )
         {
             this.Message = message;
             this.DialogProvider = dialogProvider;
         }
 
-        public IMessage Message
+        public TMessage Message
         {
             get;
         }

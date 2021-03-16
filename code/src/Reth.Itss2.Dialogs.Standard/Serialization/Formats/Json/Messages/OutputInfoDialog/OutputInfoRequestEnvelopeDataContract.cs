@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.OutputInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.OutputInfo
 {
     [JsonDataContractMapping( typeof( OutputInfoRequest ), typeof( OutputInfoRequestDataContract ) )]
     public class OutputInfoRequestEnvelopeDataContract:MessageEnvelopeDataContract

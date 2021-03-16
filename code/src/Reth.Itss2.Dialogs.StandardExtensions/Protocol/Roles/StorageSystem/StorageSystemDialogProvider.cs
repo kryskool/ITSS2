@@ -15,37 +15,104 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet.Reactive;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet.Reactive;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.StorageSystem
 {
-    public class StorageSystemDialogProvider:Standard.Protocol.Roles.StorageSystem.StorageSystemDialogProvider, IStorageSystemDialogProvider
+    public class StorageSystemDialogProvider:DialogProvider, IStorageSystemDialogProvider
     {
         public StorageSystemDialogProvider()
-        :
-            base()
         {
-            this.ConfigurationGetDialog = new StorageSystemConfigurationGetDialog( this );
+            this.ArticleInfoDialog = new ArticleInfoDialog( this );
+            this.ArticleMasterSetDialog = new ArticleMasterSetDialog( this );
+            this.ConfigurationGetDialog = new ConfigurationGetDialog( this );
+            this.HelloDialog = new HelloDialog( this );
+            this.InitiateInputDialog = new InitiateInputDialog( this );
+            this.InputDialog = new InputDialog( this );
+            this.KeepAliveDialog = new KeepAliveDialog( this );
+            this.OutputDialog = new OutputDialog( this );
+            this.OutputInfoDialog = new OutputInfoDialog( this );
+            this.StatusDialog = new StatusDialog( this );
+            this.StockDeliveryInfoDialog = new StockDeliveryInfoDialog( this );
+            this.StockDeliverySetDialog = new StockDeliverySetDialog( this );
+            this.StockInfoDialog = new StockInfoDialog( this );
+            this.StockLocationInfoDialog = new StockLocationInfoDialog( this );
+            this.TaskCancelOutputDialog = new TaskCancelOutputDialog( this );
+            this.UnprocessedDialog = new UnprocessedDialog( this );
         }
 
-        public IStorageSystemConfigurationGetDialog ConfigurationGetDialog{ get; }
+        public IArticleInfoDialog ArticleInfoDialog{ get; }
+        public IArticleMasterSetDialog ArticleMasterSetDialog{ get; }
+        public IConfigurationGetDialog ConfigurationGetDialog{ get; }
+        public IHelloDialog HelloDialog{ get; }
+        public IInitiateInputDialog InitiateInputDialog{ get; }
+        public IInputDialog InputDialog{ get; }
+        public IKeepAliveDialog KeepAliveDialog{ get; }
+        public IOutputDialog OutputDialog{ get; }
+        public IOutputInfoDialog OutputInfoDialog{ get; }
+        public IStatusDialog StatusDialog{ get; }
+        public IStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
+        public IStockDeliverySetDialog StockDeliverySetDialog{ get; }
+        public IStockInfoDialog StockInfoDialog{ get; }
+        public IStockLocationInfoDialog StockLocationInfoDialog{ get; }
+        public ITaskCancelOutputDialog TaskCancelOutputDialog{ get; }
+        public IUnprocessedDialog UnprocessedDialog{ get; }
 
         public override String[] GetSupportedDialogs()
         {
-            List<String> result = new List<String>( base.GetSupportedDialogs() );
-
-            result.Add( this.ConfigurationGetDialog.Name );
-
-            return result.ToArray();
+            return new String[]{    this.ArticleInfoDialog.Name,
+                                    this.ArticleMasterSetDialog.Name,
+                                    this.ConfigurationGetDialog.Name,
+                                    this.HelloDialog.Name,
+                                    this.InitiateInputDialog.Name,
+                                    this.InputDialog.Name,
+                                    this.KeepAliveDialog.Name,
+                                    this.OutputDialog.Name,
+                                    this.OutputInfoDialog.Name,
+                                    this.StatusDialog.Name,
+                                    this.StockDeliveryInfoDialog.Name,
+                                    this.StockDeliverySetDialog.Name,
+                                    this.StockInfoDialog.Name,
+                                    this.StockLocationInfoDialog.Name,
+                                    this.TaskCancelOutputDialog.Name,
+                                    this.UnprocessedDialog.Name };
         }
 
         protected override void ConnectDialogs( IMessageTransmitter messageTransmitter )
         {
-            base.ConnectDialogs( messageTransmitter );
-
+            this.ArticleInfoDialog.Connect( messageTransmitter );
+            this.ArticleMasterSetDialog.Connect( messageTransmitter );
             this.ConfigurationGetDialog.Connect( messageTransmitter );
+            this.HelloDialog.Connect( messageTransmitter );
+            this.InitiateInputDialog.Connect( messageTransmitter );
+            this.InputDialog.Connect( messageTransmitter );
+            this.KeepAliveDialog.Connect( messageTransmitter );
+            this.OutputDialog.Connect( messageTransmitter );
+            this.OutputInfoDialog.Connect( messageTransmitter );
+            this.StatusDialog.Connect( messageTransmitter );
+            this.StockDeliveryInfoDialog.Connect( messageTransmitter );
+            this.StockDeliverySetDialog.Connect( messageTransmitter );
+            this.StockInfoDialog.Connect( messageTransmitter );
+            this.StockLocationInfoDialog.Connect( messageTransmitter );
+            this.TaskCancelOutputDialog.Connect( messageTransmitter );
+            this.UnprocessedDialog.Connect( messageTransmitter );
         }
     }
 }

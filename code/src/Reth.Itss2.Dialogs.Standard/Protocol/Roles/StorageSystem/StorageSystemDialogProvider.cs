@@ -16,44 +16,60 @@
 
 using System;
 
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 {
     public class StorageSystemDialogProvider:DialogProvider, IStorageSystemDialogProvider
     {
         public StorageSystemDialogProvider()
         {
-            this.ArticleInfoDialog = new StorageSystemArticleInfoDialog( this );
-            this.ArticleMasterSetDialog = new StorageSystemArticleMasterSetDialog( this );
-            this.HelloDialog = new StorageSystemHelloDialog( this );
-            this.InitiateInputDialog = new StorageSystemInitiateInputDialog( this );
-            this.InputDialog = new StorageSystemInputDialog( this );
-            this.KeepAliveDialog = new StorageSystemKeepAliveDialog( this );
-            this.OutputDialog = new StorageSystemOutputDialog( this );
-            this.OutputInfoDialog = new StorageSystemOutputInfoDialog( this );
-            this.StatusDialog = new StorageSystemStatusDialog( this );
-            this.StockDeliveryInfoDialog = new StorageSystemStockDeliveryInfoDialog( this );
-            this.StockDeliverySetDialog = new StorageSystemStockDeliverySetDialog( this );
-            this.StockInfoDialog = new StorageSystemStockInfoDialog( this );
-            this.StockLocationInfoDialog = new StorageSystemStockLocationInfoDialog( this );
-            this.TaskCancelOutputDialog = new StorageSystemTaskCancelOutputDialog( this );
-            this.UnprocessedDialog = new StorageSystemUnprocessedDialog( this );
+            this.ArticleInfoDialog = new ArticleInfoDialog( this );
+            this.ArticleMasterSetDialog = new ArticleMasterSetDialog( this );
+            this.HelloDialog = new HelloDialog( this );
+            this.InitiateInputDialog = new InitiateInputDialog( this );
+            this.InputDialog = new InputDialog( this );
+            this.KeepAliveDialog = new KeepAliveDialog( this );
+            this.OutputDialog = new OutputDialog( this );
+            this.OutputInfoDialog = new OutputInfoDialog( this );
+            this.StatusDialog = new StatusDialog( this );
+            this.StockDeliveryInfoDialog = new StockDeliveryInfoDialog( this );
+            this.StockDeliverySetDialog = new StockDeliverySetDialog( this );
+            this.StockInfoDialog = new StockInfoDialog( this );
+            this.StockLocationInfoDialog = new StockLocationInfoDialog( this );
+            this.TaskCancelOutputDialog = new TaskCancelOutputDialog( this );
+            this.UnprocessedDialog = new UnprocessedDialog( this );
         }
 
-        public IStorageSystemArticleInfoDialog ArticleInfoDialog{ get; }
-        public IStorageSystemArticleMasterSetDialog ArticleMasterSetDialog{ get; }
-        public IStorageSystemHelloDialog HelloDialog{ get; }
-        public IStorageSystemInitiateInputDialog InitiateInputDialog{ get; }
-        public IStorageSystemInputDialog InputDialog{ get; }
-        public IStorageSystemKeepAliveDialog KeepAliveDialog{ get; }
-        public IStorageSystemOutputDialog OutputDialog{ get; }
-        public IStorageSystemOutputInfoDialog OutputInfoDialog{ get; }
-        public IStorageSystemStatusDialog StatusDialog{ get; }
-        public IStorageSystemStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
-        public IStorageSystemStockDeliverySetDialog StockDeliverySetDialog{ get; }
-        public IStorageSystemStockInfoDialog StockInfoDialog{ get; }
-        public IStorageSystemStockLocationInfoDialog StockLocationInfoDialog{ get; }
-        public IStorageSystemTaskCancelOutputDialog TaskCancelOutputDialog{ get; }
-        public IStorageSystemUnprocessedDialog UnprocessedDialog{ get; }
+        public IArticleInfoDialog ArticleInfoDialog{ get; }
+        public IArticleMasterSetDialog ArticleMasterSetDialog{ get; }
+        public IHelloDialog HelloDialog{ get; }
+        public IInitiateInputDialog InitiateInputDialog{ get; }
+        public IInputDialog InputDialog{ get; }
+        public IKeepAliveDialog KeepAliveDialog{ get; }
+        public IOutputDialog OutputDialog{ get; }
+        public IOutputInfoDialog OutputInfoDialog{ get; }
+        public IStatusDialog StatusDialog{ get; }
+        public IStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
+        public IStockDeliverySetDialog StockDeliverySetDialog{ get; }
+        public IStockInfoDialog StockInfoDialog{ get; }
+        public IStockLocationInfoDialog StockLocationInfoDialog{ get; }
+        public ITaskCancelOutputDialog TaskCancelOutputDialog{ get; }
+        public IUnprocessedDialog UnprocessedDialog{ get; }
 
         public override String[] GetSupportedDialogs()
         {

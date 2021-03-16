@@ -18,11 +18,11 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePriceDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticlePriceDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticlePrice
 {
     public class ArticlePriceResponseArticleDataContract:IDataContract<ArticlePriceResponseArticle>
     {

@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockLocationInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockLocationInfo
 {
     [XmlDataContractMapping( typeof( StockLocationInfoResponse ), typeof( StockLocationInfoResponseDataContract ) )]
     public class StockLocationInfoResponseEnvelopeDataContract:MessageEnvelopeDataContract

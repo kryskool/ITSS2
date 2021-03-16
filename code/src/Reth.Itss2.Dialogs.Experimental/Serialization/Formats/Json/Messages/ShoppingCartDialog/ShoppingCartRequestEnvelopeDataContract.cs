@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ShoppingCartDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ShoppingCart
 {
     [JsonDataContractMapping( typeof( ShoppingCartRequest ), typeof( ShoppingCartRequestDataContract ) )]
     public class ShoppingCartRequestEnvelopeDataContract:MessageEnvelopeDataContract

@@ -20,9 +20,9 @@ using System.Xml.Serialization;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
-using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGetDialog;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet;
 
-namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml.Messages.ConfigurationGetDialog
+namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml.Messages.ConfigurationGet
 {
     [XmlDataContractMapping( typeof( ConfigurationGetRequest ), typeof( ConfigurationGetRequestDataContract ) )]
     public class ConfigurationGetRequestEnvelopeDataContract:MessageEnvelopeDataContract

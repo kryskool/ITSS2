@@ -17,12 +17,17 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard
 {
     public interface IWorkflowProvider:IDisposable
     {
         event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+
+        IDialogProvider DialogProvider{ get; }
+
+        ISerializationProvider SerializationProvider{ get; }
 
         SubscriberInfo GetSubscriberInfo();
     }

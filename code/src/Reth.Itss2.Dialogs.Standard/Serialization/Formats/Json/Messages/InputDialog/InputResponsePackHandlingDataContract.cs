@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.InputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Input
 {
     public class InputResponsePackHandlingDataContract:IDataContract<InputResponsePackHandling>
     {

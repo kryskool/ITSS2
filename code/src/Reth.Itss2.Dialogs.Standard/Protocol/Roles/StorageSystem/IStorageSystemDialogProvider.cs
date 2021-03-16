@@ -14,24 +14,40 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 {
     public interface IStorageSystemDialogProvider:IDialogProvider
     {
-        IStorageSystemArticleInfoDialog ArticleInfoDialog{ get; }
-        IStorageSystemArticleMasterSetDialog ArticleMasterSetDialog{ get; }
-        IStorageSystemHelloDialog HelloDialog{ get; }
-        IStorageSystemInitiateInputDialog InitiateInputDialog{ get; }
-        IStorageSystemInputDialog InputDialog{ get; }
-        IStorageSystemKeepAliveDialog KeepAliveDialog{ get; }
-        IStorageSystemOutputDialog OutputDialog{ get; }
-        IStorageSystemOutputInfoDialog OutputInfoDialog{ get; }
-        IStorageSystemStatusDialog StatusDialog{ get; }
-        IStorageSystemStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
-        IStorageSystemStockDeliverySetDialog StockDeliverySetDialog{ get; }
-        IStorageSystemStockInfoDialog StockInfoDialog{ get; }
-        IStorageSystemStockLocationInfoDialog StockLocationInfoDialog{ get; }
-        IStorageSystemTaskCancelOutputDialog TaskCancelOutputDialog{ get; }
-        IStorageSystemUnprocessedDialog UnprocessedDialog{ get; }
+        IArticleInfoDialog ArticleInfoDialog{ get; }
+        IArticleMasterSetDialog ArticleMasterSetDialog{ get; }
+        IHelloDialog HelloDialog{ get; }
+        IInitiateInputDialog InitiateInputDialog{ get; }
+        IInputDialog InputDialog{ get; }
+        IKeepAliveDialog KeepAliveDialog{ get; }
+        IOutputDialog OutputDialog{ get; }
+        IOutputInfoDialog OutputInfoDialog{ get; }
+        IStatusDialog StatusDialog{ get; }
+        IStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
+        IStockDeliverySetDialog StockDeliverySetDialog{ get; }
+        IStockInfoDialog StockInfoDialog{ get; }
+        IStockLocationInfoDialog StockLocationInfoDialog{ get; }
+        ITaskCancelOutputDialog TaskCancelOutputDialog{ get; }
+        IUnprocessedDialog UnprocessedDialog{ get; }
     }
 }

@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StockDeliverySetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StockDeliverySet
 {
     public class StockDeliverySetResultValueConverter
     {

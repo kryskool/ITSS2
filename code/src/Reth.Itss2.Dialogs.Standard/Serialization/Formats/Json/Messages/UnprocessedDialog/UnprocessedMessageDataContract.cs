@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.UnprocessedDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.UnprocessedDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Unprocessed
 {
     public class UnprocessedMessageDataContract:SubscribedMessageDataContract<UnprocessedMessage>
     {

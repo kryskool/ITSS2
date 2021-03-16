@@ -17,11 +17,11 @@
 using System;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages;
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdateDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ShoppingCartUpdateDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ShoppingCartUpdate
 {
     public class ShoppingCartUpdateRequestDataContract:SubscribedRequestDataContract<ShoppingCartUpdateRequest>
     {
@@ -34,7 +34,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.Sh
         :
             base( dataObject )
         {
-            this.ShoppingCart = TypeConverter.ConvertFromDataObject<ShoppingCart, ShoppingCartContentDataContract>( dataObject.ShoppingCart );
+            this.ShoppingCart = TypeConverter.ConvertFromDataObject<ShoppingCartContent, ShoppingCartContentDataContract>( dataObject.ShoppingCart );
         }
 
         public ShoppingCartContentDataContract ShoppingCart{ get; set; }
@@ -44,7 +44,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.Sh
             return new ShoppingCartUpdateRequest(   TypeConverter.MessageId.ConvertTo( this.Id ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Destination ),
-                                                    TypeConverter.ConvertToDataObject<ShoppingCart, ShoppingCartContentDataContract>( this.ShoppingCart )    );
+                                                    TypeConverter.ConvertToDataObject<ShoppingCartContent, ShoppingCartContentDataContract>( this.ShoppingCart )    );
         }
 
         public override Type GetEnvelopeType()

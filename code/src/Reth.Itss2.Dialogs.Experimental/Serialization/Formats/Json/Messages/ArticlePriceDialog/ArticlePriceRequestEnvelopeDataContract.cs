@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePriceDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticlePriceDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticlePrice
 {
     [JsonDataContractMapping( typeof( ArticlePriceRequest ), typeof( ArticlePriceRequestDataContract ) )]
     public class ArticlePriceRequestEnvelopeDataContract:MessageEnvelopeDataContract

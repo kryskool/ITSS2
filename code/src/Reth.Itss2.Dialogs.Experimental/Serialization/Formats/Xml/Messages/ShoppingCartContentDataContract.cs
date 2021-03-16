@@ -24,13 +24,13 @@ using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages
 {
-    public class ShoppingCartContentDataContract:IDataContract<ShoppingCart>
+    public class ShoppingCartContentDataContract:IDataContract<ShoppingCartContent>
     {
         public ShoppingCartContentDataContract()
         {
         }
 
-        public ShoppingCartContentDataContract( ShoppingCart dataObject )
+        public ShoppingCartContentDataContract( ShoppingCartContent dataObject )
         {
             this.Id = TypeConverter.ShoppingCartId.ConvertFrom( dataObject.Id );
             this.SalesPointId = TypeConverter.SalesPointId.ConvertFrom( dataObject.SalesPointId );
@@ -61,14 +61,14 @@ namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages
         [XmlElement( ElementName = "Item" )]
         public ShoppingCartItemDataContract[]? Items{ get; set; }
         
-        public ShoppingCart GetDataObject()
+        public ShoppingCartContent GetDataObject()
         {
-            return new ShoppingCart(    TypeConverter.ShoppingCartId.ConvertTo( this.Id ),
-                                        TypeConverter.SalesPointId.ConvertTo( this.SalesPointId ),
-                                        TypeConverter.ViewPointId.ConvertTo( this.ViewPointId ),
-                                        TypeConverter.SalesPersonId.ConvertTo( this.SalesPersonId ),
-                                        TypeConverter.CustomerId.ConvertTo( this.CustomerId ),
-                                        TypeConverter.ShoppingCartStatus.ConvertTo( this.Status )   );
+            return new ShoppingCartContent(    TypeConverter.ShoppingCartId.ConvertTo( this.Id ),
+                                TypeConverter.SalesPointId.ConvertTo( this.SalesPointId ),
+                                TypeConverter.ViewPointId.ConvertTo( this.ViewPointId ),
+                                TypeConverter.SalesPersonId.ConvertTo( this.SalesPersonId ),
+                                TypeConverter.CustomerId.ConvertTo( this.CustomerId ),
+                                TypeConverter.ShoppingCartStatus.ConvertTo( this.Status )   );
         }
     }
 }

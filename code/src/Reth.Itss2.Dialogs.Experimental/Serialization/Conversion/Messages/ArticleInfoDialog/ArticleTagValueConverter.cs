@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfoDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ArticleInfoDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ArticleInfo
 {
     public class ArticleTagValueConverter
     {

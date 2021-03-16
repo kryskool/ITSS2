@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.HelloDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Hello
 {
     [XmlDataContractMapping( typeof( HelloRequest ), typeof( HelloRequestDataContract ) )]
     public class HelloRequestEnvelopeDataContract:MessageEnvelopeDataContract

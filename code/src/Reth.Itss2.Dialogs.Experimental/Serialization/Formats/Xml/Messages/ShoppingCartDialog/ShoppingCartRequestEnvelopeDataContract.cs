@@ -17,12 +17,12 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ShoppingCartDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ShoppingCart
 {
     [XmlDataContractMapping( typeof( ShoppingCartRequest ), typeof( ShoppingCartRequestDataContract ) )]
     public class ShoppingCartRequestEnvelopeDataContract:MessageEnvelopeDataContract

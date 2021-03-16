@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.TaskCancelOutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.TaskCancelOutput
 {
     [XmlDataContractMapping( typeof( TaskCancelOutputRequest ), typeof( TaskCancelOutputRequestDataContract ) )]
     public class TaskCancelOutputRequestEnvelopeDataContract:MessageEnvelopeDataContract

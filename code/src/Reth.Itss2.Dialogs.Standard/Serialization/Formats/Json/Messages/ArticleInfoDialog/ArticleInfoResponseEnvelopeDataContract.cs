@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleInfo
 {
     [JsonDataContractMapping( typeof( ArticleInfoResponse ), typeof( ArticleInfoResponseDataContract ) )]
     public class ArticleInfoResponseEnvelopeDataContract:MessageEnvelopeDataContract

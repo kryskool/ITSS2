@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StatusDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Status
 {
     [XmlDataContractMapping( typeof( StatusResponse ), typeof( StatusResponseDataContract ) )]
     public class StatusResponseEnvelopeDataContract:MessageEnvelopeDataContract

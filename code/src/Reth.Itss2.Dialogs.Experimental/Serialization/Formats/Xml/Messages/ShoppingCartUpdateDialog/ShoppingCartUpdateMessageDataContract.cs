@@ -18,11 +18,11 @@ using System;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages;
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdateDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ShoppingCartUpdateDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ShoppingCartUpdate
 {
     public class ShoppingCartUpdateMessageDataContract:SubscribedMessageDataContract<ShoppingCartUpdateMessage>
     {
@@ -35,7 +35,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.Sho
         :
             base( dataObject )
         {
-            this.ShoppingCart = TypeConverter.ConvertFromDataObject<ShoppingCart, ShoppingCartContentDataContract>( dataObject.ShoppingCart );
+            this.ShoppingCart = TypeConverter.ConvertFromDataObject<ShoppingCartContent, ShoppingCartContentDataContract>( dataObject.ShoppingCart );
         }
 
         [XmlAttribute]
@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.Sho
             return new ShoppingCartUpdateMessage(   TypeConverter.MessageId.ConvertTo( this.Id ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Destination ),
-                                                    TypeConverter.ConvertToDataObject<ShoppingCart, ShoppingCartContentDataContract>( this.ShoppingCart )    );
+                                                    TypeConverter.ConvertToDataObject<ShoppingCartContent, ShoppingCartContentDataContract>( this.ShoppingCart )    );
         }
 
         public override Type GetEnvelopeType()

@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSetDialog;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
-namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ArticleMasterSetDialog
+namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ArticleMasterSet
 {
     [JsonDataContractMapping( typeof( ArticleMasterSetRequest ), typeof( ArticleMasterSetRequestDataContract ) )]
     public class ArticleMasterSetRequestEnvelopeDataContract:MessageEnvelopeDataContract

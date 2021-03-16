@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.HelloDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Hello
 {
     public class HelloRequestDataContract:RequestDataContract<HelloRequest>
     {

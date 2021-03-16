@@ -17,10 +17,10 @@
 using System;
 using System.Text.Json.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StatusDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Status
 {
     public class StatusResponseDataContract:SubscribedResponseDataContract<StatusResponse>
     {

@@ -14,19 +14,27 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.PharmacyInventorySystem
 {
     public interface IPharmacyInventorySystemDialogProvider:IDialogProvider
     {
-        IPharmacyInventorySystemArticleInfoDialog ArticleInfoDialog{ get; }
-        IPharmacyInventorySystemArticlePriceDialog ArticlePriceDialog{ get; }
-        IPharmacyInventorySystemArticleSelectedDialog ArticleSelectedDialog{ get; }
-        IPharmacyInventorySystemHelloDialog HelloDialog{ get; }
-        IPharmacyInventorySystemKeepAliveDialog KeepAliveDialog{ get; }
-        IPharmacyInventorySystemShoppingCartDialog ShoppingCartDialog{ get; }
-        IPharmacyInventorySystemShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
-        IPharmacyInventorySystemUnprocessedDialog UnprocessedDialog{ get; }
+        IArticleInfoDialog ArticleInfoDialog{ get; }
+        IArticlePriceDialog ArticlePriceDialog{ get; }
+        IArticleSelectedDialog ArticleSelectedDialog{ get; }
+        IHelloDialog HelloDialog{ get; }
+        IKeepAliveDialog KeepAliveDialog{ get; }
+        IShoppingCartDialog ShoppingCartDialog{ get; }
+        IShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
+        IUnprocessedDialog UnprocessedDialog{ get; }
     }
 }

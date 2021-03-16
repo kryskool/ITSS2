@@ -16,34 +16,40 @@
 
 using System;
 
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Reactive;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.PharmacyInventorySystem
 {
     public class PharmacyInventorySystemDialogProvider:DialogProvider, IPharmacyInventorySystemDialogProvider
     {
         public PharmacyInventorySystemDialogProvider()
-        :
-            base()
         {
-            this.ArticleInfoDialog = new PharmacyInventorySystemArticleInfoDialog( this );
-            this.ArticlePriceDialog = new PharmacyInventorySystemArticlePriceDialog( this );
-            this.ArticleSelectedDialog = new PharmacyInventorySystemArticleSelectedDialog( this );
-            this.HelloDialog = new PharmacyInventorySystemHelloDialog( this );
-            this.KeepAliveDialog = new PharmacyInventorySystemKeepAliveDialog( this );
-            this.ShoppingCartDialog = new PharmacyInventorySystemShoppingCartDialog( this );
-            this.ShoppingCartUpdateDialog = new PharmacyInventorySystemShoppingCartUpdateDialog( this );
-            this.UnprocessedDialog = new PharmacyInventorySystemUnprocessedDialog( this );
+            this.ArticleInfoDialog = new ArticleInfoDialog( this );
+            this.ArticlePriceDialog = new ArticlePriceDialog( this );
+            this.ArticleSelectedDialog = new ArticleSelectedDialog( this );
+            this.HelloDialog = new HelloDialog( this );
+            this.KeepAliveDialog = new KeepAliveDialog( this );
+            this.ShoppingCartDialog = new ShoppingCartDialog( this );
+            this.ShoppingCartUpdateDialog = new ShoppingCartUpdateDialog( this );
+            this.UnprocessedDialog = new UnprocessedDialog( this );
         }
 
-        public IPharmacyInventorySystemArticleInfoDialog ArticleInfoDialog{ get; }
-        public IPharmacyInventorySystemArticlePriceDialog ArticlePriceDialog{ get; }
-        public IPharmacyInventorySystemArticleSelectedDialog ArticleSelectedDialog{ get; }
-        public IPharmacyInventorySystemHelloDialog HelloDialog{ get; }
-        public IPharmacyInventorySystemKeepAliveDialog KeepAliveDialog{ get; }
-        public IPharmacyInventorySystemShoppingCartDialog ShoppingCartDialog{ get; }
-        public IPharmacyInventorySystemShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
-        public IPharmacyInventorySystemUnprocessedDialog UnprocessedDialog{ get; }
+        public IArticleInfoDialog ArticleInfoDialog{ get; }
+        public IArticlePriceDialog ArticlePriceDialog{ get; }
+        public IArticleSelectedDialog ArticleSelectedDialog{ get; }
+        public IHelloDialog HelloDialog{ get; }
+        public IKeepAliveDialog KeepAliveDialog{ get; }
+        public IShoppingCartDialog ShoppingCartDialog{ get; }
+        public IShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
+        public IUnprocessedDialog UnprocessedDialog{ get; }
 
         public override String[] GetSupportedDialogs()
         {

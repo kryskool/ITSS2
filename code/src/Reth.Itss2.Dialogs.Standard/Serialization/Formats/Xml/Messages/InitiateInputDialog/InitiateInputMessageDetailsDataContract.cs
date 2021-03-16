@@ -18,10 +18,10 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.InitiateInputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.InitiateInput
 {
     public class InitiateInputMessageDetailsDataContract:IDataContract<InitiateInputMessageDetails>
     {
@@ -47,8 +47,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Initiat
         
         public InitiateInputMessageDetails GetDataObject()
         {
-            return new InitiateInputMessageDetails( TypeConverter.Int32.ConvertTo( this.InputSource ),
-                                                    TypeConverter.InitiateInputMessageStatus.ConvertTo( this.Status ),
+            return new InitiateInputMessageDetails( TypeConverter.InitiateInputMessageStatus.ConvertTo( this.Status ),
+                                                    TypeConverter.Int32.ConvertTo( this.InputSource ),
                                                     TypeConverter.Int32.ConvertNullableTo( this.InputPoint ) );
         }
     }

@@ -18,9 +18,9 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.OutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Output
 {
     public class OutputLabelDataContract:IDataContract<OutputLabel>
     {

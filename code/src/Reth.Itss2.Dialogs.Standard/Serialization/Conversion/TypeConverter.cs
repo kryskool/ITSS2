@@ -20,15 +20,15 @@ using System.Linq;
 
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.ArticleMasterSetDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.InitiateInputDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.InputDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StatusDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StockDeliveryInfoDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StockDeliverySetDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputInfoDialog;
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.TaskCancelOutputDialog;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.ArticleMasterSet;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.InitiateInput;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.Input;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.Status;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StockDeliveryInfo;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StockDeliverySet;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.Output;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputInfo;
+using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.TaskCancelOutput;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion
 {

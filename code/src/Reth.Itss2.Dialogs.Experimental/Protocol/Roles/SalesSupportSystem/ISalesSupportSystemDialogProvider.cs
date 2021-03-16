@@ -14,19 +14,27 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Active;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
 {
     public interface ISalesSupportSystemDialogProvider:IDialogProvider
     {
-        ISalesSupportSystemArticleInfoDialog ArticleInfoDialog{ get; }
-        ISalesSupportSystemArticlePriceDialog ArticlePriceDialog{ get; }
-        ISalesSupportSystemArticleSelectedDialog ArticleSelectedDialog{ get; }
-        ISalesSupportSystemHelloDialog HelloDialog{ get; }
-        ISalesSupportSystemKeepAliveDialog KeepAliveDialog{ get; }
-        ISalesSupportSystemShoppingCartDialog ShoppingCartDialog{ get; }
-        ISalesSupportSystemShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
-        ISalesSupportSystemUnprocessedDialog UnprocessedDialog{ get; }
+        IArticleInfoDialog ArticleInfoDialog{ get; }
+        IArticlePriceDialog ArticlePriceDialog{ get; }
+        IArticleSelectedDialog ArticleSelectedDialog{ get; }
+        IHelloDialog HelloDialog{ get; }
+        IKeepAliveDialog KeepAliveDialog{ get; }
+        IShoppingCartDialog ShoppingCartDialog{ get; }
+        IShoppingCartUpdateDialog ShoppingCartUpdateDialog{ get; }
+        IUnprocessedDialog UnprocessedDialog{ get; }
     }
 }

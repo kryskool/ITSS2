@@ -17,10 +17,10 @@
 using System;
 using System.Text.Json.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliverySetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliverySet
 {
     public class StockDeliveryDataContract:IDataContract<StockDelivery>
     {

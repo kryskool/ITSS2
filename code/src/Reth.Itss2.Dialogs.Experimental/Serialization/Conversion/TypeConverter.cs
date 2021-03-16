@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages;
-using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ArticleInfoDialog;
-using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ArticlePriceDialog;
-using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ShoppingCartUpdateDialog;
+using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ArticleInfo;
+using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ArticlePrice;
+using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages.ShoppingCartUpdate;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Conversion
 {

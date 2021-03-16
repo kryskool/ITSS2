@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.Output
 {
     public class OutputPriorityConverter
     {

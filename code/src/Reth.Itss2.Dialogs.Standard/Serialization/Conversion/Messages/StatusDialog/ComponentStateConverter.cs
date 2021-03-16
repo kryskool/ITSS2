@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StatusDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StatusDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.Status
 {
     public class ComponentStateConverter
     {

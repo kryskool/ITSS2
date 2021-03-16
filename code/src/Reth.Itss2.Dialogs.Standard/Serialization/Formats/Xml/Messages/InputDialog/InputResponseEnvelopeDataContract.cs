@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.InputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Input
 {
     [XmlDataContractMapping( typeof( InputResponse ), typeof( InputResponseDataContract ) )]
     public class InputResponseEnvelopeDataContract:MessageEnvelopeDataContract

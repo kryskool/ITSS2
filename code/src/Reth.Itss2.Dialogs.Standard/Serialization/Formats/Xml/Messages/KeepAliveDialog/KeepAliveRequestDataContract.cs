@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAliveDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.KeepAliveDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.KeepAlive
 {
     public class KeepAliveRequestDataContract:SubscribedRequestDataContract<KeepAliveRequest>
     {

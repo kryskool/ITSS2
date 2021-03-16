@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.ArticleInfo
 {
     public class ArticleInfoRequestArticleDataContract:IDataContract<ArticleInfoRequestArticle>
     {

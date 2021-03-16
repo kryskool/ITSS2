@@ -20,19 +20,19 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Standard.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
 using Reth.Itss2.Dialogs.Standard.Serialization;
-using Reth.Itss2.Workflows.Standard.StorageSystem;
 
 namespace Reth.Itss2.Workflows.Standard
 {
-    public abstract class Workflow:IWorkflow
+    public abstract class Workflow<TDialog>:IWorkflow
+        where TDialog:IDialog
     {
         public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
 
-        protected Workflow( IStorageSystemWorkflowProvider workflowProvider )
+        protected Workflow( IWorkflowProvider workflowProvider, TDialog dialog )
         {
             this.WorkflowProvider = workflowProvider;
+            this.Dialog = dialog;
         }
 
         ~Workflow()
@@ -40,12 +40,17 @@ namespace Reth.Itss2.Workflows.Standard
             this.Dispose( false );
         }
 
-        protected IStorageSystemWorkflowProvider WorkflowProvider
+        public IWorkflowProvider WorkflowProvider
         {
             get;
         }
 
-        protected IStorageSystemDialogProvider DialogProvider
+        protected TDialog Dialog
+        {
+            get;
+        }
+
+        protected IDialogProvider DialogProvider
         {
             get{ return this.WorkflowProvider.DialogProvider; }
         }
@@ -113,6 +118,16 @@ namespace Reth.Itss2.Workflows.Standard
             {
                 this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( $"No handshake executed." ) );
             }
+        }
+
+        protected TMessage CreateMessage<TMessage>( Func<MessageId, SubscriberId, SubscriberId, TMessage> createMessageCallback )
+            where TMessage:IMessage
+        {
+            SubscriberInfo subscriberInfo = this.GetSubscriberInfo();
+
+            return createMessageCallback(   MessageId.NextId(),
+                                            subscriberInfo.LocalSubscriber.Id,
+                                            subscriberInfo.GetRemoteSubscriber().Id );
         }
 
         protected TRequest CreateRequest<TRequest>( Func<MessageId, SubscriberId, SubscriberId, TRequest> createRequestCallback )

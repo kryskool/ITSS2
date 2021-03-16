@@ -18,10 +18,10 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockLocationInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockLocationInfo
 {
     public class StockLocationDataContract:IDataContract<StockLocation>
     {

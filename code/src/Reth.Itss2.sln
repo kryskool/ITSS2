@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reth.Itss2.Workflows.Standa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reth.Itss2.Workflows.StandardExtensions", "Reth.Itss2.Workflows.StandardExtensions\Reth.Itss2.Workflows.StandardExtensions.csproj", "{2F28A508-BDA1-4102-8DDA-8DBE9C37FC2A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reth.Itss2.Workflows.Experimental", "Reth.Itss2.Workflows.Experimental\Reth.Itss2.Workflows.Experimental.csproj", "{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{2F28A508-BDA1-4102-8DDA-8DBE9C37FC2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F28A508-BDA1-4102-8DDA-8DBE9C37FC2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F28A508-BDA1-4102-8DDA-8DBE9C37FC2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

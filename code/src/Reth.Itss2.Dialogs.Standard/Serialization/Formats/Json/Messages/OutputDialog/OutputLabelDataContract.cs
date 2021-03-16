@@ -17,9 +17,9 @@
 using System;
 using System.Text.Json.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.OutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Output
 {
     public class OutputLabelDataContract:IDataContract<OutputLabel>
     {

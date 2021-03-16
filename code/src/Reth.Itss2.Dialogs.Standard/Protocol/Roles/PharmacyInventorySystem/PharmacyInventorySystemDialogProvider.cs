@@ -16,46 +16,60 @@
 
 using System;
 
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
 {
     public class PharmacyInventorySystemDialogProvider:DialogProvider, IPharmacyInventorySystemDialogProvider
     {
         public PharmacyInventorySystemDialogProvider()
-        :
-            base()
         {
-            this.ArticleInfoDialog = new PharmacyInventorySystemArticleInfoDialog( this );
-            this.ArticleMasterSetDialog = new PharmacyInventorySystemArticleMasterSetDialog( this );
-            this.HelloDialog = new PharmacyInventorySystemHelloDialog( this );
-            this.InitiateInputDialog = new PharmacyInventorySystemInitiateInputDialog( this );
-            this.InputDialog = new PharmacyInventorySystemInputDialog( this );
-            this.KeepAliveDialog = new PharmacyInventorySystemKeepAliveDialog( this );
-            this.OutputDialog = new PharmacyInventorySystemOutputDialog( this );
-            this.OutputInfoDialog = new PharmacyInventorySystemOutputInfoDialog( this );
-            this.StatusDialog = new PharmacyInventorySystemStatusDialog( this );
-            this.StockDeliveryInfoDialog = new PharmacyInventorySystemStockDeliveryInfoDialog( this );
-            this.StockDeliverySetDialog = new PharmacyInventorySystemStockDeliverySetDialog( this );
-            this.StockInfoDialog = new PharmacyInventorySystemStockInfoDialog( this );
-            this.StockLocationInfoDialog = new PharmacyInventorySystemStockLocationInfoDialog( this );
-            this.TaskCancelOutputDialog = new PharmacyInventorySystemTaskCancelOutputDialog( this );
-            this.UnprocessedDialog = new PharmacyInventorySystemUnprocessedDialog( this );
+            this.ArticleInfoDialog = new ArticleInfoDialog( this );
+            this.ArticleMasterSetDialog = new ArticleMasterSetDialog( this );
+            this.HelloDialog = new HelloDialog( this );
+            this.InitiateInputDialog = new InitiateInputDialog( this );
+            this.InputDialog = new InputDialog( this );
+            this.KeepAliveDialog = new KeepAliveDialog( this );
+            this.OutputDialog = new OutputDialog( this );
+            this.OutputInfoDialog = new OutputInfoDialog( this );
+            this.StatusDialog = new StatusDialog( this );
+            this.StockDeliveryInfoDialog = new StockDeliveryInfoDialog( this );
+            this.StockDeliverySetDialog = new StockDeliverySetDialog( this );
+            this.StockInfoDialog = new StockInfoDialog( this );
+            this.StockLocationInfoDialog = new StockLocationInfoDialog( this );
+            this.TaskCancelOutputDialog = new TaskCancelOutputDialog( this );
+            this.UnprocessedDialog = new UnprocessedDialog( this );
         }
 
-        public IPharmacyInventorySystemArticleMasterSetDialog ArticleMasterSetDialog{ get; }
-        public IPharmacyInventorySystemArticleInfoDialog ArticleInfoDialog{ get; }
-        public IPharmacyInventorySystemHelloDialog HelloDialog{ get; }
-        public IPharmacyInventorySystemInitiateInputDialog InitiateInputDialog{ get; }
-        public IPharmacyInventorySystemInputDialog InputDialog{ get; }
-        public IPharmacyInventorySystemKeepAliveDialog KeepAliveDialog{ get; }
-        public IPharmacyInventorySystemOutputDialog OutputDialog{ get; }
-        public IPharmacyInventorySystemOutputInfoDialog OutputInfoDialog{ get; }
-        public IPharmacyInventorySystemStatusDialog StatusDialog{ get; }
-        public IPharmacyInventorySystemStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
-        public IPharmacyInventorySystemStockDeliverySetDialog StockDeliverySetDialog{ get; }
-        public IPharmacyInventorySystemStockInfoDialog StockInfoDialog{ get; }
-        public IPharmacyInventorySystemStockLocationInfoDialog StockLocationInfoDialog{ get; }
-        public IPharmacyInventorySystemTaskCancelOutputDialog TaskCancelOutputDialog{ get; }
-        public IPharmacyInventorySystemUnprocessedDialog UnprocessedDialog{ get; }
+        public IArticleMasterSetDialog ArticleMasterSetDialog{ get; }
+        public IArticleInfoDialog ArticleInfoDialog{ get; }
+        public IHelloDialog HelloDialog{ get; }
+        public IInitiateInputDialog InitiateInputDialog{ get; }
+        public IInputDialog InputDialog{ get; }
+        public IKeepAliveDialog KeepAliveDialog{ get; }
+        public IOutputDialog OutputDialog{ get; }
+        public IOutputInfoDialog OutputInfoDialog{ get; }
+        public IStatusDialog StatusDialog{ get; }
+        public IStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
+        public IStockDeliverySetDialog StockDeliverySetDialog{ get; }
+        public IStockInfoDialog StockInfoDialog{ get; }
+        public IStockLocationInfoDialog StockLocationInfoDialog{ get; }
+        public ITaskCancelOutputDialog TaskCancelOutputDialog{ get; }
+        public IUnprocessedDialog UnprocessedDialog{ get; }
 
         public override String[] GetSupportedDialogs()
         {

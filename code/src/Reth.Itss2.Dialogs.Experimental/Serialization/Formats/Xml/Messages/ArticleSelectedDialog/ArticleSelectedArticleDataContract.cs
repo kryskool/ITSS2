@@ -18,11 +18,11 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelectedDialog;
+using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
-namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticleSelectedDialog
+namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Xml.Messages.ArticleSelected
 {
     public class ArticleSelectedArticleDataContract:IDataContract<ArticleSelectedArticle>
     {

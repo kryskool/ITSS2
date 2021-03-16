@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.InputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Input
 {
     [JsonDataContractMapping( typeof( InputMessage ), typeof( InputMessageDataContract ) )]
     public class InputMessageEnvelopeDataContract:MessageEnvelopeDataContract

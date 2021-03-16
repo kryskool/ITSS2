@@ -14,24 +14,41 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Reactive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Active;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem
 {
     public interface IPharmacyInventorySystemDialogProvider:IDialogProvider
     {
-        IPharmacyInventorySystemArticleInfoDialog ArticleInfoDialog{ get; }
-        IPharmacyInventorySystemArticleMasterSetDialog ArticleMasterSetDialog{ get; }
-        IPharmacyInventorySystemHelloDialog HelloDialog{ get; }
-        IPharmacyInventorySystemInputDialog InputDialog{ get; }
-        IPharmacyInventorySystemInitiateInputDialog InitiateInputDialog{ get; }
-        IPharmacyInventorySystemKeepAliveDialog KeepAliveDialog{ get; }
-        IPharmacyInventorySystemOutputDialog OutputDialog{ get; }
-        IPharmacyInventorySystemOutputInfoDialog OutputInfoDialog{ get; }
-        IPharmacyInventorySystemStatusDialog StatusDialog{ get; }
-        IPharmacyInventorySystemStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
-        IPharmacyInventorySystemStockDeliverySetDialog StockDeliverySetDialog{ get; }
-        IPharmacyInventorySystemStockInfoDialog StockInfoDialog{ get; }
-        IPharmacyInventorySystemStockLocationInfoDialog StockLocationInfoDialog{ get; }
-        IPharmacyInventorySystemUnprocessedDialog UnprocessedDialog{ get; }
+        IArticleInfoDialog ArticleInfoDialog{ get; }
+        IArticleMasterSetDialog ArticleMasterSetDialog{ get; }
+        IHelloDialog HelloDialog{ get; }
+        IInputDialog InputDialog{ get; }
+        IInitiateInputDialog InitiateInputDialog{ get; }
+        IKeepAliveDialog KeepAliveDialog{ get; }
+        IOutputDialog OutputDialog{ get; }
+        IOutputInfoDialog OutputInfoDialog{ get; }
+        IStatusDialog StatusDialog{ get; }
+        IStockDeliveryInfoDialog StockDeliveryInfoDialog{ get; }
+        IStockDeliverySetDialog StockDeliverySetDialog{ get; }
+        IStockInfoDialog StockInfoDialog{ get; }
+        IStockLocationInfoDialog StockLocationInfoDialog{ get; }
+        ITaskCancelOutputDialog TaskCancelOutputDialog{ get; }
+        IUnprocessedDialog UnprocessedDialog{ get; }
     }
 }
 

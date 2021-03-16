@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.TaskCancelOutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.TaskCancelOutput
 {
     public class TaskCancelOutputResponseDataContract:SubscribedResponseDataContract<TaskCancelOutputResponse>
     {

@@ -17,10 +17,10 @@
 using System;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockInfo
 {
     public class StockInfoRequestDataContract:SubscribedRequestDataContract<StockInfoRequest>
     {

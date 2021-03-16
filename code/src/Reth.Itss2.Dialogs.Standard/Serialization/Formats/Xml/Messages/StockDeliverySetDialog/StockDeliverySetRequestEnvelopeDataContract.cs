@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDeliverySetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDeliverySet
 {
     [XmlDataContractMapping( typeof( StockDeliverySetRequest ), typeof( StockDeliverySetRequestDataContract ) )]
     public class StockDeliverySetRequestEnvelopeDataContract:MessageEnvelopeDataContract

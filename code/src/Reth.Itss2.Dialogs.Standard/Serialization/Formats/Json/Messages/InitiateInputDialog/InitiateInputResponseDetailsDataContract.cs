@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.InitiateInputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.InitiateInput
 {
     public class InitiateInputResponseDetailsDataContract:IDataContract<InitiateInputResponseDetails>
     {
@@ -42,8 +42,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Initia
         
         public InitiateInputResponseDetails GetDataObject()
         {
-            return new InitiateInputResponseDetails(    TypeConverter.Int32.ConvertTo( this.InputSource ),
-                                                        TypeConverter.InitiateInputResponseStatus.ConvertTo( this.Status ),
+            return new InitiateInputResponseDetails(    TypeConverter.InitiateInputResponseStatus.ConvertTo( this.Status ),
+                                                        TypeConverter.Int32.ConvertTo( this.InputSource ),
                                                         TypeConverter.Int32.ConvertNullableTo( this.InputPoint ) );
         }
     }

@@ -16,9 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.InitiateInputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.InitiateInput
 {
     public class InitiateInputResponseStatusConverter
     {

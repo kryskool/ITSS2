@@ -17,10 +17,10 @@
 using System;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.TaskCancelOutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.TaskCancelOutput
 {
     public class TaskCancelOutputResponseDataContract:SubscribedResponseDataContract<TaskCancelOutputResponse>
     {

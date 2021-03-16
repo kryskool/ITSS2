@@ -18,10 +18,10 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.ArticleInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.ArticleInfo
 {
     public class ArticleInfoRequestArticleDataContract:IDataContract<ArticleInfoRequestArticle>
     {

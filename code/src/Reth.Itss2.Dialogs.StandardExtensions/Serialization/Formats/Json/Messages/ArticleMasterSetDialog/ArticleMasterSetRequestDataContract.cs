@@ -18,11 +18,11 @@ using System;
 using System.Linq;
 using System.Text.Json.Serialization;
 
-using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSetDialog;
+using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 
-namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ArticleMasterSetDialog
+namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ArticleMasterSet
 {
     public class ArticleMasterSetRequestDataContract:SubscribedRequestDataContract<ArticleMasterSetRequest>
     {

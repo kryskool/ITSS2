@@ -18,10 +18,10 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySetDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDeliverySetDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDeliverySet
 {
     public class StockDeliverySetResultDataContract:IDataContract<StockDeliverySetResult>
     {

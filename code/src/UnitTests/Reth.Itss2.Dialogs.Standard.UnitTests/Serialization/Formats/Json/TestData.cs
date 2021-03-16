@@ -17,8 +17,8 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfoDialog;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.HelloDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
 {

@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutputDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.TaskCancelOutputDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.TaskCancelOutput
 {
     [JsonDataContractMapping( typeof( TaskCancelOutputResponse ), typeof( TaskCancelOutputResponseDataContract ) )]
     public class TaskCancelOutputResponseEnvelopeDataContract:MessageEnvelopeDataContract

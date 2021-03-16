@@ -110,11 +110,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             this.MessageProcessingError?.Invoke( this, e );
         }
 
-        public Task ConnectAsync( IMessageTransmitter messageTransmitter )
-        {
-            return this.ConnectAsync( messageTransmitter, CancellationToken.None );
-        }
-
         public Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken = default )
         {
             return Task.Run(    () =>

@@ -16,10 +16,10 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfoDialog;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliveryInfoDialog
+namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliveryInfo
 {
     public class StockDeliveryInfoRequestDataContract:SubscribedRequestDataContract<StockDeliveryInfoRequest>
     {

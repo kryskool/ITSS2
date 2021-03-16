@@ -32,7 +32,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
         void Connect( IMessageTransmitter messageTransmitter );
 
-        Task ConnectAsync( IMessageTransmitter messageTransmitter );
         Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken = default );
     }
 }
