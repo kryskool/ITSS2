@@ -18,6 +18,7 @@ using Reth.Itss2.Workflows.Experimental.Messages.ArticleInfo.Active;
 using Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Active;
 using Reth.Itss2.Workflows.Experimental.Messages.ArticleSelected.Active;
 using Reth.Itss2.Workflows.Experimental.Messages.ShoppingCart.Active;
+using Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active;
 using Reth.Itss2.Workflows.Standard;
 using Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.KeepAlive;
@@ -33,6 +34,7 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
         IHelloWorkflow HelloWorkflow{ get; }
         IKeepAliveWorkflow KeepAliveWorkflow{ get; }
         IShoppingCartWorkflow ShoppingCartWorkflow{ get; }
+        IShoppingCartUpdateWorkflow ShoppingCartUpdateWorkflow{ get; }
         IUnprocessedWorkflow UnprocessedWorkflow{ get; }
     }
 }

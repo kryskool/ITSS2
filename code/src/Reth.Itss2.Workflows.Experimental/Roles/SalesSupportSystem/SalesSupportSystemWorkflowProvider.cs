@@ -26,6 +26,7 @@ using Reth.Itss2.Workflows.Experimental.Messages.ArticleInfo.Active;
 using Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Active;
 using Reth.Itss2.Workflows.Experimental.Messages.ArticleSelected.Active;
 using Reth.Itss2.Workflows.Experimental.Messages.ShoppingCart.Active;
+using Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active;
 using Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.KeepAlive;
 using Reth.Itss2.Workflows.Standard.Messages.Unprocessed;
@@ -53,6 +54,7 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
             this.HelloWorkflow = new HelloWorkflow( this, dialogProvider.HelloDialog );
             this.KeepAliveWorkflow = new KeepAliveWorkflow( this, dialogProvider.KeepAliveDialog );
             this.ShoppingCartWorkflow = new ShoppingCartWorkflow( this, dialogProvider.ShoppingCartDialog );
+            this.ShoppingCartUpdateWorkflow = new ShoppingCartUpdateWorkflow( this, dialogProvider.ShoppingCartUpdateDialog );
             this.UnprocessedWorkflow = new UnprocessedWorkflow( this, dialogProvider.UnprocessedDialog );
 
             this.ArticleInfoWorkflow.MessageProcessingError += this.OnMessageProcessingError;
@@ -61,6 +63,7 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
             this.HelloWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.KeepAliveWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.ShoppingCartWorkflow.MessageProcessingError += this.OnMessageProcessingError;
+            this.ShoppingCartUpdateWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.UnprocessedWorkflow.MessageProcessingError += this.OnMessageProcessingError;
 
             this.HelloWorkflow.RequestAccepted += this.OnHelloRequestAccepted;
@@ -72,6 +75,7 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
         public IHelloWorkflow HelloWorkflow{ get; }
         public IKeepAliveWorkflow KeepAliveWorkflow{ get; }
         public IShoppingCartWorkflow ShoppingCartWorkflow{ get; }
+        public IShoppingCartUpdateWorkflow ShoppingCartUpdateWorkflow{ get; }
         public IUnprocessedWorkflow UnprocessedWorkflow{ get; }
 
         private void OnHelloRequestAccepted( Object sender, MessageReceivedEventArgs<HelloRequest> e )
@@ -91,6 +95,7 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
                     this.HelloWorkflow.Dispose();
                     this.KeepAliveWorkflow.Dispose();
                     this.ShoppingCartWorkflow.Dispose();
+                    this.ShoppingCartUpdateWorkflow.Dispose();
                     this.UnprocessedWorkflow.Dispose();
                 }
 
