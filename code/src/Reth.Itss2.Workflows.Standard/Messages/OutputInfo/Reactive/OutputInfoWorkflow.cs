@@ -24,14 +24,14 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Reactive;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.OutputInfo.Reactive
 {
-    public class OutputInfoWorkflow:Workflow<IOutputInfoDialog>, IOutputInfoWorkflow
+    public class OutputInfoWorkflow:SubscribedWorkflow<IOutputInfoDialog>, IOutputInfoWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<IOutputInfoRequestedProcessState>>? ProcessStarted;
 
-        public OutputInfoWorkflow(  IWorkflowProvider workflowProvider,
-                                    IOutputInfoDialog dialog   )
+        public OutputInfoWorkflow(  IOutputInfoDialog dialog,
+                                    ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }

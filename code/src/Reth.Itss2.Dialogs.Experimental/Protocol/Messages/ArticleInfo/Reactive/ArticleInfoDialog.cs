@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo.Reactive
 
         public ArticleInfoDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ArticleInfo, dialogProvider )
+            base( ExperimentalDialogs.ArticleInfo, dialogProvider )
         {
         }
 

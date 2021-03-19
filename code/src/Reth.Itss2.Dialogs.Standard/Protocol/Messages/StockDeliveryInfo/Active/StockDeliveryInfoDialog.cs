@@ -23,7 +23,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Active
     {
         public StockDeliveryInfoDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.StockDeliveryInfo, dialogProvider )
+            base( StandardDialogs.StockDeliveryInfo, dialogProvider )
         {
         }
 

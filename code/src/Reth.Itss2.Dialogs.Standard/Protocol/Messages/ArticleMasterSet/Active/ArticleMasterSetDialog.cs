@@ -23,7 +23,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.Active
     {
         public ArticleMasterSetDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ArticleMasterSet, dialogProvider )
+            base( StandardDialogs.ArticleMasterSet, dialogProvider )
         {
         }
 

@@ -27,14 +27,14 @@ using ArticleMasterSetResponse = Reth.Itss2.Dialogs.Standard.Protocol.Messages.A
 
 namespace Reth.Itss2.Workflows.StandardExtensions.Messages.ArticleMasterSet.Reactive
 {
-    public class ArticleMasterSetWorkflow:Workflow<IArticleMasterSetDialog>, IArticleMasterSetWorkflow
+    public class ArticleMasterSetWorkflow:SubscribedWorkflow<IArticleMasterSetDialog>, IArticleMasterSetWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<IArticleMasterSetRequestedProcessState>>? ProcessStarted;
 
-        public ArticleMasterSetWorkflow(    IWorkflowProvider workflowProvider,
-                                            IArticleMasterSetDialog dialog )
+        public ArticleMasterSetWorkflow(    IArticleMasterSetDialog dialog,
+                                            ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }

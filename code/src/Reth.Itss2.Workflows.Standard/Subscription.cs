@@ -16,10 +16,32 @@
 
 using System;
 
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+
 namespace Reth.Itss2.Workflows.Standard
 {
-    internal static class Timeouts
+    public class Subscription:ISubscription
     {
-        public static readonly TimeSpan HandshakeTimeout = TimeSpan.FromSeconds( 10 );
+        public event EventHandler<SubscribedEventArgs>? Subscribed;
+
+        public Subscription( Subscriber localSubscriber )
+        {
+            this.LocalSubscriber = localSubscriber;
+        }
+
+        public Subscriber LocalSubscriber
+        {
+            get;
+        }
+
+        protected void OnSubscribed( SubscribedEventArgs e )
+        {
+            this.Subscribed?.Invoke( this, e );
+        }
+
+        public void Subscribe( SubscriberInfo subscriberInfo )
+        {
+            this.OnSubscribed( new SubscribedEventArgs( subscriberInfo ) );
+        }
     }
 }

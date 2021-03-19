@@ -57,7 +57,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input
                                 IEnumerable<InputMessageArticle> articles,
                                 bool? isNewDelivery   )
         :
-            base( id, Dialogs.Input, source, destination )
+            base( id, StandardDialogs.Input, source, destination )
         {
             this.Articles.AddRange( articles );
 

@@ -41,7 +41,7 @@ using Reth.Itss2.Workflows.StandardExtensions.Messages.ConfigurationGet.Reactive
 
 namespace Reth.Itss2.Workflows.StandardExtensions.Roles.StorageSystem
 {
-    public class StorageSystemWorkflowProvider:WorkflowProvider, IStorageSystemWorkflowProvider
+    public class StorageSystemWorkflowProvider:WorkflowProvider<IStorageSystemDialogProvider>, IStorageSystemWorkflowProvider
     {
         public StorageSystemWorkflowProvider(   ISerializationProvider serializationProvider,
                                                 Subscriber localSubscriber )
@@ -54,24 +54,26 @@ namespace Reth.Itss2.Workflows.StandardExtensions.Roles.StorageSystem
                                                 Subscriber localSubscriber,
                                                 IStorageSystemDialogProvider dialogProvider )
         :
-            base( serializationProvider, localSubscriber, dialogProvider )
+            base( dialogProvider )
         {
-            this.ArticleInfoWorkflow = new ArticleInfoWorkflow( this, dialogProvider.ArticleInfoDialog );
-            this.ArticleMasterSetWorkflow = new ArticleMasterSetWorkflow( this, dialogProvider.ArticleMasterSetDialog );
-            this.ConfigurationGetWorkflow = new ConfigurationGetWorkflow( this, dialogProvider.ConfigurationGetDialog );
-            this.HelloWorkflow = new HelloWorkflow( this, dialogProvider.HelloDialog );
-            this.InitiateInputWorkflow = new InitiateInputWorkflow( this, dialogProvider.InitiateInputDialog );
-            this.InputWorkflow = new InputWorkflow( this, dialogProvider.InputDialog );
-            this.KeepAliveWorkflow = new KeepAliveWorkflow( this, dialogProvider.KeepAliveDialog );
-            this.OutputWorkflow = new OutputWorkflow( this, dialogProvider.OutputDialog );
-            this.OutputInfoWorkflow = new OutputInfoWorkflow( this, dialogProvider.OutputInfoDialog );
-            this.StatusWorkflow = new StatusWorkflow( this, dialogProvider.StatusDialog );
-            this.StockDeliveryInfoWorkflow = new StockDeliveryInfoWorkflow( this, dialogProvider.StockDeliveryInfoDialog );
-            this.StockDeliverySetWorkflow = new StockDeliverySetWorkflow( this, dialogProvider.StockDeliverySetDialog );
-            this.StockInfoWorkflow = new StockInfoWorkflow( this, dialogProvider.StockInfoDialog );
-            this.StockLocationInfoWorkflow = new StockLocationInfoWorkflow( this, dialogProvider.StockLocationInfoDialog );
-            this.TaskCancelOutputWorkflow = new TaskCancelOutputWorkflow( this, dialogProvider.TaskCancelOutputDialog );
-            this.UnprocessedWorkflow = new UnprocessedWorkflow( this, dialogProvider.UnprocessedDialog );
+            Subscription subscription = new Subscription( localSubscriber );
+
+            this.ArticleInfoWorkflow = new ArticleInfoWorkflow( dialogProvider.ArticleInfoDialog, subscription );
+            this.ArticleMasterSetWorkflow = new ArticleMasterSetWorkflow( dialogProvider.ArticleMasterSetDialog, subscription );
+            this.ConfigurationGetWorkflow = new ConfigurationGetWorkflow( dialogProvider.ConfigurationGetDialog, subscription );
+            this.HelloWorkflow = new HelloWorkflow( dialogProvider.HelloDialog, subscription, dialogProvider, serializationProvider );
+            this.InitiateInputWorkflow = new InitiateInputWorkflow( dialogProvider.InitiateInputDialog, subscription );
+            this.InputWorkflow = new InputWorkflow( dialogProvider.InputDialog, subscription );
+            this.KeepAliveWorkflow = new KeepAliveWorkflow( dialogProvider.KeepAliveDialog, subscription );
+            this.OutputWorkflow = new OutputWorkflow( dialogProvider.OutputDialog, subscription );
+            this.OutputInfoWorkflow = new OutputInfoWorkflow( dialogProvider.OutputInfoDialog, subscription );
+            this.StatusWorkflow = new StatusWorkflow( dialogProvider.StatusDialog, subscription );
+            this.StockDeliveryInfoWorkflow = new StockDeliveryInfoWorkflow( dialogProvider.StockDeliveryInfoDialog, subscription );
+            this.StockDeliverySetWorkflow = new StockDeliverySetWorkflow( dialogProvider.StockDeliverySetDialog, subscription );
+            this.StockInfoWorkflow = new StockInfoWorkflow( dialogProvider.StockInfoDialog, subscription );
+            this.StockLocationInfoWorkflow = new StockLocationInfoWorkflow( dialogProvider.StockLocationInfoDialog, subscription );
+            this.TaskCancelOutputWorkflow = new TaskCancelOutputWorkflow( dialogProvider.TaskCancelOutputDialog, subscription );
+            this.UnprocessedWorkflow = new UnprocessedWorkflow( dialogProvider.UnprocessedDialog, subscription, serializationProvider );
 
             this.ArticleInfoWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.ArticleMasterSetWorkflow.MessageProcessingError += this.OnMessageProcessingError;
@@ -89,8 +91,6 @@ namespace Reth.Itss2.Workflows.StandardExtensions.Roles.StorageSystem
             this.StockLocationInfoWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.TaskCancelOutputWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.UnprocessedWorkflow.MessageProcessingError += this.OnMessageProcessingError;
-
-            this.HelloWorkflow.RequestAccepted += this.OnHelloRequestAccepted;
         }
 
         public IArticleInfoWorkflow ArticleInfoWorkflow{ get; }
@@ -109,11 +109,6 @@ namespace Reth.Itss2.Workflows.StandardExtensions.Roles.StorageSystem
         public IStockLocationInfoWorkflow StockLocationInfoWorkflow{ get; }
         public ITaskCancelOutputWorkflow TaskCancelOutputWorkflow{ get; }
         public IUnprocessedWorkflow UnprocessedWorkflow{ get; }
-
-        private void OnHelloRequestAccepted( Object sender, MessageReceivedEventArgs<HelloRequest> e )
-        {
-            this.SetRemoteSubscriber( e.Message.Subscriber );
-        }
 
         protected override void Dispose( bool disposing )
         {

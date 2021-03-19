@@ -24,12 +24,12 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Active;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Input.Active
 {
-    public class InputWorkflow:Workflow<IInputDialog>, IInputWorkflow
+    public class InputWorkflow:SubscribedWorkflow<IInputDialog>, IInputWorkflow
     {
-        public InputWorkflow(   IWorkflowProvider workflowProvider,
-                                IInputDialog dialog    )
+        public InputWorkflow(   IInputDialog dialog,
+                                ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
         }
 

@@ -24,14 +24,14 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Reactive;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.TaskCancelOutput.Reactive
 {
-    public class TaskCancelOutputWorkflow:Workflow<ITaskCancelOutputDialog>, ITaskCancelOutputWorkflow
+    public class TaskCancelOutputWorkflow:SubscribedWorkflow<ITaskCancelOutputDialog>, ITaskCancelOutputWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<ITaskCancelOutputRequestedProcessState>>? ProcessStarted;
 
-        public TaskCancelOutputWorkflow(    IWorkflowProvider workflowProvider,
-                                            ITaskCancelOutputDialog dialog )
+        public TaskCancelOutputWorkflow(    ITaskCancelOutputDialog dialog,
+                                            ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }        

@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Reactiv
 
         public TaskCancelOutputDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.TaskCancelOutput, dialogProvider )
+            base( StandardDialogs.TaskCancelOutput, dialogProvider )
         {
         }
 

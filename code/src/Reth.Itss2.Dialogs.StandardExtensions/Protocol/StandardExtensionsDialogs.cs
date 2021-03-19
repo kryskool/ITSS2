@@ -16,12 +16,14 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
-
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol
 {
-    public interface IWorkflowProvider:IDisposable
+    public class StandardExtensionsDialogs:Standard.Protocol.StandardDialogs
     {
-        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+        public static String ConfigurationGet{ get{ return "ConfigurationGet"; } }
+
+        protected StandardExtensionsDialogs()
+        {
+        }
     }
 }

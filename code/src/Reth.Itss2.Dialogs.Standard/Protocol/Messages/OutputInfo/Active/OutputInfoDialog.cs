@@ -23,7 +23,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo.Active
     {
         public OutputInfoDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.OutputInfo, dialogProvider )
+            base( StandardDialogs.OutputInfo, dialogProvider )
         {
         }
 

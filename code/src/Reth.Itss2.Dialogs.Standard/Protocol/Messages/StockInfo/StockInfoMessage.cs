@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo
                                     SubscriberId destination,
                                     IEnumerable<StockInfoArticle> articles  )
         :
-            base( id, Dialogs.StockInfo, source, destination )
+            base( id, StandardDialogs.StockInfo, source, destination )
         {
             this.Articles.AddRange( articles );
         }

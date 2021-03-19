@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet
                                         SubscriberId destination,
                                         IEnumerable<ArticleMasterSetArticle> articles  )
         :
-            base( id, Dialogs.ArticleMasterSet, source, destination )
+            base( id, StandardDialogs.ArticleMasterSet, source, destination )
         {
             this.Articles.AddRange( articles );
         }

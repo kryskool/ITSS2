@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Active
 
         public StockInfoDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.StockInfo, dialogProvider )
+            base( StandardDialogs.StockInfo, dialogProvider )
         {
         }
 

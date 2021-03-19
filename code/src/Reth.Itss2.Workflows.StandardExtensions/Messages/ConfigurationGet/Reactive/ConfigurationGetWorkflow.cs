@@ -25,14 +25,14 @@ using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.StandardExtensions.Messages.ConfigurationGet.Reactive
 {
-    public class ConfigurationGetWorkflow:Workflow<IConfigurationGetDialog>, IConfigurationGetWorkflow
+    public class ConfigurationGetWorkflow:SubscribedWorkflow<IConfigurationGetDialog>, IConfigurationGetWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<IConfigurationGetRequestedProcessState>>? ProcessStarted;
 
-        public ConfigurationGetWorkflow(    IWorkflowProvider workflowProvider,
-                                            IConfigurationGetDialog dialog )
+        public ConfigurationGetWorkflow(    IConfigurationGetDialog dialog,
+                                            ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }

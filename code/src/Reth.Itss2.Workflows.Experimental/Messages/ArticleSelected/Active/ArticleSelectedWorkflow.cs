@@ -24,12 +24,12 @@ using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ArticleSelected.Active
 {
-    public class ArticleSelectedWorkflow:Workflow<IArticleSelectedDialog>, IArticleSelectedWorkflow
+    public class ArticleSelectedWorkflow:SubscribedWorkflow<IArticleSelectedDialog>, IArticleSelectedWorkflow
     {
-        public ArticleSelectedWorkflow( IWorkflowProvider workflowProvider,
-                                        IArticleSelectedDialog dialog   )
+        public ArticleSelectedWorkflow( IArticleSelectedDialog dialog,
+                                        ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
         }
 

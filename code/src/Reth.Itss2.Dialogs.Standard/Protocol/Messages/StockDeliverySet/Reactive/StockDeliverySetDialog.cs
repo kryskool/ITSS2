@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Reactiv
 
         public StockDeliverySetDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.StockDeliverySet, dialogProvider )
+            base( StandardDialogs.StockDeliverySet, dialogProvider )
         {
         }
 

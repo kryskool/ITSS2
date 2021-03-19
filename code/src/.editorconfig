@@ -1,5 +1,8 @@
 ﻿[*.cs]
 
+# S1117: Local variables should not shadow class fields
+dotnet_diagnostic.S1117.severity = none
+
 # S1125: Boolean literals should not be redundant
 dotnet_diagnostic.S1125.severity = none
 

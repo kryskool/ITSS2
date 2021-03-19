@@ -24,12 +24,12 @@ using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCart.Active
 {
-    public class ShoppingCartWorkflow:Workflow<IShoppingCartDialog>, IShoppingCartWorkflow
+    public class ShoppingCartWorkflow:SubscribedWorkflow<IShoppingCartDialog>, IShoppingCartWorkflow
     {
-        public ShoppingCartWorkflow(    IWorkflowProvider workflowProvider,
-                                        IShoppingCartDialog dialog  )
+        public ShoppingCartWorkflow(    IShoppingCartDialog dialog,
+                                        ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
         }
 

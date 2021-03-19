@@ -27,12 +27,12 @@ using ArticleInfoRequestArticle = Reth.Itss2.Dialogs.Standard.Protocol.Messages.
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ArticleInfo.Active
 {
-    public class ArticleInfoWorkflow:Workflow<IArticleInfoDialog>, IArticleInfoWorkflow
+    public class ArticleInfoWorkflow:SubscribedWorkflow<IArticleInfoDialog>, IArticleInfoWorkflow
     {
-        public ArticleInfoWorkflow( IWorkflowProvider workflowProvider,
-                                    IArticleInfoDialog dialog  )
+        public ArticleInfoWorkflow( IArticleInfoDialog dialog,
+                                    ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
         }
 

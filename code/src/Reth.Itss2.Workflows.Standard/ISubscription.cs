@@ -16,14 +16,16 @@
 
 using System;
 
-namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol
-{
-    public class Dialogs:Standard.Protocol.Dialogs
-    {
-        public static String ConfigurationGet{ get{ return "ConfigurationGet"; } }
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
-        protected Dialogs()
-        {
-        }
+namespace Reth.Itss2.Workflows.Standard
+{
+    public interface ISubscription
+    {
+        event EventHandler<SubscribedEventArgs>? Subscribed;
+
+        Subscriber LocalSubscriber{ get; }
+
+        void Subscribe( SubscriberInfo subscriberInfo );
     }
 }

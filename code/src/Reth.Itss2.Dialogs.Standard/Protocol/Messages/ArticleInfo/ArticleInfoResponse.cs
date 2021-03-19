@@ -45,7 +45,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo
                                     SubscriberId source,
                                     SubscriberId destination   )
         :
-            base( id, Dialogs.ArticleInfo, source, destination )
+            base( id, StandardDialogs.ArticleInfo, source, destination )
         {
         }
 
@@ -54,7 +54,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo
                                     SubscriberId destination,
                                     IEnumerable<ArticleInfoResponseArticle> articles   )
         :
-            base( id, Dialogs.ArticleInfo, source, destination )
+            base( id, StandardDialogs.ArticleInfo, source, destination )
         {
             this.Articles.AddRange( articles );
         }

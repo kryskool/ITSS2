@@ -23,7 +23,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Active
     {
         public InputDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.Input, dialogProvider )
+            base( StandardDialogs.Input, dialogProvider )
         {
         }
 

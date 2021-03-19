@@ -24,14 +24,14 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Reactive;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliveryInfo.Reactive
 {
-    public class StockDeliveryInfoWorkflow:Workflow<IStockDeliveryInfoDialog>, IStockDeliveryInfoWorkflow
+    public class StockDeliveryInfoWorkflow:SubscribedWorkflow<IStockDeliveryInfoDialog>, IStockDeliveryInfoWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<IStockDeliveryInfoRequestedProcessState>>? ProcessStarted;
 
-        public StockDeliveryInfoWorkflow(   IWorkflowProvider workflowProvider,
-                                            IStockDeliveryInfoDialog dialog    )
+        public StockDeliveryInfoWorkflow(   IStockDeliveryInfoDialog dialog,
+                                            ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }

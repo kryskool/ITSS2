@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Reacti
 
         public StockLocationInfoDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.StockLocationInfo, dialogProvider )
+            base( StandardDialogs.StockLocationInfo, dialogProvider )
         {
         }
 

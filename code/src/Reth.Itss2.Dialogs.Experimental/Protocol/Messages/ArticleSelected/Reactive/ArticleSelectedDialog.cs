@@ -27,7 +27,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Reac
 
         public ArticleSelectedDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ArticleSelected, dialogProvider )
+            base( ExperimentalDialogs.ArticleSelected, dialogProvider )
         {
         }
 

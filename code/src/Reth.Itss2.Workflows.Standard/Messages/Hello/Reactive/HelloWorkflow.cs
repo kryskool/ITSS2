@@ -23,21 +23,26 @@ using Reth.Itss2.Dialogs.Standard.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
+using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive
 {
     public class HelloWorkflow:Workflow<IHelloDialog>, IHelloWorkflow
     {
-        public event EventHandler<MessageReceivedEventArgs<HelloRequest>>? RequestAccepted;
+        private SubscriberInfo? subscriberInfo;
 
-        private bool isConnected;
         private bool isDisposed;
 
-        public HelloWorkflow(   IWorkflowProvider workflowProvider,
-                                IHelloDialog dialog    )
+        public HelloWorkflow(   IHelloDialog dialog,
+                                ISubscription subscription,
+                                IDialogProvider dialogProvider,
+                                ISerializationProvider serializationProvider    )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
+            this.Connector = new Connector( dialogProvider, serializationProvider );
+            this.Handshake = new Handshake();
+            
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }
 
@@ -46,106 +51,72 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive
             get;
         } = new Object();
 
-        private ManualResetEventSlim HelloRequestAcceptEvent
+        private Connector Connector
         {
             get;
-        } = new ManualResetEventSlim( initialState:false );
+        }
 
-        public bool IsConnected
+        private Handshake Handshake
         {
-            get
-            {
-                lock( this.SyncRoot )
-                {
-                    return this.isConnected;
-                }
-            }
-
-            private set
-            {
-                lock( this.SyncRoot )
-                {
-                    this.isConnected = value;
-                }
-            }
+            get;
         }
 
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<HelloRequest> e )
         {
             lock( this.SyncRoot )
             {
-                SubscriberInfo subscriberInfo = this.GetSubscriberInfo();
-
-                if( subscriberInfo.HasRemoteSubscriber == false )
+                try
                 {
-                    this.RequestAccepted?.Invoke( this, e );
+                    this.Handshake.Execute( this.Subscription.LocalSubscriber,
+                                            e.Message.Subscriber,
+                                            ( SubscriberInfo subscriberInfo ) =>
+                                            {
+                                                this.Dialog.SendResponse( new HelloResponse( e.Message, subscriberInfo.LocalSubscriber ) );
 
-                    this.Dialog.SendResponse( new HelloResponse( e.Message, subscriberInfo.LocalSubscriber ) );
+                                                this.subscriberInfo = subscriberInfo;
 
-                    this.IsConnected = true;
-
-                    this.HelloRequestAcceptEvent.Set();
-                }else
+                                                this.Subscription.Subscribe( subscriberInfo );
+                                            }   );
+                }catch( InvalidOperationException ex )
                 {
-                    this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "Handshake already executed." ) );
+                    this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "Hello request acceptance failed.", ex ) );
                 }
             }
         }
 
-        private void ConnectDialogProvider( Stream stream )
+        public SubscriberInfo Connect( Stream stream )
         {
-            IMessageTransmitter messageTransmitter = this.SerializationProvider.CreateMessageTransmitter( stream );
-
-            try
-            {
-                this.DialogProvider.Connect( messageTransmitter );
-            }catch
-            {
-                messageTransmitter.Dispose();
-
-                throw;
-            }
-        }
-
-        private async Task ConnectDialogProviderAsync( Stream stream, CancellationToken cancellationToken = default )
-        {
-            IMessageTransmitter messageTransmitter = this.SerializationProvider.CreateMessageTransmitter( stream );
-
-            try
-            {
-                await this.DialogProvider.ConnectAsync( messageTransmitter, cancellationToken );
-            }catch
-            {
-                messageTransmitter.Dispose();
-
-                throw;
-            }
-        }
-
-        public void Connect( Stream stream )
-        {
-            this.ConnectDialogProvider( stream );
+            this.Connector.Connect( stream );
                 
-            bool waitResult = this.HelloRequestAcceptEvent.Wait( ( int )Timeouts.HandshakeTimeout.TotalMilliseconds );
+            this.Handshake.Wait();
 
-            this.ValidateWaitResult( waitResult );
+            return this.GetSubscriberInfo();
         }
 
-        public async Task ConnectAsync( Stream stream, CancellationToken cancellationToken = default )
+        public async Task<SubscriberInfo> ConnectAsync( Stream stream, CancellationToken cancellationToken = default )
         {
-            await this.ConnectDialogProviderAsync( stream, cancellationToken ).ConfigureAwait( continueOnCapturedContext:false );
+            await this.Connector.ConnectAsync( stream, cancellationToken ).ConfigureAwait( continueOnCapturedContext:false );
 
-            bool waitResult = this.HelloRequestAcceptEvent.Wait( ( int )Timeouts.HandshakeTimeout.TotalMilliseconds, cancellationToken );
+            this.Handshake.Wait( cancellationToken );
 
-            this.ValidateWaitResult( waitResult );
+            return this.GetSubscriberInfo();
         }
 
-        private void ValidateWaitResult( bool waitResult )
+        private SubscriberInfo GetSubscriberInfo()
         {
-            if( waitResult == false )
+            SubscriberInfo? subscriberInfo = null;
+
+            lock( this.SyncRoot )
             {
-                throw Assert.Exception( new TimeoutException( $"Handshake timed out." ) );
+                subscriberInfo = this.subscriberInfo;
             }
+
+            if( subscriberInfo is null )
+            {
+                throw Assert.Exception( new InvalidOperationException( "No handshake executed." ) );
+            }
+
+            return subscriberInfo;
         }
 
         protected override void Dispose( bool disposing )
@@ -154,7 +125,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive
             {
                 if( disposing == true )
                 {
-                    this.HelloRequestAcceptEvent.Dispose();
+                    this.Handshake.Dispose();
                 }
 
                 base.Dispose( disposing );

@@ -27,14 +27,14 @@ using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
 {
-    public class ShoppingCartUpdateWorkflow:Workflow<IShoppingCartUpdateDialog>, IShoppingCartUpdateWorkflow
+    public class ShoppingCartUpdateWorkflow:SubscribedWorkflow<IShoppingCartUpdateDialog>, IShoppingCartUpdateWorkflow
     {
         public event EventHandler<MessageReceivedEventArgs<ShoppingCartUpdateMessage>>? MessageReceived;
 
-        public ShoppingCartUpdateWorkflow(  IWorkflowProvider workflowProvider,
-                                            IShoppingCartUpdateDialog dialog  )
+        public ShoppingCartUpdateWorkflow(  IShoppingCartUpdateDialog dialog,
+                                            ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.MessageReceived += this.Dialog_MessageReceived;
         }

@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Reactiv
 
         public ShoppingCartDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ShoppingCart, dialogProvider )
+            base( ExperimentalDialogs.ShoppingCart, dialogProvider )
         {
         }
 

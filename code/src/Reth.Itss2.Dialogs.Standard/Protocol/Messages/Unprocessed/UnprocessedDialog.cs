@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed
 
         public UnprocessedDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.Unprocessed, dialogProvider )
+            base( StandardDialogs.Unprocessed, dialogProvider )
         {
         }
 

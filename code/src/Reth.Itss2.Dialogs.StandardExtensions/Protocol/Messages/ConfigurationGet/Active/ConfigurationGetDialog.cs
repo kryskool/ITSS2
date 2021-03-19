@@ -25,7 +25,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationG
     {
         public ConfigurationGetDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ConfigurationGet, dialogProvider )
+            base( StandardExtensionsDialogs.ConfigurationGet, dialogProvider )
         {
         }
 

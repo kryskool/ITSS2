@@ -25,7 +25,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Active
     {
         public ShoppingCartDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ShoppingCart, dialogProvider )
+            base( ExperimentalDialogs.ShoppingCart, dialogProvider )
         {
         }
 

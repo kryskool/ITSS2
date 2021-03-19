@@ -18,14 +18,14 @@ using System;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol
 {
-    public class Dialogs:Standard.Protocol.Dialogs
+    public class ExperimentalDialogs:Standard.Protocol.StandardDialogs
     {
         public static String ArticlePrice{ get{ return "ArticlePrice"; } }
         public static String ArticleSelected{ get{ return "ArticleSelected"; } }
         public static String ShoppingCart{ get{ return "ShoppingCart"; } }
         public static String ShoppingCartUpdate{ get{ return "ShoppingCartUpdate"; } }
 
-        protected Dialogs()
+        protected ExperimentalDialogs()
         {
         }
     }

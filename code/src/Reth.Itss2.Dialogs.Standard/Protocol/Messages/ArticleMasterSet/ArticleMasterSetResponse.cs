@@ -44,7 +44,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet
                                             SubscriberId destination,
                                             ArticleMasterSetResult result   )
         :
-            base( id, Dialogs.ArticleMasterSet, source, destination )
+            base( id, StandardDialogs.ArticleMasterSet, source, destination )
         {
             this.Result = result;
         }

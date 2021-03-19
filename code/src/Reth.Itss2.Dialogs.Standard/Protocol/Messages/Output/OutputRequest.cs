@@ -60,7 +60,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
                                 IEnumerable<OutputCriteria> criterias,
                                 String? boxNumber   )
         :
-            base( id, Dialogs.Output, source, destination )
+            base( id, StandardDialogs.Output, source, destination )
         {
             this.Details = details;
             

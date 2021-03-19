@@ -17,27 +17,19 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard
 {
-    public abstract class WorkflowProvider:IDisposable
+    public abstract class WorkflowProvider<TDialogProvider>:IDisposable
+        where TDialogProvider:IDialogProvider
     {
         public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
 
-        private SubscriberInfo subscriberInfo;
-
         protected bool isDisposed;
 
-        protected WorkflowProvider( ISerializationProvider serializationProvider,
-                                    Subscriber localSubscriber,
-                                    IDialogProvider dialogProvider  )
+        protected WorkflowProvider( TDialogProvider dialogProvider )
         {
-            this.SerializationProvider = serializationProvider;
             this.DialogProvider = dialogProvider;
-
-            this.subscriberInfo = new SubscriberInfo( localSubscriber );
 
             dialogProvider.MessageProcessingError += this.OnMessageProcessingError;
         }
@@ -47,17 +39,7 @@ namespace Reth.Itss2.Workflows.Standard
             this.Dispose( false );
         }
 
-        private Object SyncRoot
-        {
-            get;
-        } = new Object();
-
-        public IDialogProvider DialogProvider
-        {
-            get;
-        }
-
-        public ISerializationProvider SerializationProvider
+        public TDialogProvider DialogProvider
         {
             get;
         }
@@ -65,25 +47,6 @@ namespace Reth.Itss2.Workflows.Standard
         protected virtual void OnMessageProcessingError( Object sender, MessageProcessingErrorEventArgs e )
         {
             this.MessageProcessingError?.Invoke( this, e );
-        }
-
-        protected void SetRemoteSubscriber( Subscriber subscriber )
-        {
-            lock( this.SyncRoot )
-            {
-                Subscriber localSubscriber = this.subscriberInfo.LocalSubscriber;
-                Subscriber remoteSubscriber = subscriber;
-
-                this.subscriberInfo = new SubscriberInfo( localSubscriber, remoteSubscriber );
-            }
-        }
-
-        public SubscriberInfo GetSubscriberInfo()
-        {
-            lock( this.SyncRoot )
-            {
-                return this.subscriberInfo;
-            }
         }
 
         public void Dispose()
@@ -100,7 +63,6 @@ namespace Reth.Itss2.Workflows.Standard
                 if( disposing == true )
                 {
                     this.DialogProvider.Dispose();
-                    this.SerializationProvider.Dispose();
                 }
 
                 this.isDisposed = true;

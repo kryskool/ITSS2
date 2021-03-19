@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Active
 
         public OutputDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.Output, dialogProvider )
+            base( StandardDialogs.Output, dialogProvider )
         {
         }
 

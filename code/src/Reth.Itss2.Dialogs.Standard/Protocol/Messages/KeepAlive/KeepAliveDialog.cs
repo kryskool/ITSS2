@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive
 
         public KeepAliveDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.KeepAlive, dialogProvider )
+            base( StandardDialogs.KeepAlive, dialogProvider )
         {
         }
 

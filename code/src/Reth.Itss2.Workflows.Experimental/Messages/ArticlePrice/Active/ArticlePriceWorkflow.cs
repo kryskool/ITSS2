@@ -26,12 +26,12 @@ using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Active
 {
-    public class ArticlePriceWorkflow:Workflow<IArticlePriceDialog>, IArticlePriceWorkflow
+    public class ArticlePriceWorkflow:SubscribedWorkflow<IArticlePriceDialog>, IArticlePriceWorkflow
     {
-        public ArticlePriceWorkflow(    IWorkflowProvider workflowProvider,
-                                        IArticlePriceDialog dialog  )
+        public ArticlePriceWorkflow(    IArticlePriceDialog dialog,
+                                        ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
         }
 

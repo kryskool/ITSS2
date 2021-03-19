@@ -33,7 +33,7 @@ using Reth.Itss2.Workflows.Standard.Messages.Unprocessed;
 
 namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
 {
-    public class SalesSupportSystemWorkflowProvider:WorkflowProvider, ISalesSupportSystemWorkflowProvider
+    public class SalesSupportSystemWorkflowProvider:WorkflowProvider<ISalesSupportSystemDialogProvider>, ISalesSupportSystemWorkflowProvider
     {
         public SalesSupportSystemWorkflowProvider(  ISerializationProvider serializationProvider,
                                                     Subscriber localSubscriber )
@@ -46,16 +46,18 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
                                                         Subscriber localSubscriber,
                                                         ISalesSupportSystemDialogProvider dialogProvider )
         :
-            base( serializationProvider, localSubscriber, dialogProvider )
+            base( dialogProvider )
         {
-            this.ArticleInfoWorkflow = new ArticleInfoWorkflow( this, dialogProvider.ArticleInfoDialog );
-            this.ArticlePriceWorkflow = new ArticlePriceWorkflow( this, dialogProvider.ArticlePriceDialog );
-            this.ArticleSelectedWorkflow = new ArticleSelectedWorkflow( this, dialogProvider.ArticleSelectedDialog );
-            this.HelloWorkflow = new HelloWorkflow( this, dialogProvider.HelloDialog );
-            this.KeepAliveWorkflow = new KeepAliveWorkflow( this, dialogProvider.KeepAliveDialog );
-            this.ShoppingCartWorkflow = new ShoppingCartWorkflow( this, dialogProvider.ShoppingCartDialog );
-            this.ShoppingCartUpdateWorkflow = new ShoppingCartUpdateWorkflow( this, dialogProvider.ShoppingCartUpdateDialog );
-            this.UnprocessedWorkflow = new UnprocessedWorkflow( this, dialogProvider.UnprocessedDialog );
+            Subscription subscription = new Subscription( localSubscriber );
+
+            this.ArticleInfoWorkflow = new ArticleInfoWorkflow( dialogProvider.ArticleInfoDialog, subscription );
+            this.ArticlePriceWorkflow = new ArticlePriceWorkflow( dialogProvider.ArticlePriceDialog, subscription );
+            this.ArticleSelectedWorkflow = new ArticleSelectedWorkflow( dialogProvider.ArticleSelectedDialog, subscription );
+            this.HelloWorkflow = new HelloWorkflow( dialogProvider.HelloDialog, subscription, dialogProvider, serializationProvider );
+            this.KeepAliveWorkflow = new KeepAliveWorkflow( dialogProvider.KeepAliveDialog, subscription );
+            this.ShoppingCartWorkflow = new ShoppingCartWorkflow( dialogProvider.ShoppingCartDialog, subscription );
+            this.ShoppingCartUpdateWorkflow = new ShoppingCartUpdateWorkflow( dialogProvider.ShoppingCartUpdateDialog, subscription );
+            this.UnprocessedWorkflow = new UnprocessedWorkflow( dialogProvider.UnprocessedDialog, subscription, serializationProvider );
 
             this.ArticleInfoWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.ArticlePriceWorkflow.MessageProcessingError += this.OnMessageProcessingError;
@@ -65,8 +67,6 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
             this.ShoppingCartWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.ShoppingCartUpdateWorkflow.MessageProcessingError += this.OnMessageProcessingError;
             this.UnprocessedWorkflow.MessageProcessingError += this.OnMessageProcessingError;
-
-            this.HelloWorkflow.RequestAccepted += this.OnHelloRequestAccepted;
         }
 
         public IArticleInfoWorkflow ArticleInfoWorkflow{ get; }
@@ -77,11 +77,6 @@ namespace Reth.Itss2.Workflows.Experimental.Roles.SalesSupportSystem
         public IShoppingCartWorkflow ShoppingCartWorkflow{ get; }
         public IShoppingCartUpdateWorkflow ShoppingCartUpdateWorkflow{ get; }
         public IUnprocessedWorkflow UnprocessedWorkflow{ get; }
-
-        private void OnHelloRequestAccepted( Object sender, MessageReceivedEventArgs<HelloRequest> e )
-        {
-            this.SetRemoteSubscriber( e.Message.Subscriber );
-        }
 
         protected override void Dispose( bool disposing )
         {

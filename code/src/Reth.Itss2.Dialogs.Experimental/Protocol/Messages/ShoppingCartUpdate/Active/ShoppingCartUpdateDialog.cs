@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate.A
 
         public ShoppingCartUpdateDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ShoppingCartUpdate, dialogProvider )
+            base( ExperimentalDialogs.ShoppingCartUpdate, dialogProvider )
         {
         }
 

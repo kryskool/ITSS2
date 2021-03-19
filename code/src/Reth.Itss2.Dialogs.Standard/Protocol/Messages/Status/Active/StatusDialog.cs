@@ -23,7 +23,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Active
     {
         public StatusDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.Status, dialogProvider )
+            base( StandardDialogs.Status, dialogProvider )
         {
         }
 

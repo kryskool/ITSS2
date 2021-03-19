@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart
                                     SubscriberId destination,
                                     ShoppingCartCriteria criteria   )
         :
-            base( id, Dialogs.ShoppingCart, source, destination )
+            base( id, ExperimentalDialogs.ShoppingCart, source, destination )
         {
             this.Criteria = criteria;
         }

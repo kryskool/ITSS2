@@ -1,4 +1,4 @@
-// Implementation of the WWKS2 protocol.
+﻿// Implementation of the WWKS2 protocol.
 // Copyright (C) 2020  Thomas Reth
 
 // This program is free software: you can redistribute it and/or modify
@@ -14,29 +14,25 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System.Threading;
-using System.Threading.Tasks;
+using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
-
-namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Active
+namespace Reth.Itss2.Workflows.Standard
 {
-    public class ArticleSelectedDialog:Dialog, IArticleSelectedDialog
+    public class SubscribedEventArgs:EventArgs
     {
-        public ArticleSelectedDialog( IDialogProvider dialogProvider )
-        :
-            base( ExperimentalDialogs.ArticleSelected, dialogProvider )
+        public SubscribedEventArgs( SubscriberInfo subscriberInfo )
         {
+            this.SubscriberInfo = subscriberInfo;
         }
 
-        public void SendMessage( ArticleSelectedMessage message )
+        public SubscriberInfo SubscriberInfo
         {
-            base.SendMessage( message );
+            get;
         }
-        
-        public Task SendMessageAsync( ArticleSelectedMessage message, CancellationToken cancellationToken = default )
+
+        public override String ToString()
         {
-            return base.SendMessageAsync( message, cancellationToken );
+            return this.SubscriberInfo.ToString();
         }
     }
 }

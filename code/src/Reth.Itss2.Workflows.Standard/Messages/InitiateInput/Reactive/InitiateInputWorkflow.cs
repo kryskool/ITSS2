@@ -24,14 +24,14 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Reactive;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Reactive
 {
-    public class InitiateInputWorkflow:Workflow<IInitiateInputDialog>, IInitiateInputWorkflow
+    public class InitiateInputWorkflow:SubscribedWorkflow<IInitiateInputDialog>, IInitiateInputWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<IInitiateInputRequestedProcessState>>? ProcessStarted;
 
-        public InitiateInputWorkflow(   IWorkflowProvider workflowProvider,
-                                        IInitiateInputDialog dialog    )
+        public InitiateInputWorkflow(   IInitiateInputDialog dialog,
+                                        ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }

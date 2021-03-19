@@ -48,7 +48,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
                                 SubscriberId destination,
                                 OutputMessageDetails details    )
         :
-            base( id, Dialogs.Output, source, destination )
+            base( id, StandardDialogs.Output, source, destination )
         {
             this.Details = details;
         }
@@ -60,7 +60,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
                                 IEnumerable<OutputArticle>? articles,
                                 IEnumerable<OutputBox>? boxes    )
         :
-            base( id, Dialogs.Output, source, destination )
+            base( id, StandardDialogs.Output, source, destination )
         {
             this.Details = details;
 

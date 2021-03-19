@@ -21,19 +21,28 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+using Reth.Itss2.Dialogs.Standard.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Unprocessed
 {
-    public class UnprocessedWorkflow:Workflow<IUnprocessedDialog>, IUnprocessedWorkflow
+    public class UnprocessedWorkflow:SubscribedWorkflow<IUnprocessedDialog>, IUnprocessedWorkflow
     {
         public event EventHandler<MessageReceivedEventArgs<UnprocessedMessage>>? MessageReceived;
 
-        public UnprocessedWorkflow( IWorkflowProvider workflowProvider,
-                                    IUnprocessedDialog dialog  )
+        public UnprocessedWorkflow( IUnprocessedDialog dialog,
+                                    ISubscription subscription,
+                                    ISerializationProvider serializationProvider    )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
+            this.SerializationProvider = serializationProvider;
+
             dialog.MessageReceived += this.Dialog_MessageReceived;
+        }
+
+        private ISerializationProvider SerializationProvider
+        {
+            get;
         }
 
         private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<UnprocessedMessage> e )

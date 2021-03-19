@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Reactive
 
         public ArticleInfoDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ArticleInfo, dialogProvider )
+            base( StandardDialogs.ArticleInfo, dialogProvider )
         {
         }
 

@@ -25,7 +25,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Active
     {
         public ArticlePriceDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.ArticlePrice, dialogProvider )
+            base( ExperimentalDialogs.ArticlePrice, dialogProvider )
         {
         }
 

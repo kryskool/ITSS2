@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationG
                                             SubscriberId destination,
                                             Configuration configuration )
         :
-            base( id, Dialogs.ConfigurationGet, source, destination )
+            base( id, StandardExtensionsDialogs.ConfigurationGet, source, destination )
         {
             this.Configuration = configuration;
         }

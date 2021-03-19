@@ -24,14 +24,14 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Reactive;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.StockLocationInfo.Reactive
 {
-    public class StockLocationInfoWorkflow:Workflow<IStockLocationInfoDialog>, IStockLocationInfoWorkflow
+    public class StockLocationInfoWorkflow:SubscribedWorkflow<IStockLocationInfoDialog>, IStockLocationInfoWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<IStockLocationInfoRequestedProcessState>>? ProcessStarted;
 
-        public StockLocationInfoWorkflow(   IWorkflowProvider workflowProvider,
-                                            IStockLocationInfoDialog dialog    )
+        public StockLocationInfoWorkflow(   IStockLocationInfoDialog dialog,
+                                            ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }

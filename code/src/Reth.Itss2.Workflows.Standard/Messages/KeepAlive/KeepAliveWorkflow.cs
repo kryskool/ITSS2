@@ -22,16 +22,16 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.KeepAlive
 {
-    public class KeepAliveWorkflow:Workflow<IKeepAliveDialog>, IKeepAliveWorkflow
+    public class KeepAliveWorkflow:SubscribedWorkflow<IKeepAliveDialog>, IKeepAliveWorkflow
     {
         private KeepAliveTrigger? trigger;
 
         private bool isDisposed;
 
-        public KeepAliveWorkflow(   IWorkflowProvider workflowProvider,
-                                    IKeepAliveDialog dialog    )
+        public KeepAliveWorkflow(   IKeepAliveDialog dialog,
+                                    ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }
@@ -62,7 +62,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.KeepAlive
 
         public void SendRequest()
         {
-            SubscriberInfo subscriberInfo = this.GetSubscriberInfo();
+            SubscriberInfo subscriberInfo = this.SubscriberInfo;
 
             if( subscriberInfo.TryGetRemoteSubscriber( out Subscriber? remoteSubscriber ) == true )
             {

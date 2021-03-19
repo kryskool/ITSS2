@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected
                                         SubscriberId destination,
                                         ArticleSelectedArticle article  )
         :
-            base( id, Dialogs.ArticleSelected, source, destination )
+            base( id, ExperimentalDialogs.ArticleSelected, source, destination )
         {
             this.Article = article;
         }

@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet
                                         SubscriberId destination,
                                         IEnumerable<StockDelivery> deliveries  )
         :
-            base( id, Dialogs.StockDeliverySet, source, destination )
+            base( id, StandardDialogs.StockDeliverySet, source, destination )
         {
             this.Deliveries.AddRange( deliveries );
         }

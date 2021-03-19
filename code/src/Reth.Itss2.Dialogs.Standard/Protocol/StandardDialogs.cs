@@ -18,7 +18,7 @@ using System;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
-    public class Dialogs
+    public class StandardDialogs
     {
         public static String ArticleInfo{ get{ return "ArticleInfo"; } }
         public static String ArticleMasterSet{ get{ return "ArticleMaster"; } }
@@ -36,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
         public static String TaskCancelOutput{ get{ return "TaskCancelOutput"; } }
         public static String Unprocessed{ get{ return "Unprocessed"; } }
 
-        protected Dialogs()
+        protected StandardDialogs()
         {
         }
     }

@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive
 
         public HelloDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.Hello, dialogProvider )
+            base( StandardDialogs.Hello, dialogProvider )
         {
         }
 

@@ -24,14 +24,14 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Reactive;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Status.Reactive
 {
-    public class StatusWorkflow:Workflow<IStatusDialog>, IStatusWorkflow
+    public class StatusWorkflow:SubscribedWorkflow<IStatusDialog>, IStatusWorkflow
     {
         public event EventHandler<ProcessStartedEventArgs<IStatusRequestedProcessState>>? ProcessStarted;
 
-        public StatusWorkflow(  IWorkflowProvider workflowProvider,
-                                IStatusDialog dialog   )
+        public StatusWorkflow(  IStatusDialog dialog,
+                                ISubscription subscription  )
         :
-            base( workflowProvider, dialog )
+            base( dialog, subscription )
         {
             dialog.RequestReceived += this.Dialog_RequestReceived;
         }

@@ -26,7 +26,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Active
 
         public InitiateInputDialog( IDialogProvider dialogProvider )
         :
-            base( Dialogs.InitiateInput, dialogProvider )
+            base( StandardDialogs.InitiateInput, dialogProvider )
         {
         }
 

@@ -14,23 +14,16 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-
-using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive
 {
     public interface IHelloWorkflow:IWorkflow
     {
-        event EventHandler<MessageReceivedEventArgs<HelloRequest>>? RequestAccepted;
+        SubscriberInfo Connect( Stream stream );
 
-        bool IsConnected{ get; }
-
-        void Connect( Stream stream );
-        Task ConnectAsync( Stream stream, CancellationToken cancellationToken = default );
+        Task<SubscriberInfo> ConnectAsync( Stream stream, CancellationToken cancellationToken = default );
     }
 }
