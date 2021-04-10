@@ -61,7 +61,7 @@ namespace Reth.Itss2.Workflows.StandardExtensions.Messages.ArticleMasterSet.Reac
         {
             ArticleMasterSetRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IArticleMasterSetRequestedProcessState processState = new ArticleMasterSetRequestedProcessState( this, request );

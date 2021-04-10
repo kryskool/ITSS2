@@ -58,7 +58,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.OutputInfo.Reactive
         {
             OutputInfoRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IOutputInfoRequestedProcessState processState = new OutputInfoRequestedProcessState( this, request );

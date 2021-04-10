@@ -55,6 +55,19 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo
         {
         }
 
+        public ArticleInfoResponse( ArticleInfoRequest request )
+        :
+            base( request )
+        {
+        }
+
+        public ArticleInfoResponse( ArticleInfoRequest request,
+                                    IEnumerable<ArticleInfoResponseArticle> articles   )
+        :
+            base( request, articles )
+        {
+        }
+
         public override bool Equals( Object obj )
 		{
 			return this.Equals( obj as ArticleInfoResponse );

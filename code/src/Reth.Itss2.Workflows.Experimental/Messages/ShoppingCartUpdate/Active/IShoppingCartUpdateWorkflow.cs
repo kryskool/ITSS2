@@ -27,7 +27,7 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
 {
     public interface IShoppingCartUpdateWorkflow:IWorkflow
     {
-        event EventHandler<MessageReceivedEventArgs<ShoppingCartUpdateMessage>>? MessageReceived;
+        event EventHandler<MessageReceivedEventArgs<ShoppingCartUpdateMessage>>? ContentChanged;
 
         IShoppingCartUpdateFinishedProcessState StartProcess( ShoppingCartContent shoppingCart );
 

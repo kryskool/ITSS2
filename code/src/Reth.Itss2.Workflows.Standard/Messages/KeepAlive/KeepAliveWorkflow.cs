@@ -110,7 +110,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.KeepAlive
         {
             KeepAliveRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         this.Dialog.SendResponse( new KeepAliveResponse( request ) );

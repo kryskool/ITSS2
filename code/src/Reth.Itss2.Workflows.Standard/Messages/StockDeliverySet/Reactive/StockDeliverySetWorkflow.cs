@@ -58,7 +58,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliverySet.Reactive
         {
             StockDeliverySetRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IStockDeliverySetRequestedProcessState processState = new StockDeliverySetRequestedProcessState( this, request );

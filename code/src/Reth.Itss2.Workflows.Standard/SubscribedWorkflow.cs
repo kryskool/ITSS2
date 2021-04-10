@@ -97,23 +97,23 @@ namespace Reth.Itss2.Workflows.Standard
             }
         }
 
-        protected void OnRequestReceived<TRequest>( TRequest request, Action sendResponseCallback )
-            where TRequest:IRequest
+        protected void OnMessageReceived<TMessage>( TMessage message, Action processMessageCallback )
+            where TMessage:IMessage
         {
             if( this.SubscriberInfo.HasRemoteSubscriber == true )
             {
-                if( this.IsSupportedLocally( request ) == true )
+                if( this.IsSupportedLocally( message ) == true )
                 {
                     try
                     {
-                        sendResponseCallback();
+                        processMessageCallback();
                     }catch( Exception ex )
                     {
-                        this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "Error on sending response.", ex ) );        
+                        this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( "Error on processing message.", ex ) );        
                     }
                 }else
                 {
-                    this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( $"Dialog '{ request.DialogName }' is not supported locally." ) );
+                    this.OnMessageProcessingError( new MessageProcessingErrorEventArgs( $"Dialog '{ message.DialogName }' is not supported locally." ) );
                 }
             }else
             {

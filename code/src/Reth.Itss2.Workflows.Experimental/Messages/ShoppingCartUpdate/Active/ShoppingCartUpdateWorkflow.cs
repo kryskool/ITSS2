@@ -29,7 +29,7 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
 {
     public class ShoppingCartUpdateWorkflow:SubscribedWorkflow<IShoppingCartUpdateDialog>, IShoppingCartUpdateWorkflow
     {
-        public event EventHandler<MessageReceivedEventArgs<ShoppingCartUpdateMessage>>? MessageReceived;
+        public event EventHandler<MessageReceivedEventArgs<ShoppingCartUpdateMessage>>? ContentChanged;
 
         public ShoppingCartUpdateWorkflow(  IShoppingCartUpdateDialog dialog,
                                             ISubscription subscription  )
@@ -41,7 +41,7 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
 
         private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<ShoppingCartUpdateMessage> e )
         {
-            this.MessageReceived?.Invoke( this, e );
+            this.ContentChanged?.Invoke( this, e );
         }
 
         private ShoppingCartUpdateRequest CreateRequest( ShoppingCartContent shoppingCart )

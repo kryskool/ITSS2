@@ -15,11 +15,33 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
 {
     public interface IOutputWorkflow:IWorkflow
     {
         event EventHandler<ProcessStartedEventArgs<IOutputRequestedProcessState>>? ProcessStarted;
+
+        void NotifyManualOutput(    OutputMessageDetails details,
+                                    IEnumerable<OutputArticle> articles );
+
+        void NotifyManualOutput(    OutputMessageDetails details,
+                                    IEnumerable<OutputArticle> articles,
+                                    IEnumerable<OutputBox> boxes   );
+
+        Task NotifyManualOutputAsync(   OutputMessageDetails details,
+                                        IEnumerable<OutputArticle> articles,
+                                        CancellationToken cancellationToken = default );
+
+        Task NotifyManualOutputAsync(   OutputMessageDetails details,
+                                        IEnumerable<OutputArticle> articles,
+                                        IEnumerable<OutputBox> boxes,
+                                        CancellationToken cancellationToken = default );
     }
 }

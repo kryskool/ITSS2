@@ -58,7 +58,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.ArticleMasterSet.Reactive
         {
             ArticleMasterSetRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IArticleMasterSetRequestedProcessState processState = new ArticleMasterSetRequestedProcessState( this, request );

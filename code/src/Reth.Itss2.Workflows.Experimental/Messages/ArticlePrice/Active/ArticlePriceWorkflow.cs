@@ -49,11 +49,6 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Active
                                         }   );
         }
 
-        public IArticlePriceFinishedProcessState StartProcess( IEnumerable<ArticlePriceRequestArticle> articles )
-        {
-            return this.StartProcess( articles, null );
-        }
-
         public IArticlePriceFinishedProcessState StartProcess( IEnumerable<ArticlePriceRequestArticle> articles, Iso4217Code? currency )
         {
             ArticlePriceRequest request = this.CreateRequest( articles, currency );
@@ -65,12 +60,6 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Active
                                                                 }   );
 
             return new ArticlePriceFinishedProcessState( request, response );
-        }
-
-        public Task<IArticlePriceFinishedProcessState> StartProcessAsync(   IEnumerable<ArticlePriceRequestArticle> articles,
-                                                                            CancellationToken cancellationToken = default   )
-        {
-            return this.StartProcessAsync( articles, null, cancellationToken );
         }
 
         public async Task<IArticlePriceFinishedProcessState> StartProcessAsync( IEnumerable<ArticlePriceRequestArticle> articles,

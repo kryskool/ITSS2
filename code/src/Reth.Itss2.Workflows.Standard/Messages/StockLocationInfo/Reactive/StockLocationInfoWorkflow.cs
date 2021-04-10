@@ -58,7 +58,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockLocationInfo.Reactive
         {
             StockLocationInfoRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IStockLocationInfoRequestedProcessState processState = new StockLocationInfoRequestedProcessState( this, request );

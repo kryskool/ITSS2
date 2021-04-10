@@ -58,7 +58,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Status.Reactive
         {
             StatusRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IStatusRequestedProcessState processState = new StatusRequestedProcessState( this, request );

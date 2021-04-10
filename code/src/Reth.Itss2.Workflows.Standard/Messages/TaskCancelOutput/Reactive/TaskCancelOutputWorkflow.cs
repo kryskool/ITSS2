@@ -58,7 +58,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.TaskCancelOutput.Reactive
         {
             TaskCancelOutputRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         ITaskCancelOutputRequestedProcessState processState = new TaskCancelOutputRequestedProcessState( this, request );

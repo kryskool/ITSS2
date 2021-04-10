@@ -15,10 +15,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output.Reactive;
 
@@ -72,11 +74,80 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
                                             } );
         }
 
+        private OutputMessage CreateMessage(    OutputMessageDetails details,
+                                                IEnumerable<OutputArticle> articles,
+                                                IEnumerable<OutputBox>? boxes )
+        {
+            return this.CreateMessage(  (   MessageId id,
+                                            SubscriberId localSubscriberId,
+                                            SubscriberId remoteSubscriberId  ) =>
+                                        {
+                                            return new OutputMessage(   ManualOutput.DefaultId,
+                                                                        localSubscriberId,
+                                                                        remoteSubscriberId,
+                                                                        details,
+                                                                        articles,
+                                                                        boxes   );
+                                        }   );
+        }
+
+        public void NotifyManualOutput( OutputMessageDetails details,
+                                        IEnumerable<OutputArticle> articles    )
+        {
+            OutputMessage message = this.CreateMessage( details, articles, boxes:null );
+
+            this.SendMessage(   message,
+                                () =>
+                                {
+                                    this.Dialog.SendMessage( message );
+                                }   );
+        }
+
+        public void NotifyManualOutput( OutputMessageDetails details,
+                                        IEnumerable<OutputArticle> articles,
+                                        IEnumerable<OutputBox> boxes    )
+        {
+            OutputMessage message = this.CreateMessage( details, articles, boxes );
+
+            this.SendMessage(   message,
+                                () =>
+                                {
+                                    this.Dialog.SendMessage( message );
+                                }   );
+        }
+
+        public Task NotifyManualOutputAsync(    OutputMessageDetails details,
+                                                IEnumerable<OutputArticle> articles,
+                                                CancellationToken cancellationToken = default   )
+        {
+            OutputMessage message = this.CreateMessage( details, articles, boxes:null );
+
+            return this.SendMessageAsync(   message,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendMessageAsync( message, cancellationToken );
+                                            }   );
+        }
+
+        public Task NotifyManualOutputAsync(    OutputMessageDetails details,
+                                                IEnumerable<OutputArticle> articles,
+                                                IEnumerable<OutputBox> boxes,
+                                                CancellationToken cancellationToken = default   )
+        {
+            OutputMessage message = this.CreateMessage( details, articles, boxes );
+
+            return this.SendMessageAsync(   message,
+                                            () =>
+                                            {
+                                                return this.Dialog.SendMessageAsync( message, cancellationToken );
+                                            }   );
+        }
+
         private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<OutputRequest> e )
         {
             OutputRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IOutputRequestedProcessState processState = new OutputRequestedProcessState( this, request );

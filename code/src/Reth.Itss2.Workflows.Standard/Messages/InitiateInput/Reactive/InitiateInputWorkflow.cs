@@ -76,7 +76,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Reactive
         {
             InitiateInputRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IInitiateInputRequestedProcessState processState = new InitiateInputRequestedProcessState( this, request );

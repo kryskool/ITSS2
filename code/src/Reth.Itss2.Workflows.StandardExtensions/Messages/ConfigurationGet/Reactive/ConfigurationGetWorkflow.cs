@@ -59,7 +59,7 @@ namespace Reth.Itss2.Workflows.StandardExtensions.Messages.ConfigurationGet.Reac
         {
             ConfigurationGetRequest request = e.Message;
 
-            this.OnRequestReceived( request,
+            this.OnMessageReceived( request,
                                     () =>
                                     {
                                         IConfigurationGetRequestedProcessState processState = new ConfigurationGetRequestedProcessState( this, request );

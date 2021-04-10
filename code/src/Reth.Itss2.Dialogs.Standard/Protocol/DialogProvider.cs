@@ -105,21 +105,23 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             }
         }
 
+        public async Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken = default )
+        {
+            await Task.Factory.StartNew( () =>
+                            {
+                                this.Connect( messageTransmitter );
+                            },
+                            cancellationToken,
+                                            TaskCreationOptions.LongRunning,
+                                            TaskScheduler.Default   );
+        }
+
+        protected abstract void ConnectDialogs( IMessageTransmitter messageTransmitter );
+
         protected virtual void OnMessageProcessingError( Object sender, MessageProcessingErrorEventArgs e )
         {
             this.MessageProcessingError?.Invoke( this, e );
         }
-
-        public Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken = default )
-        {
-            return Task.Run(    () =>
-                                {
-                                    this.Connect( messageTransmitter );
-                                },
-                                cancellationToken   );
-        }
-
-        protected abstract void ConnectDialogs( IMessageTransmitter messageTransmitter );
 
         public void Dispose()
         {

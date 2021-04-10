@@ -74,8 +74,8 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Input.Active
         }
 
         public IInputStartedProcessState StartProcess(  IEnumerable<InputRequestArticle> articles,
-                                            bool? isNewDelivery,
-                                            bool? setPickingIndicator   )
+                                                        bool? isNewDelivery,
+                                                        bool? setPickingIndicator   )
         {
             InputRequest request = this.CreateRequest( articles, isNewDelivery, setPickingIndicator );
 
