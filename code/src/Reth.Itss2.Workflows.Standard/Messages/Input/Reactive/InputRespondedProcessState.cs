@@ -51,7 +51,10 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
 
         private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<InputMessage> e )
         {
-            this.InputFinished?.Invoke( this, e );
+            if( e.Message.Id.Equals( this.Request.Id ) == true )
+            {
+                this.InputFinished?.Invoke( this, e );
+            }
         }
     }
 }

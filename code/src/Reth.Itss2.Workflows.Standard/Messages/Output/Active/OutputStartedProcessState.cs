@@ -17,13 +17,14 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
 {
     public class OutputStartedProcessState:ProcessState, IOutputStartedProcessState
     {
-        public event EventHandler<MessageReceivedEventArgs<OutputMessage>>? OutputFinished;
+        public event EventHandler<MessageReceivedEventArgs<OutputMessage>>? OutputProgress;
 
         public OutputStartedProcessState( OutputWorkflow workflow, OutputRequest request, OutputResponse response )
         {
@@ -51,9 +52,12 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
 
         private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<OutputMessage> e )
         {
-            if( e.Message.Id.Equals( ManualOutput.DefaultId ) == false )
+            MessageId messageId = e.Message.Id;
+
+            if( messageId.Equals( ManualOutput.DefaultId ) == false &&
+                messageId.Equals( this.Request.Id ) == true )
             {
-                this.OutputFinished?.Invoke( this, e );
+                this.OutputProgress?.Invoke( this, e );
             }
         }
     }

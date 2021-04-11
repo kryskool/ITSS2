@@ -108,6 +108,17 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
             }
         }
 
+        private void OnError( IObserver<ReadOnlySequence<byte>> observer, Exception error )
+        {
+            try
+            {
+                observer.OnError( error );
+            }catch( Exception ex )
+            {
+                throw Assert.Exception( ex );
+            }
+        }
+
         private void OnCompleted( IObserver<ReadOnlySequence<byte>> observer )
         {
             try
@@ -126,8 +137,6 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
         {
             token = new ReadOnlySequence<byte>();
             consumedBytes = 0;
-
-            bool result = false;
             
             long bufferLength = buffer.Length;
 
@@ -135,7 +144,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
             {
                 ITokenReader tokenReader = this.CreateTokenReader();
                 
-                result = tokenReader.Read(  ref tokenReaderState,
+                return tokenReader.Read(    ref tokenReaderState,
                                             ref buffer,
                                             out token,
                                             out consumedBytes   );
@@ -143,77 +152,78 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
             {
                 throw Assert.Exception( new InvalidOperationException( $"Maximum message size exceeded." ) );
             }
-
-            return result;
         }
 
-        private async Task Run( IObserver<ReadOnlySequence<byte>> observer, CancellationToken cancellationToken )
+        private Task Run( IObserver<ReadOnlySequence<byte>> observer, CancellationToken cancellationToken )
         {
-            try
-            {
-                while( true )
-                {
-                    ReadResult readResult = await this.PipeReader.ReadAsync( cancellationToken );
+            return Task.Factory.StartNew(   () =>
+                                            {
+                                                try
+                                                {
+                                                    while( true )
+                                                    {
+                                                        Task<ReadResult> readTask = this.PipeReader.ReadAsync( cancellationToken ).AsTask();
 
-                    if( readResult.IsCompleted == true ||
-                        readResult.IsCanceled == true   )
-                    {                        
-                        this.OnCompleted( observer );
+                                                        ReadResult readResult = readTask.Result;
+
+                                                        if( readResult.IsCompleted == true ||
+                                                            readResult.IsCanceled == true   )
+                                                        {                        
+                                                            this.OnCompleted( observer );
                         
-                        break;
-                    }
+                                                            break;
+                                                        }
 
-                    ReadOnlySequence<byte> buffer = readResult.Buffer;
-                    ITokenReaderState tokenReaderState = this.CreateTokenReaderState();
+                                                        ReadOnlySequence<byte> buffer = readResult.Buffer;
+                                                        ITokenReaderState tokenReaderState = this.CreateTokenReaderState();
 
-                    long offset = 0;
+                                                        long offset = 0;
 
-                    while( this.TryRead(    ref buffer,
-                                            ref tokenReaderState,
-                                            out ReadOnlySequence<byte> token,
-                                            out long consumedBytes  ) == true )
-                    {
-                        offset = consumedBytes;
+                                                        while( this.TryRead(    ref buffer,
+                                                                                ref tokenReaderState,
+                                                                                out ReadOnlySequence<byte> token,
+                                                                                out long consumedBytes  ) == true )
+                                                        {
+                                                            offset = consumedBytes;
 
-                        this.OnNext( observer, token );
-                    }
+                                                            this.OnNext( observer, token );
+                                                        }
                     
-                    if( readResult.IsCanceled == false &&
-                        readResult.IsCompleted == false )
-                    {
-                        SequencePosition position = new SequencePosition();
+                                                        if( readResult.IsCanceled == false &&
+                                                            readResult.IsCompleted == false )
+                                                        {
+                                                            SequencePosition position = new SequencePosition();
                         
-                        if( buffer.Length >= offset )
-                        {
-                            position = buffer.GetPosition( offset );
-                        }
+                                                            if( buffer.Length >= offset )
+                                                            {
+                                                                position = buffer.GetPosition( offset );
+                                                            }
 
-                        this.PipeReader.AdvanceTo( position, buffer.End );
-                    }
-                }
-            }finally
-            {
-                this.Finished.Set();
-            }
+                                                            this.PipeReader.AdvanceTo( position, buffer.End );
+                                                        }
+                                                    }
+                                                }catch( Exception ex )
+                                                {
+                                                    this.OnError( observer, ex );
+                                                }finally
+                                                {
+                                                    this.Finished.Set();
+                                                }
+                                            },
+                                            cancellationToken,
+                                            TaskCreationOptions.LongRunning,
+                                            TaskScheduler.Default   );
         }
 
         private async Task ReadAsync( IObserver<ReadOnlySequence<byte>> observer, CancellationToken cancellationToken )
         {
-            try
-            {
-                cancellationToken.Register( () =>
-                                            {
-                                                this.PipeReader.CancelPendingRead();
-                                            }   );
-
-                await this.Run( observer, cancellationToken ).ConfigureAwait( continueOnCapturedContext:false );
-            }catch( Exception ex )
-            {
-                observer.OnError( ex );
-            }finally
-            {
-                await this.PipeReader.CompleteAsync().ConfigureAwait( continueOnCapturedContext:false );
-            }
+            cancellationToken.Register( () =>
+                                        {
+                                            this.PipeReader.CancelPendingRead();
+                                        }   );
+            
+            await this.Run( observer, cancellationToken );
+            await this.PipeReader.CompleteAsync();
         }
 
         public void Dispose()
@@ -228,7 +238,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
             if( this.isDisposed == false )
             {
                 this.PipeReader.CancelPendingRead();
-                this.Finished.Wait( millisecondsTimeout:5000 );
+
+                this.Finished.WaitDebuggerAware( millisecondsTimeout:5000 );
 
                 if( disposing == true )
                 {

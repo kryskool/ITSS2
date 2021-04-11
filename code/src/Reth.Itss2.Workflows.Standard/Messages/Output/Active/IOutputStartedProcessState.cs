@@ -23,7 +23,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
 {
     public interface IOutputStartedProcessState
     {
-        event EventHandler<MessageReceivedEventArgs<OutputMessage>>? OutputFinished;
+        event EventHandler<MessageReceivedEventArgs<OutputMessage>>? OutputProgress;
 
         OutputRequest Request{ get; }
         OutputResponse Response{ get; }

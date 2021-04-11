@@ -15,14 +15,38 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace Reth.Itss2.Dialogs.Standard.Diagnostics
 {
     public static class ExtensionMethods
     {
+        public static bool WaitDebuggerAware( this ManualResetEventSlim instance, int millisecondsTimeout )
+        {
+            if( Debugger.IsAttached == false )
+            {
+                return instance.Wait( millisecondsTimeout );
+            }else
+            {
+                return instance.Wait( -1 );
+            }
+        }
+
+        public static bool WaitDebuggerAware( this ManualResetEventSlim instance, int millisecondsTimeout, CancellationToken cancellationToken )
+        {
+            if( Debugger.IsAttached == false )
+            {
+                return instance.Wait( millisecondsTimeout, cancellationToken );
+            }else
+            {
+                return instance.Wait( -1, cancellationToken );
+            }
+        }
+
         public static String Truncate( this String instance )
         {
             return instance.Substring( 0, Math.Min( instance.Length, 256 ) );

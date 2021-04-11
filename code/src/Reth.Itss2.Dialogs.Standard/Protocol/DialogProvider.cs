@@ -107,13 +107,11 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
         public async Task ConnectAsync( IMessageTransmitter messageTransmitter, CancellationToken cancellationToken = default )
         {
-            await Task.Factory.StartNew( () =>
+            await Task.Run( () =>
                             {
                                 this.Connect( messageTransmitter );
                             },
-                            cancellationToken,
-                                            TaskCreationOptions.LongRunning,
-                                            TaskScheduler.Default   );
+                            cancellationToken   );
         }
 
         protected abstract void ConnectDialogs( IMessageTransmitter messageTransmitter );

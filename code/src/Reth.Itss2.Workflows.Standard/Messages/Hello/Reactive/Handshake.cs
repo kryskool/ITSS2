@@ -79,7 +79,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive
 
         public void Wait( CancellationToken cancellationToken = default )
         {
-            bool waitResult = this.ExecutedEvent.Wait( ( int )Handshake.Timeout.TotalMilliseconds, cancellationToken );
+            bool waitResult = this.ExecutedEvent.WaitDebuggerAware( ( int )Handshake.Timeout.TotalMilliseconds, cancellationToken );
 
             if( waitResult == false )
             {
