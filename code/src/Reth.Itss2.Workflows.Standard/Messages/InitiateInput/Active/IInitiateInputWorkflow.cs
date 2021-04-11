@@ -29,8 +29,8 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 
         IInitiateInputStartedProcessState StartProcess( InitiateInputRequestDetails details,
                                                         IEnumerable<InitiateInputRequestArticle> articles,
-                                                        bool isNewDelivery,
-                                                        bool setPickingIndicator   );
+                                                        bool? isNewDelivery,
+                                                        bool? setPickingIndicator   );
         
         Task<IInitiateInputStartedProcessState> StartProcessAsync(  InitiateInputRequestDetails details,
                                                                     IEnumerable<InitiateInputRequestArticle> articles,
@@ -38,8 +38,8 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 
         Task<IInitiateInputStartedProcessState> StartProcessAsync(  InitiateInputRequestDetails details,
                                                                     IEnumerable<InitiateInputRequestArticle> articles,
-                                                                    bool isNewDelivery,
-                                                                    bool setPickingIndicator,
+                                                                    bool? isNewDelivery,
+                                                                    bool? setPickingIndicator,
                                                                     CancellationToken cancellationToken = default   );
     }
 }

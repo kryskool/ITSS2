@@ -32,7 +32,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliveryInfo.Active
         {
         }
 
-        private StockDeliveryInfoRequest CreateRequest( StockDeliveryInfoRequestTask task, bool includeTaskDetails )
+        private StockDeliveryInfoRequest CreateRequest( StockDeliveryInfoRequestTask task, bool? includeTaskDetails )
         {
             return this.CreateRequest(  (   MessageId messageId,
                                             SubscriberId localSubscriberId,
@@ -46,7 +46,12 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliveryInfo.Active
                                         }   );
         }
 
-        public IStockDeliveryInfoFinishedProcessState StartProcess( StockDeliveryInfoRequestTask task, bool includeTaskDetails )
+        public IStockDeliveryInfoFinishedProcessState StartProcess( StockDeliveryInfoRequestTask task )
+        {
+            return this.StartProcess( task, includeTaskDetails:null );
+        }
+
+        public IStockDeliveryInfoFinishedProcessState StartProcess( StockDeliveryInfoRequestTask task, bool? includeTaskDetails )
         {
             StockDeliveryInfoRequest request = this.CreateRequest( task, includeTaskDetails );
 
@@ -59,8 +64,14 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliveryInfo.Active
             return new StockDeliveryInfoFinishedProcessState( request, response );
         }
 
+        public Task<IStockDeliveryInfoFinishedProcessState> StartProcessAsync(  StockDeliveryInfoRequestTask task,
+                                                                                CancellationToken cancellationToken = default   )
+        {
+            return this.StartProcessAsync( task, includeTaskDetails:null, cancellationToken );
+        }
+
         public async Task<IStockDeliveryInfoFinishedProcessState> StartProcessAsync(    StockDeliveryInfoRequestTask task,
-                                                                                        bool includeTaskDetails,
+                                                                                        bool? includeTaskDetails,
                                                                                         CancellationToken cancellationToken = default   )
         {
             StockDeliveryInfoRequest request = this.CreateRequest( task, includeTaskDetails );

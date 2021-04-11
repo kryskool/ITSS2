@@ -49,7 +49,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice
                                     SubscriberId destination,
                                     IEnumerable<ArticlePriceRequestArticle> articles   )
         :
-            this( id, source, destination, articles, null )
+            this( id, source, destination, articles, currency:null )
         {
         }
 

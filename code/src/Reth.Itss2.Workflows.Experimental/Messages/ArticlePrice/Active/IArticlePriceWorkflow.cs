@@ -26,7 +26,11 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Active
 {
     public interface IArticlePriceWorkflow:IWorkflow
     {
+        IArticlePriceFinishedProcessState StartProcess( IEnumerable<ArticlePriceRequestArticle> articles );
         IArticlePriceFinishedProcessState StartProcess( IEnumerable<ArticlePriceRequestArticle> articles, Iso4217Code? currency );
+
+        Task<IArticlePriceFinishedProcessState> StartProcessAsync(  IEnumerable<ArticlePriceRequestArticle> articles,
+                                                                    CancellationToken cancellationToken = default   );
 
         Task<IArticlePriceFinishedProcessState> StartProcessAsync(  IEnumerable<ArticlePriceRequestArticle> articles,
                                                                     Iso4217Code? currency,

@@ -32,7 +32,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Status.Active
         {
         }
 
-        private StatusRequest CreateRequest( bool includeDetails )
+        private StatusRequest CreateRequest( bool? includeDetails )
         {
             return this.CreateRequest(  (   MessageId messageId,
                                             SubscriberId localSubscriberId,
@@ -45,7 +45,12 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Status.Active
                                         }   );
         }
 
-        public IStatusFinishedProcessState StartProcess( bool includeDetails )
+        public IStatusFinishedProcessState StartProcess()
+        {
+            return this.StartProcess( includeDetails:null );
+        }
+
+        public IStatusFinishedProcessState StartProcess( bool? includeDetails )
         {
             StatusRequest request = this.CreateRequest( includeDetails );
 
@@ -58,7 +63,12 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Status.Active
             return new StatusFinishedProcessState( request, response );
         }
 
-        public async Task<IStatusFinishedProcessState> StartProcessAsync( bool includeDetails, CancellationToken cancellationToken = default )
+        public Task<IStatusFinishedProcessState> StartProcessAsync( CancellationToken cancellationToken = default )
+        {
+            return this.StartProcessAsync( includeDetails:null, cancellationToken );
+        }
+
+        public async Task<IStatusFinishedProcessState> StartProcessAsync( bool? includeDetails, CancellationToken cancellationToken = default )
         {
             StatusRequest request = this.CreateRequest( includeDetails );
 

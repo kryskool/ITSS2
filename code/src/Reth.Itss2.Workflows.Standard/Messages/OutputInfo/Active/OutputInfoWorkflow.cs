@@ -32,7 +32,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.OutputInfo.Active
         {
         }
 
-        private OutputInfoRequest CreateRequest( OutputInfoRequestTask task, bool includeTaskDetails )
+        private OutputInfoRequest CreateRequest( OutputInfoRequestTask task, bool? includeTaskDetails )
         {
             return this.CreateRequest(  (   MessageId messageId,
                                             SubscriberId localSubscriberId,
@@ -46,7 +46,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.OutputInfo.Active
                                         }   );
         }
 
-        public IOutputInfoFinishedProcessState StartProcess( OutputInfoRequestTask task, bool includeTaskDetails )
+        public IOutputInfoFinishedProcessState StartProcess( OutputInfoRequestTask task, bool? includeTaskDetails )
         {
             OutputInfoRequest request = this.CreateRequest( task, includeTaskDetails );
 
@@ -60,7 +60,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.OutputInfo.Active
         }
 
         public async Task<IOutputInfoFinishedProcessState> StartProcessAsync(   OutputInfoRequestTask task,
-                                                                                bool includeTaskDetails,
+                                                                                bool? includeTaskDetails,
                                                                                 CancellationToken cancellationToken = default   )
         {
             OutputInfoRequest request = this.CreateRequest( task, includeTaskDetails );

@@ -23,10 +23,10 @@ namespace Reth.Itss2.Workflows.Standard.Messages.OutputInfo.Active
 {
     public interface IOutputInfoWorkflow:IWorkflow
     {
-        IOutputInfoFinishedProcessState StartProcess( OutputInfoRequestTask task, bool includeTaskDetails );
+        IOutputInfoFinishedProcessState StartProcess( OutputInfoRequestTask task, bool? includeTaskDetails );
                 
         Task<IOutputInfoFinishedProcessState> StartProcessAsync(    OutputInfoRequestTask task,
-                                                                    bool includeTaskDetails,
+                                                                    bool? includeTaskDetails,
                                                                     CancellationToken cancellationToken = default   );
     }
 }

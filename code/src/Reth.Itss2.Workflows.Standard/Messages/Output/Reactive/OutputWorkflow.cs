@@ -92,20 +92,8 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
         }
 
         public void NotifyManualOutput( OutputMessageDetails details,
-                                        IEnumerable<OutputArticle> articles    )
-        {
-            OutputMessage message = this.CreateMessage( details, articles, boxes:null );
-
-            this.SendMessage(   message,
-                                () =>
-                                {
-                                    this.Dialog.SendMessage( message );
-                                }   );
-        }
-
-        public void NotifyManualOutput( OutputMessageDetails details,
                                         IEnumerable<OutputArticle> articles,
-                                        IEnumerable<OutputBox> boxes    )
+                                        IEnumerable<OutputBox>? boxes    )
         {
             OutputMessage message = this.CreateMessage( details, articles, boxes );
 
@@ -118,20 +106,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
 
         public Task NotifyManualOutputAsync(    OutputMessageDetails details,
                                                 IEnumerable<OutputArticle> articles,
-                                                CancellationToken cancellationToken = default   )
-        {
-            OutputMessage message = this.CreateMessage( details, articles, boxes:null );
-
-            return this.SendMessageAsync(   message,
-                                            () =>
-                                            {
-                                                return this.Dialog.SendMessageAsync( message, cancellationToken );
-                                            }   );
-        }
-
-        public Task NotifyManualOutputAsync(    OutputMessageDetails details,
-                                                IEnumerable<OutputArticle> articles,
-                                                IEnumerable<OutputBox> boxes,
+                                                IEnumerable<OutputBox>? boxes,
                                                 CancellationToken cancellationToken = default   )
         {
             OutputMessage message = this.CreateMessage( details, articles, boxes );

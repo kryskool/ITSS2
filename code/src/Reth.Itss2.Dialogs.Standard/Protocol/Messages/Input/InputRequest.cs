@@ -48,7 +48,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input
                                 SubscriberId destination,
                                 IEnumerable<InputRequestArticle> articles  )
         :
-            this( id, source, destination, articles, null, null )
+            this( id, source, destination, articles, isNewDelivery:null, setPickingIndicator:null )
         {
         }
 

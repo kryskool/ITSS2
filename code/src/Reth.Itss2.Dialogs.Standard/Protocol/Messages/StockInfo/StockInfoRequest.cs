@@ -55,18 +55,6 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo
 									SubscriberId source,
                                     SubscriberId destination,
                                     bool? includePacks,
-                                    bool? includeArticleDetails )
-        :
-            base( id, StandardDialogs.StockInfo, source, destination )
-        {
-            this.IncludePacks = includePacks;
-            this.IncludeArticleDetails = includeArticleDetails;
-        }
-
-        public StockInfoRequest(	MessageId id,
-									SubscriberId source,
-                                    SubscriberId destination,
-                                    bool? includePacks,
                                     bool? includeArticleDetails,
                                     IEnumerable<StockInfoRequestCriteria>? criterias )
         :

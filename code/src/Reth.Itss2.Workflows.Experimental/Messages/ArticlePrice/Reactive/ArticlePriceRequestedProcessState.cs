@@ -42,11 +42,21 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Reactive
             get;
         }
 
+        public void Finish( IEnumerable<ArticlePriceResponseArticle> articles )
+        {
+            this.Finish( articles, currency:null );
+        }
+
         public void Finish( IEnumerable<ArticlePriceResponseArticle> articles, Iso4217Code? currency )
         {
             this.OnStateChange();
 
             this.Workflow.SendResponse( new ArticlePriceResponse( this.Request, articles, currency ) );
+        }
+
+        public Task FinishAsync( IEnumerable<ArticlePriceResponseArticle> articles, CancellationToken cancellationToken = default )
+        {
+            return this.FinishAsync( articles, currency:null, cancellationToken );
         }
 
         public Task FinishAsync( IEnumerable<ArticlePriceResponseArticle> articles, Iso4217Code? currency, CancellationToken cancellationToken = default )

@@ -21,8 +21,10 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Status.Active
 {
     public interface IStatusWorkflow:IWorkflow
     {
-        IStatusFinishedProcessState StartProcess( bool includeDetails );
+        IStatusFinishedProcessState StartProcess();
+        IStatusFinishedProcessState StartProcess( bool? includeDetails );
                 
-        Task<IStatusFinishedProcessState> StartProcessAsync( bool includeDetails, CancellationToken cancellationToken = default );
+        Task<IStatusFinishedProcessState> StartProcessAsync( CancellationToken cancellationToken = default );
+        Task<IStatusFinishedProcessState> StartProcessAsync( bool? includeDetails, CancellationToken cancellationToken = default );
     }
 }

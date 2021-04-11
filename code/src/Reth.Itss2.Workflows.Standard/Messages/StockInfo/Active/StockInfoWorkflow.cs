@@ -43,9 +43,9 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockInfo.Active
             this.StockChanged?.Invoke( this, e );
         }
 
-        private StockInfoRequest CreateRequest( bool includePacks,
-                                                bool includeArticleDetails,
-                                                IEnumerable<StockInfoRequestCriteria> criterias )
+        private StockInfoRequest CreateRequest( bool? includePacks,
+                                                bool? includeArticleDetails,
+                                                IEnumerable<StockInfoRequestCriteria>? criterias )
         {
             return this.CreateRequest(  (   MessageId messageId,
                                             SubscriberId localSubscriberId,
@@ -60,15 +60,16 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockInfo.Active
                                         }   );
         }
 
-        public IStockInfoFinishedProcessState StartProcess( bool includePacks,
-                                                            bool includeArticleDetails  )
+        public IStockInfoFinishedProcessState StartProcess()
         {
-            return this.StartProcess( includePacks, includeArticleDetails, new StockInfoRequestCriteria[]{} );
+            return this.StartProcess(   includePacks:null,
+                                        includeArticleDetails:null,
+                                        criterias:null  );
         }
 
-        public IStockInfoFinishedProcessState StartProcess( bool includePacks,
-                                                            bool includeArticleDetails,
-                                                            IEnumerable<StockInfoRequestCriteria> criterias )
+        public IStockInfoFinishedProcessState StartProcess( bool? includePacks,
+                                                            bool? includeArticleDetails,
+                                                            IEnumerable<StockInfoRequestCriteria>? criterias )
         {
             StockInfoRequest request = this.CreateRequest( includePacks, includeArticleDetails, criterias );
 
@@ -81,16 +82,17 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockInfo.Active
             return new StockInfoFinishedProcessState( request, response );
         }
 
-        public Task<IStockInfoFinishedProcessState> StartProcessAsync(  bool includePacks,
-                                                                        bool includeArticleDetails,
-                                                                        CancellationToken cancellationToken = default   )
+        public Task<IStockInfoFinishedProcessState> StartProcessAsync( CancellationToken cancellationToken = default )
         {
-            return this.StartProcessAsync( includePacks, includeArticleDetails, new StockInfoRequestCriteria[]{}, cancellationToken );
+            return this.StartProcessAsync(  includePacks:null,
+                                            includeArticleDetails:null,
+                                            criterias:null,
+                                            cancellationToken   );
         }
 
-        public async Task<IStockInfoFinishedProcessState> StartProcessAsync(    bool includePacks,
-                                                                                bool includeArticleDetails,
-                                                                                IEnumerable<StockInfoRequestCriteria> criterias,
+        public async Task<IStockInfoFinishedProcessState> StartProcessAsync(    bool? includePacks,
+                                                                                bool? includeArticleDetails,
+                                                                                IEnumerable<StockInfoRequestCriteria>? criterias,
                                                                                 CancellationToken cancellationToken = default   )
         {
             StockInfoRequest request = this.CreateRequest( includePacks, includeArticleDetails, criterias );

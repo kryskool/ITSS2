@@ -29,19 +29,12 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
         event EventHandler<ProcessStartedEventArgs<IOutputRequestedProcessState>>? ProcessStarted;
 
         void NotifyManualOutput(    OutputMessageDetails details,
-                                    IEnumerable<OutputArticle> articles );
-
-        void NotifyManualOutput(    OutputMessageDetails details,
                                     IEnumerable<OutputArticle> articles,
-                                    IEnumerable<OutputBox> boxes   );
+                                    IEnumerable<OutputBox>? boxes   );
 
         Task NotifyManualOutputAsync(   OutputMessageDetails details,
                                         IEnumerable<OutputArticle> articles,
-                                        CancellationToken cancellationToken = default );
-
-        Task NotifyManualOutputAsync(   OutputMessageDetails details,
-                                        IEnumerable<OutputArticle> articles,
-                                        IEnumerable<OutputBox> boxes,
+                                        IEnumerable<OutputBox>? boxes,
                                         CancellationToken cancellationToken = default );
     }
 }

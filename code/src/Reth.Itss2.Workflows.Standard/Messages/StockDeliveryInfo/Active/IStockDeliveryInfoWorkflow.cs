@@ -23,10 +23,14 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliveryInfo.Active
 {
     public interface IStockDeliveryInfoWorkflow:IWorkflow
     {
-        IStockDeliveryInfoFinishedProcessState StartProcess( StockDeliveryInfoRequestTask task, bool includeTaskDetails );
+        IStockDeliveryInfoFinishedProcessState StartProcess( StockDeliveryInfoRequestTask task );
+        IStockDeliveryInfoFinishedProcessState StartProcess( StockDeliveryInfoRequestTask task, bool? includeTaskDetails );
                 
         Task<IStockDeliveryInfoFinishedProcessState> StartProcessAsync( StockDeliveryInfoRequestTask task,
-                                                                        bool includeTaskDetails,
+                                                                        CancellationToken cancellationToken = default   );
+
+        Task<IStockDeliveryInfoFinishedProcessState> StartProcessAsync( StockDeliveryInfoRequestTask task,
+                                                                        bool? includeTaskDetails,
                                                                         CancellationToken cancellationToken = default   );
     }
 }

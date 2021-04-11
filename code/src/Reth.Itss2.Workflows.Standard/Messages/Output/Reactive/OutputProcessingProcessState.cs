@@ -38,14 +38,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
             this.SendMessage( OutputMessageStatus.Completed, articles:null, boxes:null );
         }
 
-        public void Complete( IEnumerable<OutputArticle> articles )
-        {
-            this.OnStateChange();
-
-            this.SendMessage( OutputMessageStatus.Completed, articles, boxes:null );
-        }
-
-        public void Complete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes )
+        public void Complete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes )
         {
             this.OnStateChange();
 
@@ -59,14 +52,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
             return this.SendMessageAsync( OutputMessageStatus.Completed, articles:null, boxes:null, cancellationToken );
         }
 
-        public Task CompleteAsync( IEnumerable<OutputArticle> articles, CancellationToken cancellationToken = default )
-        {
-            this.OnStateChange();
-
-            return this.SendMessageAsync( OutputMessageStatus.Completed, articles, boxes:null, cancellationToken );
-        }
-
-        public Task CompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes, CancellationToken cancellationToken = default )
+        public Task CompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes, CancellationToken cancellationToken = default )
         {
             this.OnStateChange();
 
@@ -80,14 +66,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
             this.SendMessage( OutputMessageStatus.Incomplete, articles:null, boxes:null );
         }
 
-        public void Incomplete( IEnumerable<OutputArticle> articles )
-        {
-            this.OnStateChange();
-
-            this.SendMessage( OutputMessageStatus.Incomplete, articles, boxes:null );
-        }
-
-        public void Incomplete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes )
+        public void Incomplete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes )
         {
             this.OnStateChange();
 
@@ -101,42 +80,21 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
             return this.SendMessageAsync( OutputMessageStatus.Incomplete, articles:null, boxes:null, cancellationToken );
         }
 
-        public Task IncompleteAsync( IEnumerable<OutputArticle> articles, CancellationToken cancellationToken = default )
-        {
-            this.OnStateChange();
-
-            return this.SendMessageAsync( OutputMessageStatus.Incomplete, articles, boxes:null, cancellationToken );
-        }
-
-        public Task IncompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes, CancellationToken cancellationToken = default )
+        public Task IncompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes, CancellationToken cancellationToken = default )
         {
             this.OnStateChange();
 
             return this.SendMessageAsync( OutputMessageStatus.Incomplete, articles, boxes, cancellationToken );
         }
 
-        public void PartialDispense( IEnumerable<OutputArticle> articles )
-        {
-            this.Validate();
-
-            this.SendMessage( OutputMessageStatus.PartialDispense, articles, boxes:null );
-        }
-
-        public void PartialDispense( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes )
+        public void PartialDispense( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes )
         {
             this.Validate();
 
             this.SendMessage( OutputMessageStatus.PartialDispense, articles, boxes );
         }
 
-        public Task PartialDispenseAsync( IEnumerable<OutputArticle> articles, CancellationToken cancellationToken = default )
-        {
-            this.Validate();
-
-            return this.SendMessageAsync( OutputMessageStatus.PartialDispense, articles, boxes:null, cancellationToken );
-        }
-
-        public Task PartialDispenseAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes, CancellationToken cancellationToken = default )
+        public Task PartialDispenseAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes, CancellationToken cancellationToken = default )
         {
             this.Validate();
 

@@ -48,9 +48,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
                                 SubscriberId destination,
                                 OutputMessageDetails details    )
         :
-            base( id, StandardDialogs.Output, source, destination )
+            this( id, source, destination, details, articles:null, boxes:null )
         {
-            this.Details = details;
         }
 
         public OutputMessage(   MessageId id,
@@ -78,7 +77,12 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
         public OutputMessage(   OutputRequest request,
                                 OutputMessageDetails details    )
         :
-            this( request.Id, request.Destination, request.Source, details )
+            this(   request.Id,
+                    request.Destination,
+                    request.Source,
+                    details,
+                    articles:null,
+                    boxes:null  )
         {
         }
 
@@ -87,7 +91,12 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
                                 IEnumerable<OutputArticle>? articles,
                                 IEnumerable<OutputBox>? boxes    )
         :
-            this( request.Id, request.Destination, request.Source, details, articles, boxes )
+            this(   request.Id,
+                    request.Destination,
+                    request.Source,
+                    details,
+                    articles,
+                    boxes   )
         {
         }
 

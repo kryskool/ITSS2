@@ -29,19 +29,12 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
         event EventHandler<MessageReceivedEventArgs<OutputMessage>>? ManualOutputFinished;
 
         IOutputStartedProcessState StartProcess(    OutputRequestDetails details,
-                                                    IEnumerable<OutputCriteria> criterias   );
-
-        IOutputStartedProcessState StartProcess(    OutputRequestDetails details,
                                                     IEnumerable<OutputCriteria> criterias,
-                                                    String boxNumber   );
+                                                    String? boxNumber   );
 
         Task<IOutputStartedProcessState> StartProcessAsync( OutputRequestDetails details,
                                                             IEnumerable<OutputCriteria> criterias,
-                                                            CancellationToken cancellationToken = default   );
-
-        Task<IOutputStartedProcessState> StartProcessAsync( OutputRequestDetails details,
-                                                            IEnumerable<OutputCriteria> criterias,
-                                                            String boxNumber,
+                                                            String? boxNumber,
                                                             CancellationToken cancellationToken = default   );
     }
 }

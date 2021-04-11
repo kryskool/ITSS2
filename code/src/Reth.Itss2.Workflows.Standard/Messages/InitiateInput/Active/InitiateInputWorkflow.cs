@@ -35,8 +35,8 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 
         private InitiateInputRequest CreateRequest( InitiateInputRequestDetails details,
                                                     IEnumerable<InitiateInputRequestArticle> articles,
-                                                    bool isNewDelivery,
-                                                    bool setPickingIndicator    )
+                                                    bool? isNewDelivery,
+                                                    bool? setPickingIndicator    )
         {
             return this.CreateRequest(  (   MessageId messageId,
                                             SubscriberId localSubscriberId,
@@ -55,13 +55,13 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
         public IInitiateInputStartedProcessState StartProcess(  InitiateInputRequestDetails details,
                                                                 IEnumerable<InitiateInputRequestArticle> articles   )
         {
-            return this.StartProcess( details, articles, isNewDelivery:false, setPickingIndicator:false );
+            return this.StartProcess( details, articles, isNewDelivery:null, setPickingIndicator:null );
         }
 
         public IInitiateInputStartedProcessState StartProcess(  InitiateInputRequestDetails details,
                                                                 IEnumerable<InitiateInputRequestArticle> articles,
-                                                                bool isNewDelivery,
-                                                                bool setPickingIndicator    )
+                                                                bool? isNewDelivery,
+                                                                bool? setPickingIndicator    )
         {
             InitiateInputRequest request = this.CreateRequest( details, articles, isNewDelivery, setPickingIndicator );
 
@@ -78,13 +78,13 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
                                                                             IEnumerable<InitiateInputRequestArticle> articles,
                                                                             CancellationToken cancellationToken = default   )
         {
-            return this.StartProcessAsync( details, articles, isNewDelivery:false, setPickingIndicator:false, cancellationToken );
+            return this.StartProcessAsync( details, articles, isNewDelivery:null, setPickingIndicator:null, cancellationToken );
         }
 
         public async Task<IInitiateInputStartedProcessState> StartProcessAsync( InitiateInputRequestDetails details,
                                                                                 IEnumerable<InitiateInputRequestArticle> articles,
-                                                                                bool isNewDelivery,
-                                                                                bool setPickingIndicator,
+                                                                                bool? isNewDelivery,
+                                                                                bool? setPickingIndicator,
                                                                                 CancellationToken cancellationToken = default   )
         {
             InitiateInputRequest request = this.CreateRequest( details, articles, isNewDelivery, setPickingIndicator );

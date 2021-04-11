@@ -28,20 +28,17 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockInfo.Active
     {
         event EventHandler<MessageReceivedEventArgs<StockInfoMessage>>? StockChanged;
 
-        IStockInfoFinishedProcessState StartProcess(    bool includePacks,
-                                                        bool includeArticleDetails  );
+        IStockInfoFinishedProcessState StartProcess();
 
-        IStockInfoFinishedProcessState StartProcess(    bool includePacks,
-                                                        bool includeArticleDetails,
-                                                        IEnumerable<StockInfoRequestCriteria> criterias );
+        IStockInfoFinishedProcessState StartProcess(    bool? includePacks,
+                                                        bool? includeArticleDetails,
+                                                        IEnumerable<StockInfoRequestCriteria>? criterias );
                 
-        Task<IStockInfoFinishedProcessState> StartProcessAsync( bool includePacks,
-                                                                bool includeArticleDetails,
-                                                                CancellationToken cancellationToken = default   );
+        Task<IStockInfoFinishedProcessState> StartProcessAsync( CancellationToken cancellationToken = default );
 
-        Task<IStockInfoFinishedProcessState> StartProcessAsync( bool includePacks,
-                                                                bool includeArticleDetails,
-                                                                IEnumerable<StockInfoRequestCriteria> criterias,
+        Task<IStockInfoFinishedProcessState> StartProcessAsync( bool? includePacks,
+                                                                bool? includeArticleDetails,
+                                                                IEnumerable<StockInfoRequestCriteria>? criterias,
                                                                 CancellationToken cancellationToken = default   );
     }
 }

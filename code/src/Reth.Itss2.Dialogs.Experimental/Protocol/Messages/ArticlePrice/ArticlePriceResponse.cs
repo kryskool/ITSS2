@@ -67,23 +67,20 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice
         }
 
         public ArticlePriceResponse(    ArticlePriceRequest request,
-                                        IEnumerable<ArticlePriceResponseArticle>? articles )
+                                        IEnumerable<ArticlePriceResponseArticle> articles )
         :
-            this( request, articles, null )
+            this( request, articles, currency:null )
         {
         }
 
         public ArticlePriceResponse(    ArticlePriceRequest request,
-                                        IEnumerable<ArticlePriceResponseArticle>? articles,
+                                        IEnumerable<ArticlePriceResponseArticle> articles,
                                         Iso4217Code? currency    )
         :
             base( request )
         {
-            if( articles is not null )
-            {
-                this.Articles.AddRange( articles );
-            }
-
+            this.Articles.AddRange( articles );
+            
             this.Currency = currency;
         }
 

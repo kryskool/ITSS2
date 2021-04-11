@@ -50,7 +50,13 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput
                                         InitiateInputResponseDetails details,
                                         IEnumerable<InitiateInputResponseArticle> articles  )
         :
-            this( id, source, destination, details, articles, isNewDelivery:null, setPickingIndicator:null )
+            this(   id,
+                    source,
+                    destination,
+                    details,
+                    articles,
+                    isNewDelivery:null,
+                    setPickingIndicator:null    )
         {
         }
 

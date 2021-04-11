@@ -30,25 +30,19 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Reactive
         Task<IOutputAbortingProcessState> AbortingAsync( CancellationToken cancellationToken = default );
 
         void Complete();
-        void Complete( IEnumerable<OutputArticle> articles );
-        void Complete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes );
+        void Complete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes );
 
         Task CompleteAsync( CancellationToken cancellationToken = default );
-        Task CompleteAsync( IEnumerable<OutputArticle> articles, CancellationToken cancellationToken = default );
-        Task CompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes, CancellationToken cancellationToken = default );
+        Task CompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes, CancellationToken cancellationToken = default );
 
         void Incomplete();
-        void Incomplete( IEnumerable<OutputArticle> articles );
-        void Incomplete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes );
+        void Incomplete( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes );
 
         Task IncompleteAsync( CancellationToken cancellationToken = default );
-        Task IncompleteAsync( IEnumerable<OutputArticle> articles, CancellationToken cancellationToken = default );
-        Task IncompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes, CancellationToken cancellationToken = default );
+        Task IncompleteAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes, CancellationToken cancellationToken = default );
 
-        void PartialDispense( IEnumerable<OutputArticle> articles );
-        void PartialDispense( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes );
+        void PartialDispense( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes );
 
-        Task PartialDispenseAsync( IEnumerable<OutputArticle> articles, CancellationToken cancellationToken = default );
-        Task PartialDispenseAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox> boxes, CancellationToken cancellationToken = default );
+        Task PartialDispenseAsync( IEnumerable<OutputArticle> articles, IEnumerable<OutputBox>? boxes, CancellationToken cancellationToken = default );
     }
 }

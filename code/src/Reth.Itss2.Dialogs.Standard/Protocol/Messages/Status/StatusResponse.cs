@@ -72,7 +72,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status
         public StatusResponse(  StatusRequest request,
                                 ComponentState state    )
         :
-            this( request, state, null, null )
+            this( request, state, stateText:null, components:null )
         {
         }
 

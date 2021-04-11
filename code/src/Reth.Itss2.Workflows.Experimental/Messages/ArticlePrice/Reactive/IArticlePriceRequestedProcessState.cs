@@ -28,8 +28,11 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Reactive
     {
         ArticlePriceRequest Request{ get; }
 
-        void Finish(    IEnumerable<ArticlePriceResponseArticle> articles,
-                        Iso4217Code? currency   );
+        void Finish( IEnumerable<ArticlePriceResponseArticle> articles );
+        void Finish( IEnumerable<ArticlePriceResponseArticle> articles, Iso4217Code? currency );
+
+        Task FinishAsync(   IEnumerable<ArticlePriceResponseArticle> articles,
+                            CancellationToken cancellationToken = default   );
 
         Task FinishAsync(   IEnumerable<ArticlePriceResponseArticle> articles,
                             Iso4217Code? currency,
