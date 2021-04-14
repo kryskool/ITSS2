@@ -141,7 +141,7 @@ namespace Reth.Itss2.Workflows.Standard
                                             subscriberInfo.GetRemoteSubscriber().Id );
         }
 
-        protected TResponse SendRequest<TRequest, TResponse>( TRequest request, Func<TResponse> sendRequestCallback )
+        public TResponse SendRequest<TRequest, TResponse>( TRequest request, Func<TResponse> sendRequestCallback )
             where TRequest:IRequest
             where TResponse:IResponse
         {
@@ -151,7 +151,7 @@ namespace Reth.Itss2.Workflows.Standard
             return sendRequestCallback();
         }
 
-        protected Task<TResponse> SendRequestAsync<TRequest, TResponse>(    TRequest request,
+        public Task<TResponse> SendRequestAsync<TRequest, TResponse>(    TRequest request,
                                                                             Func<Task<TResponse>> sendRequestCallback   )
             where TRequest:IRequest
             where TResponse:IResponse
@@ -162,20 +162,20 @@ namespace Reth.Itss2.Workflows.Standard
             return sendRequestCallback();
         }
 
-        protected void SendResponse<TResponse>( TResponse response, Action sendResponseCallback )
+        public void SendResponse<TResponse>( TResponse response, Action sendResponseCallback )
             where TResponse:IResponse
         {
             this.SendMessage( response, sendResponseCallback );
         }
 
-        protected Task SendResponseAsync<TResponse>(    TResponse response,
+        public Task SendResponseAsync<TResponse>(    TResponse response,
                                                         Func<Task> sendResponseCallback   )
             where TResponse:IResponse
         {
             return this.SendMessageAsync( response, sendResponseCallback );
         }
 
-        protected void SendMessage<TMessage>( TMessage message, Action sendMessageCallback )
+        public void SendMessage<TMessage>( TMessage message, Action sendMessageCallback )
             where TMessage:IMessage
         {
             this.CheckHandshake();
@@ -184,8 +184,8 @@ namespace Reth.Itss2.Workflows.Standard
             sendMessageCallback();
         }
 
-        protected Task SendMessageAsync<TMessage>(  TMessage message,
-                                                    Func<Task> sendMessageCallback   )
+        public Task SendMessageAsync<TMessage>(  TMessage message,
+                                                 Func<Task> sendMessageCallback   )
             where TMessage:IMessage
         {
             this.CheckHandshake();

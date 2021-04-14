@@ -25,6 +25,8 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
     public abstract class Dialog:IDialog
     {
+        public event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
+
         protected Dialog( String name, IDialogProvider dialogProvider )
         {
             this.Name = name;
@@ -107,7 +109,14 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
             if( dispatchee is not null )
             {
-                callback( dispatchee );
+                MessageDispatchingEventArgs eventArgs = new MessageDispatchingEventArgs( dispatchee, this.DialogProvider );
+
+                this.MessageDispatching?.Invoke( this, eventArgs );
+
+                if( eventArgs.Cancel == false )
+                {
+                    callback( dispatchee );
+                }
             }
         }
     }

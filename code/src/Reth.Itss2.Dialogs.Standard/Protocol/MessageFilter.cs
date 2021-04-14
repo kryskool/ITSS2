@@ -1,4 +1,4 @@
-// Implementation of the WWKS2 protocol.
+﻿// Implementation of the WWKS2 protocol.
 // Copyright (C) 2020  Thomas Reth
 
 // This program is free software: you can redistribute it and/or modify
@@ -14,18 +14,25 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
-    public interface IDialog
+    public class MessageFilter:IMessageFilter
     {
-        event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
+        public MessageFilter( MessageId messageId )
+        {
+            this.MessageId = messageId;
+        }
 
-        String Name{ get; }
+        public MessageId MessageId
+        {
+            get;
+        }
 
-        IDialogProvider DialogProvider{ get; }
-
-        void Connect( IMessageTransmitter messageTransmitter );
+        public bool Intercept( IMessage message )
+        {
+            return this.MessageId == message.Id;
+        }
     }
 }

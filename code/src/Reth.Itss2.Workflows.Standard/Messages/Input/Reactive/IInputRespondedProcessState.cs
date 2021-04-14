@@ -14,17 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
 {
-    public interface IInputRespondedProcessState
+    public interface IInputRespondedProcessState:IProcessState
     {
-        event EventHandler<MessageReceivedEventArgs<InputMessage>>? InputFinished;
-
         InputRequest Request{ get; }
         InputResponse Response{ get; }
     }

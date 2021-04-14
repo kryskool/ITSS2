@@ -14,17 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
 {
-    public interface IOutputStartedProcessState
+    public interface IOutputStartedProcessState:IProcessState
     {
-        event EventHandler<MessageReceivedEventArgs<OutputMessage>>? OutputProgress;
-
         OutputRequest Request{ get; }
         OutputResponse Response{ get; }
     }

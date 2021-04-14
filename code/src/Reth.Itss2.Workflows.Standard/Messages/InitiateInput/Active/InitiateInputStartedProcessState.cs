@@ -23,18 +23,35 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 {
     public class InitiateInputStartedProcessState:ProcessState, IInitiateInputStartedProcessState
     {
-        public event EventHandler<MessageReceivedEventArgs<InitiateInputMessage>>? InitiateInputFinished;
+        private bool isDisposed;
 
-        public InitiateInputStartedProcessState( InitiateInputWorkflow workflow, InitiateInputRequest request, InitiateInputResponse response )
+        public InitiateInputStartedProcessState(    InitiateInputWorkflow workflow,
+                                                    InitiateInputRequest request,
+                                                    Action<MessageReceivedEventArgs<InitiateInputMessage>> initiateInputFinishedCallback  )
         {
             this.Workflow = workflow;
             this.Request = request;
-            this.Response = response;
 
-            this.Workflow.Dialog.MessageReceived += this.Dialog_MessageReceived;
+            this.Interceptor = new MessageInterceptor<InitiateInputMessage>(    this.Workflow.Dialog,
+                                                                                new MessageFilter( this.Request.Id ),
+                                                                                ( MessageReceivedEventArgs<InitiateInputMessage> e ) =>
+                                                                                {
+                                                                                    initiateInputFinishedCallback( e );
+                                                                                }   );
+            
+            this.Response = this.Workflow.SendRequest(  this.Request,
+                                                        () =>
+                                                        {
+                                                            return this.Workflow.Dialog.SendRequest( request );
+                                                        }   );
         }
 
         private InitiateInputWorkflow Workflow
+        {
+            get;
+        }
+
+        private MessageInterceptor<InitiateInputMessage> Interceptor
         {
             get;
         }
@@ -49,11 +66,18 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
             get;
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<InitiateInputMessage> e )
+        protected override void Dispose( bool disposing )
         {
-            if( e.Message.Id.Equals( this.Request.Id ) == true )
+            base.Dispose( disposing );
+
+            if( this.isDisposed == false )
             {
-                this.InitiateInputFinished?.Invoke( this, e );
+                if( disposing == true )
+                {
+                    this.Interceptor.Dispose();
+                }
+
+                this.isDisposed = true;
             }
         }
     }

@@ -55,43 +55,37 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
                                         }   );
         }
 
-        public IOutputStartedProcessState StartProcess( OutputRequestDetails details,
-                                                        IEnumerable<OutputCriteria> criterias,
-                                                        String? boxNumber    )
+        public IOutputCreatedProcessState CreateProcess(    OutputRequestDetails details,
+                                                            IEnumerable<OutputCriteria> criterias,
+                                                            String? boxNumber    )
         {
-            OutputRequest request = this.CreateRequest( details, criterias, boxNumber );
+            OutputRequest request = this.CreateRequest( details, criterias, boxNumber );           
 
-            OutputResponse response = this.SendRequest(  request,
-                                                        () =>
-                                                        {
-                                                            return this.Dialog.SendRequest( request );
-                                                        }   );
-
-            return new OutputStartedProcessState( this, request, response );
+            return new OutputCreatedProcessState( this, request );
         }
 
-        public async Task<IOutputStartedProcessState> StartProcessAsync(    OutputRequestDetails details,
-                                                                            IEnumerable<OutputCriteria> criterias,
-                                                                            String? boxNumber,
-                                                                            CancellationToken cancellationToken = default   )
+        public Task<IOutputCreatedProcessState> CreateProcessAsync( OutputRequestDetails details,
+                                                                    IEnumerable<OutputCriteria> criterias,
+                                                                    String? boxNumber,
+                                                                    CancellationToken cancellationToken = default   )
         {
             OutputRequest request = this.CreateRequest( details, criterias, boxNumber );
 
-            OutputResponse response = await this.SendRequestAsync(  request,
-                                                                    () =>
-                                                                    {
-                                                                        return this.Dialog.SendRequestAsync( request, cancellationToken );
-                                                                    }   ).ConfigureAwait( continueOnCapturedContext:false );
-
-            return new OutputStartedProcessState( this, request, response );
+            return Task.FromResult<IOutputCreatedProcessState>( new OutputCreatedProcessState( this, request ) );
         }
 
         private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<OutputMessage> e )
         {
-            if( e.Message.Id.Equals( ManualOutput.DefaultId ) == true )
-            {
-                this.ManualOutputFinished?.Invoke( this, e );
-            }
+            OutputMessage message = e.Message;
+
+            this.OnMessageReceived( message,
+                                    () =>
+                                    {
+                                        if( e.Message.Id.Equals( ManualOutput.DefaultId ) == true )
+                                        {
+                                            this.ManualOutputFinished?.Invoke( this, e );
+                                        }
+                                    }   );
         }
     }
 }

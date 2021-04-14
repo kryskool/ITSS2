@@ -28,13 +28,13 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
     {
         event EventHandler<MessageReceivedEventArgs<OutputMessage>>? ManualOutputFinished;
 
-        IOutputStartedProcessState StartProcess(    OutputRequestDetails details,
+        IOutputCreatedProcessState CreateProcess(   OutputRequestDetails details,
                                                     IEnumerable<OutputCriteria> criterias,
                                                     String? boxNumber   );
 
-        Task<IOutputStartedProcessState> StartProcessAsync( OutputRequestDetails details,
-                                                            IEnumerable<OutputCriteria> criterias,
-                                                            String? boxNumber,
-                                                            CancellationToken cancellationToken = default   );
+        Task<IOutputCreatedProcessState> CreateProcessAsync(    OutputRequestDetails details,
+                                                                IEnumerable<OutputCriteria> criterias,
+                                                                String? boxNumber,
+                                                                CancellationToken cancellationToken = default   );
     }
 }

@@ -24,19 +24,19 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 {
     public interface IInitiateInputWorkflow:IWorkflow
     {
-        IInitiateInputStartedProcessState StartProcess( InitiateInputRequestDetails details,
-                                                        IEnumerable<InitiateInputRequestArticle> articles );
+        IInitiateInputCreatedProcessState CreateProcess(    InitiateInputRequestDetails details,
+                                                            IEnumerable<InitiateInputRequestArticle> articles );
 
-        IInitiateInputStartedProcessState StartProcess( InitiateInputRequestDetails details,
-                                                        IEnumerable<InitiateInputRequestArticle> articles,
-                                                        bool? isNewDelivery,
-                                                        bool? setPickingIndicator   );
+        IInitiateInputCreatedProcessState CreateProcess(    InitiateInputRequestDetails details,
+                                                            IEnumerable<InitiateInputRequestArticle> articles,
+                                                            bool? isNewDelivery,
+                                                            bool? setPickingIndicator   );
         
-        Task<IInitiateInputStartedProcessState> StartProcessAsync(  InitiateInputRequestDetails details,
+        Task<IInitiateInputCreatedProcessState> CreateProcessAsync( InitiateInputRequestDetails details,
                                                                     IEnumerable<InitiateInputRequestArticle> articles,
                                                                     CancellationToken cancellationToken = default   );
 
-        Task<IInitiateInputStartedProcessState> StartProcessAsync(  InitiateInputRequestDetails details,
+        Task<IInitiateInputCreatedProcessState> CreateProcessAsync( InitiateInputRequestDetails details,
                                                                     IEnumerable<InitiateInputRequestArticle> articles,
                                                                     bool? isNewDelivery,
                                                                     bool? setPickingIndicator,

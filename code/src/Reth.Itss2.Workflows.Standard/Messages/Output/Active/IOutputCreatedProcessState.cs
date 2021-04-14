@@ -1,4 +1,4 @@
-// Implementation of the WWKS2 protocol.
+﻿// Implementation of the WWKS2 protocol.
 // Copyright (C) 2020  Thomas Reth
 
 // This program is free software: you can redistribute it and/or modify
@@ -15,17 +15,20 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Reth.Itss2.Dialogs.Standard.Protocol
+using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
+
+namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
 {
-    public interface IDialog
+    public interface IOutputCreatedProcessState:IProcessState
     {
-        event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
+        OutputRequest Request{ get; }
+        
+        IOutputStartedProcessState StartProcess( Action<MessageReceivedEventArgs<OutputMessage>> outputProgressCallback );
 
-        String Name{ get; }
-
-        IDialogProvider DialogProvider{ get; }
-
-        void Connect( IMessageTransmitter messageTransmitter );
+        Task<IOutputStartedProcessState> StartProcessAsync( Action<MessageReceivedEventArgs<OutputMessage>> outputProgressCallback, CancellationToken cancellationToken = default );
     }
 }

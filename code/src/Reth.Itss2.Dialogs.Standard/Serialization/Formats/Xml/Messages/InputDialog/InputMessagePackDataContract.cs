@@ -57,7 +57,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Input
         [XmlAttribute]
         public String Id{ get; set; } = String.Empty;
 
-        [XmlAttribute]
+        [XmlElement]
         public InputMessagePackHandlingDataContract Handling{ get; set; }
 
         [XmlAttribute]

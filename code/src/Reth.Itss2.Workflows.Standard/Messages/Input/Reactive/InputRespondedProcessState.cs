@@ -23,18 +23,37 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
 {
     internal class InputRespondedProcessState:ProcessState, IInputRespondedProcessState
     {
-        public event EventHandler<MessageReceivedEventArgs<InputMessage>>? InputFinished;
+        private bool isDisposed;
 
-        public InputRespondedProcessState( InputWorkflow workflow, InputRequest request, InputResponse response )
+        public InputRespondedProcessState(  InputWorkflow workflow,
+                                            InputRequest request,
+                                            InputResponse response,
+                                            Action<MessageReceivedEventArgs<InputMessage>> inputFinishedCallback  )
         {
             this.Workflow = workflow;
             this.Request = request;
             this.Response = response;
+            
+            this.Interceptor = new MessageInterceptor<InputMessage>(    this.Workflow.Dialog,
+                                                                        new MessageFilter( this.Request.Id ),
+                                                                        ( MessageReceivedEventArgs<InputMessage> e ) =>
+                                                                        {
+                                                                            inputFinishedCallback( e );
+                                                                        }   );
 
-            this.Workflow.Dialog.MessageReceived += this.Dialog_MessageReceived;
+            this.Workflow.SendResponse( this.Response,
+                                        () =>
+                                        {
+                                            this.Workflow.Dialog.SendResponse( response );
+                                        }   );
         }
 
         private InputWorkflow Workflow
+        {
+            get;
+        }
+
+        private MessageInterceptor<InputMessage> Interceptor
         {
             get;
         }
@@ -49,11 +68,18 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
             get;
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<InputMessage> e )
+        protected override void Dispose( bool disposing )
         {
-            if( e.Message.Id.Equals( this.Request.Id ) == true )
+            base.Dispose( disposing );
+
+            if( this.isDisposed == false )
             {
-                this.InputFinished?.Invoke( this, e );
+                if( disposing == true )
+                {
+                    this.Interceptor.Dispose();
+                }
+
+                this.isDisposed = true;
             }
         }
     }

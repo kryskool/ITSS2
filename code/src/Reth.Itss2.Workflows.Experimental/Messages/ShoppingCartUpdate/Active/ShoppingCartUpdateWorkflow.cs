@@ -39,11 +39,6 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
             dialog.MessageReceived += this.Dialog_MessageReceived;
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<ShoppingCartUpdateMessage> e )
-        {
-            this.ContentChanged?.Invoke( this, e );
-        }
-
         private ShoppingCartUpdateRequest CreateRequest( ShoppingCartContent shoppingCart )
         {
             return this.CreateRequest(  (   MessageId messageId,
@@ -61,11 +56,11 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
         {
             ShoppingCartUpdateRequest request = this.CreateRequest( shoppingCart );
 
-            ShoppingCartUpdateResponse response = this.SendRequest(    request,
-                                                                () =>
-                                                                {
-                                                                    return this.Dialog.SendRequest( request );
-                                                                }   );
+            ShoppingCartUpdateResponse response = this.SendRequest( request,
+                                                                    () =>
+                                                                    {
+                                                                        return this.Dialog.SendRequest( request );
+                                                                    }   );
 
             return new ShoppingCartUpdateFinishedProcessState( request, response );
         }
@@ -81,6 +76,17 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
                                                                                 }   ).ConfigureAwait( continueOnCapturedContext:false );
 
             return new ShoppingCartUpdateFinishedProcessState( request, response );
+        }
+
+        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<ShoppingCartUpdateMessage> e )
+        {
+            ShoppingCartUpdateMessage message = e.Message;
+
+            this.OnMessageReceived( message,
+                                    () =>
+                                    {
+                                        this.ContentChanged?.Invoke( this, e );
+                                    }   );
         }
     }
 }

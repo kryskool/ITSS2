@@ -52,50 +52,38 @@ namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
                                         }   );
         }
 
-        public IInitiateInputStartedProcessState StartProcess(  InitiateInputRequestDetails details,
+        public IInitiateInputCreatedProcessState CreateProcess(  InitiateInputRequestDetails details,
                                                                 IEnumerable<InitiateInputRequestArticle> articles   )
         {
-            return this.StartProcess( details, articles, isNewDelivery:null, setPickingIndicator:null );
+            return this.CreateProcess( details, articles, isNewDelivery:null, setPickingIndicator:null );
         }
 
-        public IInitiateInputStartedProcessState StartProcess(  InitiateInputRequestDetails details,
+        public IInitiateInputCreatedProcessState CreateProcess( InitiateInputRequestDetails details,
                                                                 IEnumerable<InitiateInputRequestArticle> articles,
                                                                 bool? isNewDelivery,
                                                                 bool? setPickingIndicator    )
         {
             InitiateInputRequest request = this.CreateRequest( details, articles, isNewDelivery, setPickingIndicator );
 
-            InitiateInputResponse response = this.SendRequest(  request,
-                                                                () =>
-                                                                {
-                                                                    return this.Dialog.SendRequest( request );
-                                                                }   );
-
-            return new InitiateInputStartedProcessState( this, request, response );
+            return new InitiateInputCreatedProcessState( this, request );
         }
 
-        public Task<IInitiateInputStartedProcessState> StartProcessAsync(   InitiateInputRequestDetails details,
+        public Task<IInitiateInputCreatedProcessState> CreateProcessAsync(  InitiateInputRequestDetails details,
                                                                             IEnumerable<InitiateInputRequestArticle> articles,
                                                                             CancellationToken cancellationToken = default   )
         {
-            return this.StartProcessAsync( details, articles, isNewDelivery:null, setPickingIndicator:null, cancellationToken );
+            return this.CreateProcessAsync( details, articles, isNewDelivery:null, setPickingIndicator:null, cancellationToken );
         }
 
-        public async Task<IInitiateInputStartedProcessState> StartProcessAsync( InitiateInputRequestDetails details,
-                                                                                IEnumerable<InitiateInputRequestArticle> articles,
-                                                                                bool? isNewDelivery,
-                                                                                bool? setPickingIndicator,
-                                                                                CancellationToken cancellationToken = default   )
+        public Task<IInitiateInputCreatedProcessState> CreateProcessAsync(  InitiateInputRequestDetails details,
+                                                                            IEnumerable<InitiateInputRequestArticle> articles,
+                                                                            bool? isNewDelivery,
+                                                                            bool? setPickingIndicator,
+                                                                            CancellationToken cancellationToken = default   )
         {
             InitiateInputRequest request = this.CreateRequest( details, articles, isNewDelivery, setPickingIndicator );
 
-            InitiateInputResponse response = await this.SendRequestAsync(   request,
-                                                                            () =>
-                                                                            {
-                                                                                return this.Dialog.SendRequestAsync( request, cancellationToken );
-                                                                            }   ).ConfigureAwait( continueOnCapturedContext:false );
-
-            return new InitiateInputStartedProcessState( this, request, response );
+            return Task.FromResult<IInitiateInputCreatedProcessState>( new InitiateInputCreatedProcessState( this, request ) );
         }
     }
 }

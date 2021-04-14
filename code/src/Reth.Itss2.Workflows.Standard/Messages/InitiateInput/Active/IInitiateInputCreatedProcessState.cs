@@ -15,24 +15,20 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput;
 
-namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
+namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 {
-    public interface IInputRequestedProcessState:IProcessState
+    public interface IInitiateInputCreatedProcessState:IProcessState
     {
-        InputRequest Request{ get; }
+        InitiateInputRequest Request{ get; }
 
-        IInputRespondedProcessState Respond(    Action<MessageReceivedEventArgs<InputMessage>> inputFinishedCallback,
-                                                IEnumerable<InputResponseArticle> articles  );
+        IInitiateInputStartedProcessState StartProcess( Action<MessageReceivedEventArgs<InitiateInputMessage>> initiateInputFinishedCallback );
 
-        Task<IInputRespondedProcessState> RespondAsync( Action<MessageReceivedEventArgs<InputMessage>> inputFinishedCallback,
-                                                        IEnumerable<InputResponseArticle> articles,
-                                                        CancellationToken cancellationToken = default   );
+        Task<IInitiateInputStartedProcessState> StartProcessAsync( Action<MessageReceivedEventArgs<InitiateInputMessage>> initiateInputFinishedCallback, CancellationToken cancellationToken = default );
     }
 }

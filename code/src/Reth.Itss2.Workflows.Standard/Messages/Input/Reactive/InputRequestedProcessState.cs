@@ -14,10 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
@@ -40,26 +42,25 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
             get;
         }
 
-        public IInputRespondedProcessState Respond( IEnumerable<InputResponseArticle> articles )
+        public IInputRespondedProcessState Respond( Action<MessageReceivedEventArgs<InputMessage>> inputFinishedCallback,
+                                                    IEnumerable<InputResponseArticle> articles  )
         {
             this.OnStateChange();
 
             InputResponse response = new InputResponse( this.Request, articles );
 
-            this.Workflow.SendResponse( response );
-
-            return new InputRespondedProcessState( this.Workflow, this.Request, response );
+            return new InputRespondedProcessState( this.Workflow, this.Request, response, inputFinishedCallback );
         }
 
-        public async Task<IInputRespondedProcessState> RespondAsync( IEnumerable<InputResponseArticle> articles, CancellationToken cancellationToken = default )
+        public Task<IInputRespondedProcessState> RespondAsync(  Action<MessageReceivedEventArgs<InputMessage>> inputFinishedCallback,
+                                                                IEnumerable<InputResponseArticle> articles,
+                                                                CancellationToken cancellationToken = default   )
         {
             this.OnStateChange();
 
             InputResponse response = new InputResponse( this.Request, articles );
 
-            await this.Workflow.SendResponseAsync( response, cancellationToken );
-
-            return new InputRespondedProcessState( this.Workflow, this.Request, response );
+            return Task.FromResult<IInputRespondedProcessState>( new InputRespondedProcessState( this.Workflow, this.Request, response, inputFinishedCallback ) );
         }
     }
 }

@@ -14,9 +14,11 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
+
 namespace Reth.Itss2.Workflows.Standard
 {
-    public interface IProcessState
+    public interface IProcessState:IDisposable
     {
     }
 }

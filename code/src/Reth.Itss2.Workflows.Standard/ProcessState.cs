@@ -26,6 +26,11 @@ namespace Reth.Itss2.Workflows.Standard
         {
         }
 
+        ~ProcessState()
+        {
+            this.Dispose( false );
+        }
+
         private Object SyncRoot
         {
             get;
@@ -55,6 +60,17 @@ namespace Reth.Itss2.Workflows.Standard
                     throw Assert.Exception( new InvalidOperationException( "Invalid process state." ) );
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            this.Dispose( true );
+
+            GC.SuppressFinalize( this );
+        }
+
+        protected virtual void Dispose( bool disposing )
+        {
         }
     }
 }

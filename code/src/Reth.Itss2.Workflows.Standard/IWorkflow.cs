@@ -23,5 +23,6 @@ namespace Reth.Itss2.Workflows.Standard
     public interface IWorkflow:IDisposable
     {
         event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+        event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
     }
 }

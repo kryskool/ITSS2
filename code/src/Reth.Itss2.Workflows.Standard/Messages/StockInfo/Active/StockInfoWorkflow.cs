@@ -40,7 +40,13 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockInfo.Active
 
         private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<StockInfoMessage> e )
         {
-            this.StockChanged?.Invoke( this, e );
+            StockInfoMessage message = e.Message;
+
+            this.OnMessageReceived( message,
+                                    () =>
+                                    {
+                                        this.StockChanged?.Invoke( this, e );
+                                    }   );
         }
 
         private StockInfoRequest CreateRequest( bool? includePacks,

@@ -16,54 +16,58 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Dialogs.Standard.Protocol
 {
-    public abstract class Workflow<TDialog>:IWorkflow
-        where TDialog:IDialog
+    public class MessageInterceptor<TMessage>:IDisposable
+        where TMessage:IMessage
     {
-        public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
-        public event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
-
         private bool isDisposed;
 
-        protected Workflow( TDialog dialog, ISubscription subscription )
+        public MessageInterceptor(  IDialog dialog,
+                                    IMessageFilter filter,
+                                    Action<MessageReceivedEventArgs<TMessage>> callback )
         {
             this.Dialog = dialog;
-            this.Subscription = subscription;
-
             this.Dialog.MessageDispatching += this.Dialog_MessageDispatching;
+
+            this.Filter = filter;
+            this.Callback = callback;
         }
 
-        ~Workflow()
+        private IDialog Dialog
+        {
+            get;
+        }
+
+        private IMessageFilter Filter
+        {
+            get;
+        }
+
+        private Action<MessageReceivedEventArgs<TMessage>> Callback
+        {
+            get;
+        }
+
+        ~MessageInterceptor()
         {
             this.Dispose( false );
         }
 
-        public TDialog Dialog
-        {
-            get;
-        }
-
-        public ISubscription Subscription
-        {
-            get;
-        }
-
-        protected virtual void OnMessageProcessingError( MessageProcessingErrorEventArgs e )
-        {
-            this.MessageProcessingError?.Invoke( this, e );
-        }
-
-        protected virtual void OnMessageDispatching( MessageDispatchingEventArgs e )
-        {
-            this.MessageDispatching?.Invoke( this, e );
-        }
-
         private void Dialog_MessageDispatching( Object sender, MessageDispatchingEventArgs e )
         {
-            this.OnMessageDispatching( e );
+            if( this.Filter.Intercept( e.Message ) == true )
+            {
+                try
+                {
+                    this.Callback( new MessageReceivedEventArgs<TMessage>( ( TMessage )e.Message, e.DialogProvider ) );
+                }finally
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         public void Dispose()
@@ -77,7 +81,7 @@ namespace Reth.Itss2.Workflows.Standard
         {
             if( this.isDisposed == false )
             {
-                this.Dialog.MessageDispatching += this.Dialog_MessageDispatching;
+                this.Dialog.MessageDispatching -= this.Dialog_MessageDispatching;
 
                 this.isDisposed = true;
             }

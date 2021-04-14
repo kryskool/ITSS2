@@ -17,25 +17,41 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
 {
     public class OutputStartedProcessState:ProcessState, IOutputStartedProcessState
     {
-        public event EventHandler<MessageReceivedEventArgs<OutputMessage>>? OutputProgress;
+        private bool isDisposed;
 
-        public OutputStartedProcessState( OutputWorkflow workflow, OutputRequest request, OutputResponse response )
+        public OutputStartedProcessState(   OutputWorkflow workflow,
+                                            OutputRequest request,
+                                            Action<MessageReceivedEventArgs<OutputMessage>> outputProgressCallback )
         {
             this.Workflow = workflow;
             this.Request = request;
-            this.Response = response;
-
-            this.Workflow.Dialog.MessageReceived += this.Dialog_MessageReceived;
+            
+            this.Interceptor = new MessageInterceptor<OutputMessage>(   this.Workflow.Dialog,
+                                                                        new MessageFilter( this.Request.Id ),
+                                                                        ( MessageReceivedEventArgs<OutputMessage> e ) =>
+                                                                        {
+                                                                            outputProgressCallback( e );
+                                                                        }   );
+            
+            this.Response = this.Workflow.SendRequest(  this.Request,
+                                                        () =>
+                                                        {
+                                                            return this.Workflow.Dialog.SendRequest( request );
+                                                        }   );
         }
 
         private OutputWorkflow Workflow
+        {
+            get;
+        }
+
+        private MessageInterceptor<OutputMessage> Interceptor
         {
             get;
         }
@@ -50,14 +66,18 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
             get;
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<OutputMessage> e )
+        protected override void Dispose( bool disposing )
         {
-            MessageId messageId = e.Message.Id;
+            base.Dispose( disposing );
 
-            if( messageId.Equals( ManualOutput.DefaultId ) == false &&
-                messageId.Equals( this.Request.Id ) == true )
+            if( this.isDisposed == false )
             {
-                this.OutputProgress?.Invoke( this, e );
+                if( disposing == true )
+                {
+                    this.Interceptor.Dispose();
+                }
+
+                this.isDisposed = true;
             }
         }
     }

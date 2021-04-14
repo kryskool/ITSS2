@@ -14,17 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 {
     public interface IInitiateInputStartedProcessState:IProcessState
     {
-        event EventHandler<MessageReceivedEventArgs<InitiateInputMessage>>? InitiateInputFinished;
-
         InitiateInputRequest Request{ get; }
         InitiateInputResponse Response{ get; }
     }

@@ -47,7 +47,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Input
             this.Weight = TypeConverter.Int32.ConvertNullableFrom( dataObject.Weight );
         }
 
-        [XmlAttribute]
+        [XmlElement]
         public InputResponsePackHandlingDataContract Handling{ get; set; }
 
         [XmlAttribute]
