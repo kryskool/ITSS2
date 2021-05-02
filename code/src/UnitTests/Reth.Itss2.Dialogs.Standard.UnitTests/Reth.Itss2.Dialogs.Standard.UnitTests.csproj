@@ -32,8 +32,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SpecFlow" Version="3.5.14" />
-    <PackageReference Include="SpecFlow.MsTest" Version="3.5.14" />
     <PackageReference Include="XMLDiffPatch" Version="1.0.8.28" />
   </ItemGroup>
 

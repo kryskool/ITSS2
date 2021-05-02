@@ -17,12 +17,12 @@
 using System;
 using System.Buffers;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
+using System.Threading;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -84,29 +84,39 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
 
                 List<String> actualMessages = new List<String>();
 
-                observerMock.Setup( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ) ).Callback(     ( ReadOnlySequence<byte> token ) =>
-                                                                                                        {
-                                                                                                            String message = XmlSerializationSettings.Encoding.GetString( token.ToArray() );
-
-                                                                                                            actualMessages.Add( message );
-                                                                                                        }   );
-
-                using( IDisposable subscription = tokenizer.Subscribe( observerMock.Object ) )
+                using( ManualResetEventSlim sync = new ManualResetEventSlim() )
                 {
-                    // Number of calls depends on buffer size.
-                    observerMock.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.Exactly( this.Messages.Count ) );
+                    observerMock.Setup( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ) ).Callback(     ( ReadOnlySequence<byte> token ) =>
+                                                                                                            {
+                                                                                                                String message = XmlSerializationSettings.Encoding.GetString( token.ToArray() );
 
-                    Assert.AreEqual( actualMessages.Count, this.Messages.Count );
+                                                                                                                actualMessages.Add( message );
+                                                                                                            }   );
 
-                    for( int i = 0; i < actualMessages.Count; i++ )
+                    observerMock.Setup( x => x.OnCompleted() ).Callback(    () =>
+                                                                            {
+                                                                                sync.Set();
+                                                                            }   );
+
+                    using( IDisposable subscription = tokenizer.Subscribe( observerMock.Object ) )
                     {
-                        String expected = this.Messages[ i ];
-                        String actual = actualMessages[ i ];
+                        sync.Wait();
 
-                        XmlComparer.AreEqual( expected, actual );
+                        // Number of calls depends on buffer size.
+                        observerMock.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.Exactly( this.Messages.Count ) );
+
+                        Assert.AreEqual( actualMessages.Count, this.Messages.Count );
+
+                        for( int i = 0; i < actualMessages.Count; i++ )
+                        {
+                            String expected = this.Messages[ i ];
+                            String actual = actualMessages[ i ];
+
+                            XmlComparer.AreEqual( expected, actual );
+                        }
+
+                        Assert.IsNotNull( subscription );
                     }
-
-                    Assert.IsNotNull( subscription );
                 }
             }
         }

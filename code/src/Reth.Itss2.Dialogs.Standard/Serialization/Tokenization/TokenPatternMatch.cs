@@ -41,7 +41,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Tokenization
 
         public static ITokenPatternMatch? GetFirstMatch( IEnumerable<ITokenPatternMatch?> matches )
         {
-            return  matches.Aggregate(  null,
+            return  matches.Aggregate(  seed:null,
                                         ( ITokenPatternMatch? firstOccurence, ITokenPatternMatch? item ) =>
                                         {
                                             ITokenPatternMatch? result = firstOccurence;

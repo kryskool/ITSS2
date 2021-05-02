@@ -39,6 +39,35 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
         {
         }
 
+        public override String GetMessageName( String message )
+        {
+            String result = String.Empty;
+
+            if( String.IsNullOrEmpty( message ) == false )
+            {
+                Match match = Regex.Match( message, $@"^\s*\{{\s*\""(?<{ JsonMessageParser.GroupName }>[a-zA-Z]+)\""\:", RegexOptions.IgnoreCase );
+
+                if( match.Success == true )
+                {
+                    Group messageNameGroup = match.Groups[ JsonMessageParser.GroupName ];
+
+                    if( messageNameGroup.Success == true )
+                    {
+                        result = messageNameGroup.Value;
+                    }
+                }
+            }
+
+            bool messageTypeFound = !( String.IsNullOrEmpty( result ) );
+
+            if( messageTypeFound == false )
+            {
+                throw Assert.Exception( new MessageNotSupportedException( $"Determination of message name failed." ) );
+            }
+
+            return result;
+        }
+
         private MessageSerializationException GetDeserializationException( String messageEnvelope, Exception? innerException )
         {
             String message = $"Deserialization of message (truncated) '{ messageEnvelope.Truncate() }' failed.";
@@ -127,35 +156,6 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
             {
                 throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ message }' failed.", ex ) );
             }
-        }
-
-        private String GetMessageName( String message )
-        {
-            String result = String.Empty;
-
-            if( String.IsNullOrEmpty( message ) == false )
-            {
-                Match match = Regex.Match( message, $@"^\s*\{{\s*\""(?<{ JsonMessageParser.GroupName }>[a-zA-Z]+)\""\:", RegexOptions.IgnoreCase );
-
-                if( match.Success == true )
-                {
-                    Group messageNameGroup = match.Groups[ JsonMessageParser.GroupName ];
-
-                    if( messageNameGroup.Success == true )
-                    {
-                        result = messageNameGroup.Value;
-                    }
-                }
-            }
-
-            bool messageTypeFound = !( String.IsNullOrEmpty( result ) );
-
-            if( messageTypeFound == false )
-            {
-                throw Assert.Exception( new MessageNotSupportedException( $"Determination of message name failed." ) );
-            }
-
-            return result;
         }
     }
 }

@@ -17,14 +17,13 @@
 using System;
 using System.Xml;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.XmlDiffPatch;
 
-namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokenization
+namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
 {
     public static class XmlComparer
     {
-        public static void AreEqual( String expected, String actual )
+        public static bool AreEqual( String expected, String actual )
         {
             XmlDiff xmlDiff = new XmlDiff( XmlDiffOptions.IgnoreChildOrder );
 
@@ -34,7 +33,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
             expectedDocument.LoadXml( expected );
             actualDocument.LoadXml( actual );
             
-            Assert.IsTrue( xmlDiff.Compare( expectedDocument, actualDocument ) );
+            return xmlDiff.Compare( expectedDocument, actualDocument );
         }
     }
 }

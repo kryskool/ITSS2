@@ -17,6 +17,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -43,6 +44,41 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
         {
             get;
         } = new XmlSerializerNamespaces( new[]{ XmlQualifiedName.Empty } );
+
+        public override String GetMessageName( String message )
+        {
+            String result = String.Empty;
+
+            if( String.IsNullOrEmpty( message ) == false )
+            {
+                Regex regex = new Regex( @"^\s*(\<WWKS.+\>)?(?(1)\s*\<([a-zA-Z]+)|\<([a-zA-Z]+))\s+" );
+
+                Match match = regex.Match( message );
+
+                if( match.Success == true )
+                {
+                    Group messageNameWithEnvelope = match.Groups[ 2 ];
+                    Group messageNameWithoutEnvelope = match.Groups[ 3 ];
+
+                    if( messageNameWithEnvelope.Success == true )
+                    {
+                        result = messageNameWithEnvelope.Value;
+                    } else if( messageNameWithoutEnvelope.Success == true )
+                    {
+                        result = messageNameWithoutEnvelope.Value;
+                    }
+                }
+            }
+
+            bool messageTypeFound = !( String.IsNullOrEmpty( result ) );
+
+            if( messageTypeFound == false )
+            {
+                throw Assert.Exception( new MessageNotSupportedException( $"Determination of message name failed." ) );
+            }
+
+            return result;
+        }
 
         public override IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope )
         {
@@ -142,37 +178,6 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
             }
 
             return result.ToString();
-        }
-
-        private String GetMessageName( String message )
-        {
-            String result = String.Empty;
-
-            if( String.IsNullOrEmpty( message ) == false )
-            {
-                int indexOfNameStart = ( message.IndexOf( "<", 1,StringComparison.InvariantCultureIgnoreCase ) + 1 );
-
-                if( indexOfNameStart > 0 )
-                {
-                    int indexOfNameEnd = message.IndexOf( " ", indexOfNameStart, StringComparison.InvariantCultureIgnoreCase );
-
-                    if( indexOfNameEnd >= 0 )
-                    {
-                        int lengthOfName = indexOfNameEnd - indexOfNameStart;
-
-                        result = message.Substring( indexOfNameStart, lengthOfName );
-                    }
-                }
-            }
-
-            bool messageTypeFound = !( String.IsNullOrEmpty( result ) );
-
-            if( messageTypeFound == false )
-            {
-                throw Assert.Exception( new MessageNotSupportedException( $"Determination of message name failed." ) );
-            }
-
-            return result;
         }
     }
 }
