@@ -25,11 +25,13 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
     [TestClass]
     public class XmlMessageParserTests
     {
-        [DataRow( "KeepAliveRequest", @"    <WWKS Version=""2.0"" TimeStamp=""2021-05-02T20:58:03Z"">
-                                                <KeepAliveRequest Id=""10"" Source=""100"" Destination=""999"" />
-                                            </WWKS>" )]
-        [DataRow( "KeepAliveRequest", @"<WWKS Version=""2.0"" TimeStamp=""2021-05-02T20:58:03Z""><KeepAliveRequest Id=""10"" Source=""100"" Destination=""999"" /></WWKS>" )]
-        [DataRow( "KeepAliveRequest", @"<KeepAliveRequest Id=""10"" Source=""100"" Destination=""999"" />" )]
+        private const string ExpectedMessageName = "KeepAliveRequest";
+
+        [DataRow( XmlMessageParserTests.ExpectedMessageName, $@"<WWKS Version=""2.0"" TimeStamp=""2021-05-02T20:58:03Z"">
+                                                                    <{ XmlMessageParserTests.ExpectedMessageName } Id=""10"" Source=""100"" Destination=""999"" />
+                                                                </WWKS>" )]
+        [DataRow( XmlMessageParserTests.ExpectedMessageName, $@"<WWKS Version=""2.0"" TimeStamp=""2021-05-02T20:58:03Z""><{ XmlMessageParserTests.ExpectedMessageName } Id=""10"" Source=""100"" Destination=""999"" /></WWKS>" )]
+        [DataRow( XmlMessageParserTests.ExpectedMessageName, $@"<{ XmlMessageParserTests.ExpectedMessageName } Id=""10"" Source=""100"" Destination=""999"" />" )]
         [DataTestMethod]
         public void GetMessageName_FromMessageWithOrWithoutEnvelope_Succeeds( String expectedMessageName, String message )
         {

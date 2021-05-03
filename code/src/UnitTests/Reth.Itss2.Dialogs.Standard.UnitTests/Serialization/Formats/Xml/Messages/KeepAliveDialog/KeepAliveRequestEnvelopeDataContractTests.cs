@@ -26,18 +26,46 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
     [TestClass]
     public class KeepAliveRequestEnvelopeDataContractTests:XmlMessageTests
     {
-        public static readonly ( String Xml, IMessageEnvelope Object ) Request = (  @"  <WWKS Version=""2.0"" TimeStamp=""2021-05-02T20:58:03Z"">
-                                                                                            <KeepAliveRequest Id=""10"" Source=""100"" Destination=""999"" />
-                                                                                        </WWKS>",
-                                                                                    new MessageEnvelope(    new KeepAliveRequest(   new MessageId( "10" ),
-                                                                                                                                    SubscriberId.DefaultIMS,
-                                                                                                                                    SubscriberId.DefaultRobot   ),
-                                                                                                            MessageEnvelopeTimestamp.Parse( "2021-05-02T20:58:03Z" )    ) );
+        public static ( String Xml, IMessageEnvelope Object ) Request
+        {
+            get
+            {
+                return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
+                                    <KeepAliveRequest Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"" />
+                                </WWKS>",
+                            new MessageEnvelope(    new KeepAliveRequest(   XmlMessageTests.MessageId,
+                                                                            XmlMessageTests.Source,
+                                                                            XmlMessageTests.Destination   ),
+                                                    XmlMessageTests.Timestamp    ) );
+            }
+        }
+
+        public static ( String Xml, IMessageEnvelope Object ) Response
+        {
+            get
+            {
+                return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
+                                    <KeepAliveResponse Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"" />
+                                </WWKS>",
+                            new MessageEnvelope(    new KeepAliveResponse(  XmlMessageTests.MessageId,
+                                                                            XmlMessageTests.Source,
+                                                                            XmlMessageTests.Destination   ),
+                                                    XmlMessageTests.Timestamp    ) );
+            }
+        }
 
         [TestMethod]
         public void Serialize_Request_Succeeds()
         {
-            bool result = base.SerializeRequest( KeepAliveRequestEnvelopeDataContractTests.Request );
+            bool result = base.SerializeMessage( KeepAliveRequestEnvelopeDataContractTests.Request );
+
+            Assert.IsTrue( result );
+        }
+
+        [TestMethod]
+        public void Serialize_Response_Succeeds()
+        {
+            bool result = base.SerializeMessage( KeepAliveRequestEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }
@@ -45,7 +73,15 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         [TestMethod]
         public void Deserialize_Request_Succeeds()
         {
-            bool result = base.DeserializeRequest( KeepAliveRequestEnvelopeDataContractTests.Request );
+            bool result = base.DeserializeMessage( KeepAliveRequestEnvelopeDataContractTests.Request );
+
+            Assert.IsTrue( result );
+        }
+
+        [TestMethod]
+        public void Deserialize_Response_Succeeds()
+        {
+            bool result = base.DeserializeMessage( KeepAliveRequestEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }

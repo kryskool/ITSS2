@@ -1,4 +1,4 @@
-// Implementation of the WWKS2 protocol.
+﻿// Implementation of the WWKS2 protocol.
 // Copyright (C) 2020  Thomas Reth
 
 // This program is free software: you can redistribute it and/or modify
@@ -20,34 +20,23 @@ using System.Buffers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
-using Reth.Itss2.Dialogs.Standard.Serialization.Tokenization;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Tokenization;
+using Reth.Itss2.Dialogs.Standard.Serialization.Tokenization;
+
+using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages.StockLocationInfoDialog;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokenization
 {
     [TestClass]
-    public class TokenReaderTest
+    public class XmlTokenReaderTests
     {
-        [TestInitialize]
-        public void Initialize()
-        {
-            Diagnostics.ExecutionLogProvider.Log = new Diagnostics.DebugExecutionLog();
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            Diagnostics.ExecutionLogProvider.Log.Dispose();
-        }
-
         [TestMethod]
-        public void TestReadWithSingleBlock()
+        public void Read_SingleChunkMessage_Succeeds()
         {
+            ITokenReader tokenReader = new XmlTokenReader();
             ITokenReaderState tokenReaderState = new XmlTokenReaderState();
 
-            ITokenReader tokenReader = new XmlTokenReader();
-
-            String expectedMessage = TestData.HelloRequest.Xml;
+            String expectedMessage = StockLocationInfoRequestEnvelopeDataContractTests.Response.Xml;
 
             ReadOnlySequence<byte> buffer = new ReadOnlySequence<byte>( XmlSerializationSettings.Encoding.GetBytes( expectedMessage ) );
 
@@ -61,24 +50,23 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
         }
 
         [TestMethod]
-        public void TestReadWithMultipleBlocks()
+        public void Read_MultipleChunkMessage_Succeeds()
         {
+            ITokenReader tokenReader = new XmlTokenReader();
             ITokenReaderState tokenReaderState = new XmlTokenReaderState();
 
-            ITokenReader tokenReader = new XmlTokenReader();
+            String expectedMessage = StockLocationInfoRequestEnvelopeDataContractTests.Response.Xml;
 
-            String expectedMessage = TestData.HelloRequest.Xml;
+            ( String Left, String Right ) messageBlocks = expectedMessage.Divide();
 
-            (String left, String right) messageBlocks = expectedMessage.Divide();
+            ReadOnlySequence<byte> firstChunk = new ReadOnlySequence<byte>( XmlSerializationSettings.Encoding.GetBytes( messageBlocks.Left ) );
+            ReadOnlySequence<byte> secondChunk = new ReadOnlySequence<byte>( XmlSerializationSettings.Encoding.GetBytes( messageBlocks.Left + messageBlocks.Right ) );
 
-            ReadOnlySequence<byte> firstBuffer = new ReadOnlySequence<byte>( XmlSerializationSettings.Encoding.GetBytes( messageBlocks.left ) );
-            ReadOnlySequence<byte> secondBuffer = new ReadOnlySequence<byte>( XmlSerializationSettings.Encoding.GetBytes( messageBlocks.left + messageBlocks.right ) );
-
-            bool firstReadResult = tokenReader.Read( ref tokenReaderState, ref firstBuffer, out _, out _ );
+            bool firstReadResult = tokenReader.Read( ref tokenReaderState, ref firstChunk, out _, out _ );
 
             Assert.IsFalse( firstReadResult );
 
-            bool secondReadResult = tokenReader.Read( ref tokenReaderState, ref secondBuffer, out ReadOnlySequence<byte> token, out _ );
+            bool secondReadResult = tokenReader.Read( ref tokenReaderState, ref secondChunk, out ReadOnlySequence<byte> token, out _ );
 
             Assert.IsTrue( secondReadResult );
 

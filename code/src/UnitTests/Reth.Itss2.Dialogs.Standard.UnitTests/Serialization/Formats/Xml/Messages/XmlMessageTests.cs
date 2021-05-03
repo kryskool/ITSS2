@@ -26,22 +26,27 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
     [TestClass]
     public abstract class XmlMessageTests
     {
-        protected bool SerializeRequest( ( String Xml, IMessageEnvelope Object ) request )
+        protected static readonly MessageEnvelopeTimestamp Timestamp = MessageEnvelopeTimestamp.Parse( "2021-05-02T20:58:03Z" );
+        protected static readonly MessageId MessageId = new( "10" );
+        protected static readonly SubscriberId Source = SubscriberId.DefaultIMS;
+        protected static readonly SubscriberId Destination = SubscriberId.DefaultRobot;
+
+        protected bool SerializeMessage( ( String Xml, IMessageEnvelope Object ) message )
         {
             XmlMessageParser parser = new XmlMessageParser( typeof( XmlSerializationProvider ) );
 
-            String actualXml = parser.SerializeMessageEnvelope( request.Object );
+            String actualXml = parser.SerializeMessageEnvelope( message.Object );
 
-            return XmlComparer.AreEqual( request.Xml, actualXml );
+            return XmlComparer.AreEqual( message.Xml, actualXml );
         }
 
-        protected bool DeserializeRequest( ( String Xml, IMessageEnvelope Object ) request )
+        protected bool DeserializeMessage( ( String Xml, IMessageEnvelope Object ) message )
         {
             XmlMessageParser parser = new XmlMessageParser( typeof( XmlSerializationProvider ) );
 
-            IMessageEnvelope actualObject = parser.DeserializeMessageEnvelope( request.Xml );
+            IMessageEnvelope actualObject = parser.DeserializeMessageEnvelope( message.Xml );
 
-            return request.Object.Equals( actualObject );
+            return message.Object.Equals( actualObject );
         }
     }
 }

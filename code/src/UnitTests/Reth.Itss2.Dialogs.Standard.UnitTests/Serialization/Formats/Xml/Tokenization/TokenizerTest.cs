@@ -126,20 +126,39 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
         {
             using( ITokenizer tokenizer = new XmlTokenizer( this.BaseStream, Diagnostics.NullInteractionLog.Instance, bufferSize:16, XmlSerializationSettings.MaximumMessageSize ) )
             {
-                Mock<IObserver<ReadOnlySequence<byte>>> observerMock1 = new Mock<IObserver<ReadOnlySequence<byte>>>();
-                Mock<IObserver<ReadOnlySequence<byte>>> observerMock2 = new Mock<IObserver<ReadOnlySequence<byte>>>();
+                Mock<IObserver<ReadOnlySequence<byte>>> observerMockFirst = new();
+                Mock<IObserver<ReadOnlySequence<byte>>> observerMockSecond = new();
 
-                IConnectableObservable<ReadOnlySequence<byte>> observable = (   from token in tokenizer
-                                                                                select token    ).Publish();
+                using( ManualResetEventSlim observerMockFirstSync = new ManualResetEventSlim() )
+                {
+                    using( ManualResetEventSlim observerMockSecondSync = new ManualResetEventSlim() )
+                    {
+                        observerMockFirst.Setup( x => x.OnCompleted() ).Callback(   () =>
+                                                                                    {
+                                                                                        observerMockFirstSync.Set();
+                                                                                    }   );
 
-                observable.Subscribe( observerMock1.Object );
-                observable.Subscribe( observerMock2.Object );
+                        observerMockSecond.Setup( x => x.OnCompleted() ).Callback(  () =>
+                                                                                    {
+                                                                                        observerMockSecondSync.Set();
+                                                                                    }   );
 
-                observable.Connect();
+                        IConnectableObservable<ReadOnlySequence<byte>> observable = (   from token in tokenizer
+                                                                                        select token    ).Publish();
 
-                // Number of calls depends on buffer size.
-                observerMock1.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
-                observerMock2.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
+                        observable.Subscribe( observerMockFirst.Object );
+                        observable.Subscribe( observerMockSecond.Object );
+
+                        observable.Connect();
+
+                        observerMockFirstSync.Wait();
+                        observerMockSecondSync.Wait();
+
+                        // Number of calls depends on buffer size.
+                        observerMockFirst.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
+                        observerMockSecond.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
+                    }
+                }
             }
         }
     }
