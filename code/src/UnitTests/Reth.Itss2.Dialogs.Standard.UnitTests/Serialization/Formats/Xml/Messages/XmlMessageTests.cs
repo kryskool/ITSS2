@@ -31,6 +31,12 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         protected static readonly SubscriberId Source = SubscriberId.DefaultIMS;
         protected static readonly SubscriberId Destination = SubscriberId.DefaultRobot;
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            Diagnostics.Assert.SetupForTestEnvironment();
+        }
+
         protected bool SerializeMessage( ( String Xml, IMessageEnvelope Object ) message )
         {
             XmlMessageParser parser = new XmlMessageParser( typeof( XmlSerializationProvider ) );

@@ -19,44 +19,44 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 
-namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages.TaskCancelOutputDialog
+namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages.ArticleMasterSetDialog
 {
     [TestClass]
-    public class TaskCancelOutputRequestEnvelopeDataContractTests:XmlMessageTests
+    public class ArticleMasterSetResponseEnvelopeDataContractTests:XmlMessageTests
     {
-        public static ( String Xml, IMessageEnvelope Object ) Request
+        public static ( String Xml, IMessageEnvelope Object ) Response
         {
             get
             {
-                MessageId taskId = new MessageId( "4711" );
+                ArticleMasterSetResult result = new( ArticleMasterSetResultValue.Accepted, "All articles accepted." );
 
                 return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
-                                    <TaskCancelOutputRequest Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"">
-                                        <Task Id=""{ taskId }"" />
-                                    </TaskCancelOutputRequest>
+                                    <ArticleMasterSetResponse Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"">
+                                        <SetResult Value=""{ result.Value }"" Text=""{ result.Text }"" />
+                                    </ArticleMasterSetResponse>
                                 </WWKS>",
-                            new MessageEnvelope(    new TaskCancelOutputRequest(    XmlMessageTests.MessageId,
+                            new MessageEnvelope(    new ArticleMasterSetResponse(   XmlMessageTests.MessageId,
                                                                                     XmlMessageTests.Source,
                                                                                     XmlMessageTests.Destination,
-                                                                                    new TaskCancelOutputRequestTask( taskId ) ),
-                                                    XmlMessageTests.Timestamp    )  );
+                                                                                    result  ),
+                                                    XmlMessageTests.Timestamp    ) );
             }
-        }   
+        }
 
         [TestMethod]
-        public void Serialize_Request_Succeeds()
+        public void Serialize_Response_Succeeds()
         {
-            bool result = base.SerializeMessage( TaskCancelOutputRequestEnvelopeDataContractTests.Request );
+            bool result = base.SerializeMessage( ArticleMasterSetResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }
 
         [TestMethod]
-        public void Deserialize_Request_Succeeds()
+        public void Deserialize_Response_Succeeds()
         {
-            bool result = base.DeserializeMessage( TaskCancelOutputRequestEnvelopeDataContractTests.Request );
+            bool result = base.DeserializeMessage( ArticleMasterSetResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }

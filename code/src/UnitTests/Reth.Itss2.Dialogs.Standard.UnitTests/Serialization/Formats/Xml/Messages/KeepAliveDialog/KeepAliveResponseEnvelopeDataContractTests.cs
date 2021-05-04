@@ -24,16 +24,16 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages.KeepAliveDialog
 {
     [TestClass]
-    public class KeepAliveRequestEnvelopeDataContractTests:XmlMessageTests
+    public class KeepAliveResponseEnvelopeDataContractTests:XmlMessageTests
     {
-        public static ( String Xml, IMessageEnvelope Object ) Request
+        public static ( String Xml, IMessageEnvelope Object ) Response
         {
             get
             {
                 return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
-                                    <KeepAliveRequest Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"" />
+                                    <KeepAliveResponse Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"" />
                                 </WWKS>",
-                            new MessageEnvelope(    new KeepAliveRequest(   XmlMessageTests.MessageId,
+                            new MessageEnvelope(    new KeepAliveResponse(  XmlMessageTests.MessageId,
                                                                             XmlMessageTests.Source,
                                                                             XmlMessageTests.Destination   ),
                                                     XmlMessageTests.Timestamp    ) );
@@ -41,17 +41,17 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         }
 
         [TestMethod]
-        public void Serialize_Request_Succeeds()
+        public void Serialize_Response_Succeeds()
         {
-            bool result = base.SerializeMessage( KeepAliveRequestEnvelopeDataContractTests.Request );
+            bool result = base.SerializeMessage( KeepAliveResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }
 
         [TestMethod]
-        public void Deserialize_Request_Succeeds()
+        public void Deserialize_Response_Succeeds()
         {
-            bool result = base.DeserializeMessage( KeepAliveRequestEnvelopeDataContractTests.Request );
+            bool result = base.DeserializeMessage( KeepAliveResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }

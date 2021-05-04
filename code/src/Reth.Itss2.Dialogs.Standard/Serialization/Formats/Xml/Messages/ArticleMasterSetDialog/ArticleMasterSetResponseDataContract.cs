@@ -36,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Article
             this.Result = TypeConverter.ConvertFromDataObject<ArticleMasterSetResult, ArticleMasterSetResultDataContract>( dataObject.Result );
         }
 
-        [XmlElement]
+        [XmlElement( ElementName = "SetResult" )]
         public ArticleMasterSetResultDataContract Result{ get; set; }
 
         public override ArticleMasterSetResponse GetDataObject()

@@ -36,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
             ITokenReader tokenReader = new XmlTokenReader();
             ITokenReaderState tokenReaderState = new XmlTokenReaderState();
 
-            String expectedMessage = StockLocationInfoRequestEnvelopeDataContractTests.Response.Xml;
+            String expectedMessage = StockLocationInfoResponseEnvelopeDataContractTests.Response.Xml;
 
             ReadOnlySequence<byte> buffer = new ReadOnlySequence<byte>( XmlSerializationSettings.Encoding.GetBytes( expectedMessage ) );
 
@@ -55,7 +55,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
             ITokenReader tokenReader = new XmlTokenReader();
             ITokenReaderState tokenReaderState = new XmlTokenReaderState();
 
-            String expectedMessage = StockLocationInfoRequestEnvelopeDataContractTests.Response.Xml;
+            String expectedMessage = StockLocationInfoResponseEnvelopeDataContractTests.Response.Xml;
 
             ( String Left, String Right ) messageBlocks = expectedMessage.Divide();
 

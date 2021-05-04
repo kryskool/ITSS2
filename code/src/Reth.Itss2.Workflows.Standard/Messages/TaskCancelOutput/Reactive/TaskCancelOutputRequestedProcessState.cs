@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,18 +40,18 @@ namespace Reth.Itss2.Workflows.Standard.Messages.TaskCancelOutput.Reactive
             get;
         }
 
-        public void Finish( TaskCancelOutputResponseTask task )
+        public void Finish( IEnumerable<TaskCancelOutputResponseTask> tasks )
         {
             this.OnStateChange();
 
-            this.Workflow.SendResponse( new TaskCancelOutputResponse( this.Request, task ) );
+            this.Workflow.SendResponse( new TaskCancelOutputResponse( this.Request, tasks ) );
         }
 
-        public Task FinishAsync( TaskCancelOutputResponseTask task, CancellationToken cancellationToken = default )
+        public Task FinishAsync( IEnumerable<TaskCancelOutputResponseTask> tasks, CancellationToken cancellationToken = default )
         {
             this.OnStateChange();
 
-            return this.Workflow.SendResponseAsync( new TaskCancelOutputResponse( this.Request, task ), cancellationToken );
+            return this.Workflow.SendResponseAsync( new TaskCancelOutputResponse( this.Request, tasks ), cancellationToken );
         }
     }
 }

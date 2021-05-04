@@ -40,34 +40,6 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
             }
         }   
 
-        public static ( String Xml, IMessageEnvelope Object ) Response
-        {
-            get
-            {
-                StockLocationId defaultLocationId = new StockLocationId( "4711" );
-                StockLocationId specialLocationId = new StockLocationId( "4712" );
-
-                String defaultLocationDescription = "Default";
-                String specialLocationDescription = "Special";
-
-                return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
-                                    <StockLocationInfoResponse Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"">
-                                        <StockLocation Id=""{ defaultLocationId }"" Description=""{ defaultLocationDescription }"" />
-                                        <StockLocation Id=""{ specialLocationId }"" Description=""{ specialLocationDescription }"" />
-                                    </StockLocationInfoResponse>
-                                </WWKS>",
-                            new MessageEnvelope(    new StockLocationInfoResponse(  XmlMessageTests.MessageId,
-                                                                                    XmlMessageTests.Source,
-                                                                                    XmlMessageTests.Destination,
-                                                                                    new StockLocation[]
-                                                                                    {
-                                                                                        new StockLocation( defaultLocationId, defaultLocationDescription ),
-                                                                                        new StockLocation( specialLocationId, specialLocationDescription )
-                                                                                    } ),
-                                                    XmlMessageTests.Timestamp    ) );
-            }
-        }
-
         [TestMethod]
         public void Serialize_Request_Succeeds()
         {
@@ -77,25 +49,9 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         }
 
         [TestMethod]
-        public void Serialize_Response_Succeeds()
-        {
-            bool result = base.SerializeMessage( StockLocationInfoRequestEnvelopeDataContractTests.Response );
-
-            Assert.IsTrue( result );
-        }
-
-        [TestMethod]
         public void Deserialize_Request_Succeeds()
         {
             bool result = base.DeserializeMessage( StockLocationInfoRequestEnvelopeDataContractTests.Request );
-
-            Assert.IsTrue( result );
-        }
-
-        [TestMethod]
-        public void Deserialize_Response_Succeeds()
-        {
-            bool result = base.DeserializeMessage( StockLocationInfoRequestEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }

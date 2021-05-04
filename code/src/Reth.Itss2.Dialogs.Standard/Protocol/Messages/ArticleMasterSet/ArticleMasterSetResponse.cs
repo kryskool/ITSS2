@@ -34,7 +34,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet
 		{
             bool result = SubscribedResponse.Equals( left, right );
 
-            result &= ( result ? ArticleMasterSetResult.Equals( left, right ) : false );
+            result &= ( result ? ArticleMasterSetResult.Equals( left?.Result, right?.Result ) : false );
 
             return result;
 		}

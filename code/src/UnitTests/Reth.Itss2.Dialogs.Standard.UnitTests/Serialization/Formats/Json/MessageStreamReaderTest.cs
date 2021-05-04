@@ -20,6 +20,7 @@ using System.IO;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
+using System.Threading;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -76,11 +77,21 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
             {
                 Mock<IObserver<IMessageEnvelope>> observerMock = new Mock<IObserver<IMessageEnvelope>>();
 
-                using( IDisposable subscription = streamReader.Subscribe( observerMock.Object ) )
+                using( ManualResetEventSlim sync = new() )
                 {
-                    observerMock.Verify( x => x.OnNext( It.IsAny<IMessageEnvelope>() ), Times.Exactly( this.Messages.Count ) );
+                    observerMock.Setup( x => x.OnCompleted() ).Callback(    () =>
+                                                                            {
+                                                                                sync.Set();
+                                                                            }   );
 
-                    Assert.IsNotNull( subscription );
+                    using( IDisposable subscription = streamReader.Subscribe( observerMock.Object ) )
+                    {
+                        sync.Wait();
+
+                        observerMock.Verify( x => x.OnNext( It.IsAny<IMessageEnvelope>() ), Times.Exactly( this.Messages.Count ) );
+
+                        Assert.IsNotNull( subscription );
+                    }
                 }
             }
         }

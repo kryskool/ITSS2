@@ -22,6 +22,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
+using System.Threading;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -83,29 +84,39 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Token
 
                 List<String> actualMessages = new List<String>();
 
-                observerMock.Setup( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ) ).Callback(     ( ReadOnlySequence<byte> token ) =>
-                                                                                                        {
-                                                                                                            String message = JsonSerializationSettings.Encoding.GetString( token.ToArray() );
-
-                                                                                                            actualMessages.Add( message );
-                                                                                                        }   );
-
-                using( IDisposable subscription = tokenizer.Subscribe( observerMock.Object ) )
+                using( ManualResetEventSlim sync = new ManualResetEventSlim() )
                 {
-                    // Number of calls depends on buffer size.
-                    observerMock.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.Exactly( this.Messages.Count ) );
+                    observerMock.Setup( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ) ).Callback(     ( ReadOnlySequence<byte> token ) =>
+                                                                                                            {
+                                                                                                                String message = JsonSerializationSettings.Encoding.GetString( token.ToArray() );
 
-                    Assert.AreEqual( actualMessages.Count, this.Messages.Count );
+                                                                                                                actualMessages.Add( message );
+                                                                                                            }   );
 
-                    for( int i = 0; i < actualMessages.Count; i++ )
+                    observerMock.Setup( x => x.OnCompleted() ).Callback(    () =>
+                                                                            {
+                                                                                sync.Set();
+                                                                            }   );
+
+                    using( IDisposable subscription = tokenizer.Subscribe( observerMock.Object ) )
                     {
-                        String expected = this.Messages[ i ];
-                        String actual = actualMessages[ i ];
+                        sync.Wait();
 
-                        JsonComparer.AreEqual( expected, actual );
+                        // Number of calls depends on buffer size.
+                        observerMock.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.Exactly( this.Messages.Count ) );
+
+                        Assert.AreEqual( actualMessages.Count, this.Messages.Count );
+
+                        for( int i = 0; i < actualMessages.Count; i++ )
+                        {
+                            String expected = this.Messages[ i ];
+                            String actual = actualMessages[ i ];
+
+                            JsonComparer.AreEqual( expected, actual );
+                        }
+
+                        Assert.IsNotNull( subscription );
                     }
-
-                    Assert.IsNotNull( subscription );
                 }
             }
         }
@@ -115,20 +126,39 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Token
         {
             using( ITokenizer tokenizer = new JsonTokenizer( this.BaseStream, Diagnostics.NullInteractionLog.Instance, bufferSize:16, JsonSerializationSettings.MaximumMessageSize ) )
             {
-                Mock<IObserver<ReadOnlySequence<byte>>> observerMock1 = new Mock<IObserver<ReadOnlySequence<byte>>>();
-                Mock<IObserver<ReadOnlySequence<byte>>> observerMock2 = new Mock<IObserver<ReadOnlySequence<byte>>>();
+                Mock<IObserver<ReadOnlySequence<byte>>> observerMockFirst = new();
+                Mock<IObserver<ReadOnlySequence<byte>>> observerMockSecond = new();
 
-                IConnectableObservable<ReadOnlySequence<byte>> observable = (   from token in tokenizer
-                                                                                select token    ).Publish();
+                using( ManualResetEventSlim observerMockFirstSync = new ManualResetEventSlim() )
+                {
+                    using( ManualResetEventSlim observerMockSecondSync = new ManualResetEventSlim() )
+                    {
+                        observerMockFirst.Setup( x => x.OnCompleted() ).Callback(   () =>
+                                                                                    {
+                                                                                        observerMockFirstSync.Set();
+                                                                                    }   );
 
-                observable.Subscribe( observerMock1.Object );
-                observable.Subscribe( observerMock2.Object );
+                        observerMockSecond.Setup( x => x.OnCompleted() ).Callback(  () =>
+                                                                                    {
+                                                                                        observerMockSecondSync.Set();
+                                                                                    }   );
 
-                observable.Connect();
+                        IConnectableObservable<ReadOnlySequence<byte>> observable = (   from token in tokenizer
+                                                                                        select token    ).Publish();
 
-                // Number of calls depends on buffer size.
-                observerMock1.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
-                observerMock2.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
+                        observable.Subscribe( observerMockFirst.Object );
+                        observable.Subscribe( observerMockSecond.Object );
+
+                        observable.Connect();
+
+                        observerMockFirstSync.Wait();
+                        observerMockSecondSync.Wait();
+
+                        // Number of calls depends on buffer size.
+                        observerMockFirst.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
+                        observerMockSecond.Verify( x => x.OnNext( It.IsAny<ReadOnlySequence<byte>>() ), Times.AtLeast( this.Messages.Count ) );
+                    }
+                }
             }
         }
     }
