@@ -26,25 +26,25 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.TaskCan
     {
         public TaskCancelOutputResponseDataContract()
         {
-            this.Task = new TaskCancelOutputResponseTaskDataContract();
+            this.Tasks = new TaskCancelOutputResponseTaskDataContract[]{};
         }
 
         public TaskCancelOutputResponseDataContract( TaskCancelOutputResponse dataObject )
         :
             base( dataObject )
         {
-            this.Task = TypeConverter.ConvertFromDataObject<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( dataObject.Task );
+            this.Tasks = TypeConverter.ConvertFromDataObjects<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( dataObject.GetTasks() );
         }
 
-        [XmlAttribute]
-        public TaskCancelOutputResponseTaskDataContract Task{ get; set; }
+        [XmlElement( ElementName = "Task" )]
+        public TaskCancelOutputResponseTaskDataContract[]? Tasks{ get; set; }
 
         public override TaskCancelOutputResponse GetDataObject()
         {
             return new TaskCancelOutputResponse(    TypeConverter.MessageId.ConvertTo( this.Id ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Destination ),
-                                                    TypeConverter.ConvertToDataObject<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( this.Task )    );
+                                                    TypeConverter.ConvertToDataObjects<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( this.Tasks )    );
         }
 
         public override Type GetEnvelopeType()

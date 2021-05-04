@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Text.Json.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
@@ -25,24 +26,25 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.TaskCa
     {
         public TaskCancelOutputResponseDataContract()
         {
-            this.Task = new TaskCancelOutputResponseTaskDataContract();
+            this.Tasks = new TaskCancelOutputResponseTaskDataContract[]{};
         }
 
         public TaskCancelOutputResponseDataContract( TaskCancelOutputResponse dataObject )
         :
             base( dataObject )
         {
-            this.Task = TypeConverter.ConvertFromDataObject<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( dataObject.Task );
+            this.Tasks = TypeConverter.ConvertFromDataObjects<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( dataObject.GetTasks() );
         }
 
-        public TaskCancelOutputResponseTaskDataContract Task{ get; set; }
+        [JsonPropertyName( "Task" )]
+        public TaskCancelOutputResponseTaskDataContract[]? Tasks{ get; set; }
 
         public override TaskCancelOutputResponse GetDataObject()
         {
             return new TaskCancelOutputResponse(    TypeConverter.MessageId.ConvertTo( this.Id ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                                     TypeConverter.SubscriberId.ConvertTo( this.Destination ),
-                                                    TypeConverter.ConvertToDataObject<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( this.Task )    );
+                                                    TypeConverter.ConvertToDataObjects<TaskCancelOutputResponseTask, TaskCancelOutputResponseTaskDataContract>( this.Tasks )    );
         }
 
         public override Type GetEnvelopeType()

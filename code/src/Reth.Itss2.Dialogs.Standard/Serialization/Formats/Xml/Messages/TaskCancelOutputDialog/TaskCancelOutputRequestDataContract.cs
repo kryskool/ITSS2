@@ -36,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.TaskCan
             this.Task = TypeConverter.ConvertFromDataObject<TaskCancelOutputRequestTask, TaskCancelOutputRequestTaskDataContract>( dataObject.Task );
         }
 
-        [XmlAttribute]
+        [XmlElement]
         public TaskCancelOutputRequestTaskDataContract Task{ get; set; }
 
         public override TaskCancelOutputRequest GetDataObject()

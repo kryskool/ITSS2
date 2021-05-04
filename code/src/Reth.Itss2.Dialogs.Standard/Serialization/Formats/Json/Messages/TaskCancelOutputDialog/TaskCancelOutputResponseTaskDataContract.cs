@@ -40,7 +40,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.TaskCa
         public TaskCancelOutputResponseTask GetDataObject()
         {
             return new TaskCancelOutputResponseTask(    TypeConverter.MessageId.ConvertTo( this.Id ),
-                                                        TypeConverter.TaskCancelOutputStatus.ConvertTo( this.Id )   );
+                                                        TypeConverter.TaskCancelOutputStatus.ConvertTo( this.Status )   );
         }
     }
 }

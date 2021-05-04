@@ -15,6 +15,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput
 {
@@ -34,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput
 		{
             bool result = SubscribedResponse.Equals( left, right );
 
-            result &= ( result ? TaskCancelOutputResponseTask.Equals( left?.Task, right?.Task ) : false );
+            result &= ( result ? ( left?.Tasks.SequenceEqual( right?.Tasks ) ).GetValueOrDefault() : false );
 
             return result;
 		}
@@ -42,24 +44,29 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput
         public TaskCancelOutputResponse(    MessageId id,
 									        SubscriberId source,
                                             SubscriberId destination,
-                                            TaskCancelOutputResponseTask task    )
+                                            IEnumerable<TaskCancelOutputResponseTask> tasks    )
         :
             base( id, StandardDialogs.TaskCancelOutput, source, destination )
         {
-            this.Task = task;
+            this.Tasks.AddRange( tasks );
         }
 
         public TaskCancelOutputResponse(    TaskCancelOutputRequest request,
-                                            TaskCancelOutputResponseTask task    )
+                                            IEnumerable<TaskCancelOutputResponseTask> tasks    )
         :
             base( request )
         {
-            this.Task = task;
+            this.Tasks.AddRange( tasks );
         }
 
-        public TaskCancelOutputResponseTask Task
+        private List<TaskCancelOutputResponseTask> Tasks
         {
             get;
+        } = new List<TaskCancelOutputResponseTask>();
+
+        public TaskCancelOutputResponseTask[] GetTasks()
+        {
+            return this.Tasks.ToArray();
         }
 
         public override bool Equals( Object obj )
