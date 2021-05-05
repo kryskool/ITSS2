@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Text;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
@@ -37,6 +38,18 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             }
 
             return result;
+        }
+
+        public static String Capitalize( this String instance )
+        {
+            StringBuilder result = new( instance.ToLowerInvariant() );
+
+            if( result.Length > 0 )
+            {
+                result[ 0 ] = result[ 0 ].ToString().ToUpperInvariant()[ 0 ];
+            }
+
+            return result.ToString();
         }
     }
 }

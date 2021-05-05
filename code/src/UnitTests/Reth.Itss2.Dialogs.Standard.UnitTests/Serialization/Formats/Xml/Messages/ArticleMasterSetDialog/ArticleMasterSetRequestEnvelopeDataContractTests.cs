@@ -30,39 +30,58 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         {
             get
             {
-                //String name = "";
-                //String dosageForm = "";
-                //String packagingUnit = "";
-                //String machineLocation = "";
-                //StockLocationId stockLocationId = new StockLocationId( "" );
-                //bool requiresFridge = true;
-                //int maxSubItemQuantity = 50;
-                //int depth = 20;
-                //int width = 30;
-                //int height = 15;
-                //int weight = 67;
-                //PackDate serialNumberSinceExpiryDate = new PackDate( 2024, 12, 2 );
+                String name = "Aspirin";
+                String dosageForm = "pills";
+                String packagingUnit = "1x50 pills";
+                String machineLocation = "main";
+                StockLocationId stockLocationId = new StockLocationId( "default" );
+                bool requiresFridge = true;
+                int maxSubItemQuantity = 50;
+                int depth = 20;
+                int width = 30;
+                int height = 15;
+                int weight = 67;
+                PackDate serialNumberSinceExpiryDate = new PackDate( 2024, 12, 2 );
 
-                //ArticleMasterSetArticle article = new(  new ArticleId( "4711" ),
-                //                                        name,
-                //                                        dosageForm,
-                //                                        packagingUnit,
-                //                                        machineLocation,
-                //                                        stockLocationId,
-                //                                        requiresFridge,
-                //                                        maxSubItemQuantity,
-                //                                        depth,
-                //                                        width,
-                //                                        height,
-                //                                        width,
-                //                                        serialNumberSinceExpiryDate,
-                //                                        );
+                ArticleId articleId = new ArticleId( "4711" );
 
-                ArticleMasterSetArticle article = new(  new ArticleId( "4711" ) );
+                ProductCode productCode = new( new ProductCodeId( "5783" ) );
+
+                ArticleMasterSetArticle article = new(  articleId,
+                                                        name,
+                                                        dosageForm,
+                                                        packagingUnit,
+                                                        machineLocation,
+                                                        stockLocationId,
+                                                        requiresFridge,
+                                                        maxSubItemQuantity,
+                                                        depth,
+                                                        width,
+                                                        height,
+                                                        weight,
+                                                        serialNumberSinceExpiryDate,
+                                                        new ProductCode[]
+                                                        {
+                                                            productCode
+                                                        }   );
 
                 return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
                                     <ArticleMasterSetRequest Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"">
-                                        <Article Id=""{ article.Id }"" />
+                                        <Article    Id=""{ articleId }""
+                                                    Name=""{ name }""
+                                                    DosageForm=""{ dosageForm }""
+                                                    PackagingUnit=""{ packagingUnit }""
+                                                    MachineLocation=""{ machineLocation }""
+                                                    StockLocationId=""{ stockLocationId }""
+                                                    RequiresFridge=""{ requiresFridge }""
+                                                    MaxSubItemQuantity=""{ maxSubItemQuantity }""
+                                                    Depth=""{ depth }""
+                                                    Width=""{ width }""
+                                                    Height=""{ height }""
+                                                    Weight=""{ weight }""
+                                                    SerialNumberSinceExpiryDate=""{ serialNumberSinceExpiryDate }"">
+                                            <ProductCode Code=""{ productCode.Code }"" />
+                                        </Article>
                                     </ArticleMasterSetRequest>
                                 </WWKS>",
                             new MessageEnvelope(    new ArticleMasterSetRequest(    XmlMessageTests.MessageId,
@@ -77,7 +96,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         }
 
         [TestMethod]
-        public void Serialize_Response_Succeeds()
+        public void Serialize_Request_Succeeds()
         {
             bool result = base.SerializeMessage( ArticleMasterSetRequestEnvelopeDataContractTests.Request );
 
@@ -85,7 +104,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         }
 
         [TestMethod]
-        public void Deserialize_Response_Succeeds()
+        public void Deserialize_Request_Succeeds()
         {
             bool result = base.DeserializeMessage( ArticleMasterSetRequestEnvelopeDataContractTests.Request );
 

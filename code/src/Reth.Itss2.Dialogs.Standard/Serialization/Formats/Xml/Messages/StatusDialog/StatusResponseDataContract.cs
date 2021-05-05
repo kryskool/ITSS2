@@ -32,6 +32,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Status
         :
             base( dataObject )
         {
+            this.State = TypeConverter.ComponentState.ConvertFrom( dataObject.State );
+            this.StateText = dataObject.StateText;
             this.Components = TypeConverter.ConvertFromDataObjects<Component, ComponentDataContract>( dataObject.GetComponents() );
         }
 

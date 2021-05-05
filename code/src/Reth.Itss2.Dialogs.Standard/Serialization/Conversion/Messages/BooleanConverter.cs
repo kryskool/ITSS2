@@ -27,7 +27,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
 
         public String? ConvertNullableFrom( bool? value )
         {
-            return value?.ToString().ToUpperInvariant();
+            return value?.ToString().Capitalize();
         }
 
         public bool ConvertTo( String value )
