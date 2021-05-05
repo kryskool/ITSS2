@@ -30,15 +30,15 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         {
             get
             {
-                ( MessageId, TaskCancelOutputStatus ) taskCancelError = ( new MessageId( "4711" ), TaskCancelOutputStatus.CancelError );
-                ( MessageId, TaskCancelOutputStatus ) taskCancelled = ( new MessageId( "4712" ), TaskCancelOutputStatus.Cancelled );
-                ( MessageId, TaskCancelOutputStatus ) taskUnknown = ( new MessageId( "4713" ), TaskCancelOutputStatus.Unknown );
+                ( MessageId Id, TaskCancelOutputStatus Status ) taskCancelError = ( new MessageId( "4711" ), TaskCancelOutputStatus.CancelError );
+                ( MessageId Id, TaskCancelOutputStatus Status ) taskCancelled = ( new MessageId( "4712" ), TaskCancelOutputStatus.Cancelled );
+                ( MessageId Id, TaskCancelOutputStatus Status ) taskUnknown = ( new MessageId( "4713" ), TaskCancelOutputStatus.Unknown );
 
                 return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
                                     <TaskCancelOutputResponse Id=""{ XmlMessageTests.MessageId }"" Source=""{ XmlMessageTests.Source }"" Destination=""{ XmlMessageTests.Destination }"">
-                                        <Task Id=""{ taskCancelError.Item1 }"" Status=""{ taskCancelError.Item2 }"" />
-                                        <Task Id=""{ taskCancelled.Item1 }"" Status=""{ taskCancelled.Item2 }"" />
-                                        <Task Id=""{ taskUnknown.Item1 }"" Status=""{ taskUnknown.Item2 }"" />
+                                        <Task Id=""{ taskCancelError.Id }"" Status=""{ taskCancelError.Status }"" />
+                                        <Task Id=""{ taskCancelled.Id }"" Status=""{ taskCancelled.Status }"" />
+                                        <Task Id=""{ taskUnknown.Id }"" Status=""{ taskUnknown.Status }"" />
                                     </TaskCancelOutputResponse>
                                 </WWKS>",
                             new MessageEnvelope(    new TaskCancelOutputResponse(   XmlMessageTests.MessageId,
@@ -46,9 +46,9 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
                                                                                     XmlMessageTests.Destination,
                                                                                     new TaskCancelOutputResponseTask[]
                                                                                     {
-                                                                                        new TaskCancelOutputResponseTask( taskCancelError.Item1, taskCancelError.Item2 ),
-                                                                                        new TaskCancelOutputResponseTask( taskCancelled.Item1, taskCancelled.Item2 ),
-                                                                                        new TaskCancelOutputResponseTask( taskUnknown.Item1, taskUnknown.Item2 ),
+                                                                                        new TaskCancelOutputResponseTask( taskCancelError.Id, taskCancelError.Status ),
+                                                                                        new TaskCancelOutputResponseTask( taskCancelled.Id, taskCancelled.Status ),
+                                                                                        new TaskCancelOutputResponseTask( taskUnknown.Id, taskUnknown.Status ),
                                                                                     }   ),
                                                     XmlMessageTests.Timestamp    ) );
             }

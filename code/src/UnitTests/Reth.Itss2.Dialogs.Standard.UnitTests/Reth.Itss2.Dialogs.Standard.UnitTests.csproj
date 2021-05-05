@@ -46,8 +46,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Serialization\Formats\Xml\Messages\StockInfoDialog\" />
-  </ItemGroup>
-
 </Project>

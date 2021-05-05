@@ -101,19 +101,38 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
         {
             using( IMessageStreamReader streamReader = new XmlMessageStreamReader( this.BaseStream ) )
             {
-                Mock<IObserver<IMessageEnvelope>> observerMock1 = new Mock<IObserver<IMessageEnvelope>>();
-                Mock<IObserver<IMessageEnvelope>> observerMock2 = new Mock<IObserver<IMessageEnvelope>>();
+                Mock<IObserver<IMessageEnvelope>> observerMock1 = new();
+                Mock<IObserver<IMessageEnvelope>> observerMock2 = new();
 
-                IConnectableObservable<IMessageEnvelope> observable = ( from messageEnvelope in streamReader
-                                                                        select messageEnvelope  ).Publish();
+                using( ManualResetEventSlim observerMock1Sync = new ManualResetEventSlim() )
+                {
+                    using( ManualResetEventSlim observerMock2Sync = new ManualResetEventSlim() )
+                    {
+                        observerMock1.Setup( x => x.OnCompleted() ).Callback(   () =>
+                                                                                {
+                                                                                    observerMock1Sync.Set();
+                                                                                }   );
 
-                observable.Subscribe( observerMock1.Object );
-                observable.Subscribe( observerMock2.Object );
+                        observerMock2.Setup( x => x.OnCompleted() ).Callback(   () =>
+                                                                                {
+                                                                                    observerMock2Sync.Set();
+                                                                                }   );
 
-                observable.Connect();
+                        IConnectableObservable<IMessageEnvelope> observable = ( from messageEnvelope in streamReader
+                                                                                select messageEnvelope  ).Publish();
 
-                observerMock1.Verify( x => x.OnNext( It.IsAny<IMessageEnvelope>() ), Times.Exactly( this.Messages.Count ) );
-                observerMock2.Verify( x => x.OnNext( It.IsAny<IMessageEnvelope>() ), Times.Exactly( this.Messages.Count ) );
+                        observable.Subscribe( observerMock1.Object );
+                        observable.Subscribe( observerMock2.Object );
+
+                        observable.Connect();
+
+                        observerMock1Sync.Wait();
+                        observerMock2Sync.Wait();
+
+                        observerMock1.Verify( x => x.OnNext( It.IsAny<IMessageEnvelope>() ), Times.Exactly( this.Messages.Count ) );
+                        observerMock2.Verify( x => x.OnNext( It.IsAny<IMessageEnvelope>() ), Times.Exactly( this.Messages.Count ) );
+                    }
+                }
             }
         }
     }

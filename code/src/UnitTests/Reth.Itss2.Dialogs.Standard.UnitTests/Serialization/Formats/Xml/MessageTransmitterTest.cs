@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reactive.Subjects;
 using System.Text;
+using System.Threading;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -67,7 +68,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
         }
 
         [TestMethod]
-        public void TestSubscribtionOfSingleObserver()
+        public void TestSubscriptionOfSingleObserver()
         {
             using(  IMessageTransmitter transmitter = new MessageTransmitter(   new XmlMessageStreamReader( this.BaseStream ),
                                                                                 new XmlMessageStreamWriter( this.BaseStream ),
@@ -75,15 +76,25 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
             {
                 Mock<IObserver<IMessage>> observerMock = new Mock<IObserver<IMessage>>();
 
-                IConnectableObservable<IMessage> observable = transmitter;
-
-                using( IDisposable subscription = transmitter.Subscribe( observerMock.Object ) )
+                using( ManualResetEventSlim sync = new() )
                 {
-                    observable.Connect();
+                    observerMock.Setup( x => x.OnCompleted() ).Callback(    () =>
+                                                                            {
+                                                                                sync.Set();
+                                                                            }   );
 
-                    observerMock.Verify( x => x.OnNext( It.IsAny<IMessage>() ), Times.Exactly( this.Messages.Count ) );
+                    IConnectableObservable<IMessage> observable = transmitter;
 
-                    Assert.IsNotNull( subscription );
+                    using( IDisposable subscription = transmitter.Subscribe( observerMock.Object ) )
+                    {
+                        observable.Connect();
+
+                        sync.Wait();
+
+                        observerMock.Verify( x => x.OnNext( It.IsAny<IMessage>() ), Times.Exactly( this.Messages.Count ) );
+
+                        Assert.IsNotNull( subscription );
+                    }
                 }
             }
         }
@@ -98,15 +109,34 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
                 Mock<IObserver<IMessage>> observerMock1 = new Mock<IObserver<IMessage>>();
                 Mock<IObserver<IMessage>> observerMock2 = new Mock<IObserver<IMessage>>();
 
-                IConnectableObservable<IMessage> observable =  transmitter;
+                using( ManualResetEventSlim observerMock1Sync = new ManualResetEventSlim() )
+                {
+                    using( ManualResetEventSlim observerMock2Sync = new ManualResetEventSlim() )
+                    {
+                        observerMock1.Setup( x => x.OnCompleted() ).Callback(   () =>
+                                                                                {
+                                                                                    observerMock1Sync.Set();
+                                                                                }   );
 
-                observable.Subscribe( observerMock1.Object );
-                observable.Subscribe( observerMock2.Object );
+                        observerMock2.Setup( x => x.OnCompleted() ).Callback(   () =>
+                                                                                {
+                                                                                    observerMock2Sync.Set();
+                                                                                }   );
 
-                observable.Connect();
+                        IConnectableObservable<IMessage> observable =  transmitter;
 
-                observerMock1.Verify( x => x.OnNext( It.IsAny<IMessage>() ), Times.Exactly( this.Messages.Count ) );
-                observerMock2.Verify( x => x.OnNext( It.IsAny<IMessage>() ), Times.Exactly( this.Messages.Count ) );
+                        observable.Subscribe( observerMock1.Object );
+                        observable.Subscribe( observerMock2.Object );
+
+                        observable.Connect();
+
+                        observerMock1Sync.Wait();
+                        observerMock2Sync.Wait();
+
+                        observerMock1.Verify( x => x.OnNext( It.IsAny<IMessage>() ), Times.Exactly( this.Messages.Count ) );
+                        observerMock2.Verify( x => x.OnNext( It.IsAny<IMessage>() ), Times.Exactly( this.Messages.Count ) );
+                    }
+                }
             }
         }
     }
