@@ -35,9 +35,9 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
         [DataTestMethod]
         public void GetMessageName_FromMessageWithOrWithoutEnvelope_Succeeds( String expectedMessageName, String message )
         {
-            XmlMessageParser xmlMessageParser = new XmlMessageParser( typeof( XmlSerializationProvider ) );
+            XmlMessageParser messageParser = new XmlMessageParser( typeof( XmlSerializationProvider ) );
 
-            String actualMessageName = xmlMessageParser.GetMessageName( message );
+            String actualMessageName = messageParser.GetMessageName( message );
              
             Assert.AreEqual( expectedMessageName, actualMessageName );
         }
