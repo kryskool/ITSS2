@@ -54,7 +54,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 		
 		public bool Equals( OutputBox? other )
 		{
-            return PackDate.Equals( this, other );
+            return OutputBox.Equals( this, other );
 		}
 		
 		public override int GetHashCode()
