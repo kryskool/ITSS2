@@ -39,7 +39,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Input
         [XmlAttribute]
         public String? Id{ get; set; }
 
-        [XmlAttribute]
+        [XmlAttribute( AttributeName = "FMDId" ) ]
         public String? FmdId{ get; set; }
 
         [XmlElement( ElementName = "Pack" )]
