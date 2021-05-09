@@ -30,7 +30,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
         public static T? ConvertNullableTo<T>( this String? instance )
             where T:struct, Enum
         {
-            T? result = default( T );
+            T? result = default( T? );
 
             if( String.IsNullOrEmpty( instance ) == false )
             {
