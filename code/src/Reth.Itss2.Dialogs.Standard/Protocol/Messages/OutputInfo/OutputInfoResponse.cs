@@ -34,7 +34,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo
 		{
             bool result = SubscribedResponse.Equals( left, right );
 
-            result &= ( result ? OutputInfoResponse.Equals( left?.Task, right?.Task ) : false );
+            result &= ( result ? OutputInfoResponseTask.Equals( left?.Task, right?.Task ) : false );
 
             return result;
 		}

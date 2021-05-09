@@ -36,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.OutputI
             this.Task = TypeConverter.ConvertFromDataObject<OutputInfoResponseTask, OutputInfoResponseTaskDataContract>( dataObject.Task );
         }
 
-        [XmlAttribute]
+        [XmlElement]
         public OutputInfoResponseTaskDataContract Task{ get; set; }
 
         public override OutputInfoResponse GetDataObject()
