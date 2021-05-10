@@ -36,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDe
             this.Task = TypeConverter.ConvertFromDataObject<StockDeliveryInfoResponseTask, StockDeliveryInfoResponseTaskDataContract>( dataObject.Task );
         }
 
-        [XmlAttribute]
+        [XmlElement]
         public StockDeliveryInfoResponseTaskDataContract Task{ get; set; }
 
         public override StockDeliveryInfoResponse GetDataObject()

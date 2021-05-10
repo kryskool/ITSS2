@@ -109,34 +109,34 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
                             new MessageEnvelope(    new OutputInfoResponse( XmlMessageTests.MessageId,
                                                                             XmlMessageTests.Source,
                                                                             XmlMessageTests.Destination,
-                                                                            new OutputInfoResponseTask( taskId,
-                                                                                                        taskStatus,
-                                                                                                        new OutputInfoArticle[]
-                                                                                                        {
-                                                                                                            new OutputInfoArticle(  articleId,
-                                                                                                                                    new OutputInfoPack[]
-                                                                                                                                    {
-                                                                                                                                        new OutputInfoPack( pack.Id,
-                                                                                                                                                            pack.OutputDestination,
-                                                                                                                                                            pack.OutputPoint,
-                                                                                                                                                            pack.DeliveryNumber,
-                                                                                                                                                            pack.BatchNumber,
-                                                                                                                                                            pack.ExternalId,
-                                                                                                                                                            pack.SerialNumber,
-                                                                                                                                                            pack.ScanCode,
-                                                                                                                                                            pack.BoxNumber,
-                                                                                                                                                            pack.MachineLocation,
-                                                                                                                                                            pack.StockLocationId,
-                                                                                                                                                            pack.ExpiryDate,
-                                                                                                                                                            pack.StockInDate,
-                                                                                                                                                            pack.SubItemQuantity,
-                                                                                                                                                            pack.Depth,
-                                                                                                                                                            pack.Width,
-                                                                                                                                                            pack.Height,
-                                                                                                                                                            pack.Weight,
-                                                                                                                                                            pack.Shape,
-                                                                                                                                                            pack.IsInFridge,
-                                                                                                                                                            pack.LabelStatus)
+                                                                            new(    taskId,
+                                                                                    taskStatus,
+                                                                                    new OutputInfoArticle[]
+                                                                                    {
+                                                                                        new(    articleId,
+                                                                                                new OutputInfoPack[]
+                                                                                                {
+                                                                                                    new(    pack.Id,
+                                                                                                            pack.OutputDestination,
+                                                                                                            pack.OutputPoint,
+                                                                                                            pack.DeliveryNumber,
+                                                                                                            pack.BatchNumber,
+                                                                                                            pack.ExternalId,
+                                                                                                            pack.SerialNumber,
+                                                                                                            pack.ScanCode,
+                                                                                                            pack.BoxNumber,
+                                                                                                            pack.MachineLocation,
+                                                                                                            pack.StockLocationId,
+                                                                                                            pack.ExpiryDate,
+                                                                                                            pack.StockInDate,
+                                                                                                            pack.SubItemQuantity,
+                                                                                                            pack.Depth,
+                                                                                                            pack.Width,
+                                                                                                            pack.Height,
+                                                                                                            pack.Weight,
+                                                                                                            pack.Shape,
+                                                                                                            pack.IsInFridge,
+                                                                                                            pack.LabelStatus    )
                                                                                                                                                                                                 }   )
                                                                                                         }   )  ),
                                                     XmlMessageTests.Timestamp    ) );
