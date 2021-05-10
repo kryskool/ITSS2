@@ -36,7 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDe
             this.Result = TypeConverter.ConvertFromDataObject<StockDeliverySetResult, StockDeliverySetResultDataContract>( dataObject.Result );
         }
 
-        [XmlElement]
+        [XmlElement( ElementName="SetResult" )]
         public StockDeliverySetResultDataContract Result{ get; set; }
 
         public override StockDeliverySetResponse GetDataObject()

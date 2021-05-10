@@ -34,7 +34,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet
 		{
             bool result = SubscribedResponse.Equals( left, right );
 
-            result &= ( result ? StockDeliverySetResult.Equals( left, right ) : false );
+            result &= ( result ? StockDeliverySetResult.Equals( left?.Result, right?.Result ) : false );
 
             return result;
 		}

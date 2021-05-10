@@ -40,7 +40,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.StockDe
         [XmlAttribute]
         public String? IncludeTaskDetails{ get; set; }
 
-        [XmlAttribute]
+        [XmlElement]
         public StockDeliveryInfoRequestTaskDataContract Task{ get; set; }
 
         public override StockDeliveryInfoRequest GetDataObject()
