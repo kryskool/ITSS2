@@ -27,19 +27,20 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Unproce
     {
         public UnprocessedMessageDataContract()
         {
+            this.Message = new XmlDocument().CreateCDataSection( String.Empty );
         }
 
         public UnprocessedMessageDataContract( UnprocessedMessage dataObject )
         :
             base( dataObject )
         {
-            this.Message = dataObject.Message;
+            this.Message = new XmlDocument().CreateCDataSection( dataObject.Message );
             this.Text = dataObject.Text;
             this.Reason = TypeConverter.UnprocessedReason.ConvertNullableFrom( dataObject.Reason );
         }
 
-        [XmlAttribute]
-        public String Message{ get; set; } = String.Empty;
+        [XmlElement( "Message", typeof( XmlCDataSection ) )]
+        public XmlCDataSection Message{ get; set; }
 
         [XmlAttribute]
         public String? Text{ get; set; }
@@ -52,7 +53,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Unproce
             return new UnprocessedMessage(  TypeConverter.MessageId.ConvertTo( this.Id ),
                                             TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                             TypeConverter.SubscriberId.ConvertTo( this.Destination ),
-                                            this.Message,
+                                            this.Message.Value,
                                             this.Text,
                                             TypeConverter.UnprocessedReason.ConvertNullableTo( this.Reason ) );
         }
