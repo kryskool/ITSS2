@@ -110,7 +110,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Initiat
         [XmlAttribute]
         public String? IsInFridge{ get; set; }
 
-        [XmlAttribute]
+        [XmlElement]
         public InitiateInputErrorDataContract? Error{ get; set; }
         
         public InitiateInputMessagePack GetDataObject()
