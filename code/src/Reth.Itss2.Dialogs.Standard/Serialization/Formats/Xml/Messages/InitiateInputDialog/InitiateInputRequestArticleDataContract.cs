@@ -39,7 +39,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Initiat
         [XmlAttribute]
         public String? Id{ get; set; }
 
-        [XmlAttribute]
+        [XmlAttribute( AttributeName = "FMDId" ) ]
         public String? FmdId{ get; set; }
 
         [XmlElement( ElementName = "Pack" )]
@@ -48,8 +48,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Initiat
         public InitiateInputRequestArticle GetDataObject()
         {
             return new InitiateInputRequestArticle( TypeConverter.ArticleId.ConvertNullableTo( this.Id ),
-                                            this.FmdId,
-                                            TypeConverter.ConvertToDataObjects<InitiateInputRequestPack, InitiateInputRequestPackDataContract>( this.Packs )   );
+                                                    this.FmdId,
+                                                    TypeConverter.ConvertToDataObjects<InitiateInputRequestPack, InitiateInputRequestPackDataContract>( this.Packs )   );
         }
     }
 }
