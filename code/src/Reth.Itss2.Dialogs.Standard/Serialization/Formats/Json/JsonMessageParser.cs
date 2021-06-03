@@ -136,7 +136,9 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 
             try
             {
-                result = JsonSerializer.Serialize( messageEnvelope, dataContractType, JsonSerializationSettings.SerializerOptions );
+                Object dataContract = Activator.CreateInstance( dataContractType, messageEnvelope );
+
+                result = JsonSerializer.Serialize( dataContract, dataContractType, JsonSerializationSettings.SerializerOptions );
             }catch( Exception ex )
             {
                 throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ messageEnvelope } ({ messageEnvelope.Timestamp })' failed.", ex ) );
@@ -151,7 +153,9 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 
             try
             {
-                return JsonSerializer.Serialize( message, dataContractType, JsonSerializationSettings.SerializerOptions );
+                Object dataContract = Activator.CreateInstance( dataContractType, message );
+
+                return JsonSerializer.Serialize( dataContract, dataContractType, JsonSerializationSettings.SerializerOptions );
             }catch( Exception ex )
             {
                 throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ message }' failed.", ex ) );
