@@ -18,19 +18,17 @@ using System;
 
 using JsonDiffPatchDotNet;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Tokenization
+namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
 {
     public static class JsonComparer
     {
-        public static void AreEqual( String expected, String actual )
+        public static bool AreEqual( String expected, String actual )
         {
             JsonDiffPatch jsonDiffPatch = new JsonDiffPatch();
             
             String difference = jsonDiffPatch.Diff( actual, expected );
 
-            Assert.IsTrue( String.IsNullOrEmpty( difference ), $"Json objects differ: '{ difference }'" );
+            return String.IsNullOrEmpty( difference );
         }
     }
 }

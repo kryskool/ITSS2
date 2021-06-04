@@ -42,6 +42,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
                                                                                                                         JsonSerializerOptions result = new JsonSerializerOptions( JsonSerializerDefaults.Web );
 
                                                                                                                         result.PropertyNamingPolicy = null;
+                                                                                                                        result.WriteIndented = true;
 
                                                                                                                         return result;
                                                                                                                     },

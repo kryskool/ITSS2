@@ -57,7 +57,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Token
 
             String actualMessage = JsonSerializationSettings.Encoding.GetString( token.ToArray() );
 
-            JsonComparer.AreEqual( expectedMessage, actualMessage );
+            Assert.IsTrue( JsonComparer.AreEqual( expectedMessage, actualMessage ) );
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Token
 
             String actualMessage = JsonSerializationSettings.Encoding.GetString( token.ToArray() );
 
-            JsonComparer.AreEqual( expectedMessage, actualMessage );
+            Assert.IsTrue( JsonComparer.AreEqual( expectedMessage, actualMessage ) );
         }
     }
 }

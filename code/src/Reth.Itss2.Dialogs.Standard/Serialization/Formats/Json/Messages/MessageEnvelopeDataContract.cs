@@ -34,6 +34,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages
             this.Version = dataObject.Version;
         }
 
+        [JsonPropertyName( "TimeStamp" )]
         public String Timestamp
         {
             get; set;
@@ -44,7 +45,6 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages
             get; set;
         } = String.Empty;
 
-        [JsonIgnore]
         public abstract IMessage Message
         {
             get;

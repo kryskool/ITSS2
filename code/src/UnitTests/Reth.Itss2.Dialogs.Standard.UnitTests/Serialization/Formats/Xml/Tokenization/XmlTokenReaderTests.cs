@@ -46,7 +46,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
 
             String actualMessage = XmlSerializationSettings.Encoding.GetString( token.ToArray() );
 
-            XmlComparer.AreEqual( expectedMessage, actualMessage );
+            Assert.IsTrue( XmlComparer.AreEqual( expectedMessage, actualMessage ) );
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Tokeni
 
             String actualMessage = XmlSerializationSettings.Encoding.GetString( token.ToArray() );
 
-            XmlComparer.AreEqual( expectedMessage, actualMessage );
+            Assert.IsTrue( XmlComparer.AreEqual( expectedMessage, actualMessage ) );
         }
     }
 }

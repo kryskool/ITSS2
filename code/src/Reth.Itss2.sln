@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reth.Itss2.Workflows.Standa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reth.Itss2.Workflows.Experimental", "Reth.Itss2.Workflows.Experimental\Reth.Itss2.Workflows.Experimental.csproj", "{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reth.Itss2.Dialogs.Experimental.UnitTests", "UnitTests\Reth.Itss2.Dialogs.Experimental.UnitTests\Reth.Itss2.Dialogs.Experimental.UnitTests.csproj", "{2986B166-2886-4388-90B4-EF695854DFAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,12 +61,17 @@ Global
 		{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1D76E19-49CA-4F18-A524-B7C771CDB7D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2986B166-2886-4388-90B4-EF695854DFAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2986B166-2886-4388-90B4-EF695854DFAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2986B166-2886-4388-90B4-EF695854DFAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2986B166-2886-4388-90B4-EF695854DFAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0E90B0E2-8BEC-4634-ABFB-7C94AB03AD94} = {881A3DAF-5E78-4529-BEB6-388A1E997F91}
+		{2986B166-2886-4388-90B4-EF695854DFAF} = {881A3DAF-5E78-4529-BEB6-388A1E997F91}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B8F48C9-A3FF-430C-A922-0C4419B0975F}
