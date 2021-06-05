@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Text.Json.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
@@ -35,6 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Articl
             this.Result = TypeConverter.ConvertFromDataObject<ArticleMasterSetResult, ArticleMasterSetResultDataContract>( dataObject.Result );
         }
 
+        [JsonPropertyName( "SetResult" )]
         public ArticleMasterSetResultDataContract Result{ get; set; }
 
         public override ArticleMasterSetResponse GetDataObject()

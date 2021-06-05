@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+using System.Text.Json.Serialization;
+
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 
@@ -34,6 +36,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Articl
             this.ArticleMasterSetRequest = new ArticleMasterSetRequestDataContract( ( ArticleMasterSetRequest )( dataObject.Message ) );
         }
 
+        [JsonIgnore]
         public override IMessage Message => this.ArticleMasterSetRequest.GetDataObject();
 
         public ArticleMasterSetRequestDataContract ArticleMasterSetRequest
