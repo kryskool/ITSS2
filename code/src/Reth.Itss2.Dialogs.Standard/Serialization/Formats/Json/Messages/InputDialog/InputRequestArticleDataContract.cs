@@ -37,6 +37,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Input
 
         public String? Id{ get; set; }
 
+        [JsonPropertyName( "FMDId" )]
         public String? FmdId{ get; set; }
 
         [JsonPropertyName( "Pack" )]
