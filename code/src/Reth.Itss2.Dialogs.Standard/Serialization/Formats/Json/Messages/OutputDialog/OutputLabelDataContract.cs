@@ -30,7 +30,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.Output
         public OutputLabelDataContract( OutputLabel dataObject )
         {
             this.TemplateId = dataObject.TemplateId;
-            this.Content = Convert.ToBase64String( JsonSerializationSettings.Encoding.GetBytes( dataObject.Content ) );
+            this.Content = dataObject.Content;
         }
 
         public String TemplateId{ get; set; } = String.Empty;

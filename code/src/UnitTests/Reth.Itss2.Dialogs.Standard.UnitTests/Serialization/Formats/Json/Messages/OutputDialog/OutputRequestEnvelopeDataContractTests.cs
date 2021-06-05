@@ -21,12 +21,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
-namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages.OutputDialog
+namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messages.OutputDialog
 {
     [TestClass]
-    public class OutputRequestEnvelopeDataContractTests:XmlMessageTests
+    public class OutputRequestEnvelopeDataContractTests:JsonMessageTests
     {
-        public static ( String Xml, IMessageEnvelope Object ) Request
+        public static ( String Json, IMessageEnvelope Object ) Request
         {
             get
             {
@@ -60,36 +60,49 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
 
                 String boxNumber = "DE2-115";
 
-                return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
-                                    <OutputRequest  Id=""{ XmlMessageTests.MessageId }""
-                                                    Source=""{ XmlMessageTests.Source }""
-                                                    Destination=""{ XmlMessageTests.Destination }""
-                                                    BoxNumber=""{ boxNumber }"">
-                                        <Details    Priority=""{ details.Priority }""
-                                                    OutputDestination=""{ details.OutputDestination }""
-                                                    OutputPoint=""{ details.OutputPoint }"" />
-                                        <Criteria   ArticleId=""{ criteria.ArticleId }""
-                                                    PackId=""{ criteria.PackId }""
-                                                    MinimumExpiryDate=""{ criteria.MinimumExpiryDate }""
-                                                    BatchNumber=""{ criteria.BatchNumber }""
-                                                    ExternalId=""{ criteria.ExternalId }""
-                                                    SerialNumber=""{ criteria.SerialNumber }""
-                                                    MachineLocation=""{ criteria.MachineLocation }""
-                                                    StockLocationId=""{ criteria.StockLocationId }""
-                                                    Quantity=""{ criteria.Quantity }""
-                                                    SubItemQuantity=""{ criteria.SubItemQuantity }""
-                                                    SingleBatchNumber=""{ criteria.SingleBatchNumber }"">
-                                            <Label TemplateId=""{ label.TemplateId }"">
-                                                <Content>
-                                                    <![CDATA[{ label.Content }]]>
-                                                </Content>
-                                            </Label>
-                                        </Criteria>
-                                    </OutputRequest>
-                                </WWKS>",
-                            new MessageEnvelope(    new OutputRequest(  XmlMessageTests.MessageId,
-                                                                        XmlMessageTests.Source,
-                                                                        XmlMessageTests.Destination,
+                return (    $@" {{
+                                    ""OutputRequest"":
+                                    {{
+                                        ""Id"": ""{ JsonMessageTests.MessageId }"",
+                                        ""Source"": ""{ JsonMessageTests.Source }"",
+                                        ""Destination"": ""{ JsonMessageTests.Destination }"",
+                                        ""BoxNumber"": ""{ boxNumber }"",
+                                        ""Details"":
+                                        {{
+                                            ""Priority"": ""{ details.Priority }"",
+                                            ""OutputDestination"": ""{ details.OutputDestination }"",
+                                            ""OutputPoint"": ""{ details.OutputPoint }""
+                                        }},
+                                        ""Criteria"":
+                                        [
+                                            {{
+                                                ""ArticleId"": ""{ criteria.ArticleId }"",
+                                                ""PackId"": ""{ criteria.PackId }"",
+                                                ""MinimumExpiryDate"": ""{ criteria.MinimumExpiryDate }"",
+                                                ""BatchNumber"": ""{ criteria.BatchNumber }"",
+                                                ""ExternalId"": ""{ criteria.ExternalId }"",
+                                                ""SerialNumber"": ""{ criteria.SerialNumber }"",
+                                                ""MachineLocation"": ""{ criteria.MachineLocation }"",
+                                                ""StockLocationId"": ""{ criteria.StockLocationId }"",
+                                                ""Quantity"": ""{ criteria.Quantity }"",
+                                                ""SubItemQuantity"": ""{ criteria.SubItemQuantity }"",
+                                                ""SingleBatchNumber"": ""{ criteria.SingleBatchNumber }"",
+                                                ""Label"":
+                                                [
+                                                    {{
+                                                        ""TemplateId"": ""{ label.TemplateId }"",
+                                                        ""Content"": ""{ label.Content }""
+                                                    }}
+                                                ]
+                                            }}
+                                        ]
+                                    }},
+                                    ""Version"": ""2.0"",
+                                    ""TimeStamp"": ""{ JsonMessageTests.Timestamp }""
+                                }}",
+                            new MessageEnvelope(    new OutputRequest(  JsonMessageTests.MessageId,
+                                                                        JsonMessageTests.Source,
+                                                                        JsonMessageTests.Destination,
                                                                         new OutputRequestDetails(   details.OutputDestination,
                                                                                                     details.Priority,
                                                                                                     details.OutputPoint ),
@@ -112,7 +125,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
                                                                                                 }   )
                                                                         },
                                                                         boxNumber   ),
-                                                    XmlMessageTests.Timestamp    ) );
+                                                    JsonMessageTests.Timestamp    ) );
             }
         }   
 

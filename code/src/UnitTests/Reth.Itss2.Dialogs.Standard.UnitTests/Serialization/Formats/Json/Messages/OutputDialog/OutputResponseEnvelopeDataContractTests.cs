@@ -21,18 +21,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
 
-namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages.OutputDialog
+namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messages.OutputDialog
 {
     [TestClass]
-    public class OutputRequestEnvelopeDataContractTests:XmlMessageTests
+    public class OutputResponseEnvelopeDataContractTests:JsonMessageTests
     {
-        public static ( String Xml, IMessageEnvelope Object ) Request
+        public static ( String Json, IMessageEnvelope Object ) Response
         {
             get
             {
                 (   int OutputDestination,
                     int OutputPoint,
-                    OutputPriority Priority ) details = ( 14, 0, OutputPriority.Normal );
+                    OutputPriority Priority,
+                    OutputResponseStatus Status ) details = ( 14, 0, OutputPriority.Normal, OutputResponseStatus.Queued );
 
                 (   int Quantity,
                     int SubItemQuantity,
@@ -58,39 +59,54 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
 
                 ( String TemplateId, String Content ) label = ( "TEMPLATE-DEFAULT", "<LABEL>Print me.</LABEL>" );
 
-                String boxNumber = "DE2-115";
+                String boxNumber = "1023";
 
-                return (    $@" <WWKS Version=""2.0"" TimeStamp=""{ XmlMessageTests.Timestamp }"">
-                                    <OutputRequest  Id=""{ XmlMessageTests.MessageId }""
-                                                    Source=""{ XmlMessageTests.Source }""
-                                                    Destination=""{ XmlMessageTests.Destination }""
-                                                    BoxNumber=""{ boxNumber }"">
-                                        <Details    Priority=""{ details.Priority }""
-                                                    OutputDestination=""{ details.OutputDestination }""
-                                                    OutputPoint=""{ details.OutputPoint }"" />
-                                        <Criteria   ArticleId=""{ criteria.ArticleId }""
-                                                    PackId=""{ criteria.PackId }""
-                                                    MinimumExpiryDate=""{ criteria.MinimumExpiryDate }""
-                                                    BatchNumber=""{ criteria.BatchNumber }""
-                                                    ExternalId=""{ criteria.ExternalId }""
-                                                    SerialNumber=""{ criteria.SerialNumber }""
-                                                    MachineLocation=""{ criteria.MachineLocation }""
-                                                    StockLocationId=""{ criteria.StockLocationId }""
-                                                    Quantity=""{ criteria.Quantity }""
-                                                    SubItemQuantity=""{ criteria.SubItemQuantity }""
-                                                    SingleBatchNumber=""{ criteria.SingleBatchNumber }"">
-                                            <Label TemplateId=""{ label.TemplateId }"">
-                                                <Content>
-                                                    <![CDATA[{ label.Content }]]>
-                                                </Content>
-                                            </Label>
-                                        </Criteria>
-                                    </OutputRequest>
-                                </WWKS>",
-                            new MessageEnvelope(    new OutputRequest(  XmlMessageTests.MessageId,
-                                                                        XmlMessageTests.Source,
-                                                                        XmlMessageTests.Destination,
-                                                                        new OutputRequestDetails(   details.OutputDestination,
+                return (    $@" {{
+                                    ""OutputResponse"":
+                                    {{
+                                        ""Id"": ""{ JsonMessageTests.MessageId }"",
+                                        ""Source"": ""{ JsonMessageTests.Source }"",
+                                        ""Destination"": ""{ JsonMessageTests.Destination }"",
+                                        ""BoxNumber"": ""{ boxNumber }"",
+                                        ""Details"":
+                                        {{
+                                            ""Priority"": ""{ details.Priority }"",
+                                            ""OutputDestination"": ""{ details.OutputDestination }"",
+                                            ""OutputPoint"": ""{ details.OutputPoint }"",
+                                            ""Status"": ""{ details.Status }""
+                                        }},
+                                        ""Criteria"":
+                                        [
+                                            {{
+                                                ""ArticleId"": ""{ criteria.ArticleId }"",
+                                                ""PackId"": ""{ criteria.PackId }"",
+                                                ""MinimumExpiryDate"": ""{ criteria.MinimumExpiryDate }"",
+                                                ""BatchNumber"": ""{ criteria.BatchNumber }"",
+                                                ""ExternalId"": ""{ criteria.ExternalId }"",
+                                                ""SerialNumber"": ""{ criteria.SerialNumber }"",
+                                                ""MachineLocation"": ""{ criteria.MachineLocation }"",
+                                                ""StockLocationId"": ""{ criteria.StockLocationId }"",
+                                                ""Quantity"": ""{ criteria.Quantity }"",
+                                                ""SubItemQuantity"": ""{ criteria.SubItemQuantity }"",
+                                                ""SingleBatchNumber"": ""{ criteria.SingleBatchNumber }"",
+                                                ""Label"":
+                                                [
+                                                    {{
+                                                        ""TemplateId"": ""{ label.TemplateId }"",
+                                                        ""Content"": ""{ label.Content }""
+                                                    }}
+                                                ]
+                                            }}
+                                        ]
+                                    }},
+                                    ""Version"": ""2.0"",
+                                    ""TimeStamp"": ""{ JsonMessageTests.Timestamp }""
+                                }}",
+                            new MessageEnvelope(    new OutputResponse( JsonMessageTests.MessageId,
+                                                                        JsonMessageTests.Source,
+                                                                        JsonMessageTests.Destination,
+                                                                        new OutputResponseDetails(  details.OutputDestination,
+                                                                                                    details.Status,
                                                                                                     details.Priority,
                                                                                                     details.OutputPoint ),
                                                                         new OutputCriteria[]
@@ -112,22 +128,22 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
                                                                                                 }   )
                                                                         },
                                                                         boxNumber   ),
-                                                    XmlMessageTests.Timestamp    ) );
+                                                    JsonMessageTests.Timestamp    ) );
             }
         }   
 
         [TestMethod]
-        public void Serialize_Request_Succeeds()
+        public void Serialize_Response_Succeeds()
         {
-            bool result = base.SerializeMessage( OutputRequestEnvelopeDataContractTests.Request );
+            bool result = base.SerializeMessage( OutputResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }
 
         [TestMethod]
-        public void Deserialize_Request_Succeeds()
+        public void Deserialize_Response_Succeeds()
         {
-            bool result = base.DeserializeMessage( OutputRequestEnvelopeDataContractTests.Request );
+            bool result = base.DeserializeMessage( OutputResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }
