@@ -19,55 +19,52 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo;
 
-namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messages.TaskCancelOutputDialog
+namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messages.StockLocationInfoDialog
 {
     [TestClass]
-    public class TaskCancelOutputResponseEnvelopeDataContractTests:JsonMessageTests
+    public class StockLocationInfoResponseEnvelopeDataContractTests:JsonMessageTests
     {
         public static ( String Json, IMessageEnvelope Object ) Response
         {
             get
             {
-                ( MessageId Id, TaskCancelOutputStatus Status ) taskCancelError = ( new MessageId( "4711" ), TaskCancelOutputStatus.CancelError );
-                ( MessageId Id, TaskCancelOutputStatus Status ) taskCancelled = ( new MessageId( "4712" ), TaskCancelOutputStatus.Cancelled );
-                ( MessageId Id, TaskCancelOutputStatus Status ) taskUnknown = ( new MessageId( "4713" ), TaskCancelOutputStatus.Unknown );
+                StockLocationId defaultLocationId = new StockLocationId( "4711" );
+                StockLocationId specialLocationId = new StockLocationId( "4712" );
+
+                String defaultLocationDescription = "Default";
+                String specialLocationDescription = "Special";
 
                 return (    $@" {{
-                                    ""TaskCancelOutputResponse"":
+                                    ""StockLocationInfoResponse"":
                                     {{
                                         ""Id"": ""{ JsonMessageTests.MessageId }"",
                                         ""Source"": ""{ JsonMessageTests.Source }"",
                                         ""Destination"": ""{ JsonMessageTests.Destination }"",
-                                        ""Task"":
+                                        ""StockLocation"":
                                         [
                                             {{
-                                                ""Id"": ""{ taskCancelError.Id }"",
-                                                ""Status"": ""{ taskCancelError.Status }""
+                                                ""Id"": ""{ defaultLocationId }"",
+                                                ""Description"": ""{ defaultLocationDescription }""
                                             }},
                                             {{
-                                                ""Id"": ""{ taskCancelled.Id }"",
-                                                ""Status"": ""{ taskCancelled.Status }""
-                                            }},
-                                            {{
-                                                ""Id"": ""{ taskUnknown.Id }"",
-                                                ""Status"": ""{ taskUnknown.Status }""
+                                                ""Id"": ""{ specialLocationId }"",
+                                                ""Description"": ""{ specialLocationDescription }""
                                             }}
                                         ]
                                     }},
                                     ""Version"": ""2.0"",
                                     ""TimeStamp"": ""{ JsonMessageTests.Timestamp }""
                                 }}",
-                            new MessageEnvelope(    new TaskCancelOutputResponse(   JsonMessageTests.MessageId,
+                            new MessageEnvelope(    new StockLocationInfoResponse(  JsonMessageTests.MessageId,
                                                                                     JsonMessageTests.Source,
                                                                                     JsonMessageTests.Destination,
-                                                                                    new TaskCancelOutputResponseTask[]
+                                                                                    new StockLocation[]
                                                                                     {
-                                                                                        new TaskCancelOutputResponseTask( taskCancelError.Id, taskCancelError.Status ),
-                                                                                        new TaskCancelOutputResponseTask( taskCancelled.Id, taskCancelled.Status ),
-                                                                                        new TaskCancelOutputResponseTask( taskUnknown.Id, taskUnknown.Status ),
-                                                                                    }   ),
+                                                                                        new StockLocation( defaultLocationId, defaultLocationDescription ),
+                                                                                        new StockLocation( specialLocationId, specialLocationDescription )
+                                                                                    } ),
                                                     JsonMessageTests.Timestamp    ) );
             }
         }
@@ -75,7 +72,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messa
         [TestMethod]
         public void Serialize_Response_Succeeds()
         {
-            bool result = base.SerializeMessage( TaskCancelOutputResponseEnvelopeDataContractTests.Response );
+            bool result = base.SerializeMessage( StockLocationInfoResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }
@@ -83,7 +80,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messa
         [TestMethod]
         public void Deserialize_Response_Succeeds()
         {
-            bool result = base.DeserializeMessage( TaskCancelOutputResponseEnvelopeDataContractTests.Response );
+            bool result = base.DeserializeMessage( StockLocationInfoResponseEnvelopeDataContractTests.Response );
 
             Assert.IsTrue( result );
         }
