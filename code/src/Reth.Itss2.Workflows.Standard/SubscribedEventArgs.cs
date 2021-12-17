@@ -30,7 +30,7 @@ namespace Reth.Itss2.Workflows.Standard
             get;
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.SubscriberInfo.ToString();
         }

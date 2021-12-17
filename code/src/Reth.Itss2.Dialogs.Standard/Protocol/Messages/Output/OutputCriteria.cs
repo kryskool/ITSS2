@@ -158,7 +158,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
             return this.Labels.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as OutputCriteria );
 		}
@@ -173,7 +173,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
             return HashCode.Combine( this.ArticleId, this.PackId );
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Quantity.ToString( CultureInfo.InvariantCulture );
         }

@@ -74,7 +74,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active
             return Task.FromResult<IOutputCreatedProcessState>( new OutputCreatedProcessState( this, request ) );
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<OutputMessage> e )
+        private void Dialog_MessageReceived( Object? sender, MessageReceivedEventArgs<OutputMessage> e )
         {
             OutputMessage message = e.Message;
 

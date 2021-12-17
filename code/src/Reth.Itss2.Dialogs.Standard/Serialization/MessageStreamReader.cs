@@ -21,10 +21,10 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization.Tokenization;
+using Reth.Itss2.Serialization.Tokenization;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization
 {

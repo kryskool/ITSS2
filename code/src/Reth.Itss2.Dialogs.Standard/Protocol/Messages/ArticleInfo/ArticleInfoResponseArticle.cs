@@ -104,7 +104,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo
             get;
         }
         
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ArticleInfoResponseArticle );
 		}
@@ -119,7 +119,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo
             return this.Id.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Id.ToString();
         }

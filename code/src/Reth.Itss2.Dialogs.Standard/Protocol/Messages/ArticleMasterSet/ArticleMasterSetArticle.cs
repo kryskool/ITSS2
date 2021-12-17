@@ -171,7 +171,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet
             return this.ProductCodes.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ArticleMasterSetArticle );
 		}
@@ -186,7 +186,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet
             return this.Id.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Id.ToString();
         }

@@ -133,7 +133,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo
             return this.AlternativePackSizeArticles.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ArticleInfoResponseArticle );
 		}
@@ -148,7 +148,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo
             return base.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Id.ToString();
         }

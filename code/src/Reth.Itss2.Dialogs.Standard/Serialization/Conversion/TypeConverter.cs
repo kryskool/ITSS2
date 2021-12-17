@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.InitiateInput;
@@ -70,7 +70,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion
             where TDataContract:IDataContract<TDataObject>
             where TDataObject:notnull
         {
-            return ( TDataContract )( Activator.CreateInstance( typeof( TDataContract ), new Object[]{ dataObject } ) );
+            return ( TDataContract )( Activator.CreateInstance( typeof( TDataContract ), new Object[]{ dataObject } ) )!;
         }
 
         public static TDataContract? ConvertNullableFromDataObject<TDataObject, TDataContract>( TDataObject? dataObject )
@@ -81,7 +81,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion
 
             if( dataObject is not null )
             {
-                result = ( TDataContract )( Activator.CreateInstance( typeof( TDataContract ), new Object[]{ dataObject } ) );
+                result = ( TDataContract? )( Activator.CreateInstance( typeof( TDataContract ), new Object[]{ dataObject } ) );
             }
 
             return result;
@@ -114,7 +114,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion
             {
                 return (    from dataObject in dataObjects
                             where dataObject is not null
-                            select ( TDataContract )( Activator.CreateInstance( typeof( TDataContract ), new Object[]{ dataObject } ) ) ).ToArray();
+                            select ( TDataContract? )( Activator.CreateInstance( typeof( TDataContract ), new Object[]{ dataObject } ) ) ).ToArray();
 
             }
 

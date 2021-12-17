@@ -28,17 +28,13 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml;
+using Reth.Itss2.UnitTests;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
 {
     [TestClass]
-    public class StorageSystemDialogProviderTest
+    public class StorageSystemDialogProviderTest:TestBase
     {
-        [TestInitialize]
-        public void Initialize()
-        {
-            Diagnostics.Assert.SetupForTestEnvironment();
-        }
 
         [TestMethod]
         public void TestHelloDialogSendResponse()

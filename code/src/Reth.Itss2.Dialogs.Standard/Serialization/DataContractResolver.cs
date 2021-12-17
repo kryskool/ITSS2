@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization
 {
@@ -44,7 +44,8 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
             List<Assembly> result = new List<Assembly>();
 
             if( type.IsInterface == false &&
-                type.Equals( typeof( Object ) ) == false  )
+                type.Equals( typeof( Object ) ) == false &&
+                type.BaseType is not null )
             {
                 result.AddRange( this.GetAssemblies( type.BaseType ) );
                 result.Add( type.Assembly );

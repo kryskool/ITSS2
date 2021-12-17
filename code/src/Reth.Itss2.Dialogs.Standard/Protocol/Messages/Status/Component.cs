@@ -83,7 +83,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as Component );
 		}
@@ -98,7 +98,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status
             return HashCode.Combine( this.Type, this.State, this.Description, this.StateText );
         }
 
-        public override string ToString()
+        public override String? ToString()
         {
             return $"{ this.Type } ({ this.State })"; 
         }

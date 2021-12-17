@@ -168,7 +168,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as InitiateInputResponsePack );
 		}
@@ -183,7 +183,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput
 			return this.ScanCode.GetHashCode();
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.ScanCode;
         }

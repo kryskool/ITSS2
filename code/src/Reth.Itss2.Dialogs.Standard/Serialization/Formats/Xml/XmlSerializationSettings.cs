@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
 {
-    internal class XmlSerializationSettings:SerializationSettings
+    internal class XmlSerializationSettings
     {
         private XmlSerializationSettings()
         {

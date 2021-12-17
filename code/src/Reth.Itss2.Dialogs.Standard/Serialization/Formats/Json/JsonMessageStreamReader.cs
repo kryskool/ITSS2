@@ -17,8 +17,7 @@
 using System.IO;
 using System.Text;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
-using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Tokenization;
+using Reth.Itss2.Serialization.Tokenization.Json;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 {
@@ -26,30 +25,16 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
     {
         public JsonMessageStreamReader( Stream baseStream )
         :
-            this( baseStream, NullInteractionLog.Instance )
-        {
-        }
-
-        public JsonMessageStreamReader( Stream baseStream, IInteractionLog interactionLog )
-        :
             base(   baseStream,
-                    new JsonTokenizer( baseStream, interactionLog ),
-                    NullInteractionLog.Instance )
+                    new JsonTokenizer( baseStream, JsonSerializationSettings.Encoding ) )
         {
             this.MessageParser = new JsonMessageParser( typeof( JsonSerializationProvider ) );
         }
 
         public JsonMessageStreamReader( Stream baseStream, ISerializationProvider serializationProvider )
         :
-            this( baseStream, serializationProvider, NullInteractionLog.Instance )
-        {
-        }
-
-        public JsonMessageStreamReader( Stream baseStream, ISerializationProvider serializationProvider, IInteractionLog interactionLog )
-        :
             base(   baseStream,
-                    new JsonTokenizer( baseStream, interactionLog ),
-                    interactionLog  )
+                    new JsonTokenizer( baseStream, JsonSerializationSettings.Encoding ) )
         {
             this.MessageParser = new JsonMessageParser( serializationProvider );
         }

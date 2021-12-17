@@ -20,22 +20,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
+using Reth.Itss2.UnitTests;
+using Reth.Itss2.UnitTests.Serialization.Tokenization.Xml;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages
 {
     [TestClass]
-    public abstract class XmlMessageTests
+    public abstract class XmlMessageTests:TestBase
     {
         protected static readonly MessageEnvelopeTimestamp Timestamp = MessageEnvelopeTimestamp.Parse( "2021-05-02T20:58:03Z" );
         protected static readonly MessageId MessageId = new( "10" );
         protected static readonly SubscriberId Source = SubscriberId.DefaultIMS;
         protected static readonly SubscriberId Destination = SubscriberId.DefaultRobot;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            Diagnostics.Assert.SetupForTestEnvironment();
-        }
 
         protected bool SerializeMessage( ( String Xml, IMessageEnvelope Object ) message )
         {

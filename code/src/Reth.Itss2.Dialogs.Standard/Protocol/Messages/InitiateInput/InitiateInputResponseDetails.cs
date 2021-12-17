@@ -74,7 +74,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as InitiateInputResponseDetails );
 		}
@@ -89,7 +89,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput
 			return HashCode.Combine( this.InputSource, this.Status );
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return $"{ this.InputSource } ({ this.Status })";
         }

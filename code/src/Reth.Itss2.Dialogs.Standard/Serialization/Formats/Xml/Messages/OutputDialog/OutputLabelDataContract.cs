@@ -44,7 +44,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Output
         public OutputLabel GetDataObject()
         {
             return new OutputLabel( this.TemplateId,
-                                    this.Content.Value );
+                                    this.Content.Value ?? String.Empty  );
         }
     }
 }

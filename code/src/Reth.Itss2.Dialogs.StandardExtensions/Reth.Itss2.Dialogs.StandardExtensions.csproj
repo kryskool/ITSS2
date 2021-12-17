@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
-		<LangVersion>preview</LangVersion>
+		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<Authors>Thomas Reth</Authors>
 		<Copyright>(C) 2020 Thomas Reth</Copyright>
+		<Authors>Thomas Reth</Authors>
 		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\Reth.Itss2.StrongName.snk</AssemblyOriginatorKeyFile>
 		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>..\Reth.Itss2.StrongName.snk</AssemblyOriginatorKeyFile>
 		<PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
 	

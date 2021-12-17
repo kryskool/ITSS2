@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<Copyright>(C) 2020 Thomas Reth</Copyright>
+		<Authors>Thomas Reth</Authors>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>..\Reth.Itss2.StrongName.snk</AssemblyOriginatorKeyFile>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+  </PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>$(SolutionDir)..\bin\AnyCPU\Debug\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>$(SolutionDir)..\bin\AnyCPU\Release\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.IO.Pipelines" Version="6.0.0" />
+		<PackageReference Include="System.Reactive" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>
+				$(AssemblyName).UnitTests, PublicKey="002400000480000094000000060200000024000052534131000400000100010045385d344012477479f16b1a8fb2bd576cf2fe69d2c732f9a80e7442baee512c24d97e3ec0caf6343882bc9d533c85c7802573f97956a9e7d498e34fe254dc4179bcc147df31f23f22925d0ebc264db7198062d9d5ec28cb13d28e60c8a15b0987a920173b344a2803193afeecfea47bde2895221beeaec5c1baa39e43dda3ef"</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\License.txt">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
+	
+</Project>

@@ -1,11 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
-		<LangVersion>preview</LangVersion>
+		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<EnableNETAnalyzers>false</EnableNETAnalyzers>
-		<EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
 		<Copyright>(C) 2020 Thomas Reth</Copyright>
 		<Authors>Thomas Reth</Authors>
 		<SignAssembly>true</SignAssembly>
@@ -23,9 +20,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.IO.Pipelines" Version="4.7.2" />
-		<PackageReference Include="System.Reactive" Version="4.4.1" />
-		<PackageReference Include="System.Text.Json" Version="5.0.1" />
+		<PackageReference Include="System.IO.Pipelines" Version="6.0.0" />
+		<PackageReference Include="System.Reactive" Version="5.0.0" />
+		<PackageReference Include="System.Text.Json" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

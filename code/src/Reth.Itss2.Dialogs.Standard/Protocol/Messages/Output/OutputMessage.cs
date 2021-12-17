@@ -125,7 +125,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
             return this.Boxes.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as OutputMessage );
 		}

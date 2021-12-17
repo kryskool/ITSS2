@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Status.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<StatusRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<StatusRequest> e )
         {
             StatusRequest request = e.Message;
 

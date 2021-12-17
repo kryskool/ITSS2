@@ -61,7 +61,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo
             return this.Articles.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ArticleInfoRequest );
 		}

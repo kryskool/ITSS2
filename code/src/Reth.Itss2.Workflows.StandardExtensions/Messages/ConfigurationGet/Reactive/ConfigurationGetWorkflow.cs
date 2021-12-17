@@ -55,7 +55,7 @@ namespace Reth.Itss2.Workflows.StandardExtensions.Messages.ConfigurationGet.Reac
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<ConfigurationGetRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<ConfigurationGetRequest> e )
         {
             ConfigurationGetRequest request = e.Message;
 

@@ -56,7 +56,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             this.Dispose( false );
         }
 
-        private void Dialog_MessageDispatching( Object sender, MessageDispatchingEventArgs e )
+        private void Dialog_MessageDispatching( Object? sender, MessageDispatchingEventArgs e )
         {
             if( this.Filter.Intercept( e.Message ) == true )
             {

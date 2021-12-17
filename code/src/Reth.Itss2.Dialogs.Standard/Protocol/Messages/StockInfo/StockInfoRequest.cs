@@ -63,7 +63,10 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo
             this.IncludePacks = includePacks;
             this.IncludeArticleDetails = includeArticleDetails;
 
-            this.Criterias.AddRange( criterias );
+            if( criterias is not null )
+            {
+                this.Criterias.AddRange( criterias );
+            }
         }
 
 		public bool? IncludePacks
@@ -86,7 +89,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo
             return this.Criterias.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as StockInfoRequest );
 		}

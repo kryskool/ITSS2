@@ -45,7 +45,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as TaskCancelOutputRequestTask );
 		}
@@ -60,7 +60,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput
             return this.Id.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Id.ToString();
         }

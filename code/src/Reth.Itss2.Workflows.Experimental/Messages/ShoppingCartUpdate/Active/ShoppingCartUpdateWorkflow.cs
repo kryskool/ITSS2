@@ -78,7 +78,7 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Active
             return new ShoppingCartUpdateFinishedProcessState( request, response );
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<ShoppingCartUpdateMessage> e )
+        private void Dialog_MessageReceived( Object? sender, MessageReceivedEventArgs<ShoppingCartUpdateMessage> e )
         {
             ShoppingCartUpdateMessage message = e.Message;
 

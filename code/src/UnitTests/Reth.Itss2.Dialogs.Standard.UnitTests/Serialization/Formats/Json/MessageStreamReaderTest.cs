@@ -29,11 +29,12 @@ using Moq;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
+using Reth.Itss2.UnitTests;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
 {
     [TestClass]
-    public class MessageStreamReaderTest
+    public class MessageStreamReaderTest:TestBase
     {
         private List<String> Messages
         {
@@ -46,9 +47,9 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
         } = new MemoryStream();
 
         [TestInitialize]
-        public void Initialize()
+        public override void Initialize()
         {
-            Diagnostics.Assert.SetupForTestEnvironment();
+            base.Initialize();
 
             this.Messages.Add( TestData.HelloRequest.Json );
             this.Messages.Add( TestData.ArticleInfoRequest.Json );

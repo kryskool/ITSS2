@@ -19,7 +19,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
@@ -68,13 +68,13 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization
         public abstract String SerializeMessage( IMessage message );
         public abstract Task<String> SerializeMessageAsync( IMessage message, CancellationToken cancellationToken = default );
 
-        protected abstract IMessageStreamReader CreateMessageStreamReader( Stream baseStream, IInteractionLog interactionLog );
-        protected abstract IMessageStreamWriter CreateMessageStreamWriter( Stream baseStream, IInteractionLog interactionLog );
+        protected abstract IMessageStreamReader CreateMessageStreamReader( Stream baseStream );
+        protected abstract IMessageStreamWriter CreateMessageStreamWriter( Stream baseStream );
 
         public IMessageTransmitter CreateMessageTransmitter( Stream baseStream )
         {
-            IMessageStreamReader messageStreamReader = this.CreateMessageStreamReader( baseStream, this.InteractionLog );
-            IMessageStreamWriter messageStreamWriter = this.CreateMessageStreamWriter( baseStream, this.InteractionLog );
+            IMessageStreamReader messageStreamReader = this.CreateMessageStreamReader( baseStream );
+            IMessageStreamWriter messageStreamWriter = this.CreateMessageStreamWriter( baseStream );
 
             return new MessageTransmitter(  messageStreamReader,
                                             messageStreamWriter,

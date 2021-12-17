@@ -35,7 +35,7 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ArticleSelected.Reactive
             dialog.MessageReceived += this.Dialog_MessageReceived;
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<ArticleSelectedMessage> e )
+        private void Dialog_MessageReceived( Object? sender, MessageReceivedEventArgs<ArticleSelectedMessage> e )
         {
             ArticleSelectedMessage message = e.Message;
 

@@ -38,7 +38,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockInfo.Active
             this.Dialog.MessageReceived += this.Dialog_MessageReceived;
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<StockInfoMessage> e )
+        private void Dialog_MessageReceived( Object? sender, MessageReceivedEventArgs<StockInfoMessage> e )
         {
             StockInfoMessage message = e.Message;
 

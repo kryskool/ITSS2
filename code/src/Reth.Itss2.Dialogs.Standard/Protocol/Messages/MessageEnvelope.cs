@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 {
@@ -83,7 +83,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             get;
         } = MessageEnvelope.DefaultVersion;
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as MessageEnvelope );
 		}
@@ -98,7 +98,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             return HashCode.Combine( this.Message, this.Timestamp, this.Version );
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Message.ToString();
         }

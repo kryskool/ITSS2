@@ -18,7 +18,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
@@ -136,7 +136,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 
             try
             {
-                Object dataContract = Activator.CreateInstance( dataContractType, messageEnvelope );
+                Object? dataContract = Activator.CreateInstance( dataContractType, messageEnvelope );
 
                 result = JsonSerializer.Serialize( dataContract, dataContractType, JsonSerializationSettings.SerializerOptions );
             }catch( Exception ex )
@@ -153,7 +153,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 
             try
             {
-                Object dataContract = Activator.CreateInstance( dataContractType, message );
+                Object? dataContract = Activator.CreateInstance( dataContractType, message );
 
                 return JsonSerializer.Serialize( dataContract, dataContractType, JsonSerializationSettings.SerializerOptions );
             }catch( Exception ex )

@@ -18,7 +18,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol
@@ -116,7 +116,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
         protected abstract void ConnectDialogs( IMessageTransmitter messageTransmitter );
 
-        protected virtual void OnMessageProcessingError( Object sender, MessageProcessingErrorEventArgs e )
+        protected virtual void OnMessageProcessingError( Object? sender, MessageProcessingErrorEventArgs e )
         {
             this.MessageProcessingError?.Invoke( this, e );
         }

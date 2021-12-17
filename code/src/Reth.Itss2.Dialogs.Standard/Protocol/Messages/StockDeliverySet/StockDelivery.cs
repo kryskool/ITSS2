@@ -67,7 +67,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet
             return this.Lines.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as StockDelivery );
 		}
@@ -82,7 +82,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet
 			return this.DeliveryNumber.GetHashCode();
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.DeliveryNumber;
         }

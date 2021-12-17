@@ -24,7 +24,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
     {
         public String ConvertFrom( MessageEnvelopeTimestamp value )
         {
-            return value.ToString();
+            return value.ToString()!;
         }
 
         public String? ConvertNullableFrom( MessageEnvelopeTimestamp? value )

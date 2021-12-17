@@ -62,7 +62,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             get; protected set;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as SubscribedMessage );
 		}
@@ -77,7 +77,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 			return base.GetHashCode();
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Id.ToString();
         }

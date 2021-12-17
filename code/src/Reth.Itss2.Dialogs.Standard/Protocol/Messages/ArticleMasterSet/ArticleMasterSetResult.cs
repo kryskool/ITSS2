@@ -62,7 +62,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet
             get;
         }
         
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ArticleMasterSetResult );
 		}
@@ -77,7 +77,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet
             return this.Value.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Value.ToString();
         }

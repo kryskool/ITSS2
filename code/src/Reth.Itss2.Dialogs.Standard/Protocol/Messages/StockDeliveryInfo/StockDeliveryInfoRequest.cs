@@ -72,7 +72,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as StockDeliveryInfoRequest );
 		}

@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.ArticleInfo.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<ArticleInfoRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<ArticleInfoRequest> e )
         {
             ArticleInfoRequest request = e.Message;
 

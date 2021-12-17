@@ -29,7 +29,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
 
         public String ConvertFrom( PackDate value )
         {
-            return value.ToString();
+            return value.ToString()!;
         }
 
         public PackDate ConvertTo( String value )

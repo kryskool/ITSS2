@@ -123,7 +123,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as PackDate );
 		}
@@ -143,7 +143,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 			return this.Value.GetHashCode();
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return String.Format( CultureInfo.InvariantCulture, "{0:yyyy-MM-dd}", this.Value );
         }

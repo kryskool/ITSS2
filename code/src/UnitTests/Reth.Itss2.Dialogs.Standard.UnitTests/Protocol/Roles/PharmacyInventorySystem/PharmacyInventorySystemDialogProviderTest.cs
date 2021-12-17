@@ -29,18 +29,13 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml;
+using Reth.Itss2.UnitTests;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventorySystem
 {
     [TestClass]
-    public class PharmacyInventorySystemDialogProviderTest
+    public class PharmacyInventorySystemDialogProviderTest:TestBase
     {
-        [TestInitialize]
-        public void Initialize()
-        {
-            Diagnostics.Assert.SetupForTestEnvironment();
-        }
-
         [TestMethod]
         public void TestHelloDialogSendRequest()
         {

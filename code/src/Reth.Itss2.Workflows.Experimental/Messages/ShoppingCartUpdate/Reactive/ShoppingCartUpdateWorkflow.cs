@@ -89,7 +89,7 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCartUpdate.Reactive
                                             }   );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<ShoppingCartUpdateRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<ShoppingCartUpdateRequest> e )
         {
             ShoppingCartUpdateRequest request = e.Message;
 

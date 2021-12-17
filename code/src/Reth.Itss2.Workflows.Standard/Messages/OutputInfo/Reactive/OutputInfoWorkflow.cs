@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.OutputInfo.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<OutputInfoRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<OutputInfoRequest> e )
         {
             OutputInfoRequest request = e.Message;
 

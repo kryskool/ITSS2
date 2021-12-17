@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<InputRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<InputRequest> e )
         {
             InputRequest request = e.Message;
 

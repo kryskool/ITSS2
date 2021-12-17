@@ -41,7 +41,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
         {
             lock( SerializationManager.SyncRoot )
             {
-                if( SerializationManager.Serializers.TryGetValue( dataContractType, out XmlSerializer result ) )
+                if( SerializationManager.Serializers.TryGetValue( dataContractType, out XmlSerializer? result ) )
                 {
                     return result;
                 }else

@@ -24,7 +24,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
     {
         public String ConvertFrom( ArticleId value )
         {
-            return value.ToString();
+            return value.ToString()!;
         }
 
         public String? ConvertNullableFrom( ArticleId? value )

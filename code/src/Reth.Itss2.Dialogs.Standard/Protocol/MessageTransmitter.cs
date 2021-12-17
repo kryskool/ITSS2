@@ -21,7 +21,7 @@ using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 
@@ -112,7 +112,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             get;
         }
 
-        private void OnMessageProcessingError( Object sender, MessageProcessingErrorEventArgs e )
+        private void OnMessageProcessingError( Object? sender, MessageProcessingErrorEventArgs e )
         {
             this.MessageProcessingError?.Invoke( this, e );
         }
@@ -160,7 +160,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
 
                 IObservable<IMessage> timeoutObservable = responseObservable.Timeout( this.MessageRoundTripTimeout );
 
-                IObservable<IMessage> waitObservable = timeoutObservable.FirstOrDefaultAsync();
+                IObservable<IMessage?> waitObservable = timeoutObservable.FirstOrDefaultAsync();
 
                 this.SendMessage( request );
                                 

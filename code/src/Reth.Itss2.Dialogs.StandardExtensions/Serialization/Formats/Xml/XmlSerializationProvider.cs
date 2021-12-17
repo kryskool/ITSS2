@@ -16,7 +16,7 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml
 {

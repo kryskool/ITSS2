@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.ArticleMasterSet.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<ArticleMasterSetRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<ArticleMasterSetRequest> e )
         {
             ArticleMasterSetRequest request = e.Message;
 

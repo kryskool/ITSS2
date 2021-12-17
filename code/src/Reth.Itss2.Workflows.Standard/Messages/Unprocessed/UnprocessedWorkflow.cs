@@ -45,7 +45,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Unprocessed
             get;
         }
 
-        private void Dialog_MessageReceived( Object sender, MessageReceivedEventArgs<UnprocessedMessage> e )
+        private void Dialog_MessageReceived( Object? sender, MessageReceivedEventArgs<UnprocessedMessage> e )
         {
             this.MessageReceived?.Invoke( this, e );
         }

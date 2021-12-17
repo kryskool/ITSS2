@@ -62,7 +62,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ShoppingCartUpdateResult );
 		}
@@ -77,7 +77,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate
             return this.Status.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Status.ToString();
         }

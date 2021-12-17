@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockLocationInfo.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<StockLocationInfoRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<StockLocationInfoRequest> e )
         {
             StockLocationInfoRequest request = e.Message;
 

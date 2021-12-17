@@ -16,7 +16,7 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 {
@@ -76,7 +76,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as TInstance );
 		}
@@ -91,7 +91,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             return this.Value.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Value;
         }

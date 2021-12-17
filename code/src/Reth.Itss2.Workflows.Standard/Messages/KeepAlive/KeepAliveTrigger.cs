@@ -56,7 +56,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.KeepAlive
             get; set;
         } = new Timer();
 
-        private void Timer_Elapsed( Object sender, ElapsedEventArgs e )
+        private void Timer_Elapsed( Object? sender, ElapsedEventArgs e )
         {
             try
             {

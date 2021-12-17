@@ -44,7 +44,7 @@ namespace Reth.Itss2.Workflows.Standard
             get;
         }
 
-        protected virtual void OnMessageProcessingError( Object sender, MessageProcessingErrorEventArgs e )
+        protected virtual void OnMessageProcessingError( Object? sender, MessageProcessingErrorEventArgs e )
         {
             this.MessageProcessingError?.Invoke( this, e );
         }

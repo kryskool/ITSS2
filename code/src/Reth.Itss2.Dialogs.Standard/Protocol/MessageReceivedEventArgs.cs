@@ -39,7 +39,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol
             get;
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Message.ToString();
         }

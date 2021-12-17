@@ -106,7 +106,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.KeepAlive
             }
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<KeepAliveRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<KeepAliveRequest> e )
         {
             KeepAliveRequest request = e.Message;
 

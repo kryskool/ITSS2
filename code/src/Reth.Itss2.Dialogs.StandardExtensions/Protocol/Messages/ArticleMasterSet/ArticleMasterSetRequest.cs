@@ -47,7 +47,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterS
         {
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ArticleMasterSetRequest );
 		}

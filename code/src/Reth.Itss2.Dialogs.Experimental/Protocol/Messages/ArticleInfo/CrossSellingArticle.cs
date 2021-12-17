@@ -47,7 +47,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as CrossSellingArticle );
 		}
@@ -62,7 +62,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo
             return this.Id.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Id.ToString();
         }

@@ -55,7 +55,7 @@ namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<ArticlePriceRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<ArticlePriceRequest> e )
         {
             ArticlePriceRequest request = e.Message;
 

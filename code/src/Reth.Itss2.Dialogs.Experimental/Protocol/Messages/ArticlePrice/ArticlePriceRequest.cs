@@ -81,7 +81,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice
             return this.Articles.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as ArticlePriceRequest );
 		}

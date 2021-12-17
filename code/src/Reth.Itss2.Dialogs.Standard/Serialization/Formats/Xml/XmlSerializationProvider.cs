@@ -19,7 +19,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
@@ -101,14 +101,14 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                                 cancellationToken   );
         }
 
-        protected override IMessageStreamReader CreateMessageStreamReader( Stream baseStream, IInteractionLog interactionLog )
+        protected override IMessageStreamReader CreateMessageStreamReader( Stream baseStream )
         {
-            return new XmlMessageStreamReader( baseStream, this, interactionLog );
+            return new XmlMessageStreamReader( baseStream, this );
         }
 
-        protected override IMessageStreamWriter CreateMessageStreamWriter( Stream baseStream, IInteractionLog interactionLog )
+        protected override IMessageStreamWriter CreateMessageStreamWriter( Stream baseStream )
         {
-            return new XmlMessageStreamWriter( baseStream, this, interactionLog );
+            return new XmlMessageStreamWriter( baseStream, this );
         }
     }
 }

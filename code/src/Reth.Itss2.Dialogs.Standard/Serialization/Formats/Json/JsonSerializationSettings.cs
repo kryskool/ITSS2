@@ -21,7 +21,7 @@ using System.Threading;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 {
-    internal class JsonSerializationSettings:SerializationSettings
+    internal class JsonSerializationSettings
     {
         private JsonSerializationSettings()
         {
@@ -51,7 +51,6 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
         public static readonly Encoding Encoding = Encoding.UTF8;
         
         public static StringComparison StringComparison => JsonSerializationSettings.DefaultStringComparison;
-        public static char Escape => '\\';
 
         internal static JsonSerializerOptions DeserializerOptions => JsonSerializationSettings.deserializerOptions.Value;
         internal static JsonSerializerOptions SerializerOptions => JsonSerializationSettings.serializerOptions.Value;

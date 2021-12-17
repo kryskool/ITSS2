@@ -19,7 +19,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
@@ -61,7 +61,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive
             get;
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<HelloRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<HelloRequest> e )
         {
             lock( this.SyncRoot )
             {

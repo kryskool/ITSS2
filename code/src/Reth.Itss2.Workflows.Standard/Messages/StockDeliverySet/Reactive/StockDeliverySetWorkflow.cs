@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliverySet.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<StockDeliverySetRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<StockDeliverySetRequest> e )
         {
             StockDeliverySetRequest request = e.Message;
 

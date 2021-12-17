@@ -19,7 +19,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Serialization;
 

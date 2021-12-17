@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages
 {
@@ -446,7 +446,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages
             get;
         }
         
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as Iso4217Code );
 		}
@@ -461,12 +461,12 @@ namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages
 			return this.Value.GetHashCode();
 		}
 
-        public int CompareTo( Iso4217Code other )
+        public int CompareTo( Iso4217Code? other )
 		{
             return Iso4217Code.Compare( this, other );
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Value.ToString( CultureInfo.InvariantCulture );
         }

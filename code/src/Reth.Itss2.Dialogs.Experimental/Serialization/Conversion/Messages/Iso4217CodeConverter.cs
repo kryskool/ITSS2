@@ -24,7 +24,7 @@ namespace Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages
     {
         public String ConvertFrom( Iso4217Code code )
         {
-            return code.ToString();
+            return code.ToString()!;
         }
 
         public String? ConvertNullableFrom( Iso4217Code? code )

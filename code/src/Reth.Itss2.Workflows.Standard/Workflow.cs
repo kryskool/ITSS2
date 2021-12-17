@@ -61,7 +61,7 @@ namespace Reth.Itss2.Workflows.Standard
             this.MessageDispatching?.Invoke( this, e );
         }
 
-        private void Dialog_MessageDispatching( Object sender, MessageDispatchingEventArgs e )
+        private void Dialog_MessageDispatching( Object? sender, MessageDispatchingEventArgs e )
         {
             this.OnMessageDispatching( e );
         }

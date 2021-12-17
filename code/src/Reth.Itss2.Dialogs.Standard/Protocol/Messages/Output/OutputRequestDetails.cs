@@ -71,7 +71,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as OutputRequestDetails );
 		}
@@ -86,7 +86,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output
 			return this.OutputDestination.GetHashCode();
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.OutputDestination.ToString();
         }

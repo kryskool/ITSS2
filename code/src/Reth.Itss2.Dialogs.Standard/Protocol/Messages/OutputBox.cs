@@ -47,7 +47,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as OutputBox );
 		}
@@ -62,7 +62,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 			return this.Number.GetHashCode();
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Number;
         }

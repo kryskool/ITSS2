@@ -17,8 +17,7 @@
 using System.IO;
 using System.Text;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
-using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Tokenization;
+using Reth.Itss2.Serialization.Tokenization.Xml;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
 {
@@ -26,30 +25,16 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
     {
         public XmlMessageStreamReader( Stream baseStream )
         :
-            this( baseStream, NullInteractionLog.Instance )
-        {
-        }
-
-        public XmlMessageStreamReader( Stream baseStream, IInteractionLog interactionLog )
-        :
             base(   baseStream,
-                    new XmlTokenizer( baseStream, NullInteractionLog.Instance ),
-                    interactionLog )
+                    new XmlTokenizer( baseStream, XmlSerializationSettings.Encoding )   )
         {
             this.MessageParser = new XmlMessageParser( typeof( XmlSerializationProvider ) );
         }
 
         public XmlMessageStreamReader( Stream baseStream, ISerializationProvider serializationProvider )
         :
-            this( baseStream, serializationProvider, NullInteractionLog.Instance )
-        {
-        }
-
-        public XmlMessageStreamReader( Stream baseStream, ISerializationProvider serializationProvider, IInteractionLog interactionLog )
-        :
             base(   baseStream,
-                    new XmlTokenizer( baseStream, interactionLog ),
-                    interactionLog  )
+                    new XmlTokenizer( baseStream, XmlSerializationSettings.Encoding )   )
         {
             this.MessageParser = new XmlMessageParser( serializationProvider );
         }

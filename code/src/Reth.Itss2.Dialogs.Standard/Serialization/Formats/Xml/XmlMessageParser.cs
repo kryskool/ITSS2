@@ -21,7 +21,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
@@ -94,12 +94,18 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                     {
                         XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType );
 
-                        IDataContract<IMessageEnvelope> envelopeDataContract = ( IDataContract<IMessageEnvelope> )( serializer.Deserialize( reader ) );
+                        IDataContract<IMessageEnvelope>? envelopeDataContract = ( IDataContract<IMessageEnvelope>? )( serializer.Deserialize( reader ) );
+
+                        if( envelopeDataContract is null )
+                        {
+                            throw Assert.Exception( new MessageSerializationException( $"Data contract for message '{ messageEnvelope.Truncate() }' not found." ) );
+                        }
 
                         return envelopeDataContract.GetDataObject();
                     }
                 }
             }catch( Exception ex )
+                when ( ex is not MessageSerializationException )
             {
                 throw Assert.Exception( new MessageSerializationException( $"Deserialization of message envelope (truncated) '{ messageEnvelope.Truncate() }' failed.", ex ) );
             }
@@ -119,12 +125,18 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                     {
                         XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType );
 
-                        IDataContract<IMessage> dataContract = ( IDataContract<IMessage> )( serializer.Deserialize( reader ) );
+                        IDataContract<IMessage>? dataContract = ( IDataContract<IMessage>? )( serializer.Deserialize( reader ) );
+
+                        if( dataContract is null )
+                        {
+                            throw Assert.Exception( new MessageSerializationException( $"Data contract for message '{ message.Truncate() }' not found." ) );
+                        }
 
                         return dataContract.GetDataObject();
                     }
                 }
             }catch( Exception ex )
+                when ( ex is not MessageSerializationException )
             {
                 throw Assert.Exception( new MessageSerializationException( $"Deserialization of message (truncated) '{ message.Truncate() }' failed.", ex ) );
             }
@@ -142,7 +154,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                 {
                     XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType );
                     
-                    Object dataContract = Activator.CreateInstance( dataContractType, messageEnvelope );
+                    Object? dataContract = Activator.CreateInstance( dataContractType, messageEnvelope );
 
                     serializer.Serialize( writer, dataContract, this.Namespaces );
                 }catch( Exception ex )
@@ -168,7 +180,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
                 {
                     XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType, new XmlRootAttribute( messageName ) );
                     
-                    Object dataContract = Activator.CreateInstance( dataContractType, message );
+                    Object? dataContract = Activator.CreateInstance( dataContractType, message );
 
                     serializer.Serialize( writer, dataContract, this.Namespaces );
                 }catch( Exception ex )

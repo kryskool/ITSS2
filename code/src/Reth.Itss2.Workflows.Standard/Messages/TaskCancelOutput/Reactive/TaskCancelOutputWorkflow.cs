@@ -54,7 +54,7 @@ namespace Reth.Itss2.Workflows.Standard.Messages.TaskCancelOutput.Reactive
                                             } );
         }
 
-        private void Dialog_RequestReceived( Object sender, MessageReceivedEventArgs<TaskCancelOutputRequest> e )
+        private void Dialog_RequestReceived( Object? sender, MessageReceivedEventArgs<TaskCancelOutputRequest> e )
         {
             TaskCancelOutputRequest request = e.Message;
 

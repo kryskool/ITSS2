@@ -84,7 +84,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo
             return this.Articles.ToArray();
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as StockDeliveryInfoResponseTask );
 		}
@@ -99,7 +99,7 @@ namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo
             return this.Id.GetHashCode();
         }
 
-        public override String ToString()
+        public override String? ToString()
         {
             return $"{ this.Id }, { this.Status }";
         }

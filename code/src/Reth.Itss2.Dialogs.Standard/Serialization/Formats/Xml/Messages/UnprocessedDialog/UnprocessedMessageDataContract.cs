@@ -53,7 +53,7 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages.Unproce
             return new UnprocessedMessage(  TypeConverter.MessageId.ConvertTo( this.Id ),
                                             TypeConverter.SubscriberId.ConvertTo( this.Source ),
                                             TypeConverter.SubscriberId.ConvertTo( this.Destination ),
-                                            this.Message.Value,
+                                            this.Message.Value ?? String.Empty,
                                             this.Text,
                                             TypeConverter.UnprocessedReason.ConvertNullableTo( this.Reason ) );
         }

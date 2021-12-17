@@ -45,7 +45,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationG
             get;
         }
 
-        public override bool Equals( Object obj )
+        public override bool Equals( Object? obj )
 		{
 			return this.Equals( obj as Configuration );
 		}
@@ -60,7 +60,7 @@ namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationG
 			return this.Data.GetHashCode();
 		}
 
-        public override String ToString()
+        public override String? ToString()
         {
             return this.Data.ToString();
         }

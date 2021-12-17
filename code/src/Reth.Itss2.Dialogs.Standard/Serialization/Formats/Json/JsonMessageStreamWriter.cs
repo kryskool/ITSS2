@@ -17,7 +17,7 @@
 using System.IO;
 using System.Text;
 
-using Reth.Itss2.Dialogs.Standard.Diagnostics;
+using Reth.Itss2.Diagnostics;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json
 {
