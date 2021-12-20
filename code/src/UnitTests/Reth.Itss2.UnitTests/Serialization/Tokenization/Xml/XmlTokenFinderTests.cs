@@ -106,20 +106,6 @@ namespace Reth.Itss2.UnitTests.Serialization.Tokenization.Xml
                                                                 XmlTokenState.WithinData );
         }
 
-        private void FindNextMatch_WithGivenContext_Succeeds(   XmlTokenState currentState,
-                                                                String content,
-                                                                ITokenPattern expectedPattern   )
-        {
-            this.GetSequenceReader( content, out SequenceReader<byte> sequenceReader );
-
-            XmlTokenFinder tokenFinder = new XmlTokenFinder( this.Encoding );                     
-
-            ITokenPatternMatch? actualMatch = tokenFinder.FindNextMatch( currentState, ref sequenceReader );
-
-            Assert.IsNotNull( actualMatch );
-            Assert.AreEqual( expectedPattern, actualMatch.Pattern );
-        }
-
         [TestMethod]
         public void FindNextMatch_BeginOfMessage_Succeeds()
         {
