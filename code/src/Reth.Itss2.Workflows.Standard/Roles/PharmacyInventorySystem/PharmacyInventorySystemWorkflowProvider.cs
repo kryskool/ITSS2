@@ -16,7 +16,6 @@
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Workflows.Standard.Messages.ArticleInfo.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.ArticleMasterSet.Active;
 using Reth.Itss2.Workflows.Standard.Messages.Hello.Active;
@@ -32,6 +31,7 @@ using Reth.Itss2.Workflows.Standard.Messages.StockInfo.Active;
 using Reth.Itss2.Workflows.Standard.Messages.StockLocationInfo.Active;
 using Reth.Itss2.Workflows.Standard.Messages.TaskCancelOutput.Active;
 using Reth.Itss2.Workflows.Standard.Messages.Unprocessed;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Roles.PharmacyInventorySystem
 {

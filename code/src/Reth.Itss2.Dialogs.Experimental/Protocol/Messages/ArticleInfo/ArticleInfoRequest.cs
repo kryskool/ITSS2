@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Messaging;
 
 using ArticleInfoRequestArticle = Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.ArticleInfoRequestArticle;
 

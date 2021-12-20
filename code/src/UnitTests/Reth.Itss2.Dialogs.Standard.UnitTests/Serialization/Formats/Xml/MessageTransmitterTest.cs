@@ -25,9 +25,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
+using Reth.Itss2.Serialization.Formats.Xml;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
 {
@@ -70,8 +71,9 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
         [TestMethod]
         public void TestSubscriptionOfSingleObserver()
         {
-            using(  IMessageTransmitter transmitter = new MessageTransmitter(   new XmlMessageStreamReader( this.BaseStream ),
-                                                                                new XmlMessageStreamWriter( this.BaseStream ),
+            
+            using(  IMessageTransmitter transmitter = new MessageTransmitter(   new XmlMessageStreamReader( this.BaseStream, new XmlSerializationProvider() ),
+                                                                                new XmlMessageStreamWriter( this.BaseStream, new XmlSerializationProvider() ),
                                                                                 this.BaseStream ) )
             {
                 Mock<IObserver<IMessage>> observerMock = new Mock<IObserver<IMessage>>();
@@ -102,8 +104,8 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
         [TestMethod]
         public void TestSubscriptionOfMultipleObservers()
         {
-            using(  IMessageTransmitter transmitter = new MessageTransmitter(   new XmlMessageStreamReader( this.BaseStream ),
-                                                                                new XmlMessageStreamWriter( this.BaseStream ),
+            using(  IMessageTransmitter transmitter = new MessageTransmitter(   new XmlMessageStreamReader( this.BaseStream, new XmlSerializationProvider() ),
+                                                                                new XmlMessageStreamWriter( this.BaseStream, new XmlSerializationProvider() ),
                                                                                 this.BaseStream ) )
             {
                 Mock<IObserver<IMessage>> observerMock1 = new Mock<IObserver<IMessage>>();

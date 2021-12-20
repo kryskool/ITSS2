@@ -16,8 +16,8 @@
 
 using Reth.Itss2.Workflows.Standard;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.PharmacyInventorySystem;
+using Reth.Itss2.Serialization;
 using Reth.Itss2.Workflows.Standard.Messages.ArticleInfo.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.Hello.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Reactive;

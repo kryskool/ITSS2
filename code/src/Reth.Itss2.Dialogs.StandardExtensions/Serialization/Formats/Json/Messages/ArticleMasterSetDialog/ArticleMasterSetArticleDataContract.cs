@@ -22,6 +22,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ArticleMasterSet
 {

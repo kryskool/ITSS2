@@ -18,7 +18,7 @@ using System;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate;
 using Reth.Itss2.Dialogs.Experimental.Serialization.Conversion;
-using Reth.Itss2.Dialogs.Standard.Serialization;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ShoppingCartUpdate
 {

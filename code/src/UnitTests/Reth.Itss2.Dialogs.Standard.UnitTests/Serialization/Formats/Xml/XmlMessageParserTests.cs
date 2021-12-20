@@ -19,6 +19,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
+using Reth.Itss2.Serialization.Formats.Xml;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml
 {

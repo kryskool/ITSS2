@@ -15,9 +15,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization.Formats.Json;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Formats.Json.Messages.ArticleSelected
 {

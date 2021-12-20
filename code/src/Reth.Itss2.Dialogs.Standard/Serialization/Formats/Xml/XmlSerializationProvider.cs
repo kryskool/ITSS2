@@ -20,12 +20,21 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Diagnostics;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
+using Reth.Itss2.Serialization.Formats.Xml;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
 {
     public class XmlSerializationProvider:SerializationProvider
     {
+        public XmlSerializationProvider()
+        :
+            base( NullInteractionLog.Instance )
+        {
+            this.MessageParser = new XmlMessageParser( this );
+        }
+
         public XmlSerializationProvider( IInteractionLog interactionLog )
         :
             base( interactionLog )

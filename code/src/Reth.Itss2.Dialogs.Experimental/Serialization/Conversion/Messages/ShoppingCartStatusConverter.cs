@@ -17,7 +17,7 @@
 using System;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.Experimental.Serialization.Conversion.Messages
 {

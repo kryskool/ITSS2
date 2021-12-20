@@ -19,10 +19,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Reactive;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.StockInfo.Reactive
 {

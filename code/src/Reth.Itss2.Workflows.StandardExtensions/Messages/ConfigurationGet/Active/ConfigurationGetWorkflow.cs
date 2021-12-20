@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet.Active;
+using Reth.Itss2.Messaging;
 using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.StandardExtensions.Messages.ConfigurationGet.Active

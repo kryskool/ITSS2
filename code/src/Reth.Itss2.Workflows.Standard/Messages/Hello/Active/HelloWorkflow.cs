@@ -18,11 +18,12 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
-using Reth.Itss2.Dialogs.Standard.Serialization;
+using Reth.Itss2.Dialogs;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Hello.Active
 {

@@ -19,6 +19,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
+using Reth.Itss2.Serialization.Formats.Json;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
 {

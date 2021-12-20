@@ -16,7 +16,6 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Reactive;
@@ -33,6 +32,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet.Reactive;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet.Reactive;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.StorageSystem
 {

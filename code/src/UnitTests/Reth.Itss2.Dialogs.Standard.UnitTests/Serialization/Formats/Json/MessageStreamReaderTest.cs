@@ -26,9 +26,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
+using Reth.Itss2.Serialization.Formats.Json;
 using Reth.Itss2.UnitTests;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
@@ -74,7 +75,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
         [TestMethod]
         public void TestSubscriptionOfSingleObserver()
         {
-            using( IMessageStreamReader streamReader = new JsonMessageStreamReader( this.BaseStream ) )
+            using( IMessageStreamReader streamReader = new JsonMessageStreamReader( this.BaseStream, new JsonSerializationProvider() ) )
             {
                 Mock<IObserver<IMessageEnvelope>> observerMock = new Mock<IObserver<IMessageEnvelope>>();
 
@@ -100,7 +101,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json
         [TestMethod]
         public void TestSubscriptionOfMultipleObservers()
         {
-            using( IMessageStreamReader streamReader = new JsonMessageStreamReader( this.BaseStream ) )
+            using( IMessageStreamReader streamReader = new JsonMessageStreamReader( this.BaseStream, new JsonSerializationProvider() ) )
             {
                 Mock<IObserver<IMessageEnvelope>> observerMock1 = new Mock<IObserver<IMessageEnvelope>>();
                 Mock<IObserver<IMessageEnvelope>> observerMock2 = new Mock<IObserver<IMessageEnvelope>>();

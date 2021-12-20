@@ -16,6 +16,8 @@
 
 using System;
 
+using Reth.Itss2.Messaging;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo
 {
     public class StockDeliveryInfoResponse:SubscribedResponse, IEquatable<StockDeliveryInfoResponse>

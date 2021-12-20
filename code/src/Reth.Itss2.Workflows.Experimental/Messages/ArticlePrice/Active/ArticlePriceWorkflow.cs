@@ -22,6 +22,7 @@ using Reth.Itss2.Dialogs.Experimental.Protocol.Messages;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Messaging;
 using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Active

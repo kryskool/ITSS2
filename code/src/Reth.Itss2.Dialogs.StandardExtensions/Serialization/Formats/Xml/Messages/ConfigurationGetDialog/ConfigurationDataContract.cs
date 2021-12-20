@@ -20,6 +20,7 @@ using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml.Messages.ConfigurationGet
 {

@@ -20,8 +20,8 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Reth.Itss2.Diagnostics;
-using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Serialization;
+using Reth.Itss2.Dialogs;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard
 {

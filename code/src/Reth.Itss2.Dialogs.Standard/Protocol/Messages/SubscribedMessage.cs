@@ -17,6 +17,8 @@
 using System;
 using System.Collections.Generic;
 
+using Reth.Itss2.Messaging;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages
 {
     public abstract class SubscribedMessage:Message, IEquatable<SubscribedMessage>

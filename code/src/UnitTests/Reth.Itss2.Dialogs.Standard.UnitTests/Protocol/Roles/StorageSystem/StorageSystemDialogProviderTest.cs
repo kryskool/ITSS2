@@ -21,13 +21,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem;
-using Reth.Itss2.Dialogs.Standard.Serialization;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
+using Reth.Itss2.Serialization.Formats.Xml;
 using Reth.Itss2.UnitTests;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
@@ -42,7 +42,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
             using( MemoryStream stream = new MemoryStream() )
             {
                 Mock<IMessageStreamReader> messageStreamReaderMock = new Mock<IMessageStreamReader>();
-                IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( stream );
+                IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( stream, new XmlSerializationProvider() );
 
                 using( IStorageSystemDialogProvider dialogProvider = new StorageSystemDialogProvider() )
                 {
@@ -52,7 +52,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.StorageSystem
 
                     stream.Position = 0;
 
-                    using( IMessageStreamReader messageStreamReader = new XmlMessageStreamReader( stream ) )
+                    using( IMessageStreamReader messageStreamReader = new XmlMessageStreamReader( stream, new XmlSerializationProvider() ) )
                     {
                         Mock<IObserver<IMessageEnvelope>> observerMock = new Mock<IObserver<IMessageEnvelope>>();
 

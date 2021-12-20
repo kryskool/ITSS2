@@ -22,13 +22,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
-using Reth.Itss2.Dialogs.Standard.Serialization;
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello;
 using Reth.Itss2.Dialogs.Standard.Protocol.Roles.PharmacyInventorySystem;
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
+using Reth.Itss2.Serialization.Formats.Xml;
 using Reth.Itss2.UnitTests;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventorySystem
@@ -68,7 +68,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventory
                                                                                                                                                     await Task.Delay( timeout.Add( TimeSpan.FromMilliseconds( 1 ) ) );
                                                                                                                                                 }   );
             
-            IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( Stream.Null );
+            IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( Stream.Null, new XmlSerializationProvider() );
             
             using(  IPharmacyInventorySystemDialogProvider dialogProvider = new PharmacyInventorySystemDialogProvider() )
             {
@@ -87,8 +87,8 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Protocol.Roles.PharmacyInventory
         [TestMethod]
         public void TestHelloDialogSendRequestWithoutResponse()
         {
-            IMessageStreamReader messageStreamReader = new XmlMessageStreamReader( Stream.Null );
-            IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( Stream.Null );
+            IMessageStreamReader messageStreamReader = new XmlMessageStreamReader( Stream.Null, new XmlSerializationProvider() );
+            IMessageStreamWriter messageStreamWriter = new XmlMessageStreamWriter( Stream.Null, new XmlSerializationProvider() );
 
             using(  IPharmacyInventorySystemDialogProvider dialogProvider = new PharmacyInventorySystemDialogProvider() )
             {

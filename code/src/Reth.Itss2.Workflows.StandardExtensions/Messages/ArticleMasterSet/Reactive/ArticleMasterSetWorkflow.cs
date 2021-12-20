@@ -18,9 +18,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet.Reactive;
+using Reth.Itss2.Serialization;
 using Reth.Itss2.Workflows.Standard;
 
 using ArticleMasterSetResponse = Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.ArticleMasterSetResponse;

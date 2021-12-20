@@ -29,6 +29,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.StockDeliver
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.Output;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputInfo;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.TaskCancelOutput;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion
 {

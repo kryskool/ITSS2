@@ -16,6 +16,8 @@
 
 using System;
 
+using Reth.Itss2.Messaging;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo
 {
     public class OutputInfoResponse:SubscribedResponse, IEquatable<OutputInfoResponse>

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Output
 {

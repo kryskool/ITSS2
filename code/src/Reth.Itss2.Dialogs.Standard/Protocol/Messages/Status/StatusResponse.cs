@@ -18,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Reth.Itss2.Messaging;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status
 {
     public class StatusResponse:SubscribedResponse, IEquatable<StatusResponse>

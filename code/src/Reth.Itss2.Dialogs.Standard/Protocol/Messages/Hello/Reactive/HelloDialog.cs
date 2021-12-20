@@ -18,6 +18,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive
 {
     public class HelloDialog:Dialog, IHelloDialog

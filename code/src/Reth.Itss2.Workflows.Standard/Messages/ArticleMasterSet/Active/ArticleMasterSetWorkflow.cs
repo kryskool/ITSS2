@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.Active;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.ArticleMasterSet.Active
 {

@@ -18,8 +18,8 @@ using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messages.TaskCancelOutputDialog
 {

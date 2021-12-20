@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleInfo.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Messaging;
 using Reth.Itss2.Workflows.Standard;
 
 using ArticleInfoRequestArticle = Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.ArticleInfoRequestArticle;

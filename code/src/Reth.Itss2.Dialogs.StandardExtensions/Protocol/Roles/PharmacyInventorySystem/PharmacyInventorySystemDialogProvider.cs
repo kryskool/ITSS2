@@ -16,7 +16,6 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Active;
@@ -33,6 +32,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet.Active;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet.Active;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Protocol.Roles.PharmacyInventorySystem
 {

@@ -18,9 +18,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Reactive;
+using Reth.Itss2.Serialization;
 using Reth.Itss2.Workflows.Standard;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ShoppingCart.Reactive

@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet.Active;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliverySet.Active
 {

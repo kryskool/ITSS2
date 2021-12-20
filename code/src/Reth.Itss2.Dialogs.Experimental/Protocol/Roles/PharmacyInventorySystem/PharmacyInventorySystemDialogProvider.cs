@@ -25,6 +25,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.PharmacyInventorySystem
 {

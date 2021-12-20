@@ -18,8 +18,8 @@ using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messages.KeepAliveDialog
 {

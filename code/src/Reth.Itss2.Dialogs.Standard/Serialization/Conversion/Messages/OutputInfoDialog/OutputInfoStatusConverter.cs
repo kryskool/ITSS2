@@ -17,6 +17,7 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.OutputInfo;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages.OutputInfo
 {

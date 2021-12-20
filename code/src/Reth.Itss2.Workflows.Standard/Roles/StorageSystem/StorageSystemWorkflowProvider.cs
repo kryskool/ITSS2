@@ -32,6 +32,7 @@ using Reth.Itss2.Workflows.Standard.Messages.StockInfo.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.StockLocationInfo.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.TaskCancelOutput.Reactive;
 using Reth.Itss2.Workflows.Standard.Messages.Unprocessed;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Roles.StorageSystem
 {

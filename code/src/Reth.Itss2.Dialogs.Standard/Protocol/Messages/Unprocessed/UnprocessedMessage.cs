@@ -17,6 +17,8 @@
 using System;
 using System.Collections.Generic;
 
+using Reth.Itss2.Messaging;
+
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed
 {
     public class UnprocessedMessage:SubscribedMessage, IEquatable<UnprocessedMessage>

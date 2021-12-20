@@ -18,9 +18,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Input.Reactive;
+using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Input.Reactive
 {

@@ -16,6 +16,7 @@
 
 using System;
 
+using Reth.Itss2.Serialization;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleInfo.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.Active;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Active;

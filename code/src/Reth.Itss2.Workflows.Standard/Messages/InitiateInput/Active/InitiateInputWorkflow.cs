@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.InitiateInput.Active;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.InitiateInput.Active
 {
