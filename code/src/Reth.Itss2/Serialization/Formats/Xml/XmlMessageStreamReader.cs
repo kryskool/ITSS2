@@ -17,7 +17,7 @@
 using System.IO;
 using System.Text;
 
-using Reth.Itss2.Serialization.Tokenization.Xml;
+using Reth.Itss2.Tokenization.Xml;
 
 namespace Reth.Itss2.Serialization.Formats.Xml
 {

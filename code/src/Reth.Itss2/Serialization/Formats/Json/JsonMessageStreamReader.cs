@@ -17,7 +17,7 @@
 using System.IO;
 using System.Text;
 
-using Reth.Itss2.Serialization.Tokenization.Json;
+using Reth.Itss2.Tokenization.Json;
 
 namespace Reth.Itss2.Serialization.Formats.Json
 {

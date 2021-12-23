@@ -23,7 +23,7 @@ using System.Text;
 
 using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Messaging;
-using Reth.Itss2.Serialization.Tokenization;
+using Reth.Itss2.Tokenization;
 
 namespace Reth.Itss2.Serialization
 {

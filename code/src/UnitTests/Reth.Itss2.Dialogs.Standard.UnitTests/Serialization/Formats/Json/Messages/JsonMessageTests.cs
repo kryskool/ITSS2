@@ -23,7 +23,7 @@ using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json;
 using Reth.Itss2.Messaging;
 using Reth.Itss2.Serialization.Formats.Json;
 using Reth.Itss2.UnitTests;
-using Reth.Itss2.UnitTests.Serialization.Tokenization.Json;
+using Reth.Itss2.UnitTests.Tokenization.Json;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messages
 {
