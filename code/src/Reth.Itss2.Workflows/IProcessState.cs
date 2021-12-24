@@ -16,14 +16,9 @@
 
 using System;
 
-using Reth.Itss2.Messaging;
-using Reth.Itss2.Serialization;
-
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
-    public interface IWorkflow:IDisposable
+    public interface IProcessState:IDisposable
     {
-        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
-        event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
     }
 }

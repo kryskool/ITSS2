@@ -16,32 +16,12 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
-    public class Subscription:ISubscription
+    public interface IWorkflowProvider:IDisposable
     {
-        public event EventHandler<SubscribedEventArgs>? Subscribed;
-
-        public Subscription( Subscriber localSubscriber )
-        {
-            this.LocalSubscriber = localSubscriber;
-        }
-
-        public Subscriber LocalSubscriber
-        {
-            get;
-        }
-
-        protected void OnSubscribed( SubscribedEventArgs e )
-        {
-            this.Subscribed?.Invoke( this, e );
-        }
-
-        public void Subscribe( SubscriberInfo subscriberInfo )
-        {
-            this.OnSubscribed( new SubscribedEventArgs( subscriberInfo ) );
-        }
+        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
     }
 }

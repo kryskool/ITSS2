@@ -16,9 +16,32 @@
 
 using System;
 
-namespace Reth.Itss2.Workflows.Standard
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+
+namespace Reth.Itss2.Workflows
 {
-    public interface IProcessState:IDisposable
+    public class Subscription:ISubscription
     {
+        public event EventHandler<SubscribedEventArgs>? Subscribed;
+
+        public Subscription( Subscriber localSubscriber )
+        {
+            this.LocalSubscriber = localSubscriber;
+        }
+
+        public Subscriber LocalSubscriber
+        {
+            get;
+        }
+
+        protected void OnSubscribed( SubscribedEventArgs e )
+        {
+            this.Subscribed?.Invoke( this, e );
+        }
+
+        public void Subscribe( SubscriberInfo subscriberInfo )
+        {
+            this.OnSubscribed( new SubscribedEventArgs( subscriberInfo ) );
+        }
     }
 }

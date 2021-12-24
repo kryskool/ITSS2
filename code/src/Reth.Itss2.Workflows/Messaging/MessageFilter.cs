@@ -14,25 +14,25 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
+using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows.Messaging
 {
-    public class SubscribedEventArgs:EventArgs
+    public class MessageFilter:IMessageFilter
     {
-        public SubscribedEventArgs( SubscriberInfo subscriberInfo )
+        public MessageFilter( MessageId messageId )
         {
-            this.SubscriberInfo = subscriberInfo;
+            this.MessageId = messageId;
         }
 
-        public SubscriberInfo SubscriberInfo
+        public MessageId MessageId
         {
             get;
         }
 
-        public override String? ToString()
+        public bool Intercept( IMessage message )
         {
-            return this.SubscriberInfo.ToString();
+            return this.MessageId == message.Id;
         }
     }
 }

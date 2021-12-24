@@ -41,7 +41,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Reth.Itss2.Dialogs.Standard\Reth.Itss2.Dialogs.Standard.csproj" />
-	  <ProjectReference Include="..\Reth.Itss2.Workflows\Reth.Itss2.Workflows.csproj" />
+	  <ProjectReference Include="..\Reth.Itss2\Reth.Itss2.csproj" />
 	</ItemGroup>
 	
 </Project>

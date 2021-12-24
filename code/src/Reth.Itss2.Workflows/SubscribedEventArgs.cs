@@ -16,12 +16,23 @@
 
 using System;
 
-using Reth.Itss2.Messaging;
-
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
-    public interface IWorkflowProvider:IDisposable
+    public class SubscribedEventArgs:EventArgs
     {
-        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+        public SubscribedEventArgs( SubscriberInfo subscriberInfo )
+        {
+            this.SubscriberInfo = subscriberInfo;
+        }
+
+        public SubscriberInfo SubscriberInfo
+        {
+            get;
+        }
+
+        public override String? ToString()
+        {
+            return this.SubscriberInfo.ToString();
+        }
     }
 }

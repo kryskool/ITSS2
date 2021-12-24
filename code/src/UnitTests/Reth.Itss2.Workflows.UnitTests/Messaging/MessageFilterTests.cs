@@ -19,8 +19,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 using Reth.Itss2.Messaging;
+using Reth.Itss2.Workflows.Messaging;
 
-namespace Reth.Itss2.UnitTests.Messaging
+namespace Reth.Itss2.Workflows.UnitTests.Messaging
 {
     [TestClass]
     public class MessageFilterTests

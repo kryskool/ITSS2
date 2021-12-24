@@ -16,50 +16,38 @@
 
 using System;
 
-using Reth.Itss2.Diagnostics;
+using Reth.Itss2.Dialogs;
+using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
-    public abstract class ProcessState:IProcessState
+    public abstract class WorkflowProvider<TDialogProvider>:IDisposable
+        where TDialogProvider:IDialogProvider
     {
-        protected ProcessState()
+        public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+
+        protected bool isDisposed;
+
+        protected WorkflowProvider( TDialogProvider dialogProvider )
         {
+            this.DialogProvider = dialogProvider;
+
+            dialogProvider.MessageProcessingError += this.OnMessageProcessingError;
         }
 
-        ~ProcessState()
+        ~WorkflowProvider()
         {
             this.Dispose( false );
         }
 
-        private Object SyncRoot
+        public TDialogProvider DialogProvider
         {
             get;
-        } = new Object();
-
-        private bool IsValid
-        {
-            get; set;
-        } = true;
-
-        protected void OnStateChange()
-        {
-            lock( this.SyncRoot )
-            {
-                this.Validate();
-
-                this.IsValid = false;
-            }
         }
 
-        protected void Validate()
+        protected virtual void OnMessageProcessingError( Object? sender, MessageProcessingErrorEventArgs e )
         {
-            lock( this.SyncRoot )
-            {
-                if( this.IsValid == false )
-                {
-                    throw Assert.Exception( new InvalidOperationException( "Invalid process state." ) );
-                }
-            }
+            this.MessageProcessingError?.Invoke( this, e );
         }
 
         public void Dispose()
@@ -71,6 +59,15 @@ namespace Reth.Itss2.Workflows.Standard
 
         protected virtual void Dispose( bool disposing )
         {
+            if( this.isDisposed == false )
+            {
+                if( disposing == true )
+                {
+                    this.DialogProvider.Dispose();
+                }
+
+                this.isDisposed = true;
+            }
         }
     }
 }

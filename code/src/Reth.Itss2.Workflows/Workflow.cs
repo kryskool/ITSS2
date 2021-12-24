@@ -18,36 +18,54 @@ using System;
 
 using Reth.Itss2.Dialogs;
 using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
-    public abstract class WorkflowProvider<TDialogProvider>:IDisposable
-        where TDialogProvider:IDialogProvider
+    public abstract class Workflow<TDialog>:IWorkflow
+        where TDialog:IDialog
     {
         public event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+        public event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
 
-        protected bool isDisposed;
+        private bool isDisposed;
 
-        protected WorkflowProvider( TDialogProvider dialogProvider )
+        protected Workflow( TDialog dialog, ISubscription subscription )
         {
-            this.DialogProvider = dialogProvider;
+            this.Dialog = dialog;
+            this.Subscription = subscription;
 
-            dialogProvider.MessageProcessingError += this.OnMessageProcessingError;
+            this.Dialog.MessageDispatching += this.Dialog_MessageDispatching;
         }
 
-        ~WorkflowProvider()
+        ~Workflow()
         {
             this.Dispose( false );
         }
 
-        public TDialogProvider DialogProvider
+        public TDialog Dialog
         {
             get;
         }
 
-        protected virtual void OnMessageProcessingError( Object? sender, MessageProcessingErrorEventArgs e )
+        public ISubscription Subscription
+        {
+            get;
+        }
+
+        protected virtual void OnMessageProcessingError( MessageProcessingErrorEventArgs e )
         {
             this.MessageProcessingError?.Invoke( this, e );
+        }
+
+        protected virtual void OnMessageDispatching( MessageDispatchingEventArgs e )
+        {
+            this.MessageDispatching?.Invoke( this, e );
+        }
+
+        private void Dialog_MessageDispatching( Object? sender, MessageDispatchingEventArgs e )
+        {
+            this.OnMessageDispatching( e );
         }
 
         public void Dispose()
@@ -61,10 +79,7 @@ namespace Reth.Itss2.Workflows.Standard
         {
             if( this.isDisposed == false )
             {
-                if( disposing == true )
-                {
-                    this.DialogProvider.Dispose();
-                }
+                this.Dialog.MessageDispatching += this.Dialog_MessageDispatching;
 
                 this.isDisposed = true;
             }

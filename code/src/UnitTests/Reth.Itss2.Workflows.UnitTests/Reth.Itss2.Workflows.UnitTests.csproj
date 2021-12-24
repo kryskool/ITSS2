@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<Copyright>(C) 2020 Thomas Reth</Copyright>
+		<Authors>Thomas Reth</Authors>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>..\..\Reth.Itss2.StrongName.snk</AssemblyOriginatorKeyFile>
+		<PackageLicenseFile>..\License.txt</PackageLicenseFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>$(SolutionDir)..\bin\AnyCPU\Debug\</OutputPath>
+		<NoWarn>1701;1702;NU1701</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>$(SolutionDir)..\bin\AnyCPU\Release\</OutputPath>
+		<NoWarn>1701;1702;NU1701</NoWarn>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonDiffPatch.Net" Version="2.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Include="XMLDiffPatch" Version="1.0.8.28" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Reth.Itss2.Dialogs.Standard\Reth.Itss2.Dialogs.Standard.csproj" />
+    <ProjectReference Include="..\..\Reth.Itss2.Workflows\Reth.Itss2.Workflows.csproj" />
+    <ProjectReference Include="..\..\Reth.Itss2\Reth.Itss2.csproj" />
+    <ProjectReference Include="..\Reth.Itss2.UnitTests\Reth.Itss2.UnitTests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

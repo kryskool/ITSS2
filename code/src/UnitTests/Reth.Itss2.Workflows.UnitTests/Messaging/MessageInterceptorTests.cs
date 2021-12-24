@@ -23,8 +23,9 @@ using Moq;
 using Reth.Itss2.Dialogs;
 using Reth.Itss2.Messaging;
 using Reth.Itss2.Serialization;
+using Reth.Itss2.Workflows.Messaging;
 
-namespace Reth.Itss2.UnitTests.Messaging
+namespace Reth.Itss2.Workflows.UnitTests.Messaging
 {
     [TestClass]
     public class MessageInterceptorTests

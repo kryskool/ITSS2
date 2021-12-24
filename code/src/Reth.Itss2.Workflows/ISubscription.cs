@@ -16,19 +16,16 @@
 
 using System;
 
-namespace Reth.Itss2.Workflows.Standard
-{
-    public class ProcessStartedEventArgs<TProcessState>:EventArgs
-        where TProcessState:IProcessState
-    {
-        public ProcessStartedEventArgs( TProcessState processState )
-        {
-            this.ProcessState = processState;
-        }
+using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 
-        public TProcessState ProcessState
-        {
-            get;
-        }
+namespace Reth.Itss2.Workflows
+{
+    public interface ISubscription
+    {
+        event EventHandler<SubscribedEventArgs>? Subscribed;
+
+        Subscriber LocalSubscriber{ get; }
+
+        void Subscribe( SubscriberInfo subscriberInfo );
     }
 }

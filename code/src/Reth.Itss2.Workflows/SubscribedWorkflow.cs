@@ -22,7 +22,7 @@ using Reth.Itss2.Dialogs;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
     public abstract class SubscribedWorkflow<TDialog>:Workflow<TDialog>
         where TDialog:IDialog

@@ -14,10 +14,21 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-namespace Reth.Itss2.Messaging
+using System;
+
+namespace Reth.Itss2.Workflows
 {
-    public interface IMessageFilter
+    public class ProcessStartedEventArgs<TProcessState>:EventArgs
+        where TProcessState:IProcessState
     {
-        bool Intercept( IMessage message );
+        public ProcessStartedEventArgs( TProcessState processState )
+        {
+            this.ProcessState = processState;
+        }
+
+        public TProcessState ProcessState
+        {
+            get;
+        }
     }
 }

@@ -14,23 +14,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-namespace Reth.Itss2.Messaging
+using Reth.Itss2.Messaging;
+
+namespace Reth.Itss2.Workflows.Messaging
 {
-    public class MessageFilter:IMessageFilter
+    public interface IMessageFilter
     {
-        public MessageFilter( MessageId messageId )
-        {
-            this.MessageId = messageId;
-        }
-
-        public MessageId MessageId
-        {
-            get;
-        }
-
-        public bool Intercept( IMessage message )
-        {
-            return this.MessageId == message.Id;
-        }
+        bool Intercept( IMessage message );
     }
 }

@@ -23,9 +23,9 @@ using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Dialogs;
 using Reth.Itss2.Serialization;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
-    internal class Connector
+    public class Connector
     {
         private bool isConnected;
 

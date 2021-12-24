@@ -16,16 +16,14 @@
 
 using System;
 
-using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
 
-namespace Reth.Itss2.Workflows.Standard
+namespace Reth.Itss2.Workflows
 {
-    public interface ISubscription
+    public interface IWorkflow:IDisposable
     {
-        event EventHandler<SubscribedEventArgs>? Subscribed;
-
-        Subscriber LocalSubscriber{ get; }
-
-        void Subscribe( SubscriberInfo subscriberInfo );
+        event EventHandler<MessageProcessingErrorEventArgs>? MessageProcessingError;
+        event EventHandler<MessageDispatchingEventArgs>? MessageDispatching;
     }
 }
