@@ -23,9 +23,10 @@ using System.Text;
 
 using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
 using Reth.Itss2.Tokenization;
 
-namespace Reth.Itss2.Serialization
+namespace Reth.Itss2.Transfer
 {
     public abstract class MessageStreamReader:IMessageStreamReader
     {

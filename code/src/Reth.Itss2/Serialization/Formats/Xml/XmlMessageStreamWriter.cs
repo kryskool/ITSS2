@@ -18,6 +18,7 @@ using System.IO;
 using System.Text;
 
 using Reth.Itss2.Diagnostics;
+using Reth.Itss2.Transfer;
 
 namespace Reth.Itss2.Serialization.Formats.Xml
 {

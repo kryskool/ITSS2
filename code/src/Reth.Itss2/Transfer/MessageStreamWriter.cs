@@ -22,8 +22,9 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization;
 
-namespace Reth.Itss2.Serialization
+namespace Reth.Itss2.Transfer
 {
     public abstract class MessageStreamWriter:IMessageStreamWriter
     {
