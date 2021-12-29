@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliveryInfo.Reactive;
-using Reth.Itss2.Serialization;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.StockDeliveryInfo.Reactive
 {

@@ -16,7 +16,7 @@
 
 using System;
 
-using Reth.Itss2.Serialization;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Reactive
 {

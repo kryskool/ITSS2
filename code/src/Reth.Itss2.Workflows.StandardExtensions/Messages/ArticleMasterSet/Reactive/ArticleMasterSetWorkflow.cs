@@ -20,8 +20,7 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet.Reactive;
-using Reth.Itss2.Serialization;
-using Reth.Itss2.Workflows.Standard;
+using Reth.Itss2.Messaging;
 
 using ArticleMasterSetResponse = Reth.Itss2.Dialogs.Standard.Protocol.Messages.ArticleMasterSet.ArticleMasterSetResponse;
 

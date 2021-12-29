@@ -20,8 +20,7 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Reactive;
-using Reth.Itss2.Serialization;
-using Reth.Itss2.Workflows.Standard;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ArticlePrice.Reactive
 {

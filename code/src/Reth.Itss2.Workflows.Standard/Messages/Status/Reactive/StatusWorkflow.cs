@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Status.Reactive;
-using Reth.Itss2.Serialization;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Status.Reactive
 {

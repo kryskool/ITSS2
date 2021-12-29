@@ -31,7 +31,7 @@ using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockInfo.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockLocationInfo.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.TaskCancelOutput.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
-using Reth.Itss2.Serialization;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Dialogs.Standard.Protocol.Roles.StorageSystem
 {

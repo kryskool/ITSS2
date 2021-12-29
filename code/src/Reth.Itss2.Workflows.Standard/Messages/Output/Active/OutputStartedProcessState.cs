@@ -17,7 +17,7 @@
 using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Output;
-using Reth.Itss2.Serialization;
+using Reth.Itss2.Messaging;
 using Reth.Itss2.Workflows.Messaging;
 
 namespace Reth.Itss2.Workflows.Standard.Messages.Output.Active

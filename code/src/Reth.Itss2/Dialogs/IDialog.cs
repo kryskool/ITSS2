@@ -16,6 +16,7 @@
 
 using System;
 
+using Reth.Itss2.Messaging;
 using Reth.Itss2.Serialization;
 
 namespace Reth.Itss2.Dialogs

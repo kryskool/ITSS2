@@ -28,8 +28,8 @@ using Moq;
 
 using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml;
 using Reth.Itss2.Messaging;
-using Reth.Itss2.Serialization;
 using Reth.Itss2.Serialization.Formats.Xml;
+using Reth.Itss2.Transfer;
 using Reth.Itss2.UnitTests;
 
 namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml

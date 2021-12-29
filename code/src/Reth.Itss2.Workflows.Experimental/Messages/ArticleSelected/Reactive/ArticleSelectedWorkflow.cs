@@ -18,8 +18,7 @@ using System;
 
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Reactive;
-using Reth.Itss2.Serialization;
-using Reth.Itss2.Workflows.Standard;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Workflows.Experimental.Messages.ArticleSelected.Reactive
 {

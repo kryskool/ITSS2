@@ -21,11 +21,10 @@ using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticlePrice.Active;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ArticleSelected.Active;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCart.Active;
 using Reth.Itss2.Dialogs.Experimental.Protocol.Messages.ShoppingCartUpdate.Active;
-using Reth.Itss2.Dialogs.Standard.Protocol;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Hello.Reactive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.KeepAlive;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.Unprocessed;
-using Reth.Itss2.Serialization;
+using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Dialogs.Experimental.Protocol.Roles.SalesSupportSystem
 {
