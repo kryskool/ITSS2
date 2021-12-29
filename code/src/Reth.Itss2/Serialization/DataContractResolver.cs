@@ -61,14 +61,19 @@ namespace Reth.Itss2.Serialization
 
         private IReadOnlyDictionary<String, DataContractMapping> ResolveContracts( Type serializationProvider, Type dataContractMapping )
         {
-            Dictionary<String, DataContractMapping> result = new Dictionary<String, DataContractMapping>();
-
             List<Assembly> assemblies = this.GetAssemblies( serializationProvider );
+
+            return this.ResolveContracts( assemblies, dataContractMapping );
+        }
+
+        private IReadOnlyDictionary<String, DataContractMapping> ResolveContracts( IEnumerable<Assembly> assemblies, Type dataContractMapping )
+        {
+            Dictionary<String, DataContractMapping> result = new Dictionary<String, DataContractMapping>();
 
             foreach( Assembly assembly in assemblies )
             {
                 Type[] types = assembly.GetTypes();
-
+                
                 foreach( Type type in types )
                 {
                     IEnumerable<DataContractMappingAttribute> attributes = ( IEnumerable<DataContractMappingAttribute> )( type.GetCustomAttributes( dataContractMapping ) );

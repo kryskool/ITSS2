@@ -16,7 +16,7 @@
 
 using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages
+namespace Reth.Itss2.Serialization.Formats.Json.Messages
 {
     public abstract class RequestDataContract<TDataObject>:MessageDataContract<TDataObject>
         where TDataObject:Message

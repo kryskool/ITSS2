@@ -18,30 +18,28 @@ using System;
 
 using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
+namespace Reth.Itss2.Serialization.Conversion.Messages
 {
-    public class MessageIdConverter
+    public class MessageEnvelopeTimestampConverter
     {
-        public String ConvertFrom( MessageId value )
+        public String ConvertFrom( MessageEnvelopeTimestamp value )
         {
-            return value.Value;
+            return value.ToString()!;
         }
 
-        public String? ConvertNullableFrom( MessageId? value )
+        public String? ConvertNullableFrom( MessageEnvelopeTimestamp? value )
         {
-            return value?.Value;
+            return value?.ToString();
         }
 
-        public MessageId ConvertTo( String value )
+        public MessageEnvelopeTimestamp ConvertTo( String value )
         {
-            return MessageId.Parse( value );
+            return MessageEnvelopeTimestamp.Parse( value );
         }
 
-        public MessageId? ConvertNullableTo( String? value )
+        public MessageEnvelopeTimestamp? ConvertNullableTo( String? value )
         {
-            MessageId.TryParse( value, out MessageId? result );
-
-            return result;
+            return value is null ? null : MessageEnvelopeTimestamp.Parse( value );
         }
     }
 }

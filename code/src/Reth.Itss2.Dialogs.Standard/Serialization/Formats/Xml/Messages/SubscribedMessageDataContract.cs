@@ -20,6 +20,7 @@ using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
+using Reth.Itss2.Serialization.Formats.Xml.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages
 {

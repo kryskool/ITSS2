@@ -21,13 +21,9 @@ using Reth.Itss2.Messaging;
 namespace Reth.Itss2.Serialization
 {
     public interface IMessageParser
-    {
-        IDataContractResolver DataContractResolver{ get; }
-        
-        IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
-        IMessage DeserializeMessage( String message );
+    {        
+        IMessageEnvelope DeserializeMessage( String messageEnvelope );
 
-        String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
-        String SerializeMessage( IMessage message );
+        String SerializeMessage( IMessageEnvelope messageEnvelope );
     }
 }

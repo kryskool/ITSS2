@@ -55,58 +55,30 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml
             get;
         }
 
-        public override IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope )
+        public override IMessageEnvelope DeserializeMessage( String messageEnvelope )
         {
-            return this.MessageParser.DeserializeMessageEnvelope( messageEnvelope );
+            return this.MessageParser.DeserializeMessage( messageEnvelope );
         }
 
-        public override Task<IMessageEnvelope> DeserializeMessageEnvelopeAsync( String messageEnvelope, CancellationToken cancellationToken = default )
+        public override Task<IMessageEnvelope> DeserializeMessageAsync( String messageEnvelope, CancellationToken cancellationToken = default )
         {
             return Task.Run(    () =>
                                 {
-                                    return this.MessageParser.DeserializeMessageEnvelope( messageEnvelope );
-                                },
-                                cancellationToken   );
-        }
-
-        public override IMessage DeserializeMessage( String message )
-        {
-            return this.MessageParser.DeserializeMessage( message );
-        }
-
-        public override Task<IMessage> DeserializeMessageAsync( String message, CancellationToken cancellationToken = default )
-        {
-            return Task.Run(    () =>
-                                {
-                                    return this.MessageParser.DeserializeMessage( message );
+                                    return this.MessageParser.DeserializeMessage( messageEnvelope );
                                 },
                                 cancellationToken   );
         }
         
-        public override String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope )
+        public override String SerializeMessage( IMessageEnvelope messageEnvelope )
         {
-            return this.MessageParser.SerializeMessageEnvelope( messageEnvelope );
+            return this.MessageParser.SerializeMessage( messageEnvelope );
         }
 
-        public override Task<String> SerializeMessageEnvelopeAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default )
+        public override Task<String> SerializeMessageAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default )
         {
             return Task.Run(    () =>
                                 {
-                                    return this.MessageParser.SerializeMessageEnvelope( messageEnvelope );
-                                },
-                                cancellationToken   );
-        }
-
-        public override String SerializeMessage( IMessage message )
-        {
-            return this.MessageParser.SerializeMessage( message );
-        }
-
-        public override Task<String> SerializeMessageAsync( IMessage message, CancellationToken cancellationToken = default )
-        {
-            return Task.Run(    () =>
-                                {
-                                    return this.MessageParser.SerializeMessage( message );
+                                    return this.MessageParser.SerializeMessage( messageEnvelope );
                                 },
                                 cancellationToken   );
         }

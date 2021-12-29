@@ -15,35 +15,37 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Globalization;
 
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
-using Reth.Itss2.Messaging;
-using Reth.Itss2.Serialization;
-
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages
+namespace Reth.Itss2.Serialization.Conversion.Messages
 {
-    public abstract class MessageDataContract<TDataObject>:IDataContract<TDataObject>
-        where TDataObject:Message
+    public class DecimalConverter
     {
-        protected MessageDataContract()
+        public String ConvertFrom( decimal value )
         {
+            return value.ToString().ToUpperInvariant();
         }
 
-        protected MessageDataContract( TDataObject dataObject )
+        public String? ConvertNullableFrom( decimal? value )
         {
-            this.Id = TypeConverter.MessageId.ConvertFrom( dataObject.Id );
+            return value?.ToString().ToUpperInvariant();
         }
 
-        [XmlAttribute]
-        public String Id
+        public decimal ConvertTo( String value )
         {
-            get; set;
-        } = String.Empty;
+            return decimal.Parse( value, NumberStyles.Integer );
+        }
 
-        public abstract TDataObject GetDataObject();
+        public decimal? ConvertNullableTo( String? value )
+        {
+            decimal? result = null;
 
-        public abstract Type GetEnvelopeType();
+            if( value is not null )
+            {
+                result = this.ConvertTo( value );
+            }
+
+            return result;
+        }
     }
 }

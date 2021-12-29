@@ -56,17 +56,11 @@ namespace Reth.Itss2.Serialization
             get;
         }
 
-        public abstract IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
-        public abstract Task<IMessageEnvelope> DeserializeMessageEnvelopeAsync( String messageEnvelope, CancellationToken cancellationToken = default );
-
-        public abstract IMessage DeserializeMessage( String message );
-        public abstract Task<IMessage> DeserializeMessageAsync( String message, CancellationToken cancellationToken = default );
+        public abstract IMessageEnvelope DeserializeMessage( String messageEnvelope );
+        public abstract Task<IMessageEnvelope> DeserializeMessageAsync( String messageEnvelope, CancellationToken cancellationToken = default );
         
-        public abstract String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
-        public abstract Task<String> SerializeMessageEnvelopeAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default );
-
-        public abstract String SerializeMessage( IMessage message );
-        public abstract Task<String> SerializeMessageAsync( IMessage message, CancellationToken cancellationToken = default );
+        public abstract String SerializeMessage( IMessageEnvelope messageEnvelope );
+        public abstract Task<String> SerializeMessageAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default );
 
         protected abstract IMessageStreamReader CreateMessageStreamReader( Stream baseStream );
         protected abstract IMessageStreamWriter CreateMessageStreamWriter( Stream baseStream );

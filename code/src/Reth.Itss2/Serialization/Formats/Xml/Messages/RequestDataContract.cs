@@ -16,16 +16,16 @@
 
 using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages
+namespace Reth.Itss2.Serialization.Formats.Xml.Messages
 {
-    public abstract class ResponseDataContract<TDataObject>:MessageDataContract<TDataObject>
+    public abstract class RequestDataContract<TDataObject>:MessageDataContract<TDataObject>
         where TDataObject:Message
     {
-        protected ResponseDataContract()
+        protected RequestDataContract()
         {
         }
 
-        protected ResponseDataContract( TDataObject dataObject )
+        protected RequestDataContract( TDataObject dataObject )
         :
             base( dataObject )
         {

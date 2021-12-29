@@ -108,7 +108,7 @@ namespace Reth.Itss2.Transfer
 
             try
             {
-                result = this.MessageParser.DeserializeMessageEnvelope( messageEnvelope );
+                result = this.MessageParser.DeserializeMessage( messageEnvelope );
             }catch( MessageSerializationException ex )
             {
                 this.MessageProcessingError?.Invoke( this, new MessageProcessingErrorEventArgs( messageEnvelope, ex ) );

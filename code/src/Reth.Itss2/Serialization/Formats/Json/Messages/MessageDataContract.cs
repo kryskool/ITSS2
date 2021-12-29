@@ -15,37 +15,31 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Globalization;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization.Conversion;
+
+namespace Reth.Itss2.Serialization.Formats.Json.Messages
 {
-    public class Int32Converter
+    public abstract class MessageDataContract<TDataObject>:IDataContract<TDataObject>
+        where TDataObject:Message
     {
-        public String ConvertFrom( int value )
+        protected MessageDataContract()
         {
-            return value.ToString().ToUpperInvariant();
         }
 
-        public String? ConvertNullableFrom( int? value )
+        protected MessageDataContract( TDataObject dataObject )
         {
-            return value?.ToString().ToUpperInvariant();
+            this.Id = TypeConverter.MessageId.ConvertFrom( dataObject.Id );
         }
 
-        public int ConvertTo( String value )
+        public String Id
         {
-            return int.Parse( value, NumberStyles.Integer );
-        }
+            get; set;
+        } = String.Empty;
 
-        public int? ConvertNullableTo( String? value )
-        {
-            int? result = null;
+        public abstract TDataObject GetDataObject();
 
-            if( value is not null )
-            {
-                result = this.ConvertTo( value );
-            }
-
-            return result;
-        }
+        public abstract Type GetEnvelopeType();
     }
 }

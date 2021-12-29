@@ -14,38 +14,21 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-using System.Globalization;
+using Reth.Itss2.Messaging;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
+namespace Reth.Itss2.Serialization.Formats.Json.Messages
 {
-    public class DecimalConverter
+    public abstract class ResponseDataContract<TDataObject>:MessageDataContract<TDataObject>
+        where TDataObject:Message
     {
-        public String ConvertFrom( decimal value )
+        protected ResponseDataContract()
         {
-            return value.ToString().ToUpperInvariant();
         }
 
-        public String? ConvertNullableFrom( decimal? value )
+        protected ResponseDataContract( TDataObject dataObject )
+        :
+            base( dataObject )
         {
-            return value?.ToString().ToUpperInvariant();
-        }
-
-        public decimal ConvertTo( String value )
-        {
-            return decimal.Parse( value, NumberStyles.Integer );
-        }
-
-        public decimal? ConvertNullableTo( String? value )
-        {
-            decimal? result = null;
-
-            if( value is not null )
-            {
-                result = this.ConvertTo( value );
-            }
-
-            return result;
         }
     }
 }

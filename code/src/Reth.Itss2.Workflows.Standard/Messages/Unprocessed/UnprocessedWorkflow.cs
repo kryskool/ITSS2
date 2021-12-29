@@ -70,11 +70,11 @@ namespace Reth.Itss2.Workflows.Standard.Messages.Unprocessed
 
         public UnprocessedMessage CreateUnprocessedMessage( SubscriberId localSubscriberId,
                                                             SubscriberId remoteSubscriberId,
-                                                            IMessage message,
+                                                            IMessageEnvelope messageEnvelope,
                                                             String? text,
                                                             UnprocessedReason? reason   )
         {
-            String serializedMessage = this.SerializationProvider.SerializeMessage( message );
+            String serializedMessage = this.SerializationProvider.SerializeMessage( messageEnvelope );
 
             return this.CreateUnprocessedMessage(   localSubscriberId,
                                                     remoteSubscriberId,

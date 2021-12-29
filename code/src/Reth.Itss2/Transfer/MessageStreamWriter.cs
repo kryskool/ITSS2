@@ -104,7 +104,7 @@ namespace Reth.Itss2.Transfer
             {
                 try
                 {
-                    String serializedMessage = this.MessageParser.SerializeMessageEnvelope( messageEnvelope );
+                    String serializedMessage = this.MessageParser.SerializeMessage( messageEnvelope );
 
                     this.WriteToStream( serializedMessage );
                 }catch( Exception ex )

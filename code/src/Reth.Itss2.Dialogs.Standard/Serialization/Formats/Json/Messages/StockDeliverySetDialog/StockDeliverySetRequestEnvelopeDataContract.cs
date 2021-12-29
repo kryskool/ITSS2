@@ -19,6 +19,7 @@ using System.Text.Json.Serialization;
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages.StockDeliverySet;
 using Reth.Itss2.Messaging;
 using Reth.Itss2.Serialization.Formats.Json;
+using Reth.Itss2.Serialization.Formats.Json.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages.StockDeliverySet
 {

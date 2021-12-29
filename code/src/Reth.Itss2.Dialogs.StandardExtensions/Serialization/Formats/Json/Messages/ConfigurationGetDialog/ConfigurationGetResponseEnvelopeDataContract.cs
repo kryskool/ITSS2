@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages;
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ConfigurationGet;
 using Reth.Itss2.Messaging;
 using Reth.Itss2.Serialization.Formats.Json;
+using Reth.Itss2.Serialization.Formats.Json.Messages;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Json.Messages.ConfigurationGet
 {

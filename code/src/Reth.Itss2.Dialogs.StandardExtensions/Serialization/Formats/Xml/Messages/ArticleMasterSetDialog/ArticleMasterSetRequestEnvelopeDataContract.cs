@@ -18,9 +18,9 @@ using System.Xml;
 using System.Xml.Serialization;
 
 using Reth.Itss2.Dialogs.StandardExtensions.Protocol.Messages.ArticleMasterSet;
-using Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages;
 using Reth.Itss2.Messaging;
 using Reth.Itss2.Serialization.Formats.Xml;
+using Reth.Itss2.Serialization.Formats.Xml.Messages;
 
 namespace Reth.Itss2.Dialogs.StandardExtensions.Serialization.Formats.Xml.Messages.ArticleMasterSet
 {

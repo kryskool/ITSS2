@@ -39,7 +39,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messa
         {
             JsonMessageParser parser = new JsonMessageParser( typeof( JsonSerializationProvider ) );
 
-            String actualJson = parser.SerializeMessageEnvelope( message.Object );
+            String actualJson = parser.SerializeMessage( message.Object );
 
             return JsonComparer.AreEqual( message.Json, actualJson );
         }
@@ -48,7 +48,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Json.Messa
         {
             JsonMessageParser parser = new JsonMessageParser( typeof( JsonSerializationProvider ) );
 
-            IMessageEnvelope actualObject = parser.DeserializeMessageEnvelope( message.Json );
+            IMessageEnvelope actualObject = parser.DeserializeMessage( message.Json );
 
             return message.Object.Equals( actualObject );
         }

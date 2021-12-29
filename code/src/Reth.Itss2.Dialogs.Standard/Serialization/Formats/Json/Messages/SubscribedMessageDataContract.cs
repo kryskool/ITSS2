@@ -18,6 +18,7 @@ using System;
 
 using Reth.Itss2.Dialogs.Standard.Protocol.Messages;
 using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
+using Reth.Itss2.Serialization.Formats.Json.Messages;
 
 namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages
 {

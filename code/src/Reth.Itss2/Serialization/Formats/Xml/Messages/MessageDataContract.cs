@@ -14,21 +14,35 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using Reth.Itss2.Messaging;
+using System;
+using System.Xml;
+using System.Xml.Serialization;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Xml.Messages
+using Reth.Itss2.Messaging;
+using Reth.Itss2.Serialization.Conversion;
+
+namespace Reth.Itss2.Serialization.Formats.Xml.Messages
 {
-    public abstract class ResponseDataContract<TDataObject>:MessageDataContract<TDataObject>
+    public abstract class MessageDataContract<TDataObject>:IDataContract<TDataObject>
         where TDataObject:Message
     {
-        protected ResponseDataContract()
+        protected MessageDataContract()
         {
         }
 
-        protected ResponseDataContract( TDataObject dataObject )
-        :
-            base( dataObject )
+        protected MessageDataContract( TDataObject dataObject )
         {
+            this.Id = TypeConverter.MessageId.ConvertFrom( dataObject.Id );
         }
+
+        [XmlAttribute]
+        public String Id
+        {
+            get; set;
+        } = String.Empty;
+
+        public abstract TDataObject GetDataObject();
+
+        public abstract Type GetEnvelopeType();
     }
 }

@@ -15,13 +15,13 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Text.Json.Serialization;
+using System.Xml;
+using System.Xml.Serialization;
 
-using Reth.Itss2.Dialogs.Standard.Serialization.Conversion;
 using Reth.Itss2.Messaging;
-using Reth.Itss2.Serialization;
+using Reth.Itss2.Serialization.Conversion;
 
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages
+namespace Reth.Itss2.Serialization.Formats.Xml.Messages
 {
     public abstract class MessageEnvelopeDataContract:IDataContract<IMessageEnvelope>
     {
@@ -35,17 +35,19 @@ namespace Reth.Itss2.Dialogs.Standard.Serialization.Formats.Json.Messages
             this.Version = dataObject.Version;
         }
 
-        [JsonPropertyName( "TimeStamp" )]
+        [XmlAttribute( AttributeName = "TimeStamp" )]
         public String Timestamp
         {
             get; set;
         } = String.Empty;
 
+        [XmlAttribute]
         public String Version
         {
             get; set;
         } = String.Empty;
 
+        [XmlIgnore]
         public abstract IMessage Message
         {
             get;

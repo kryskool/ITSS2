@@ -80,7 +80,7 @@ namespace Reth.Itss2.Serialization.Formats.Json
             return new MessageSerializationException( message );
         }
 
-        public override IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope )
+        public override IMessageEnvelope DeserializeMessage( String messageEnvelope )
         {
             String messageName = this.GetMessageName( messageEnvelope );
 
@@ -104,31 +104,7 @@ namespace Reth.Itss2.Serialization.Formats.Json
             }
         }
 
-        public override IMessage DeserializeMessage( String message )
-        {
-            String messageName = this.GetMessageName( message );
-
-            Type dataContractType = this.DataContractResolver.ResolveContract( messageName ).MessageDataContractType;
-
-            try
-            {
-                Object? deserializedObject = JsonSerializer.Deserialize( message, dataContractType , JsonSerializationSettings.DeserializerOptions );
-
-                IDataContract<IMessage>? dataContract = ( IDataContract<IMessage>? )( deserializedObject );
-
-                if( dataContract is null )
-                {
-                    throw Assert.Exception( this.GetDeserializationException( message, null ) );    
-                }
-
-                return dataContract.GetDataObject();
-            }catch( Exception ex )
-            {
-                throw Assert.Exception( this.GetDeserializationException( message, ex ) );
-            }
-        }
-
-        public override String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope )
+        public override String SerializeMessage( IMessageEnvelope messageEnvelope )
         {
             String result = String.Empty;
 
@@ -145,21 +121,6 @@ namespace Reth.Itss2.Serialization.Formats.Json
             }
 
             return result;
-        }
-
-        public override String SerializeMessage( IMessage message )
-        {
-            Type dataContractType = this.DataContractResolver.ResolveContract( message.Name ).MessageDataContractType;
-
-            try
-            {
-                Object? dataContract = Activator.CreateInstance( dataContractType, message );
-
-                return JsonSerializer.Serialize( dataContract, dataContractType, JsonSerializationSettings.SerializerOptions );
-            }catch( Exception ex )
-            {
-                throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ message }' failed.", ex ) );
-            }
         }
     }
 }

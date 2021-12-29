@@ -14,39 +14,21 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
+using Reth.Itss2.Messaging;
 
-using Reth.Itss2.Serialization;
-
-namespace Reth.Itss2.Dialogs.Standard.Serialization.Conversion.Messages
+namespace Reth.Itss2.Serialization.Formats.Xml.Messages
 {
-    public class BooleanConverter
+    public abstract class ResponseDataContract<TDataObject>:MessageDataContract<TDataObject>
+        where TDataObject:Message
     {
-        public String ConvertFrom( bool value )
+        protected ResponseDataContract()
         {
-            return value.ToString().ToUpperInvariant();
         }
 
-        public String? ConvertNullableFrom( bool? value )
+        protected ResponseDataContract( TDataObject dataObject )
+        :
+            base( dataObject )
         {
-            return value?.ToString().Capitalize();
-        }
-
-        public bool ConvertTo( String value )
-        {
-            return bool.Parse( value.ToLowerInvariant() );
-        }
-
-        public bool? ConvertNullableTo( String? value )
-        {
-            bool? result = null;
-
-            if( value is not null )
-            {
-                result = this.ConvertTo( value );
-            }
-
-            return result;
         }
     }
 }

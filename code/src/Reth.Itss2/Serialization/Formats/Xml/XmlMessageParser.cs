@@ -80,7 +80,7 @@ namespace Reth.Itss2.Serialization.Formats.Xml
             return result;
         }
 
-        public override IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope )
+        public override IMessageEnvelope DeserializeMessage( String messageEnvelope )
         {
             String messageName = this.GetMessageName( messageEnvelope );
 
@@ -107,42 +107,11 @@ namespace Reth.Itss2.Serialization.Formats.Xml
             }catch( Exception ex )
                 when ( ex is not MessageSerializationException )
             {
-                throw Assert.Exception( new MessageSerializationException( $"Deserialization of message envelope (truncated) '{ messageEnvelope.Truncate() }' failed.", ex ) );
+                throw Assert.Exception( new MessageSerializationException( $"Deserialization of message (truncated) '{ messageEnvelope.Truncate() }' failed.", ex ) );
             }
         }
 
-        public override IMessage DeserializeMessage( String message )
-        {
-            String messageName = this.GetMessageName( message );
-
-            Type dataContractType = this.DataContractResolver.ResolveContract( messageName ).MessageDataContractType;
-
-            try
-            {
-                using( StringReader input = new StringReader( message ) )
-                {
-                    using( XmlReader reader = XmlReader.Create( input, XmlSerializationSettings.ReaderSettings ) )
-                    {
-                        XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType );
-
-                        IDataContract<IMessage>? dataContract = ( IDataContract<IMessage>? )( serializer.Deserialize( reader ) );
-
-                        if( dataContract is null )
-                        {
-                            throw Assert.Exception( new MessageSerializationException( $"Data contract for message '{ message.Truncate() }' not found." ) );
-                        }
-
-                        return dataContract.GetDataObject();
-                    }
-                }
-            }catch( Exception ex )
-                when ( ex is not MessageSerializationException )
-            {
-                throw Assert.Exception( new MessageSerializationException( $"Deserialization of message (truncated) '{ message.Truncate() }' failed.", ex ) );
-            }
-        }
-
-        public override String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope )
+        public override String SerializeMessage( IMessageEnvelope messageEnvelope )
         {
             StringBuilder result = new StringBuilder();
 
@@ -159,33 +128,7 @@ namespace Reth.Itss2.Serialization.Formats.Xml
                     serializer.Serialize( writer, dataContract, this.Namespaces );
                 }catch( Exception ex )
                 {
-                    throw Assert.Exception( new MessageSerializationException( $"Serialization of message envelope '{ messageEnvelope } ({ messageEnvelope.Timestamp })' failed.", ex ) );
-                }
-            }
-
-            return result.ToString();
-        }
-
-        public override String SerializeMessage( IMessage message )
-        {
-            StringBuilder result = new StringBuilder();
-
-            String messageName = message.Name;
-
-            Type dataContractType = this.DataContractResolver.ResolveContract( messageName ).MessageDataContractType;
-
-            using( XmlWriter writer = XmlWriter.Create( result, XmlSerializationSettings.WriterSettings ) )
-            {
-                try
-                {
-                    XmlSerializer serializer = SerializationManager.GetSerializer( dataContractType, new XmlRootAttribute( messageName ) );
-                    
-                    Object? dataContract = Activator.CreateInstance( dataContractType, message );
-
-                    serializer.Serialize( writer, dataContract, this.Namespaces );
-                }catch( Exception ex )
-                {
-                    throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ message }' failed.", ex ) );
+                    throw Assert.Exception( new MessageSerializationException( $"Serialization of message '{ messageEnvelope } ({ messageEnvelope.Timestamp })' failed.", ex ) );
                 }
             }
 

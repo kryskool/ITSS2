@@ -19,28 +19,17 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Reth.Itss2.Diagnostics;
 using Reth.Itss2.Messaging;
 
 namespace Reth.Itss2.Serialization
 {
     public interface ISerializationProvider:IDisposable
-    {
-        IInteractionLog InteractionLog{ get; }
+    {        
+        IMessageEnvelope DeserializeMessage( String messageEnvelope );
+        Task<IMessageEnvelope> DeserializeMessageAsync( String messageEnvelope, CancellationToken cancellationToken = default );
 
-        TimeSpan MessageRoundTripTimeout{ get; }
-        
-        IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
-        Task<IMessageEnvelope> DeserializeMessageEnvelopeAsync( String messageEnvelope, CancellationToken cancellationToken = default );
-
-        IMessage DeserializeMessage( String message );
-        Task<IMessage> DeserializeMessageAsync( String message, CancellationToken cancellationToken = default );
-
-        String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
-        Task<String> SerializeMessageEnvelopeAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default );
-
-        String SerializeMessage( IMessage message );
-        Task<String> SerializeMessageAsync( IMessage message, CancellationToken cancellationToken = default );
+        String SerializeMessage( IMessageEnvelope messageEnvelope );
+        Task<String> SerializeMessageAsync( IMessageEnvelope messageEnvelope, CancellationToken cancellationToken = default );
 
         IMessageTransmitter CreateMessageTransmitter( Stream baseStream );
     }

@@ -39,7 +39,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         {
             XmlMessageParser parser = new XmlMessageParser( typeof( XmlSerializationProvider ) );
 
-            String actualXml = parser.SerializeMessageEnvelope( message.Object );
+            String actualXml = parser.SerializeMessage( message.Object );
 
             return XmlComparer.AreEqual( message.Xml, actualXml );
         }
@@ -48,7 +48,7 @@ namespace Reth.Itss2.Dialogs.Standard.UnitTests.Serialization.Formats.Xml.Messag
         {
             XmlMessageParser parser = new XmlMessageParser( typeof( XmlSerializationProvider ) );
 
-            IMessageEnvelope actualObject = parser.DeserializeMessageEnvelope( message.Xml );
+            IMessageEnvelope actualObject = parser.DeserializeMessage( message.Xml );
 
             return message.Object.Equals( actualObject );
         }

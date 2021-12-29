@@ -34,10 +34,8 @@ namespace Reth.Itss2.Serialization
 
         public abstract String GetMessageName( String message );
 
-        public abstract IMessageEnvelope DeserializeMessageEnvelope( String messageEnvelope );
-        public abstract IMessage DeserializeMessage( String message );
+        public abstract IMessageEnvelope DeserializeMessage( String messageEnvelope );
               
-        public abstract String SerializeMessageEnvelope( IMessageEnvelope messageEnvelope );
-        public abstract String SerializeMessage( IMessage message );
+        public abstract String SerializeMessage( IMessageEnvelope messageEnvelope );
     }
 }
